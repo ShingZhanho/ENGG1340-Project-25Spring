@@ -1,0 +1,62 @@
+# ignore all files
+*
+
+# unignore all with extensions
+!*.*
+
+# unignore all dirs
+!*/
+
+# unignore makefile
+!Makefile
+!makefile
+
+### The above combination ignores everything without an extension except makefile
+
+### The following rules comes from GitHub
+
+## C++.gitignore
+# Prerequisites
+*.d
+
+# Compiled Object files
+*.slo
+*.lo
+*.o
+*.obj
+
+# Precompiled Headers
+*.gch
+*.pch
+
+# Compiled Dynamic libraries
+*.so
+*.dylib
+*.dll
+
+# Fortran module files
+*.mod
+*.smod
+
+# Compiled Static libraries
+*.lai
+*.la
+*.a
+*.lib
+
+# Executables
+*.exe
+*.out
+*.app
+
+## vscode
+.vscode/
+.vscode/*
+.history/
+*.vsix
+
+## JetBrains CLion
+.idea/
+cmake-build-*/
+*.iws
+.idea_modules/
