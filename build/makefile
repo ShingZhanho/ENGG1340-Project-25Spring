@@ -1,18 +1,17 @@
-## Libraries
-# FTXUI
-LIB_FTXUI_INCLUDE = -I../dependencies/FTXUI/include
-LIB_FTXUI_LINK = -L../dependencies/FTXUI/lib -lftxui-component -lftxui-dom -lftxui-screen
-
-# ==== ALL LIBS ====
-LIBS_INCLUDE = $(LIB_FTXUI_INCLUDE)
-LIBS_LINK = $(LIB_FTXUI_LINK)
-
 # Compiler and flags
 CXX = g++
 CXXFLAGS = -pedantic-errors -std=c++17
 
+################## BEGIN LIBRARIES ##################
+# ncurses
+LIB_NCURSES_LINK = -lncurses
+
+################## ALL LIBRARIES ##################
+LIBS_ALL_LINK = $(LIB_NCURSES_LINK)
+################## END LIBRARIES ##################
+
 # Source files
-SRCS = ../src/main.cpp
+SRCS = $(wildcard ../src/*.cpp)
 OBJS = $(SRCS:.cpp=.o)
 
 # Executable
@@ -22,10 +21,10 @@ TARGET = main
 all: $(TARGET)
 
 $(TARGET): $(OBJS)
-	$(CXX) $(CXXFLAGS) $(OBJS) $(LIBS_LINK) -o $(TARGET)
+	$(CXX) $(CXXFLAGS) $(OBJS) $(LIBS_ALL_LINK) -o $(TARGET)
 
 %.o: %.cpp
-	$(CXX) $(CXXFLAGS) $(LIBS_INCLUDE) -c $< -o $@
+	$(CXX) $(CXXFLAGS) -c $< -o $@
 
 clean:
 	rm -f $(OBJS) $(TARGET)
