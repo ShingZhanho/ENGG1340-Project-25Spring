@@ -9,7 +9,7 @@ LIB_FTXUI_INCLUDE = -I../dependencies/FTXUI/include
 LIB_FTXUI_LINK = -L../dependencies/FTXUI/lib -lftxui-component -lftxui-dom -lftxui-screen
 
 ################## ALL LIBRARIES ##################
-LIBS_ALL_LINK = $(LIB_NCURSES_LINK) $(LIB_FTXUI_LINK)
+LIBS_ALL_LINK = $(LIB_FTXUI_LINK)
 LIBS_ALL_INCLUDE = $(LIB_FTXUI_INCLUDE)
 ################## END LIBRARIES ##################
 
