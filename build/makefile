@@ -3,8 +3,6 @@ CXX = g++
 CXXFLAGS = -pedantic-errors -std=c++17
 
 ################## BEGIN LIBRARIES ##################
-# ncurses
-LIB_NCURSES_LINK = -lncurses
 
 # FTXUI
 LIB_FTXUI_INCLUDE = -I../dependencies/FTXUI/include
