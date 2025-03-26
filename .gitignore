@@ -38,12 +38,6 @@
 *.mod
 *.smod
 
-# Compiled Static libraries
-*.lai
-*.la
-*.a
-*.lib
-
 # Executables
 *.exe
 *.out
@@ -60,3 +54,10 @@
 cmake-build-*/
 *.iws
 .idea_modules/
+
+## OS pollution
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
