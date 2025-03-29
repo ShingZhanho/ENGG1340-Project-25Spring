@@ -1,0 +1,15 @@
+name: Compile Project
+on:
+  push:
+    branches: [ '**', '!master' ]
+  pull_request:
+    branches: [ '**', '!master' ]
+jobs:
+  compile:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Try compile
+        run: |
+          cd build
+          make all
