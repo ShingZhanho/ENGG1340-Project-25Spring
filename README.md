@@ -25,12 +25,7 @@ This is the README document of 2025 spring ENGG1340 Computer Programming 2 Group
       ```bash
       make -f makefile.win all
       ```
-> [!important]
-> Due to some unknown issues with the FTXUI library, compilation on Windows may fail.
-> In that case, please try to use other OS.
-> You are recommended to use Windows Subsystem for Linux (WSL) to compile. Learn more about WSL
-> [here](https://learn.microsoft.com/en-us/windows/wsl/install).
-
+      
 ## Framework
 
 ```
