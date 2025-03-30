@@ -1,0 +1,36 @@
+# Compiler and flags
+CXX = g++
+CXXFLAGS = -pedantic-errors -std=c++17
+
+################## BEGIN LIBRARIES ##################
+
+# FTXUI
+LIB_FTXUI_INCLUDE = -I../dependencies/FTXUI/include
+LIB_FTXUI_LINK = -L../dependencies/FTXUI_windows/lib -lftxui-component -lftxui-dom -lftxui-screen
+
+################## ALL LIBRARIES ##################
+LIBS_ALL_LINK = $(LIB_FTXUI_LINK)
+LIBS_ALL_INCLUDE = $(LIB_FTXUI_INCLUDE)
+################## END LIBRARIES ##################
+
+# Source files
+SRCS = $(shell find ../src -type f -name '*.cpp')
+OBJS = $(SRCS:.cpp=.obj)
+
+# Executable
+TARGET = main.exe
+
+# Build
+all: $(TARGET)
+
+$(TARGET): $(OBJS)
+	echo "\033[0;31mYou are compiling for Windows. Run make clean before committing to avoid commiting .obj and .exe files.\033[0m"
+	$(CXX) $(CXXFLAGS) $(OBJS) $(LIBS_ALL_LINK) -o $(TARGET)
+
+%.obj: %.cpp
+	$(CXX) $(CXXFLAGS) $(LIBS_ALL_INCLUDE) -c $< -o $@
+
+clean:
+	rm -f $(OBJS) $(TARGET)
+
+.PHONY: all clean
