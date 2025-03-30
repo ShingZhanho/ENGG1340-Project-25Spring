@@ -5,7 +5,7 @@ CXXFLAGS = -pedantic-errors -std=c++17
 ################## BEGIN LIBRARIES ##################
 
 # FTXUI
-LIB_FTXUI_INCLUDE = -I../dependencies/FTXUI_macOS/include
+LIB_FTXUI_INCLUDE = -I../dependencies/FTXUI/include
 LIB_FTXUI_LINK = -L../dependencies/FTXUI_macOS/lib -lftxui-component -lftxui-dom -lftxui-screen
 
 ################## ALL LIBRARIES ##################
@@ -14,7 +14,7 @@ LIBS_ALL_INCLUDE = $(LIB_FTXUI_INCLUDE)
 ################## END LIBRARIES ##################
 
 # Source files
-SRCS = $(wildcard ../src/*.cpp)
+SRCS = $(shell find ../src -type f -name '*.cpp')
 OBJS = $(SRCS:.cpp=.o)
 
 # Executable

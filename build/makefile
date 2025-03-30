@@ -14,7 +14,7 @@ LIBS_ALL_INCLUDE = $(LIB_FTXUI_INCLUDE)
 ################## END LIBRARIES ##################
 
 # Source files
-SRCS = $(wildcard ../src/*.cpp)
+SRCS = $(shell find ../src -type f -name '*.cpp')
 OBJS = $(SRCS:.cpp=.o)
 
 # Executable
