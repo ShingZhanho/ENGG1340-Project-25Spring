@@ -5,25 +5,25 @@ This is the README document of 2025 spring ENGG1340 Computer Programming 2 Group
 ## Notes for Developers
 
 > [!warning]
-> Compiling on different OS requires different makefile. To compile your code, please do the following:
+> Compiling on different OS requires different rules. To compile, please do the following:
 
 1. Change your working directory to `build`:
    ```bash
    cd build
    ```
-   You **MUST** run the make command in the `build` directory, otherwise it will not work and may pollute the repository.
-2. Run the make command according to your OS:
+   ⚠️ You **MUST** run the make command in the `build` directory, otherwise it will not work and may pollute the repository.
+2. Run the `make` command according to your OS:
    - For Ubuntu (default):
       ```bash
-      make -f makefile all
+      make all
       ```
    - For macOS:
       ```bash
-      make -f makefile.mac all
+      make all_macos
       ```
-   - For Windows:
+   - For Windows (not guaranteed to work):
       ```bash
-      make -f makefile.win all
+      make all_windows
       ```
 > [!important]
 > Due to some unknown issues with the FTXUI library, compilation on Windows may fail.
