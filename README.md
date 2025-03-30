@@ -4,7 +4,7 @@ This is the README document of 2025 spring ENGG1340 Computer Programming 2 Group
 
 ## Notes for Developers
 
-> [!warn]
+> [!warning]
 > Compiling on different OS requires different makefile. To compile your code, please do the following:
 
 1. Change your working directory to `build`:
@@ -25,11 +25,11 @@ This is the README document of 2025 spring ENGG1340 Computer Programming 2 Group
       ```bash
       make -f makefile.win all
       ```
-      > [!note]
-      > Due to some unknown issues with the FTXUI library, compilation on Windows may fail.
-      > In that case, please try to use other OS.
-      > You are recommended to use Windows Subsystem for Linux (WSL) to compile. Learn more about WSL
-      > [here](https://learn.microsoft.com/en-us/windows/wsl/install).
+> [!important]
+> Due to some unknown issues with the FTXUI library, compilation on Windows may fail.
+> In that case, please try to use other OS.
+> You are recommended to use Windows Subsystem for Linux (WSL) to compile. Learn more about WSL
+> [here](https://learn.microsoft.com/en-us/windows/wsl/install).
 
 ## Framework
 
