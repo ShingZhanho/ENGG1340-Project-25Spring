@@ -2,7 +2,36 @@
 
 This is the README document of 2025 spring ENGG1340 Computer Programming 2 Group Project. We are group 1.
 
-# Framework
+## Notes for Developers
+
+> [!warn]
+> Compiling on different OS requires different makefile. To compile your code, please do the following:
+
+1. Change your working directory to `build`:
+   ```bash
+   cd build
+   ```
+   You **MUST** run the make command in the `build` directory, otherwise it will not work and may pollute the repository.
+2. Run the make command according to your OS:
+   - For Ubuntu (default):
+      ```bash
+      make -f makefile all
+      ```
+   - For macOS:
+      ```bash
+      make -f makefile.mac all
+      ```
+   - For Windows:
+      ```bash
+      make -f makefile.win all
+      ```
+      > [!note]
+      > Due to some unknown issues with the FTXUI library, compilation on Windows may fail.
+      > In that case, please try to use other OS.
+      > You are recommended to use Windows Subsystem for Linux (WSL) to compile. Learn more about WSL
+      > [here](https://learn.microsoft.com/en-us/windows/wsl/install).
+
+## Framework
 
 ```
 User input
