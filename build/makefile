@@ -47,10 +47,10 @@ run_windows: all_windows
 # Build executable
 $(TARGET): $(OBJS)
 	$(CXX) $(CXXFLAGS) $(OBJS) $(LIBS_ALL_LINK) -o $(TARGET)
-
 $(TARGET_MACOS): $(OBJS)
+	rm -f main 2> /dev/null || true
 	$(CXX) $(CXXFLAGS) $(OBJS) $(LIBS_ALL_LINK_MACOS) -o $(TARGET_MACOS)
-
+	mv $(TARGET_MACOS) main
 $(TARGET_WINDOWS): $(OBJS)
 	$(CXX) $(CXXFLAGS) $(OBJS) $(LIBS_ALL_LINK_WINDOWS) -o $(TARGET_WINDOWS)
 
