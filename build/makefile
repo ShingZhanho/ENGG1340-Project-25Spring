@@ -40,7 +40,7 @@ all_windows: $(TARGET_WINDOWS)
 run: all
 	./$(TARGET)
 run_macos: all_macos
-	./$(TARGET_MACOS)
+	./$(TARGET)
 run_windows: all_windows
 	./$(TARGET_WINDOWS)
 
