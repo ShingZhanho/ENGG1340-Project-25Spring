@@ -4,6 +4,9 @@ CXXFLAGS = -pedantic-errors -std=c++17
 
 ################## BEGIN LIBRARIES ##################
 
+# Core Game Headers
+LIB_CORE_INCLUDE = -I../include
+
 # FTXUI
 LIB_FTXUI_INCLUDE = -I../dependencies/FTXUI/include
 LIB_FTXUI_LINK_FLAGS = -lftxui-component -lftxui-dom -lftxui-screen
@@ -16,7 +19,7 @@ LIBS_ALL_LINK = $(LIB_FTXUI_LINK)
 LIBS_ALL_LINK_MACOS = $(LIB_FTXUI_LINK_MACOS)
 LIBS_ALL_LINK_WINDOWS = $(LIB_FTXUI_LINK_WINDOWS)
 
-LIBS_ALL_INCLUDE = $(LIB_FTXUI_INCLUDE)
+LIBS_ALL_INCLUDE = $(LIB_FTXUI_INCLUDE) $(LIB_CORE_INCLUDE)
 ################## END LIBRARIES ##################
 
 # Source files
@@ -37,17 +40,17 @@ all_windows: $(TARGET_WINDOWS)
 run: all
 	./$(TARGET)
 run_macos: all_macos
-	./$(TARGET_MACOS)
+	./$(TARGET)
 run_windows: all_windows
 	./$(TARGET_WINDOWS)
 
 # Build executable
 $(TARGET): $(OBJS)
 	$(CXX) $(CXXFLAGS) $(OBJS) $(LIBS_ALL_LINK) -o $(TARGET)
-
 $(TARGET_MACOS): $(OBJS)
+	rm -f main 2> /dev/null || true
 	$(CXX) $(CXXFLAGS) $(OBJS) $(LIBS_ALL_LINK_MACOS) -o $(TARGET_MACOS)
-
+	mv $(TARGET_MACOS) main
 $(TARGET_WINDOWS): $(OBJS)
 	$(CXX) $(CXXFLAGS) $(OBJS) $(LIBS_ALL_LINK_WINDOWS) -o $(TARGET_WINDOWS)
 
