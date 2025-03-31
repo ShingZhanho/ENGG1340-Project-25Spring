@@ -21,6 +21,7 @@ namespace core {
         public:
             // Constructor
             Entity(int x, int y, char character);
+            virtual ~Entity() = default;
 
             Point getPosition();
             virtual bool move(Point to, Arena* arena) = 0;
