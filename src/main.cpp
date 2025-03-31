@@ -4,12 +4,14 @@
 #include <ftxui/component/screen_interactive.hpp>
 #include <ftxui/component/component.hpp>
 #include <ftxui/component/captured_mouse.hpp>
+
+#include <core/arena.hpp>
  
 int main(void) {
-    const int minWidth = 102, minHeight = 30; // TODO: replace with defined constants in core
     ftxui::Dimensions terminalDim = ftxui::Dimension::Full();
 
-    if (terminalDim.dimx < minWidth || terminalDim.dimy < minHeight) {
+    // Check if the terminal is large enough
+    if (terminalDim.dimx < ARENA_WIDTH || terminalDim.dimy < ARENA_HEIGHT) {
         auto document = ftxui::hbox({
                 ftxui::text("ERROR") | ftxui::bold | ftxui::blink | ftxui::color(ftxui::Color::Red),
                 ftxui::separator(),
