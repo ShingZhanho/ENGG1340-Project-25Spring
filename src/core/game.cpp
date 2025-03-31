@@ -12,6 +12,8 @@
 //  Basic data structure
 #include <vector>
 
+#include "game.hpp"
+
 using namespace std;
 
 // The main object representing the whole round.

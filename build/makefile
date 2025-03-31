@@ -4,6 +4,9 @@ CXXFLAGS = -pedantic-errors -std=c++17
 
 ################## BEGIN LIBRARIES ##################
 
+# Core Game Headers
+LIB_CORE_INCLUDE = -I../include
+
 # FTXUI
 LIB_FTXUI_INCLUDE = -I../dependencies/FTXUI/include
 LIB_FTXUI_LINK_FLAGS = -lftxui-component -lftxui-dom -lftxui-screen
@@ -16,7 +19,7 @@ LIBS_ALL_LINK = $(LIB_FTXUI_LINK)
 LIBS_ALL_LINK_MACOS = $(LIB_FTXUI_LINK_MACOS)
 LIBS_ALL_LINK_WINDOWS = $(LIB_FTXUI_LINK_WINDOWS)
 
-LIBS_ALL_INCLUDE = $(LIB_FTXUI_INCLUDE)
+LIBS_ALL_INCLUDE = $(LIB_FTXUI_INCLUDE) $(LIB_CORE_INCLUDE)
 ################## END LIBRARIES ##################
 
 # Source files
