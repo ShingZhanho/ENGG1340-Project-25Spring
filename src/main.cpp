@@ -1,13 +1,40 @@
+// Standard Libraries
 #include <iostream>
+#include <map>
+#include <vector>
+#include <string>
 
+// FTXUI
 #include <ftxui/screen/screen.hpp>
 #include <ftxui/component/screen_interactive.hpp>
 #include <ftxui/component/component.hpp>
 #include <ftxui/component/captured_mouse.hpp>
 
+// Core Components
 #include <core/arena.hpp>
+
+// Declarations
+void checkTerminalSize();
+void getMenuOption(int& option);
+
+// Global Constants and Variables
+ftxui::ScreenInteractive mainScreen = ftxui::ScreenInteractive::FixedSize(ARENA_WIDTH, ARENA_HEIGHT); // Global screen object
  
 int main(void) {
+    // Check if the terminal is large enough
+    checkTerminalSize();
+
+    int menuOption = 0;
+    while (menuOption != 2) { // 2 = "Exit"
+        getMenuOption(menuOption);
+    }
+
+    std::cout << "User selected option: " << menuOption << std::endl;
+
+    return 0;
+}
+
+void checkTerminalSize() {
     ftxui::Dimensions terminalDim = ftxui::Dimension::Full();
 
     // Check if the terminal is large enough
@@ -15,7 +42,10 @@ int main(void) {
         auto document = ftxui::hbox({
                 ftxui::text("ERROR") | ftxui::bold | ftxui::blink | ftxui::color(ftxui::Color::Red),
                 ftxui::separator(),
-                ftxui::text("Your terminal is too small. Minimum requirement: 102x30.") | ftxui::xflex,
+                ftxui::vbox({
+                    ftxui::text("Your terminal is too small. Minimum requirement: 102x30."),
+                    ftxui::text("Please try resizing your terminal window, and then run the program again."),
+                })
         }) | ftxui::borderRounded;
         auto screen = ftxui::Screen::Create(
             ftxui::Dimension::Full(),
@@ -24,8 +54,62 @@ int main(void) {
         ftxui::Render(screen, document);
         screen.Print();
 
-        return 1;
+        exit(1);
     }
+}
 
-    return 0;
+void getMenuOption(int& option) {
+    int selected = 0;
+
+    const std::unordered_map<int, std::string> optionDescriptions = {
+        {0, "Starts the game."},
+        {1, "See information about the game and the developers."},
+        {2, "Exit the game."}
+    };
+    
+    // the following code implements an animated coloured menu
+    // the code snippet is adapted from the author of the FTXUI library
+    // at https://arthursonzogni.github.io/FTXUI/examples_2component_2menu_entries_animated_8cpp-example.html
+    auto ColouredOption = [](ftxui::Color c) {
+        ftxui::MenuEntryOption option;
+        option.animated_colors.foreground.enabled = true;
+        option.animated_colors.background.enabled = true;
+        option.animated_colors.background.active = c;
+        option.animated_colors.background.inactive = ftxui::Color::Default;
+        option.animated_colors.foreground.active = ftxui::Color::White;
+        option.animated_colors.foreground.inactive = c;
+        return option;
+    };
+
+    auto menu = ftxui::Container::Vertical({
+        ftxui::MenuEntry("1. Start Game", ColouredOption(ftxui::Color::Green)),
+        ftxui::MenuEntry("2. About Us", ColouredOption(ftxui::Color::LightSkyBlue1)),
+        ftxui::MenuEntry("3. Exit", ColouredOption(ftxui::Color::Red)),
+    }, &selected);
+
+    auto renderer = ftxui::Renderer(menu, [&] {
+        return ftxui::window(
+            ftxui::text("Main Menu") | ftxui::center | ftxui::bold,
+            ftxui::vbox({
+                ftxui::text("Please select an option, and press Enter:"),
+                ftxui::separator(),
+                menu->Render() | ftxui::frame | ftxui::center | ftxui::yflex_grow,
+                ftxui::separator(),
+                ftxui::hbox({
+                    ftxui::text(optionDescriptions.at(selected)),
+                    ftxui::text("  (Press Enter to continue.)"),
+                })
+            })
+        );
+    }) | ftxui::CatchEvent([&] (ftxui::Event event) {
+        if (event == ftxui::Event::Return) {
+            mainScreen.ExitLoopClosure()();
+            return true;
+        }
+        return false;
+    });
+
+    mainScreen.Loop(renderer);
+
+    option = selected;
 }
