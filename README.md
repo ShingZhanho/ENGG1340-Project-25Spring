@@ -25,7 +25,6 @@ This is the README document of 2025 spring ENGG1340 Computer Programming 2 Group
       ```bash
       make all_windows
       ```
-##tips：be careful
       
 ## Framework
 
