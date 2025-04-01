@@ -2,15 +2,19 @@
 // Created by Jacob Shing on 31/03/2025.
 //
 
-#ifndef ENTITY_HPP
-#define ENTITY_HPP
+#ifndef CORE_ENTITY_HPP
+#define CORE_ENTITY_HPP
+
+#include <ui/renderable.hpp>
 
 namespace core {
+
+    // Forward declarations
+    class Arena;
 
     class Air;
     class Wall;
     class MobWall;
-    class Arena;
 
     typedef struct Point {
         int x;

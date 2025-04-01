@@ -1,4 +1,5 @@
 #include <core/arena.hpp>
+#include <core/entity.hpp>
 
 namespace core {
 

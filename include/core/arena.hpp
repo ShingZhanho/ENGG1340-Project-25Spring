@@ -1,5 +1,5 @@
-#ifndef ARENA_HPP
-#define ARENA_HPP
+#ifndef CORE_ARENA_HPP
+#define CORE_ARENA_HPP
 
 #include <core/entity.hpp>
 
