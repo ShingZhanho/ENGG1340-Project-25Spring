@@ -76,14 +76,14 @@ void getMenuOption(int& option) {
         option.animated_colors.background.enabled = true;
         option.animated_colors.background.active = c;
         option.animated_colors.background.inactive = ftxui::Color::Default;
-        option.animated_colors.foreground.active = ftxui::Color::White;
+        option.animated_colors.foreground.active = ftxui::Color::Grey0;
         option.animated_colors.foreground.inactive = c;
         return option;
     };
 
     auto menu = ftxui::Container::Vertical({
-        ftxui::MenuEntry("1. Start Game", ColouredOption(ftxui::Color::Green)),
-        ftxui::MenuEntry("2. About Us", ColouredOption(ftxui::Color::LightSkyBlue1)),
+        ftxui::MenuEntry("1. Start Game", ColouredOption(ftxui::Color::Green1)),
+        ftxui::MenuEntry("2. About Us", ColouredOption(ftxui::Color::Blue1)),
         ftxui::MenuEntry("3. Exit", ColouredOption(ftxui::Color::Red)),
     }, &selected);
 
@@ -95,9 +95,12 @@ void getMenuOption(int& option) {
                 ftxui::separator(),
                 menu->Render() | ftxui::frame | ftxui::center | ftxui::yflex_grow,
                 ftxui::separator(),
-                ftxui::hbox({
-                    ftxui::text(optionDescriptions.at(selected)),
-                    ftxui::text("  (Press Enter to continue.)"),
+                ftxui::vbox({
+                    ftxui::text("DESCRIPTION:") | ftxui::bold,
+                    ftxui::hbox({
+                        ftxui::text(optionDescriptions.at(selected)),
+                        ftxui::text("  (Press Enter to continue.)"),
+                    })
                 })
             })
         );
