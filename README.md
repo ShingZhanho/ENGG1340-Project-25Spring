@@ -2,7 +2,6 @@
 
 This is the README document of 2025 spring ENGG1340 Computer Programming 2 Group Project. We are group 1.
 
-
 ## Team Members (alphabetically)
 
 - CHAN, Ho Nam (???) [@Scevenate](https://github.com/Scevenate)
@@ -11,6 +10,30 @@ This is the README document of 2025 spring ENGG1340 Computer Programming 2 Group
 - SHING, Zhan Ho Jacob (3036228892) [@ShingZhanho](https://github.com/ShingZhanho)
 - SONG, Sizhe （3036457247）[@TIP-SoNg](https://github.com/TIP-SoNg)
 
+## Notes for Developers
+
+> [!warning]
+> Compiling on different OS requires different rules. To compile, please do the following:
+
+1. Change your working directory to `build`:
+   ```bash
+   cd build
+   ```
+   ⚠️ You **MUST** run the make command in the `build` directory, otherwise it will not work and may pollute the repository.
+2. Run the `make` command according to your OS:
+   - For Ubuntu (default):
+      ```bash
+      make all
+      ```
+   - For macOS:
+      ```bash
+      make all_macos
+      ```
+   - For Windows (not guaranteed to work):
+      ```bash
+      make all_windows
+      ```
+      
 ## Framework
 
 ```
