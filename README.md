@@ -8,7 +8,7 @@ This is the README document of 2025 spring ENGG1340 Computer Programming 2 Group
 - Leung, Ming Ngai (3036393221) @ThomasL956
 - LIU, Jia Lin (3036391493) @Kylineason-Liu
 - SHING, Zhan Ho Jacob (3036228892) @ShingZhanho
-
+- Song， Sizhe （3036457247）@TIP-SoNg
 
 ## Framework
 
