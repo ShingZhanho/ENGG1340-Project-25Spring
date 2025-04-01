@@ -25,7 +25,7 @@ int main(void) {
     checkTerminalSize();
 
     int menuOption = 0;
-    while (menuOption != 2) { // 2 = "Exit"
+    while (menuOption != 3) { // 3 = "Exit"
         getMenuOption(menuOption);
     }
 
@@ -61,11 +61,16 @@ void checkTerminalSize() {
 void getMenuOption(int& option) {
     int selected = 0;
 
-    const std::unordered_map<int, std::string> optionDescriptions = {
-        {0, "Starts the game."},
-        {1, "See information about the game and the developers."},
-        {2, "Exit the game."}
+    const std::vector<std::string> descriptionStrings = {
+        "Starts the game.",
+        "Learn how to play the game.",
+        "See information about the game and the developers.",
+        "Exit the game."
     };
+    std::unordered_map<int, std::string> optionDescriptions = {};
+    for (size_t i = 0; i < descriptionStrings.size(); i++) {
+        optionDescriptions[i] = descriptionStrings[i];
+    }
     
     // the following code implements an animated coloured menu
     // the code snippet is adapted from the author of the FTXUI library
@@ -83,8 +88,9 @@ void getMenuOption(int& option) {
 
     auto menu = ftxui::Container::Vertical({
         ftxui::MenuEntry("1. Start Game", ColouredOption(ftxui::Color::Green1)),
-        ftxui::MenuEntry("2. About Us", ColouredOption(ftxui::Color::Blue1)),
-        ftxui::MenuEntry("3. Exit", ColouredOption(ftxui::Color::Red)),
+        ftxui::MenuEntry("2. How to Play", ColouredOption(ftxui::Color::Green1)),
+        ftxui::MenuEntry("3. About Us", ColouredOption(ftxui::Color::Blue1)),
+        ftxui::MenuEntry("4. Exit", ColouredOption(ftxui::Color::Red)),
     }, &selected);
 
     auto renderer = ftxui::Renderer(menu, [&] {
