@@ -2,11 +2,22 @@
 #define CORE_EVENTHANDLER_HPP
 
 #include <vector>
+#include <chrono>
+#include <thread>
 
 namespace core {
 
     //  Forward declarations
     class Game; // TODO: Remove this line when Game is separated in its own file.
+    class EventHandler;
+    class RunEventHandler;
+    class InitialiseEventHandler;
+    class TickEventHandler;
+    class PlayerMoveEventHandler;
+    class PlayerShootEventHandler;
+    class MobGenerateEventHandler;
+    class EntityMoveEventHandler;
+    class ScreenRefreshEventHandler;
 
     //  The abstract EventHandler.
     //  Eventhandlers are where your actual code lives. A EventHandler can be fired to exeucte the event.
@@ -31,6 +42,19 @@ namespace core {
             //  The subevents.
             std::vector<EventHandler*> subevents;
     };
+
+    //  The event triggered when Game.Run() is called.
+    class RunEventHandler : public EventHandler {
+        public:
+            //  Constructor.
+            RunEventHandler(Game* game);
+            
+            void Execute() override;
+
+        private:
+            InitialiseEventHandler* initialiseEventHandler;
+            TickEventHandler* tickEventHandler;
+    }
 }
 
 #endif // CORE_EVENTHANDLER_HPP
