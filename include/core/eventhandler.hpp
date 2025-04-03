@@ -54,7 +54,7 @@ namespace core {
         private:
             InitialiseEventHandler* initialiseEventHandler;
             TickEventHandler* tickEventHandler;
-    }
+    };
 }
 
 #endif // CORE_EVENTHANDLER_HPP
