@@ -13,9 +13,13 @@ namespace core {
     // Forward declarations
     class Arena;
 
+    class AbstractBlock;
+    class AbstractMob;
+    class AbstractBullet;
     class Air;
     class Wall;
-    class MobWall;
+    class Player;
+    class Zombie;
 
     typedef struct Point {
         int x;
@@ -50,37 +54,40 @@ namespace core {
             Arena* arena;
 
         private:
+            //  The ID. Non-block entity will have an ID.
+            int id;
             Point position;
-            char character; // the appearance of the entity
+            char character; // the appearance of the entity; TODO: replace with RenderOption
     };
 
-    class Air : public Entity {
+    //  -- Abstract Classes ---------------------------------------------------------
+
+    //  Blocks are fixed entities in the arena that do not move and prevent
+    //  other entities from moving to their position.
+    class AbstractBlock : public Entity {
         public:
-            Air(int x, int y) : Entity(x, y, ' ') {}
-
-            bool Move(Point to, Arena* arena) override {
-                return false;
-            }
+            AbstractBlock(Point position, Arena* arena);
+            virtual ~AbstractBlock() = default;
     };
 
-    class Wall : public Entity {
+    //  Mobs are entities that can move and attack.
+    //  Mobs move towards the player using A* algorithm.
+    class AbstractMob : public Entity {
         public:
-            Wall(int x, int y) : Entity(x, y, 'X') {}
+            AbstractMob(Point position, Arena* arena, int hp, int damage, int killScore);
+            virtual ~AbstractMob() = default;
 
-            bool Move(Point to, Arena* arena) override {
-                return false;
-            }
+            int GetHP() const;
+            //  Applies damage to the mob.
+            void TakeDamage(int damage);
+            bool Move(Point to) override;
+
+        private:
+            int hp;
+            int damage;
+            //  Scores earned when the mob is killed.
+            int killScore;
     };
-
-    class MobWall : public Entity {
-        public:
-            MobWall(int x, int y) : Entity(x, y, 'M') {}
-
-            bool Move(Point to, Arena* arena) override {
-                return false;
-            }
-    };
-
 }
 
 #endif //ENTITY_HPP
