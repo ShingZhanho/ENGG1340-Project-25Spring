@@ -5,7 +5,7 @@
 #ifndef CORE_ENTITY_HPP
 #define CORE_ENTITY_HPP
 
-#include <ui/renderable.hpp>
+#include <ui/render_option.hpp>
 
 namespace core {
 
