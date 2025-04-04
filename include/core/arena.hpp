@@ -3,6 +3,7 @@
 
 #include <unordered_map>
 
+#include <core/game.hpp>
 #include <core/entity.hpp>
 
 #define ARENA_WIDTH 102
@@ -23,6 +24,8 @@ namespace core {
             Entity* GetPixel(Point p);
             void SetPixel(Point p, Entity* entity);
 
+            Game* GetGame();
+
             //  Replaces the pixel at (x, y) with the given entity.
             void Replace(Point p, Entity* entity);
             //  Removes the pixel at (x, y) and replaces it with air.
@@ -39,6 +42,7 @@ namespace core {
             //  The id is incremented for each non-block entity created.
             int idIncr = 0;
             std::unordered_map<int, Entity*> entityIndex;
+            Game* game;
     };
 
     //  This 32 * 102 is the exact size of the arena:

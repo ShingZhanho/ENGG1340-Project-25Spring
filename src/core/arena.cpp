@@ -29,6 +29,10 @@ namespace core {
         pixel[p.y][p.x] = entity;
     }
 
+    Game* Arena::GetGame() {
+        return game;
+    }
+
     void Arena::Replace(Point p, Entity* entity) {
         delete pixel[p.y][p.x];
         pixel[p.y][p.x] = entity;

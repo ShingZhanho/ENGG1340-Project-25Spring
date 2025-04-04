@@ -21,6 +21,9 @@ namespace core {
             //  The entry point of the game. Returns the final score.
             int Run();
 
+            void ChangeScore(int delta);
+            int GetScore() const;
+
         private:
             //  The score. Initial score is 0.
             int score = 0;

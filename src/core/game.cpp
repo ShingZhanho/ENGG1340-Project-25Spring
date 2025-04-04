@@ -21,4 +21,12 @@ namespace core {
         }
     }
 
+    void Game::ChangeScore(int delta) {
+        score += delta;
+    }
+
+    int Game::GetScore() const {
+        return score;
+    }
+
 }
