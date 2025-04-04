@@ -6,7 +6,7 @@ namespace core {
     Arena::Arena() {
         for (int i = 0; i < ARENA_HEIGHT; i++) {
             for (int j = 0; j < ARENA_WIDTH; j++) {
-                pixel[i][j] = new Air(i, j);
+                pixel[i][j] = new Air({i, j}, this);
             }
         }
     }
@@ -41,7 +41,7 @@ namespace core {
 
     void Arena::Remove(Point p) {
         delete pixel[p.y][p.x];
-        pixel[p.y][p.x] = new Air(p.x, p.y);
+        pixel[p.y][p.x] = new Air({p.x, p.y}, this);
     }
 
     void Arena::Move(Point start, Point dest) {
