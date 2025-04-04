@@ -27,8 +27,11 @@ namespace core {
             Entity(int x, int y, char character);
             virtual ~Entity() = default;
 
-            Point getPosition();
-            virtual bool move(Point to, Arena* arena) = 0;
+            Point GetPosition();
+            //  Only used within the class Arena. Use Move() in game loop to handle
+            //  the movement of the entity.
+            void SetPosition(Point position);
+            virtual bool Move(Point to, Arena* arena) = 0;
 
         private:
             Point position;
@@ -39,7 +42,7 @@ namespace core {
         public:
             Air(int x, int y) : Entity(x, y, ' ') {}
 
-            bool move(Point to, Arena* arena) override {
+            bool Move(Point to, Arena* arena) override {
                 return false;
             }
     };
@@ -48,7 +51,7 @@ namespace core {
         public:
             Wall(int x, int y) : Entity(x, y, 'X') {}
 
-            bool move(Point to, Arena* arena) override {
+            bool Move(Point to, Arena* arena) override {
                 return false;
             }
     };
@@ -57,7 +60,7 @@ namespace core {
         public:
             MobWall(int x, int y) : Entity(x, y, 'M') {}
 
-            bool move(Point to, Arena* arena) override {
+            bool Move(Point to, Arena* arena) override {
                 return false;
             }
     };
