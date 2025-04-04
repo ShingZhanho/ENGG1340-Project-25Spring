@@ -27,7 +27,8 @@ LIBS_ALL_INCLUDE = $(LIB_FTXUI_INCLUDE) $(LIB_CORE_INCLUDE)
 
 # Source files
 SRCS = $(shell find ../src -type f -name '*.cpp')
-OBJS = $(SRCS:.cpp=.o)
+OBJS_TARGET_DIR = objs
+OBJS = $(patsubst ../src/%.cpp, $(OBJS_TARGET_DIR)/%.o, $(SRCS))
 
 # Executable
 TARGET = main
@@ -58,11 +59,12 @@ $(TARGET_WINDOWS): $(OBJS)
 	$(CXX) $(CXXFLAGS) $(OBJS) $(LIBS_ALL_LINK_WINDOWS) -o $(TARGET_WINDOWS)
 
 # Build object files
-%.o: %.cpp
+$(OBJS_TARGET_DIR)/%.o: ../src/%.cpp
+	@mkdir -p $(dir $@)
 	$(CXX) $(CXXFLAGS) $(LIBS_ALL_INCLUDE) -c $< -o $@
 
 # Clean up
 clean:
-	rm -f $(OBJS) $(TARGET) $(TARGET_MACOS) $(TARGET_WINDOWS) 2> /dev/null || true
+	rm -rf $(OBJS) $(TARGET) $(TARGET_MACOS) $(TARGET_WINDOWS) $(OBJS_TARGET_DIR) 2> /dev/null || true
 
 .PHONY: all all_macos all_windows clean
