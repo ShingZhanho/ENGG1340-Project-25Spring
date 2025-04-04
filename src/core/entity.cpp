@@ -40,6 +40,17 @@ namespace core {
 
     //  -- Abstract Classes ---------------------------------------------------------
 
+    //  BEGIN: AbstractBlock
+
+    AbstractBlock::AbstractBlock(Point position, Arena* arena) : Entity(position, 'X', arena) {}
+
+    bool AbstractBlock::Move(Point to) {
+        //  Blocks cannot move.
+        return false;
+    }
+
+    //  END: AbstractBlock
+
     //  BEGIN: AbstractMob
 
     AbstractMob::AbstractMob(Point position, Arena* arena, int hp, int damage, int killScore)
@@ -115,5 +126,55 @@ namespace core {
         }
         return false;
     }
+
+    //  END: PlayerBullet
+
+    //  BEGIN: Wall
+
+    Wall::Wall(Point position, Arena* arena) : AbstractBlock(position, arena) {}
+
+    //  END: Wall
+
+    //  BEGIN: Air
+
+    Air::Air(Point position, Arena* arena) : AbstractBlock(position, arena) {}
+
+    //  END: Air
+
+    //  BEGIN: Player
+
+    Player::Player(Point position, Arena* arena, int hp) : Entity(position, '@', arena), hp(hp) {}
+
+    void Player::TakeDamage(int damage) {
+        hp -= damage;
+        if (hp <= 0) throw 0; // Player died
+    }
+
+    bool Player::Move(Point to) {
+        Entity* target = arena->GetPixel(to);
+
+        if (IsType(target, EntityType::WALL) || IsType(target, EntityType::ABSTRACT_MOB)) {
+            return false; // Cannot move into wall or mob
+        }
+
+        if (IsType(target, EntityType::AIR)) {
+            arena->Move(GetPosition(), to);
+            return true;
+        }
+
+        return false;
+    }
+
+    //  END: Player
+
+    //  BEGIN: Zombie
+
+    Zombie::Zombie(Point position, Arena* arena) 
+        : AbstractMob(
+            position, arena,
+            1, 1, 1 // HP, damage, killScore
+        ) {}
+
+    //  END: Zombie
     
 } // namespace Core

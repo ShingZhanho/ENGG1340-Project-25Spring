@@ -64,6 +64,8 @@ namespace core {
         public:
             AbstractBlock(Point position, Arena* arena);
             virtual ~AbstractBlock() = default;
+
+            bool Move(Point to) override;
     };
 
     //  Mobs are entities that can move and attack.
@@ -102,6 +104,35 @@ namespace core {
             int damage;
             //  The direction of the bullet. 0 = up, 1 = right, 2 = down, 3 = left.
             int direction;
+    };
+
+    //  -- Implementation Classes -------------------------------------------------
+
+    class Wall : public AbstractBlock {
+        public:
+            Wall(Point position, Arena* arena);
+    };
+
+    class Air : public AbstractBlock {
+        public:
+            Air(Point position, Arena* arena);
+    };
+
+    class Player : public Entity {
+        public:
+            Player(Point position, Arena* arena, int hp);
+            
+            void TakeDamage(int damage);
+            bool Move(Point to) override;
+
+        private:
+            //  The health points of the player.
+            int hp;
+    };
+
+    class Zombie : public AbstractMob {
+        public:
+            Zombie(Point position, Arena* arena);
     };
 }
 
