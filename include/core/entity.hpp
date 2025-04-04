@@ -5,6 +5,7 @@
 #ifndef CORE_ENTITY_HPP
 #define CORE_ENTITY_HPP
 
+#include <core/arena.hpp>
 #include <ui/render_option.hpp>
 
 namespace core {
@@ -24,14 +25,29 @@ namespace core {
     class Entity {
         public:
             // Constructor
-            Entity(int x, int y, char character);
+            Entity(Point position, char character, Arena* arena);
             virtual ~Entity() = default;
 
             Point GetPosition();
             //  Only used within the class Arena. Use Move() in game loop to handle
             //  the movement of the entity.
             void SetPosition(Point position);
-            virtual bool Move(Point to, Arena* arena) = 0;
+            virtual bool Move(Point to) = 0;
+
+        protected:
+            //  Used internally for checking the type of entity.
+            //  Update this enum when adding new entity types.
+            enum class EntityType {
+                ABSTRACT_BLOCK, ABSTRACT_MOB, ABSTRACT_BULLET,
+                WALL, AIR, PLAYER, ZOMBIE
+            };
+
+            //  Returns true if the entity is of the given type.
+            //  This is a wrapper for dynamic_cast.
+            static bool IsType(Entity* entity, EntityType type);
+
+            //  A link to the arena.
+            Arena* arena;
 
         private:
             Point position;
