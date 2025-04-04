@@ -1,11 +1,31 @@
 #include <core/entity.hpp>
+#include <ftxui/screen/color.hpp>
 
 namespace core {
 
+    //  BEGIN: EntityRenderOptions
+
+    //  here defines the render options for each entity.
+
+    ui::RenderOption EntityRenderOptions::AirRenderOption = ui::RenderOption(); // default options
+    ui::RenderOption EntityRenderOptions::WallRenderOption = ui::RenderOption(
+        'X', ftxui::Color::GrayDark, ftxui::Color::Default, false, false, false, false
+    );
+    ui::RenderOption EntityRenderOptions::PlayerRenderOption = ui::RenderOption(
+        '@', ftxui::Color::Green, ftxui::Color::Default, true, false, false, false
+    );
+    ui::RenderOption EntityRenderOptions::ZombieRenderOption = ui::RenderOption(
+        'Z', ftxui::Color::Red, ftxui::Color::Default, true, false, false, false
+    );
+    ui::RenderOption EntityRenderOptions::PlayerBulletRenderOption = ui::RenderOption(
+        '*', ftxui::Color::Yellow, ftxui::Color::Default, true, false, false, false
+    );
+
+    //  END: EntityRenderOptions
+
     //  BEGIN: Entity
 
-    Entity::Entity(Point position, char character, Arena* arena) 
-        : position(position), character(character), arena(arena) {}
+    Entity::Entity(Point position, Arena* arena) : position(position), arena(arena) {}
 
     Point Entity::GetPosition() {
         return position;
@@ -42,7 +62,7 @@ namespace core {
 
     //  BEGIN: AbstractBlock
 
-    AbstractBlock::AbstractBlock(Point position, Arena* arena) : Entity(position, 'X', arena) {}
+    AbstractBlock::AbstractBlock(Point position, Arena* arena) : Entity(position, arena) {}
 
     bool AbstractBlock::Move(Point to) {
         //  Blocks cannot move.
@@ -54,7 +74,7 @@ namespace core {
     //  BEGIN: AbstractMob
 
     AbstractMob::AbstractMob(Point position, Arena* arena, int hp, int damage, int killScore)
-        : Entity(position, 'M', arena), hp(hp), damage(damage), killScore(killScore) {}
+        : Entity(position, arena), hp(hp), damage(damage), killScore(killScore) {}
 
     int AbstractMob::GetHP() const { return hp; }
 
@@ -98,7 +118,9 @@ namespace core {
     //  BEGIN: PlayerBullet
 
     PlayerBullet::PlayerBullet(Point position, Arena* arena, int damage, int direction)
-        : Entity(position, '.', arena), damage(damage), direction(direction) {}
+        : Entity(position, arena), damage(damage), direction(direction) {
+        Entity::renderOption = &EntityRenderOptions::PlayerBulletRenderOption;
+    }
 
     int PlayerBullet::GetDamage() const { return damage; }
 
@@ -131,19 +153,25 @@ namespace core {
 
     //  BEGIN: Wall
 
-    Wall::Wall(Point position, Arena* arena) : AbstractBlock(position, arena) {}
+    Wall::Wall(Point position, Arena* arena) : AbstractBlock(position, arena) {
+        Entity::renderOption = &EntityRenderOptions::WallRenderOption;
+    }
 
     //  END: Wall
 
     //  BEGIN: Air
 
-    Air::Air(Point position, Arena* arena) : AbstractBlock(position, arena) {}
+    Air::Air(Point position, Arena* arena) : AbstractBlock(position, arena) {
+        Entity::renderOption = &EntityRenderOptions::AirRenderOption;
+    }
 
     //  END: Air
 
     //  BEGIN: Player
 
-    Player::Player(Point position, Arena* arena, int hp) : Entity(position, '@', arena), hp(hp) {}
+    Player::Player(Point position, Arena* arena, int hp) : Entity(position, arena), hp(hp) {
+        Entity::renderOption = &EntityRenderOptions::PlayerRenderOption;
+    }
 
     void Player::TakeDamage(int damage) {
         hp -= damage;
@@ -173,7 +201,9 @@ namespace core {
         : AbstractMob(
             position, arena,
             1, 1, 1 // HP, damage, killScore
-        ) {}
+        ) {
+        Entity::renderOption = &EntityRenderOptions::ZombieRenderOption;
+    }
 
     //  END: Zombie
     

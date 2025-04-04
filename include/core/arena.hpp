@@ -11,6 +11,11 @@
 
 namespace core {
 
+    //  Forward declarations
+    class Game;
+    class Entity;
+    struct Point;
+
     //  The arena. Every entity is placed inside.
     //  The Entity[32][102] Arena->pixel  is the core object of our game.
     //  This is NOT the output frame. It's the internal structured data.

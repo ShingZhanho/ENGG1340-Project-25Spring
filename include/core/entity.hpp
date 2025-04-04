@@ -22,10 +22,19 @@ namespace core {
         int y;
     } Point;
 
+    class EntityRenderOptions {
+        public:
+            static ui::RenderOption AirRenderOption;
+            static ui::RenderOption WallRenderOption;
+            static ui::RenderOption PlayerRenderOption;
+            static ui::RenderOption ZombieRenderOption;
+            static ui::RenderOption PlayerBulletRenderOption;
+    };
+
     class Entity {
         public:
             // Constructor
-            Entity(Point position, char character, Arena* arena);
+            Entity(Point position, Arena* arena);
             virtual ~Entity() = default;
 
             Point GetPosition();
@@ -48,6 +57,9 @@ namespace core {
 
             //  A link to the arena.
             Arena* arena;
+
+            //  The render option for the entity. Must be manually set in the constructor.
+            ui::RenderOption* renderOption = nullptr;
 
         private:
             //  The ID. Non-block entity will have an ID.
