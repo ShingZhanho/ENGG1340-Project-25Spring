@@ -1,6 +1,8 @@
 #ifndef CORE_ARENA_HPP
 #define CORE_ARENA_HPP
 
+#include <unordered_map>
+
 #include <core/entity.hpp>
 
 #define ARENA_WIDTH 102
@@ -8,6 +10,9 @@
 
 namespace core {
 
+    //  The arena. Every entity is placed inside.
+    //  The Entity[32][102] Arena->pixel  is the core object of our game.
+    //  This is NOT the output frame. It's the internal structured data.
     class Arena {
         public:
             // Constructors and destructors
@@ -33,6 +38,7 @@ namespace core {
             //  Used for efficiently searching through non-block entities.
             //  The id is incremented for each non-block entity created.
             int idIncr = 0;
+            std::unordered_map<int, Entity*> entityIndex;
     };
 
 }
