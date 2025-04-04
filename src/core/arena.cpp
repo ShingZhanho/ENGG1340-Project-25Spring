@@ -20,13 +20,19 @@ namespace core {
         }
     }
 
-    Entity* Arena::getPixel(Point p) {
+    Entity* Arena::GetPixel(Point p) {
         return pixel[p.y][p.x];
     }
 
-    void Arena::setPixel(Point p, Entity* entity) {
+    void Arena::SetPixel(Point p, Entity* entity) {
         delete pixel[p.y][p.x];
         pixel[p.y][p.x] = entity;
+    }
+
+    void Arena::Replace(Point p, Entity* entity) {
+        delete pixel[p.y][p.x];
+        pixel[p.y][p.x] = entity;
+        entity->SetPosition(p);
     }
 
 }
