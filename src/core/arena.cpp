@@ -35,4 +35,14 @@ namespace core {
         entity->SetPosition(p);
     }
 
+    void Arena::Remove(Point p) {
+        delete pixel[p.y][p.x];
+        pixel[p.y][p.x] = new Air(p.x, p.y);
+    }
+
+    void Arena::Move(Point start, Point dest) {
+        Replace(dest, pixel[start.y][start.x]);
+        Remove(start);
+    }
+
 }
