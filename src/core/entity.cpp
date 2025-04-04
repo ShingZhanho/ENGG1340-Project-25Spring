@@ -17,19 +17,19 @@ namespace core {
 
     bool Entity::IsType(Entity* entity, EntityType type) {
         switch (type) {
-            case ABSTRACT_BLOCK:
+            case EntityType::ABSTRACT_BLOCK:
                 return dynamic_cast<AbstractBlock*>(entity) != nullptr;
-            case ABSTRACT_MOB:
+            case EntityType::ABSTRACT_MOB:
                 return dynamic_cast<AbstractMob*>(entity) != nullptr;
-            case ABSTRACT_BULLET:
+            case EntityType::ABSTRACT_BULLET:
                 return dynamic_cast<AbstractBullet*>(entity) != nullptr;
-            case WALL:
+            case EntityType::WALL:
                 return dynamic_cast<Wall*>(entity) != nullptr;
-            case AIR:
+            case EntityType::AIR:
                 return dynamic_cast<Air*>(entity) != nullptr;
-            case PLAYER:
+            case EntityType::PLAYER:
                 return dynamic_cast<Player*>(entity) != nullptr;
-            case ZOMBIE:
+            case EntityType::ZOMBIE:
                 return dynamic_cast<Zombie*>(entity) != nullptr;
             default:
                 return false;
