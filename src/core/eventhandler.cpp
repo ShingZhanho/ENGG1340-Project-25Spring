@@ -46,4 +46,12 @@ namespace core {
 
     //  END: RunEventHandler
 
+    //  BEGIN: InitialiseEventHandler
+
+    InitialiseEventHandler::InitialiseEventHandler(Game* game) : EventHandler(game) {
+        //  TODO: implement this constructor after Game is implemented
+    }
+
+    //  END: InitialiseEventHandler
+
 }

@@ -35,7 +35,7 @@ namespace core {
 
         protected:
             //  The function that is called when the event is fired. It should be overriden.
-            virtual void Execute() = 0;
+            virtual void Execute() {};
 
         private:
             Game* game;
@@ -54,6 +54,12 @@ namespace core {
         private:
             InitialiseEventHandler* initialiseEventHandler;
             TickEventHandler* tickEventHandler;
+    };
+
+    class InitialiseEventHandler : public EventHandler {
+        public:
+            //  Constructor
+            InitialiseEventHandler(Game* game);
     };
 }
 
