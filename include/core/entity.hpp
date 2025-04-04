@@ -1,7 +1,3 @@
-//
-// Created by Jacob Shing on 31/03/2025.
-//
-
 #ifndef CORE_ENTITY_HPP
 #define CORE_ENTITY_HPP
 
@@ -42,7 +38,7 @@ namespace core {
             //  Used internally for checking the type of entity.
             //  Update this enum when adding new entity types.
             enum class EntityType {
-                ABSTRACT_BLOCK, ABSTRACT_MOB, ABSTRACT_BULLET,
+                ABSTRACT_BLOCK, ABSTRACT_MOB, PLAYER_BULLET,
                 WALL, AIR, PLAYER, ZOMBIE
             };
 
@@ -88,6 +84,25 @@ namespace core {
             //  Scores earned when the mob is killed.
             int killScore;
     };
+
+    class PlayerBullet : public Entity {
+        public:
+            PlayerBullet(Point position, Arena* arena, int damage, int direction);
+
+            //  The bullet moves in the given direction.
+            bool Move(Point to) override;
+
+            //  Returns the damage of the bullet.
+            int GetDamage() const;
+            //  Returns the direction of the bullet.
+            int GetDirection() const;
+
+        private:
+            //  The damage of the bullet.
+            int damage;
+            //  The direction of the bullet. 0 = up, 1 = right, 2 = down, 3 = left.
+            int direction;
+    };
 }
 
-#endif //ENTITY_HPP
+#endif // CORE_ENTITY_HPP

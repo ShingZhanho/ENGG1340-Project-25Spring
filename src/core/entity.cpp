@@ -21,8 +21,8 @@ namespace core {
                 return dynamic_cast<AbstractBlock*>(entity) != nullptr;
             case EntityType::ABSTRACT_MOB:
                 return dynamic_cast<AbstractMob*>(entity) != nullptr;
-            case EntityType::ABSTRACT_BULLET:
-                return dynamic_cast<AbstractBullet*>(entity) != nullptr;
+            case EntityType::PLAYER_BULLET:
+                return dynamic_cast<PlayerBullet*>(entity) != nullptr;
             case EntityType::WALL:
                 return dynamic_cast<Wall*>(entity) != nullptr;
             case EntityType::AIR:
@@ -50,7 +50,7 @@ namespace core {
     void AbstractMob::TakeDamage(int damage) {
         hp -= damage;
         if (hp <= 0) {
-            arena->Game()->ChangeScore(killScore);
+            arena->GetGame()->ChangeScore(killScore);
             arena->Remove(GetPosition());
         }
     }
@@ -63,10 +63,10 @@ namespace core {
             return false; // Mob does not disappear after attack, it will stay and attack again until killed.
         }
 
-        if (IsType(target, EntityType::ABSTRACT_BULLET)) { // collides with bullet
+        if (IsType(target, EntityType::PLAYER_BULLET)) { // collides with bullet
             //  Note: may change to type PLAYER_BULLET in the future if mobs can fire bullets.
 
-            int damage = dynamic_cast<AbstractBullet*>(target)->GetDamage();
+            int damage = dynamic_cast<PlayerBullet*>(target)->GetDamage();
             arena->Move(GetPosition(), to);
             TakeDamage(damage);
             return true;
@@ -77,6 +77,42 @@ namespace core {
             return true;
         }
 
+        return false;
+    }
+
+    //  END: AbstractMob
+
+    //  -- Implementation Classes -------------------------------------------------
+
+    //  BEGIN: PlayerBullet
+
+    PlayerBullet::PlayerBullet(Point position, Arena* arena, int damage, int direction)
+        : Entity(position, '.', arena), damage(damage), direction(direction) {}
+
+    int PlayerBullet::GetDamage() const { return damage; }
+
+    int PlayerBullet::GetDirection() const { return direction; }
+
+    bool PlayerBullet::Move(Point to) {
+        Entity* target = arena->GetPixel(to);
+
+        if (IsType(target, EntityType::WALL) 
+            || IsType(target, EntityType::PLAYER_BULLET)
+            || IsType(target, EntityType::PLAYER)) {
+            arena->Remove(GetPosition());
+            return false;
+        }
+
+        if (IsType(target, EntityType::ABSTRACT_MOB)) {
+            dynamic_cast<AbstractMob*>(target)->TakeDamage(damage);
+            arena->Remove(GetPosition());
+            return false;
+        }
+
+        if (IsType(target, EntityType::AIR)) {
+            arena->Move(GetPosition(), to);
+            return true;
+        }
         return false;
     }
     
