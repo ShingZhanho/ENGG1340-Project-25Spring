@@ -61,6 +61,12 @@ namespace core {
             //  Constructor
             InitialiseEventHandler(Game* game);
     };
+
+    class PlayerMoveEventHandler : public EventHandler {
+        public:
+        PlayerMoveEventHandler(Game* game);
+        void Execute() override;
+    };
 }
 
 #endif // CORE_EVENTHANDLER_HPP
