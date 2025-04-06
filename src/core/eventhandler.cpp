@@ -54,4 +54,30 @@ namespace core {
 
     //  END: InitialiseEventHandler
 
+    //  BEGIN: PlayerMoveEventHandler
+
+    PlayerMoveEventHandler::PlayerMoveEventHandler(Game* game) : EventHandler(game) {
+    }
+
+    void PlayerMoveEventHandler::execute(const ftxui::Event& event){
+        //  Get player entity
+        Player* player = dynamic_cast<Player*>(game->arena->entityIndex[0]);
+        if (!player) return;
+
+        //  Get movement
+        if (event == ftxui::Event::Character('w'){
+            player->move(player->x-1, player->y)
+        }
+        else if (event == ftxui::Event::Character('s'){
+            player->move(player->x+1, player->y)
+        }
+        else if (event == ftxui::Event::Character('a'){
+            player->move(player->x, player->y-1)
+        }
+        else if (event == ftxui::Event::Character('d'){
+            player->move(player->x, player->y+1)
+        }
+    }
+
+    // END: PlayerMoveEventHandler
 }
