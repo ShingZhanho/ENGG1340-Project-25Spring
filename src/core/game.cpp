@@ -29,7 +29,15 @@ namespace core {
         return score;
     }
 
+    void Game::InitialiseArena() {
+        if (!arenaInitialised) {
+            arena = new Arena();
+            arenaInitialised = true;
+        }
+    }
+
     Arena* Game::GetArena() const {
+        if (!arenaInitialised) return nullptr;
         return arena;
     }
 

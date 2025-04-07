@@ -24,6 +24,7 @@ namespace core {
             void ChangeScore(int delta);
             int GetScore() const;
             
+            void InitialiseArena();
             Arena* GetArena() const;
 
         private:
@@ -31,6 +32,7 @@ namespace core {
             int score = 0;
             //  The arena of the game.
             Arena* arena;
+            bool arenaInitialised = false;
             //  The root event.
             EventHandler* runEventHandler;
     };
