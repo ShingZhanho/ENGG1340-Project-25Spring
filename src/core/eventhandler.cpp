@@ -89,4 +89,67 @@ namespace core {
     }
 
     // END: PlayerMoveEventHandler
+    
+    //  BEGIN: TickEventHandler
+    
+    TickEventHandler::TickEventHandler(Game* game) : EventHandler(game) {
+        //  Add all subevent handlers
+        subevents = {
+            new PlayerMoveEventHandler(game),
+            new PlayerShootEventHandler(game),
+            new MobGenerateEventHandler(game),
+            new EntityMoveEventHandler(game),
+            new ScreenRefreshEventHandler(game)
+        };
+    }
+    
+    void TickEventHandler::execute() {
+        // Execute operations needed for each tick
+    }
+    
+    //  END: TickEventHandler
+    
+    //  BEGIN: PlayerShootEventHandler
+    
+    PlayerShootEventHandler::PlayerShootEventHandler(Game* game) : EventHandler(game) {
+    }
+    
+    void PlayerShootEventHandler::execute() {
+        // Implement player shooting logic
+    }
+    
+    //  END: PlayerShootEventHandler
+    
+    //  BEGIN: MobGenerateEventHandler
+    
+    MobGenerateEventHandler::MobGenerateEventHandler(Game* game) : EventHandler(game) {
+    }
+    
+    void MobGenerateEventHandler::execute() {
+        // Implement mob generation logic
+    }
+    
+    //  END: MobGenerateEventHandler
+    
+    //  BEGIN: EntityMoveEventHandler
+    
+    EntityMoveEventHandler::EntityMoveEventHandler(Game* game) : EventHandler(game) {
+    }
+    
+    void EntityMoveEventHandler::execute() {
+        // Implement entity movement logic
+    }
+    
+    //  END: EntityMoveEventHandler
+    
+    //  BEGIN: ScreenRefreshEventHandler
+    
+    ScreenRefreshEventHandler::ScreenRefreshEventHandler(Game* game) : EventHandler(game) {
+    }
+    
+    void ScreenRefreshEventHandler::execute() {
+        // Implement screen refresh logic
+    }
+    
+    //  END: ScreenRefreshEventHandler
 }
