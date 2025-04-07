@@ -11,14 +11,12 @@
 #include <ftxui/component/captured_mouse.hpp>
 
 // Core Components
+#include <ui/common.hpp>
 #include <core/arena.hpp>
 
 // Declarations
 void checkTerminalSize();
 void getMenuOption(int& option);
-
-// Global Constants and Variables
-ftxui::ScreenInteractive mainScreen = ftxui::ScreenInteractive::FixedSize(ARENA_WIDTH, ARENA_HEIGHT); // Global screen object
  
 int main(void) {
     // Check if the terminal is large enough
@@ -34,28 +32,33 @@ int main(void) {
     return 0;
 }
 
-void checkTerminalSize() {
-    ftxui::Dimensions terminalDim = ftxui::Dimension::Full();
+void checkTerminalSize() {// Check if the terminal is large enough
+    if (ui::ACTUAL_TERMINAL_WIDTH >= ui::MIN_TERMINAL_WIDTH && ui::ACTUAL_TERMINAL_HEIGHT >= ui::MIN_TERMINAL_HEIGHT) return;
 
-    // Check if the terminal is large enough
-    if (terminalDim.dimx < ARENA_WIDTH || terminalDim.dimy < ARENA_HEIGHT) {
-        auto document = ftxui::hbox({
+    auto document = ftxui::hbox({
+            ftxui::vbox({
                 ftxui::text("ERROR") | ftxui::bold | ftxui::blink | ftxui::color(ftxui::Color::Red),
-                ftxui::separator(),
-                ftxui::vbox({
-                    ftxui::text("Your terminal is too small. Minimum requirement: 102x30."),
-                    ftxui::text("Please try resizing your terminal window, and then run the program again."),
-                })
-        }) | ftxui::borderRounded;
-        auto screen = ftxui::Screen::Create(
-            ftxui::Dimension::Full(),
-            ftxui::Dimension::Fit(document)
-        );
-        ftxui::Render(screen, document);
-        screen.Print();
+                ftxui::text("X") | ftxui::bold | ftxui::blink | ftxui::color(ftxui::Color::Red) | ftxui::hcenter,
+            }),
+            ftxui::separator(),
+            ftxui::vbox({
+                ftxui::text(
+                    "Your terminal is too small. Minimum requirement: "
+                    + std::to_string(ui::MIN_TERMINAL_WIDTH) + " x "
+                    + std::to_string(ui::MIN_TERMINAL_HEIGHT) + "."
+                ),
+                ftxui::text("Please try resizing your terminal window, and then run the program again."),
+            })
+    }) | ftxui::borderRounded;
+    auto screen = ftxui::Screen::Create(
+        ftxui::Dimension::Full(),
+        ftxui::Dimension::Fit(document)
+    );
+    ftxui::Render(screen, document);
+    screen.Print();
 
-        exit(1);
-    }
+    exit(1);
+    
 }
 
 void getMenuOption(int& option) {
@@ -112,13 +115,13 @@ void getMenuOption(int& option) {
         );
     }) | ftxui::CatchEvent([&] (ftxui::Event event) {
         if (event == ftxui::Event::Return) {
-            mainScreen.ExitLoopClosure()();
+            ui::appScreen.ExitLoopClosure()();
             return true;
         }
         return false;
     });
 
-    mainScreen.Loop(renderer);
+    ui::appScreen.Loop(renderer);
 
     option = selected;
 }
