@@ -50,7 +50,13 @@ namespace core {
     //  BEGIN: InitialiseEventHandler
 
     InitialiseEventHandler::InitialiseEventHandler(Game* game) : EventHandler(game) {
-        //  TODO: implement this constructor after Game is implemented
+        game->InitialiseArena();
+        //  Setup arena layout (walls etc.)
+        //  TODO: set layout according to level difficulty
+
+        //  Create player
+        //  NOTE: The player MUST be the first non-block entity to have the ID 0.
+        game->GetArena()->Replace({15, 50}, new Player({15, 50}, game->GetArena(), 5));
     }
 
     void InitialiseEventHandler::execute() {}
