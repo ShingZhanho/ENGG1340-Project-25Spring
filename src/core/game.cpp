@@ -29,4 +29,8 @@ namespace core {
         return score;
     }
 
+    Arena* Game::GetArena() const {
+        return arena;
+    }
+
 }

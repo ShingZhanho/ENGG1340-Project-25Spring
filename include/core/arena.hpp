@@ -28,6 +28,7 @@ namespace core {
             //  TODO: these two might be removed in the future.
             Entity* GetPixel(Point p);
             void SetPixel(Point p, Entity* entity);
+            Entity* GetPixelById(int id);
 
             Game* GetGame();
 

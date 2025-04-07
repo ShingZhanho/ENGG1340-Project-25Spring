@@ -29,6 +29,14 @@ namespace core {
         pixel[p.y][p.x] = entity;
     }
 
+    Entity* Arena::GetPixelById(int id) {
+        auto it = entityIndex.find(id);
+        if (it != entityIndex.end()) {
+            return it->second;
+        }
+        return nullptr;
+    }
+
     Game* Arena::GetGame() {
         return game;
     }

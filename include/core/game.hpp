@@ -23,6 +23,8 @@ namespace core {
 
             void ChangeScore(int delta);
             int GetScore() const;
+            
+            Arena* GetArena() const;
 
         private:
             //  The score. Initial score is 0.
