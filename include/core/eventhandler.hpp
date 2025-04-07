@@ -31,16 +31,14 @@ namespace core {
             Game* GetGame();
 
             //  Triggers the event.
-            virtual void Fire() final;
-
-        protected:
-            //  The function that is called when the event is fired. It should be overriden.
-            virtual void Execute() {};
+            virtual void Fire();
 
         private:
             Game* game;
             //  The subevents.
             std::vector<EventHandler*> subevents;
+            //  Executed when the event is fired.
+            void execute();
     };
 
     //  The event triggered when Game.Run() is called.
@@ -48,24 +46,32 @@ namespace core {
         public:
             //  Constructor.
             RunEventHandler(Game* game);
-            
-            void Execute() override;
 
         private:
             InitialiseEventHandler* initialiseEventHandler;
             TickEventHandler* tickEventHandler;
+            //  Executed when the event is fired.
+            void execute();
     };
 
     class InitialiseEventHandler : public EventHandler {
         public:
             //  Constructor
             InitialiseEventHandler(Game* game);
+
+        private:
+            //  Executed when the event is fired.
+            void execute();
     };
 
     class PlayerMoveEventHandler : public EventHandler {
         public:
             PlayerMoveEventHandler(Game* game);
-            void Execute() override;
+            enum class Direction;
+
+        private:
+            //  Executed when the event is fired.
+            void execute(Direction direction);
     };
 }
 

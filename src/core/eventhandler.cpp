@@ -6,9 +6,7 @@ namespace core {
 
     //  BEGIN: EventHandler
 
-    EventHandler::EventHandler(Game* game) {
-        game = game;
-    }
+    EventHandler::EventHandler(Game* game) : game(game) { }
 
     EventHandler::~EventHandler() {
         for (auto subevent : subevents) delete subevent;
@@ -19,9 +17,11 @@ namespace core {
     }
 
     void EventHandler::Fire() {
-        Execute();
+        execute();
         for (auto subevent : subevents) subevent->Fire();
     }
+
+    void EventHandler::execute() { }
 
     //  END: EventHandler
 
@@ -32,7 +32,7 @@ namespace core {
         tickEventHandler = new TickEventHandler(game);
     }
 
-    void RunEventHandler::Execute() {
+    void RunEventHandler::execute() {
         //  Initialize the game.
         initialiseEventHandler->Fire();
         //  Run the game.
@@ -53,32 +53,40 @@ namespace core {
         //  TODO: implement this constructor after Game is implemented
     }
 
+    void InitialiseEventHandler::execute() {}
+
     //  END: InitialiseEventHandler
 
     //  BEGIN: PlayerMoveEventHandler
 
     PlayerMoveEventHandler::PlayerMoveEventHandler(Game* game) : EventHandler(game) {}
 
-    // FIXME: Execute() of EventHandler should not be inherited from EventHandler.
-    //        as we cannot pass arguments to it.
-    //        Since Execute() is only called internally, it can be private and declared separately for each EventHandler.
-    // FIXME: The following function, and all other Execute() functions may need refactoring.
-    // void PlayerMoveEventHandler::Execute(const ftxui::Event& event){
-    //     //  Get player entity
-    //     Player* player = dynamic_cast<Player*>(game->arena->entityIndex[0]);
-    //     if (!player) return;
+    enum class PlayerMoveEventHandler::Direction { UP, DOWN, LEFT, RIGHT };
 
-    //     //  Get movement
-    //     if (event == ftxui::Event::Character('w')) {
-    //         player->move(player->x-1, player->y);
-    //     } else if (event == ftxui::Event::Character('s')) {
-    //         player->move(player->x+1, player->y);
-    //     } else if (event == ftxui::Event::Character('a')) {
-    //         player->move(player->x, player->y-1);
-    //     } else if (event == ftxui::Event::Character('d')) {
-    //         player->move(player->x, player->y+1);
-    //     }
-    // }
+    void PlayerMoveEventHandler::execute(Direction direction){
+        //  Get player entity
+        auto player = dynamic_cast<Player*>(GetGame()->GetArena()->GetPixelById(0));
+        if (!player) return;
+
+        //  Move
+        switch (direction) {
+            case Direction::UP:
+                player->Move({player->GetPosition().x, player->GetPosition().y - 1});
+                break;
+            case Direction::DOWN:
+                player->Move({player->GetPosition().x, player->GetPosition().y + 1});
+                break;
+            case Direction::LEFT:
+                player->Move({player->GetPosition().x - 1, player->GetPosition().y});
+                break;
+            case Direction::RIGHT:
+                player->Move({player->GetPosition().x + 1, player->GetPosition().y});
+                break;
+            default:
+                //  Invalid direction
+                break;
+        }
+    }
 
     // END: PlayerMoveEventHandler
 }
