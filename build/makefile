@@ -4,6 +4,9 @@ CXXFLAGS = -pedantic-errors -std=c++17
 
 ################## BEGIN LIBRARIES ##################
 
+# Core Game Headers
+LIB_CORE_INCLUDE = -I../include
+
 # FTXUI
 LIB_FTXUI_INCLUDE = -I../dependencies/FTXUI/include
 LIB_FTXUI_LINK_FLAGS = -lftxui-component -lftxui-dom -lftxui-screen
@@ -11,17 +14,21 @@ LIB_FTXUI_LINK = -L../dependencies/FTXUI/lib $(LIB_FTXUI_LINK_FLAGS)
 LIB_FTXUI_LINK_MACOS = -L../dependencies/FTXUI_macOS/lib $(LIB_FTXUI_LINK_FLAGS)
 LIB_FTXUI_LINK_WINDOWS = -L../dependencies/FTXUI_windows/lib $(LIB_FTXUI_LINK_FLAGS)
 
+# pthread
+LIB_PTHREAD_LINK = -lpthread
+
 ################## ALL LIBRARIES ##################
-LIBS_ALL_LINK = $(LIB_FTXUI_LINK)
+LIBS_ALL_LINK = $(LIB_FTXUI_LINK) $(LIB_PTHREAD_LINK)
 LIBS_ALL_LINK_MACOS = $(LIB_FTXUI_LINK_MACOS)
 LIBS_ALL_LINK_WINDOWS = $(LIB_FTXUI_LINK_WINDOWS)
 
-LIBS_ALL_INCLUDE = $(LIB_FTXUI_INCLUDE)
+LIBS_ALL_INCLUDE = $(LIB_FTXUI_INCLUDE) $(LIB_CORE_INCLUDE)
 ################## END LIBRARIES ##################
 
 # Source files
 SRCS = $(shell find ../src -type f -name '*.cpp')
-OBJS = $(SRCS:.cpp=.o)
+OBJS_TARGET_DIR = objs
+OBJS = $(patsubst ../src/%.cpp, $(OBJS_TARGET_DIR)/%.o, $(SRCS))
 
 # Executable
 TARGET = main
@@ -37,7 +44,7 @@ all_windows: $(TARGET_WINDOWS)
 run: all
 	./$(TARGET)
 run_macos: all_macos
-	./$(TARGET_MACOS)
+	./$(TARGET)
 run_windows: all_windows
 	./$(TARGET_WINDOWS)
 
@@ -52,11 +59,12 @@ $(TARGET_WINDOWS): $(OBJS)
 	$(CXX) $(CXXFLAGS) $(OBJS) $(LIBS_ALL_LINK_WINDOWS) -o $(TARGET_WINDOWS)
 
 # Build object files
-%.o: %.cpp
+$(OBJS_TARGET_DIR)/%.o: ../src/%.cpp
+	@mkdir -p $(dir $@)
 	$(CXX) $(CXXFLAGS) $(LIBS_ALL_INCLUDE) -c $< -o $@
 
 # Clean up
 clean:
-	rm -f $(OBJS) $(TARGET) $(TARGET_MACOS) $(TARGET_WINDOWS) 2> /dev/null || true
+	rm -rf $(OBJS) $(TARGET) $(TARGET_MACOS) $(TARGET_WINDOWS) $(OBJS_TARGET_DIR) 2> /dev/null || true
 
 .PHONY: all all_macos all_windows clean

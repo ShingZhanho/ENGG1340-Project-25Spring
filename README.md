@@ -30,7 +30,7 @@ This is the README document of 2025 spring ENGG1340 Computer Programming 2 Group
       ```bash
       make all_macos
       ```
-   - For Windows (not guaranteed to work):
+   - For Windows:
       ```bash
       make all_windows
       ```
