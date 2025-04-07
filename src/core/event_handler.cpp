@@ -67,8 +67,6 @@ namespace core {
 
     PlayerMoveEventHandler::PlayerMoveEventHandler(Game* game) : EventHandler(game) {}
 
-    enum class PlayerMoveEventHandler::Direction { UP, DOWN, LEFT, RIGHT };
-
     void PlayerMoveEventHandler::execute(Direction direction){
         //  Get player entity
         auto player = dynamic_cast<Player*>(GetGame()->GetArena()->GetPixelById(0));
