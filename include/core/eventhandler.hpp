@@ -67,11 +67,67 @@ namespace core {
     class PlayerMoveEventHandler : public EventHandler {
         public:
             PlayerMoveEventHandler(Game* game);
-            enum class Direction;
+            enum class Direction { UP, DOWN, LEFT, RIGHT };
 
         private:
             //  Executed when the event is fired.
             void execute(Direction direction);
+    };
+
+    //  The tick event. Called every tick.
+    //  Add your event as subevent. The root event itself shouldn't contain any execution.
+    class TickEventHandler : public EventHandler {
+        public:
+            //  Constructor
+            TickEventHandler(Game* game);
+
+        private:
+            //  Executed when the event is fired.
+            void execute();
+    };
+    
+    //  Player shooting event handler
+    class PlayerShootEventHandler : public EventHandler {
+        public:
+            //  Constructor
+            PlayerShootEventHandler(Game* game);
+
+        private:
+            //  Executed when the event is fired.
+            void execute();
+    };
+    
+    //  Mob generation event handler
+    class MobGenerateEventHandler : public EventHandler {
+        public:
+            //  Constructor
+            MobGenerateEventHandler(Game* game);
+
+        private:
+            //  Executed when the event is fired.
+            void execute();
+    };
+    
+    //  Entity movement event handler
+    class EntityMoveEventHandler : public EventHandler {
+        public:
+            //  Constructor
+            EntityMoveEventHandler(Game* game);
+
+        private:
+            //  Executed when the event is fired.
+            void execute();
+    };
+    
+    //  Screen refresh event handler
+    class ScreenRefreshEventHandler : public EventHandler {
+        public:
+            //  Constructor
+            ScreenRefreshEventHandler(Game* game);
+
+        private:
+            //  Executed when the event is fired.
+            void execute();
     };
 }
 
