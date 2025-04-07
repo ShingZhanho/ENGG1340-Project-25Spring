@@ -33,10 +33,12 @@ namespace core {
             //  Triggers the event.
             virtual void Fire();
 
-        private:
-            Game* game;
+        protected:
             //  The subevents.
             std::vector<EventHandler*> subevents;
+
+        private:
+            Game* game;
             //  Executed when the event is fired.
             void execute();
     };
