@@ -33,7 +33,8 @@ int main(void) {
 }
 
 void checkTerminalSize() {// Check if the terminal is large enough
-    if (ui::ACTUAL_TERMINAL_WIDTH >= ui::MIN_TERMINAL_WIDTH && ui::ACTUAL_TERMINAL_HEIGHT >= ui::MIN_TERMINAL_HEIGHT) return;
+    if (ui::ACTUAL_TERMINAL_WIDTH >= ui::MIN_TERMINAL_WIDTH 
+     && ui::ACTUAL_TERMINAL_HEIGHT >= ui::MIN_TERMINAL_HEIGHT) return;
 
     auto document = ftxui::hbox({
             ftxui::vbox({
@@ -97,22 +98,58 @@ void getMenuOption(int& option) {
     }, &selected);
 
     auto renderer = ftxui::Renderer(menu, [&] {
-        return ftxui::window(
-            ftxui::text("Main Menu") | ftxui::center | ftxui::bold,
+        return ftxui::vbox({
+            ftxui::text("\n\n"),
+            // -- Game Title ASCII Art --
             ftxui::vbox({
-                ftxui::text("Please select an option, and press Enter:"),
-                ftxui::separator(),
-                menu->Render() | ftxui::frame | ftxui::center | ftxui::yflex_grow,
-                ftxui::separator(),
-                ftxui::vbox({
-                    ftxui::text("DESCRIPTION:") | ftxui::bold,
+                ftxui::text("  ____  _   _  ___   ___ _____ _ ")    | ftxui::color(ftxui::Color::Green1)    | ftxui::blink,
+                ftxui::text(" / ___|| | | |/ _ \\ / _ \\_   _| |")  | ftxui::color(ftxui::Color::Yellow1)   | ftxui::blink,
+                ftxui::text(" \\___ \\| |_| | | | | | | || | | |")  | ftxui::color(ftxui::Color::Orange1)   | ftxui::blink,
+                ftxui::text("  ___) |  _  | |_| | |_| || | |_|")    | ftxui::color(ftxui::Color::Red)       | ftxui::blink,
+                ftxui::text(" |____/|_| |_|\\___/ \\___/ |_| (_)")  | ftxui::color(ftxui::Color::Purple)    | ftxui::blink,
+            }) | ftxui::hcenter,
+            ftxui::text("\n\n"),
+            ftxui::text("A game by ENGG1340 Group 1 (c) 2025") | ftxui::hcenter,
+            ftxui::text("\n\n"),
+
+            ftxui::separatorDouble(),
+
+            // -- Menu Title --
+            ftxui::text("Main Menu") | ftxui::center | ftxui::bold,
+
+            ftxui::separatorDouble(),
+
+            // -- Menu Options --
+            ftxui::text("\n\n"),
+            ftxui::vbox({
+                ftxui::hbox({
+                    ftxui::filler() | ftxui::flex_grow,
+                    ftxui::text("Please select an option, and press Enter:\n") | ftxui::hcenter | ftxui::underlined,
+                    ftxui::filler() | ftxui::flex_grow
+                }),
+                ftxui::hbox({
+                    ftxui::filler(),
                     ftxui::hbox({
-                        ftxui::text(optionDescriptions.at(selected)),
-                        ftxui::text("  (Press Enter to continue.)"),
-                    })
+                        ftxui::filler() | ftxui::size(ftxui::WIDTH, ftxui::EQUAL, 5),
+                        menu->Render() | ftxui::center,
+                        ftxui::filler() | ftxui::size(ftxui::WIDTH, ftxui::EQUAL, 5)
+                    }) | ftxui::border,
+                    ftxui::filler()
+                }),
+                ftxui::filler() | ftxui::flex_grow,
+            }) | ftxui::flex_grow,
+
+            ftxui::separator(),
+
+            // -- Menu Description --
+            ftxui::vbox({
+                ftxui::text("DESCRIPTION:") | ftxui::bold,
+                ftxui::hbox({
+                    ftxui::text(optionDescriptions.at(selected)),
+                    ftxui::text("  (Press Enter to continue.)"),
                 })
-            })
-        );
+            }) | ftxui::size(ftxui::HEIGHT, ftxui::EQUAL, 2),
+        }) | ftxui::borderDouble | ftxui::flex_grow;
     }) | ftxui::CatchEvent([&] (ftxui::Event event) {
         if (event == ftxui::Event::Return) {
             ui::appScreen.ExitLoopClosure()();
