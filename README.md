@@ -4,6 +4,7 @@ This is the README document of 2025 spring ENGG1340 Computer Programming 2 Group
 
 ## Team Members (alphabetically)
 
+- CHAN, Ho Nam (3036235352) [@ConanChan0113](https://gihub.com/ConanChan0113)
 - LEUNG, Ming Ngai (3036393221) [@ThomasL956](https://github.com/ThomasL956)
 - LIU, Jia Lin (3036391493) [@Kylineason-Liu](https://github.com/Kylineason-Liu)
 - SHING, Zhan Ho Jacob (3036228892) [@ShingZhanho](https://github.com/ShingZhanho)
