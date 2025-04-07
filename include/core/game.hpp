@@ -2,7 +2,7 @@
 #define CORE_GAME_HPP
 
 #include <core/arena.hpp>
-#include <core/eventhandler.hpp>
+#include <core/event_handler.hpp>
 
 namespace core {
 

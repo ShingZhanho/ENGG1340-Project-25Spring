@@ -88,7 +88,7 @@ void getMenuOption(int& option) {
 
     auto menu = ftxui::Container::Vertical({
         ftxui::MenuEntry("1. Start Game", ColouredOption(ftxui::Color::Green1)),
-        ftxui::MenuEntry("2. How to Play", ColouredOption(ftxui::Color::Green1)),
+        ftxui::MenuEntry("2. How to Play", ColouredOption(ftxui::Color::Cyan)),
         ftxui::MenuEntry("3. About Us", ColouredOption(ftxui::Color::Blue1)),
         ftxui::MenuEntry("4. Exit", ColouredOption(ftxui::Color::Red)),
     }, &selected);

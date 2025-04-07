@@ -1,5 +1,5 @@
 //  core components
-#include <core/eventhandler.hpp>
+#include <core/event_handler.hpp>
 #include <core/entity.hpp>
 
 namespace core {
