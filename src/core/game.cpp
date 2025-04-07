@@ -19,6 +19,8 @@ namespace core {
         } catch (int endType) {
             return score;
         }
+
+        return -1;
     }
 
     void Game::ChangeScore(int delta) {
