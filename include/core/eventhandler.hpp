@@ -64,8 +64,8 @@ namespace core {
 
     class PlayerMoveEventHandler : public EventHandler {
         public:
-        PlayerMoveEventHandler(Game* game);
-        void Execute() override;
+            PlayerMoveEventHandler(Game* game);
+            void Execute() override;
     };
 }
 

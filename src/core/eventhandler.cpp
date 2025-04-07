@@ -1,5 +1,6 @@
 //  core components
 #include <core/eventhandler.hpp>
+#include <core/entity.hpp>
 
 namespace core {
 
@@ -56,28 +57,28 @@ namespace core {
 
     //  BEGIN: PlayerMoveEventHandler
 
-    PlayerMoveEventHandler::PlayerMoveEventHandler(Game* game) : EventHandler(game) {
-    }
+    PlayerMoveEventHandler::PlayerMoveEventHandler(Game* game) : EventHandler(game) {}
 
-    void PlayerMoveEventHandler::execute(const ftxui::Event& event){
-        //  Get player entity
-        Player* player = dynamic_cast<Player*>(game->arena->entityIndex[0]);
-        if (!player) return;
+    // FIXME: Execute() of EventHandler should not be inherited from EventHandler.
+    //        as we cannot pass arguments to it.
+    //        Since Execute() is only called internally, it can be private and declared separately for each EventHandler.
+    // FIXME: The following function, and all other Execute() functions may need refactoring.
+    // void PlayerMoveEventHandler::Execute(const ftxui::Event& event){
+    //     //  Get player entity
+    //     Player* player = dynamic_cast<Player*>(game->arena->entityIndex[0]);
+    //     if (!player) return;
 
-        //  Get movement
-        if (event == ftxui::Event::Character('w'){
-            player->move(player->x-1, player->y)
-        }
-        else if (event == ftxui::Event::Character('s'){
-            player->move(player->x+1, player->y)
-        }
-        else if (event == ftxui::Event::Character('a'){
-            player->move(player->x, player->y-1)
-        }
-        else if (event == ftxui::Event::Character('d'){
-            player->move(player->x, player->y+1)
-        }
-    }
+    //     //  Get movement
+    //     if (event == ftxui::Event::Character('w')) {
+    //         player->move(player->x-1, player->y);
+    //     } else if (event == ftxui::Event::Character('s')) {
+    //         player->move(player->x+1, player->y);
+    //     } else if (event == ftxui::Event::Character('a')) {
+    //         player->move(player->x, player->y-1);
+    //     } else if (event == ftxui::Event::Character('d')) {
+    //         player->move(player->x, player->y+1);
+    //     }
+    // }
 
     // END: PlayerMoveEventHandler
 }

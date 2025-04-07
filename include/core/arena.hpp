@@ -90,4 +90,4 @@ namespace core {
 
 }
 
-#endif // ARENA_HPP
+#endif // CORE_ARENA_HPP
