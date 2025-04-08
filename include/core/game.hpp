@@ -16,7 +16,7 @@ namespace core {
         int PlayerHp;
         //  The game arena. Built-in GameOptions should set this to nullptr.
         //  Only provide arena if loaded from a user-defined file.
-        Arena* Arena;
+        Arena* GameArena;
     } GameOptions;
 
     //  The main object representing the whole round.

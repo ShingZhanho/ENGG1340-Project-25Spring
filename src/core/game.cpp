@@ -33,7 +33,7 @@ namespace core {
 
     void Game::InitialiseArena() {
         if (!arenaInitialised) {
-            arena = GetOptions().Arena != nullptr ? GetOptions().Arena : new Arena();
+            arena = GetOptions().GameArena != nullptr ? GetOptions().GameArena : new Arena();
             arenaInitialised = true;
         }
     }
@@ -53,17 +53,17 @@ namespace core {
 
         const GameOptions EASY = GameOptions{
             .PlayerHp = 100,
-            .Arena = nullptr
+            .GameArena = nullptr
         };
 
         const GameOptions MEDIUM = GameOptions{
             .PlayerHp = 100,
-            .Arena = nullptr
+            .GameArena = nullptr
         };
 
         const GameOptions HARD = GameOptions{
             .PlayerHp = 100,
-            .Arena = nullptr
+            .GameArena = nullptr
         };
 
     } // namespace GameOptions
