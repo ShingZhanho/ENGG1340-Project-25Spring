@@ -2,17 +2,9 @@
 
 namespace core {
 
-    enum class GameDifficulty {
-        EASY,
-        MEDIUM,
-        HARD,
-        // The map is loaded from a user-defined file, with user-defined settings.
-        CUSTOM_MAP
-    };
+    //  -- Game class ---------------------------------------------
 
-    Game::Game() {
-
-    }
+    Game::Game(GameOptions options) : options(options) { }
 
     Game::~Game() {
         delete runEventHandler;
@@ -41,14 +33,7 @@ namespace core {
 
     void Game::InitialiseArena() {
         if (!arenaInitialised) {
-            arena = new Arena();
-            arenaInitialised = true;
-        }
-    }
-
-    void Game::SetArena(Arena* arena) {
-        if (!arenaInitialised) { //  Only set the arena if it is not already set.
-            this->arena = arena;
+            arena = GetOptions().Arena != nullptr ? GetOptions().Arena : new Arena();
             arenaInitialised = true;
         }
     }
@@ -58,4 +43,29 @@ namespace core {
         return arena;
     }
 
-}
+    GameOptions Game::GetOptions() const {
+        return options;
+    }
+
+    //  -- built-in GameOptions structs -----------------------------------
+
+    namespace DefaultGameOptions {
+
+        const GameOptions EASY = GameOptions{
+            .PlayerHp = 100,
+            .Arena = nullptr
+        };
+
+        const GameOptions MEDIUM = GameOptions{
+            .PlayerHp = 100,
+            .Arena = nullptr
+        };
+
+        const GameOptions HARD = GameOptions{
+            .PlayerHp = 100,
+            .Arena = nullptr
+        };
+
+    } // namespace GameOptions
+
+} // namespace core

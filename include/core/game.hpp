@@ -9,14 +9,21 @@ namespace core {
     //  Forward declarations
     class Arena;
     class EventHandler;
-
-    enum class GameDifficulty;
+    
+    //  The options for the game.
+    typedef struct GameOptions {
+        //  The initial health of the player.
+        int PlayerHp;
+        //  The game arena. Built-in GameOptions should set this to nullptr.
+        //  Only provide arena if loaded from a user-defined file.
+        Arena* Arena;
+    } GameOptions;
 
     //  The main object representing the whole round.
     class Game {
         public:
             //  Constructor
-            Game();
+            Game(GameOptions options);
             //  Destructor
             ~Game();
 
@@ -26,11 +33,14 @@ namespace core {
             void ChangeScore(int delta);
             int GetScore() const;
             
-            //  Initialise a new arena with default settings.
+            //  Initialise the game arena. If the arena is provided in the GameOptions,
+            //  that arena is used instead. This function does nothing if the arena is
+            //  already initialised.
             void InitialiseArena();
-            //  Provides a custom arena to the game. This will disable InitialiseArena().
-            void SetArena(Arena* arena);
+            //  Returns the arena of the game.
             Arena* GetArena() const;
+            //  Returns the game options.
+            GameOptions GetOptions() const;
 
         private:
             //  The score. Initial score is 0.
@@ -40,8 +50,17 @@ namespace core {
             bool arenaInitialised = false;
             //  The root event.
             EventHandler* runEventHandler;
+            //  The game options.
+            GameOptions options;
     };
 
-}
+    //  Built-in GameOptions
+    namespace DefaultGameOptions {
+        extern const GameOptions EASY;
+        extern const GameOptions MEDIUM;
+        extern const GameOptions HARD;
+    } // namespace DefaultGameOptions
+
+} // namespace core
 
 #endif // CORE_ENTITY_HPP

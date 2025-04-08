@@ -132,14 +132,14 @@ namespace core {
 
     class Player : public Entity {
         public:
-            Player(Point position, Arena* arena, int hp);
+            Player(Point position, Arena* arena);
             
             void TakeDamage(int damage);
             bool Move(Point to) override;
 
         private:
             //  The health points of the player.
-            int hp == 100;
+            int hp;
     };
 
     class Zombie : public AbstractMob {

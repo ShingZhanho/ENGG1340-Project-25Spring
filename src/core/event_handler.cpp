@@ -56,7 +56,7 @@ namespace core {
 
         //  Create player
         //  NOTE: The player MUST be the first non-block entity to have the ID 0.
-        game->GetArena()->Replace({15, 50}, new Player({15, 50}, game->GetArena(), 5));
+        game->GetArena()->Replace({15, 50}, new Player({15, 50}, game->GetArena()));
     }
 
     void InitialiseEventHandler::execute() {}
