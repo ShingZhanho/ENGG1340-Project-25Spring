@@ -1,6 +1,9 @@
-# README
+# SHOOT!
 
-This is the README document of 2025 spring ENGG1340 Computer Programming 2 Group Project. We are group 1.
+<p align="center">
+   <img src="docs/game_logo.gif" alt="Logo of the game, blinking."/>
+   <span>Made by ENGG1340 Group 1. (2024/25 Spring Semester)</span>
+</p>
 
 ## Team Members (alphabetically)
 
@@ -11,68 +14,32 @@ This is the README document of 2025 spring ENGG1340 Computer Programming 2 Group
 - SONG, Sizhe （3036457247）[@TIP-SoNg](https://github.com/TIP-SoNg)
 - XIN, Yucheng (3036289755) [@Scevenate](https://github.com/Scevenate)
 
-## Notes for Developers
-
-> [!warning]
-> Compiling on different OS requires different rules. To compile, please do the following:
+## Build Instructions
 
 1. Change your working directory to `build`:
    ```bash
    cd build
    ```
-   ⚠️ You **MUST** run the make command in the `build` directory, otherwise it will not work and may pollute the repository.
-2. Run the `make` command according to your OS:
-   - For Ubuntu (default):
-      ```bash
-      make all
-      ```
-   - For macOS:
-      ```bash
-      make all_macos
-      ```
-   - For Windows:
-      ```bash
-      make all_windows
-      ```
+2. `make` the target:
+   ```bash
+   make all
+   ```
+3. Run the program:
+   ```bash
+   ./main
+   ```
+
+> - `make run` is a shortcut for `make all` and `./main`.
+> - Add platform suffix to the target if you are not building on Linux. For example, use `make all_macos` or `make run_macos` for macOS. The supported suffixes are `_macos` and `_windows`.
+> - The executable on Windows is `main.exe`.
       
-## Framework
+## Coding Requirements
 
-```
-User input
-   |
-   |
-   V
-+--------------+ Bullet generate message  +-------------------+--------------+
-| Player Class |------------------------->| Bullet Generation > Bullet Class |
-+--------------+  (Position, direction)   +-------------------+--------------+
-   |                                                                 |
-   | Position                                                        |
-   |     +----------------+---+-----------+                          |
-   +-----| Mob generation | > | Mob Class |                          |
-   |     +----------------+---+-----------+                          |
-   |                             |                                   |
-   |                             |                                   |
-   V                  Position   |                                   |
-+-----------------+<-------------+                                   |
-| Collide handler |   Position                                       |
-+-----------------+<-------------------------------------------------+
-   |
-   | All Instances Position
-   V
-+---------------+
-| Output render |
-+---------------+
+The requirements for this project have been met:
 
-
-FrameRefresh {
-PlayerHandler(Input);
-BulletRegister()
-MobRegister()
-BulletInstanceRefresh();
-MobInstanceRefresh(PlayerPosition)
-	CollideHandler {
-	All Registered Instances
-	}
-Render
-}
-```
+- ✅ **Random event generation** - mob generation depends on random numbers.
+- ✅ **Data structures** - the game uses STL containers such as `std::vector`, `std::unordered_map`.
+- ✅ **Dynamic memory management** - certain objects are created on runtime using `new` and destructed using `delete`.
+- ✅ **File I/O** - the game supports loading a custom map from a file.
+- ✅ **Program codes in multiple files** - the project separates the components into multiple files and multiple namespaces.
+- ✅ **Multiple difficulty levels** - there are different difficulty levels to choose from.
