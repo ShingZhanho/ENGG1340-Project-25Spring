@@ -15,7 +15,10 @@
 #include <core/arena.hpp>
 
 // Declarations
+//  Checks if the terminal is large enough to run the game.
+//  Displays an error and exits with code 1 if the terminal is too small.
 void checkTerminalSize();
+//  Gets the chosen menu option from the user.
 void getMenuOption(int& option);
  
 int main(void) {
@@ -65,6 +68,12 @@ void checkTerminalSize() {// Check if the terminal is large enough
 void getMenuOption(int& option) {
     int selected = 0;
 
+    const std::vector<std::string> menuOptions = {
+        "Start Game",
+        "How to Play",
+        "About Us",
+        "Exit"
+    };
     const std::vector<std::string> descriptionStrings = {
         "Starts the game.",
         "Learn how to play the game.",
@@ -75,27 +84,21 @@ void getMenuOption(int& option) {
     for (size_t i = 0; i < descriptionStrings.size(); i++) {
         optionDescriptions[i] = descriptionStrings[i];
     }
-    
-    // the following code implements an animated coloured menu
-    // the code snippet is adapted from the author of the FTXUI library
-    // at https://arthursonzogni.github.io/FTXUI/examples_2component_2menu_entries_animated_8cpp-example.html
-    auto ColouredOption = [](ftxui::Color c) {
-        ftxui::MenuEntryOption option;
-        option.animated_colors.foreground.enabled = true;
-        option.animated_colors.background.enabled = true;
-        option.animated_colors.background.active = c;
-        option.animated_colors.background.inactive = ftxui::Color::Default;
-        option.animated_colors.foreground.active = ftxui::Color::Grey0;
-        option.animated_colors.foreground.inactive = c;
-        return option;
+    ftxui::MenuOption options = ftxui::MenuOption::Vertical();
+    options.entries_option.transform = [] (ftxui::EntryState entryState) {
+        entryState.label = (entryState.active ? " > " : " | ") + entryState.label;
+        ftxui::Element e = ftxui::text(entryState.label);
+        if (entryState.active) {
+            e |= ftxui::bold;
+            e |= ftxui::color(ftxui::Color::Black);
+            e |= (entryState.index == 3) ? ftxui::bgcolor(ftxui::Color::Red) : ftxui::bgcolor(ftxui::Color::Green1);
+        } 
+        if (entryState.focused) {
+            e |= (entryState.index == 3) ? ftxui::color(ftxui::Color::Red) : ftxui::color(ftxui::Color::Green1);
+        }
+        return e;
     };
-
-    auto menu = ftxui::Container::Vertical({
-        ftxui::MenuEntry("1. Start Game", ColouredOption(ftxui::Color::Green1)),
-        ftxui::MenuEntry("2. How to Play", ColouredOption(ftxui::Color::Cyan)),
-        ftxui::MenuEntry("3. About Us", ColouredOption(ftxui::Color::Blue1)),
-        ftxui::MenuEntry("4. Exit", ColouredOption(ftxui::Color::Red)),
-    }, &selected);
+    auto menu = ftxui::Menu(menuOptions, &selected, options);
 
     auto renderer = ftxui::Renderer(menu, [&] {
         return ftxui::vbox({
@@ -156,7 +159,9 @@ void getMenuOption(int& option) {
             return true;
         }
         return false;
-    });
+    })  | ftxui::size(ftxui::WIDTH, ftxui::EQUAL, ui::MIN_TERMINAL_WIDTH) 
+        | ftxui::size(ftxui::HEIGHT, ftxui::EQUAL, ui::MIN_TERMINAL_HEIGHT)
+        | ftxui::center;
 
     ui::appScreen.Loop(renderer);
 
