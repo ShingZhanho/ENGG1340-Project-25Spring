@@ -15,11 +15,18 @@
 #include <core/arena.hpp>
 
 // Declarations
+// -- Main Menu Functions -------------------------------------------------------
+
 //  Checks if the terminal is large enough to run the game.
 //  Displays an error and exits with code 1 if the terminal is too small.
 void checkTerminalSize();
 //  Gets the chosen menu option from the user.
 void getMenuOption(int& option);
+
+// -- Game Difficulty Menu Functions -------------------------------------------------------
+
+//  Main loop for handling the game difficulty menu UI.
+void difficultyMenu();
  
 int main(void) {
     // Check if the terminal is large enough
@@ -28,9 +35,20 @@ int main(void) {
     int menuOption = 0;
     while (menuOption != 3) { // 3 = "Exit"
         getMenuOption(menuOption);
+        switch (menuOption) {
+            case 0: // Start Game
+                difficultyMenu();
+                break;
+            case 1: // How to Play
+                // TODO:
+                break;
+            case 2: // About us
+                // TODO:
+                break;
+            default:
+                break;
+        }
     }
-
-    std::cout << "User selected option: " << menuOption << std::endl;
 
     return 0;
 }
@@ -65,6 +83,8 @@ void checkTerminalSize() {// Check if the terminal is large enough
     
 }
 
+//  -- Main Menu Functions -------------------------------------------------------
+
 void getMenuOption(int& option) {
     int selected = 0;
 
@@ -75,10 +95,10 @@ void getMenuOption(int& option) {
         "Exit"
     };
     const std::vector<std::string> descriptionStrings = {
-        "Starts the game.",
-        "Learn how to play the game.",
-        "See information about the game and the developers.",
-        "Exit the game."
+        " Starts the game.",
+        " Learn how to play the game.",
+        " See information about the game and the developers.",
+        " Exit the game."
     };
     std::unordered_map<int, std::string> optionDescriptions = {};
     for (size_t i = 0; i < descriptionStrings.size(); i++) {
@@ -146,7 +166,7 @@ void getMenuOption(int& option) {
 
             // -- Menu Description --
             ftxui::vbox({
-                ftxui::text("DESCRIPTION:") | ftxui::bold,
+                ftxui::text(" DESCRIPTION:") | ftxui::bold,
                 ftxui::hbox({
                     ftxui::text(optionDescriptions.at(selected)),
                     ftxui::text("  (Press Enter to continue.)"),
@@ -166,4 +186,57 @@ void getMenuOption(int& option) {
     ui::appScreen.Loop(renderer);
 
     option = selected;
+}
+
+//  -- Game Difficulty Menu Functions -------------------------------------------------------
+
+void difficultyMenu() {
+    // -- Game Difficulty Menu (Radio Buttons)
+    int selectedDifficulty = 0;
+    bool loadCustomGame = false;
+    auto radioOption = ftxui::RadioboxOption();
+    radioOption.on_change = [&] { loadCustomGame = (selectedDifficulty == 3); };
+    radioOption.transform = [&] (ftxui::EntryState state) {
+        state.label = (state.state ? " [*] " : " [ ] ") + state.label;
+        ftxui::Element e = ftxui::text(state.label);
+        ftxui::Color activeFgcolour;
+        switch (state.index) {
+            case 0: activeFgcolour = ftxui::Color::Green1; break; // Easy
+            case 1: activeFgcolour = ftxui::Color::Yellow1; break; // Medium
+            case 2: activeFgcolour = ftxui::Color::Red; break; // Hard
+            case 3: activeFgcolour = ftxui::Color::Orange1; break; // Custom
+        }
+        if (state.state) e = e | ftxui::bold | ftxui::color(activeFgcolour);
+        if (state.focused) e = e | ftxui::color(activeFgcolour);
+        return e;
+    };
+    const std::vector<std::string> difficultyOptions = {
+        "Easy",
+        "Medium",
+        "Hard",
+        "Load a custom game"
+    };
+    auto difficultyRadioButtons = ftxui::Radiobox(&difficultyOptions, &selectedDifficulty, radioOption);
+
+    // -- Custom Game Options
+    // placeholder
+    auto customGameOptionsMenu = ftxui::Container::Horizontal({});
+    auto placeholder = ftxui::Renderer(customGameOptionsMenu, [&] {return ftxui::text("Selected: custom game");});
+
+    // -- Wrapper Box
+    auto layout = ftxui::Container::Vertical({
+        ftxui::Renderer([] {
+            return ftxui::vbox({
+                ftxui::text("Select a difficulty level:") | ftxui::center | ftxui::bold,
+                ftxui::separator(),
+            });
+        }),
+        difficultyRadioButtons | ftxui::borderDouble,
+        placeholder | ftxui::Maybe(&loadCustomGame)
+    })  | ftxui::size(ftxui::WIDTH, ftxui::EQUAL, ui::MIN_TERMINAL_WIDTH) 
+        | ftxui::size(ftxui::HEIGHT, ftxui::EQUAL, ui::MIN_TERMINAL_HEIGHT)
+        | ftxui::center;
+
+    // Render the menu
+    ui::appScreen.Loop(layout);
 }
