@@ -2,6 +2,14 @@
 
 namespace core {
 
+    enum class GameDifficulty {
+        EASY,
+        MEDIUM,
+        HARD,
+        // The map is loaded from a user-defined file, with user-defined settings.
+        CUSTOM_MAP
+    };
+
     Game::Game() {
 
     }

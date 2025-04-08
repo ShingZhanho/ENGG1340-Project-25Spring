@@ -10,6 +10,8 @@ namespace core {
     class Arena;
     class EventHandler;
 
+    enum class GameDifficulty;
+
     //  The main object representing the whole round.
     class Game {
         public:
