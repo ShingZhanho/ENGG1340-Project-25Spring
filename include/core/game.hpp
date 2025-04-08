@@ -26,7 +26,10 @@ namespace core {
             void ChangeScore(int delta);
             int GetScore() const;
             
+            //  Initialise a new arena with default settings.
             void InitialiseArena();
+            //  Provides a custom arena to the game. This will disable InitialiseArena().
+            void SetArena(Arena* arena);
             Arena* GetArena() const;
 
         private:

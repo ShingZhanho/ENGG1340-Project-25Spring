@@ -46,6 +46,13 @@ namespace core {
         }
     }
 
+    void Game::SetArena(Arena* arena) {
+        if (!arenaInitialised) { //  Only set the arena if it is not already set.
+            this->arena = arena;
+            arenaInitialised = true;
+        }
+    }
+
     Arena* Game::GetArena() const {
         if (!arenaInitialised) return nullptr;
         return arena;
