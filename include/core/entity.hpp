@@ -139,7 +139,7 @@ namespace core {
 
         private:
             //  The health points of the player.
-            int hp;
+            int hp == 100;
     };
 
     class Zombie : public AbstractMob {
