@@ -51,20 +51,20 @@ namespace core {
 
     namespace DefaultGameOptions {
 
-        const GameOptions EASY = GameOptions{
-            .PlayerHp = 100,
-            .GameArena = nullptr
-        };
+        const GameOptions EASY = GameOptions({
+            100,        //  PlayerHp
+            nullptr     //  GameArena
+        });
 
-        const GameOptions MEDIUM = GameOptions{
-            .PlayerHp = 100,
-            .GameArena = nullptr
-        };
+        const GameOptions MEDIUM = GameOptions({
+            100,        //  PlayerHp
+            nullptr     //  GameArena
+        });
 
-        const GameOptions HARD = GameOptions{
-            .PlayerHp = 100,
-            .GameArena = nullptr
-        };
+        const GameOptions HARD = GameOptions({
+            100,        //  PlayerHp
+            nullptr     //  GameArena
+        });
 
     } // namespace GameOptions
 
