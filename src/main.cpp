@@ -27,6 +27,10 @@ void getMenuOption(int& option);
 
 //  Main loop for handling the game difficulty menu UI.
 void difficultyMenu();
+// Wraps a component with a field name and a separator.
+// Takes a field name and a component to be wrapped, returns the wrapped component.
+// The field name must be less than or equal to 15 characters, otherwise it is truncated and "..." is added.
+ftxui::Component wrapComponent(std::string fieldName, ftxui::Component component);
  
 int main(void) {
     // Check if the terminal is large enough
@@ -235,9 +239,35 @@ void difficultyMenu() {
     auto startButton = ftxui::Button(" Start Game > ", [] {}); // TODO: Implement start game function
 
     // -- Custom Game Options
-    // placeholder
-    auto customGameOptionsMenu = ftxui::Container::Horizontal({});
-    auto placeholder = ftxui::Renderer(customGameOptionsMenu, [&] {return ftxui::text("Selected: custom game");});
+    //    -- Path to custom game file (input)
+    std::string options_gameMapFile = "";
+    auto gameMapFileInput = ftxui::Input(&options_gameMapFile, "/enter/path/to/custom/game/file/here");
+    auto gameMapFileInputComponent = wrapComponent("Game Map File", gameMapFileInput);
+
+    //    -- Player HP (slider, 10 - 100)
+    int options_playerHP = 50;
+    auto playerHPSlider = ftxui::Slider("", &options_playerHP, 10, 100, 1);
+    auto playerHPSliderComponent = wrapComponent("Player HP", ftxui::Renderer(playerHPSlider, [&] {
+        return ftxui::hbox({
+            playerHPSlider->Render() | ftxui::flex_grow,
+            ftxui::text((options_playerHP == 100 ? " " : "  ") + std::to_string(options_playerHP) + " / 100 ") |  ftxui::flex_shrink 
+        }) | ftxui::flex_grow;
+    }));
+
+    // -- Container for all options
+    auto customGameOptionsContainer = ftxui::Container::Vertical({
+        gameMapFileInputComponent,
+        playerHPSliderComponent
+    });
+    auto customGameOptionsRenderer = ftxui::Renderer(customGameOptionsContainer, [&] {
+        return ftxui::vbox({
+            ftxui::text("Customise your game:") | ftxui::bold,
+            ftxui::separator(),
+            gameMapFileInputComponent->Render(),
+            ftxui::separator(),
+            playerHPSliderComponent->Render()
+        });
+    }) | ftxui::border;
 
     // -- Wrapper Box
     auto layout = ftxui::Container::Vertical({
@@ -248,7 +278,7 @@ void difficultyMenu() {
             });
         }),
         difficultyRadioButtons | ftxui::borderDouble,
-        placeholder | ftxui::Maybe(&loadCustomGame),
+        customGameOptionsRenderer | ftxui::Maybe(&loadCustomGame),
         ftxui::Renderer([] {return ftxui::filler();}),
         ftxui::Container::Horizontal({
             backButton, startButton
@@ -259,4 +289,19 @@ void difficultyMenu() {
 
     // Render the menu
     ui::appScreen.Loop(layout);
+}
+
+ftxui::Component wrapComponent(std::string fieldName, ftxui::Component component) {
+    // field name must be less than or equal to 15 characters, otherwise truncate and add ...
+    if (fieldName.length() > 15) fieldName = fieldName.substr(0, 12) + "...";
+    // adds the field name to the left of the component
+    return ftxui::Renderer(component, [fieldName, component] {
+        return ftxui::hbox({
+            ftxui::text(fieldName) | ftxui::size(ftxui::WIDTH, ftxui::EQUAL, 15) | ftxui::bold,
+            ftxui::separator(),
+            ftxui::text(" "),
+            component->Render(),
+            ftxui::text(" ")
+        });
+    });
 }
