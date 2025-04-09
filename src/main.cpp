@@ -218,6 +218,12 @@ void difficultyMenu() {
     };
     auto difficultyRadioButtons = ftxui::Radiobox(&difficultyOptions, &selectedDifficulty, radioOption);
 
+    // -- Back button
+    auto backButton = ftxui::Button(" < Back to Menu ", ui::appScreen.ExitLoopClosure());
+
+    // -- Start button
+    auto startButton = ftxui::Button(" Start Game > ", [] {}); // TODO: Implement start game function
+
     // -- Custom Game Options
     // placeholder
     auto customGameOptionsMenu = ftxui::Container::Horizontal({});
@@ -232,7 +238,11 @@ void difficultyMenu() {
             });
         }),
         difficultyRadioButtons | ftxui::borderDouble,
-        placeholder | ftxui::Maybe(&loadCustomGame)
+        placeholder | ftxui::Maybe(&loadCustomGame),
+        ftxui::Renderer([] {return ftxui::filler();}),
+        ftxui::Container::Horizontal({
+            backButton, startButton
+        }) | ftxui::center
     })  | ftxui::size(ftxui::WIDTH, ftxui::EQUAL, ui::MIN_TERMINAL_WIDTH) 
         | ftxui::size(ftxui::HEIGHT, ftxui::EQUAL, ui::MIN_TERMINAL_HEIGHT)
         | ftxui::center;
