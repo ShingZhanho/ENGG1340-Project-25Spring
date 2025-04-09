@@ -87,6 +87,7 @@ void checkTerminalSize() {// Check if the terminal is large enough
 
 void getMenuOption(int& option) {
     int selected = 0;
+    int prevSelected = 0; // for implementing mouse double click
 
     const std::vector<std::string> menuOptions = {
         "Start Game",
@@ -147,7 +148,7 @@ void getMenuOption(int& option) {
             ftxui::vbox({
                 ftxui::hbox({
                     ftxui::filler() | ftxui::flex_grow,
-                    ftxui::text("Please select an option, and press Enter:\n") | ftxui::hcenter | ftxui::underlined,
+                    ftxui::text("Select an option and press Enter, or double click an option:\n") | ftxui::hcenter | ftxui::underlined,
                     ftxui::filler() | ftxui::flex_grow
                 }),
                 ftxui::hbox({
@@ -177,6 +178,15 @@ void getMenuOption(int& option) {
         if (event == ftxui::Event::Return) {
             ui::appScreen.ExitLoopClosure()();
             return true;
+        }
+        if (event.is_mouse()
+            && event.mouse().button == ftxui::Mouse::Left
+            && event.mouse().motion == ftxui::Mouse::Released) {
+            if (selected == prevSelected) {
+                ui::appScreen.ExitLoopClosure()();
+                return true;
+            }
+            prevSelected = selected;
         }
         return false;
     })  | ftxui::size(ftxui::WIDTH, ftxui::EQUAL, ui::MIN_TERMINAL_WIDTH) 
