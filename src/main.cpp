@@ -65,7 +65,7 @@ void checkTerminalSize() {// Check if the terminal is large enough
             ftxui::vbox({
                 ftxui::text("ERROR") | ftxui::bold | ftxui::blink | ftxui::color(ftxui::Color::Red),
                 ftxui::text("X") | ftxui::bold | ftxui::blink | ftxui::color(ftxui::Color::Red) | ftxui::hcenter,
-            }),
+            }) | ftxui::size(ftxui::WIDTH, ftxui::EQUAL, 5),
             ftxui::separator(),
             ftxui::vbox({
                 ftxui::text(
@@ -73,7 +73,7 @@ void checkTerminalSize() {// Check if the terminal is large enough
                     + std::to_string(ui::MIN_TERMINAL_WIDTH) + " x "
                     + std::to_string(ui::MIN_TERMINAL_HEIGHT) + "."
                 ),
-                ftxui::text("Please try resizing your terminal window, and then run the program again."),
+                ftxui::paragraphAlignLeft("Please try resizing your terminal window, and then run the program again."),
             })
     }) | ftxui::borderRounded;
     auto screen = ftxui::Screen::Create(
@@ -242,7 +242,12 @@ void difficultyMenu() {
     //    -- Path to custom game file (input)
     std::string options_gameMapFile = "";
     auto gameMapFileInput = ftxui::Input(&options_gameMapFile, "/enter/path/to/custom/game/file/here");
-    auto gameMapFileInputComponent = wrapComponent("Game Map File", gameMapFileInput);
+    auto gameMapFileInputComponent = wrapComponent("Game Map File", ftxui::Renderer(gameMapFileInput, [&] {
+        return ftxui::vbox({
+            gameMapFileInput->Render() | ftxui::flex_grow,
+            ftxui::paragraphAlignLeft("Please refer to the README.md file for the correct format and syntax of the custom game file.") | ftxui::dim
+        }) | ftxui::flex_grow;
+    }));
 
     //    -- Player HP (slider, 10 - 100)
     int options_playerHP = 50;
