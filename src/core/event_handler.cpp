@@ -67,6 +67,17 @@ namespace core {
 
     PlayerMoveEventHandler::PlayerMoveEventHandler(Game* game) : EventHandler(game) {}
 
+    void PlayerMoveEventHandler::Fire() {
+        // your code here ...
+        //  TODO: implement this function BEFORE this line, remove this comment when you're done
+        EventHandler::Fire();
+    }
+
+    void PlayerMoveEventHandler::SetDirection(Direction direction) {
+        //  TODO: impolement this function AFTER this line, remove this comment when you're done
+        // your code here ...
+    }
+
     void PlayerMoveEventHandler::execute(Direction direction){
         //  Get player entity
         auto player = dynamic_cast<Player*>(GetGame()->GetArena()->GetPixelById(0));
