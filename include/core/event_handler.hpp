@@ -79,7 +79,7 @@ namespace core {
             //  Executed when the event is fired.
             void execute(Direction direction);
             //  Indicates the direction of the player.
-            Direction movementDirection = Direction::UP;;
+            Direction movementDirection = Direction::UP;
     };
 
     //  The tick event. Called every tick.
