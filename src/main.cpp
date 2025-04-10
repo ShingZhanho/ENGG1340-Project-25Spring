@@ -1,6 +1,7 @@
 // Standard Libraries
 #include <iostream>
 #include <map>
+#include <unordered_map>
 #include <vector>
 #include <string>
 
@@ -13,6 +14,7 @@
 // Core Components
 #include <ui/common.hpp>
 #include <core/arena.hpp>
+#include <core/entity_type.hpp>
 
 // Declarations
 // -- Main Menu Functions -------------------------------------------------------
@@ -232,12 +234,6 @@ void difficultyMenu() {
     };
     auto difficultyRadioButtons = ftxui::Radiobox(&difficultyOptions, &selectedDifficulty, radioOption);
 
-    // -- Back button
-    auto backButton = ftxui::Button(" < Back to Menu ", ui::appScreen.ExitLoopClosure());
-
-    // -- Start button
-    auto startButton = ftxui::Button(" Start Game > ", [] {}); // TODO: Implement start game function
-
     // -- Custom Game Options
     //    -- Path to custom game file (input)
     std::string options_gameMapFile = "";
@@ -267,10 +263,47 @@ void difficultyMenu() {
         }) | ftxui::flex_grow;
     }));
 
+    //    -- Types of mob generated (checkboxes in frame)
+    std::map<core::EntityType, std::string> mobTypeNames = {
+        {core::EntityType::ZOMBIE, "Zombie"},
+    };
+    std::unordered_map<core::EntityType, std::string> mobTypeDescriptions = {
+        {core::EntityType::ZOMBIE, "Zombies: 5 HP, 1 damage."},
+    };
+    std::unordered_map<core::EntityType, bool*> mobFlags = {
+        {core::EntityType::ZOMBIE, new bool(true)},
+    };
+    auto mobCheckboxesContainer = ftxui::Container::Vertical({});
+    for (const auto& mobType : mobTypeNames) {
+        auto key = mobType.first;
+        auto checkboxOption = ftxui::CheckboxOption();
+        checkboxOption.transform = [&] (ftxui::EntryState state) {
+            return ftxui::hbox({
+                ftxui::text("["),
+                (state.state
+                    ? ftxui::text("O N") | ftxui::color(ftxui::Color::Green1) | ftxui::bold
+                    : ftxui::text("OFF") | ftxui::color(ftxui::Color::Red) | ftxui::bold)
+                        | (state.focused ? ftxui::inverted : ftxui::nothing),
+                ftxui::text("] "),
+                ftxui::text(state.label),
+                ftxui::text(" "),
+                state.focused
+                    ? ftxui::text(mobTypeDescriptions[key]) | ftxui::dim
+                    : ftxui::text(""),
+            });
+        };
+        auto checkbox = ftxui::Checkbox(mobTypeNames[key], mobFlags[key], checkboxOption);
+        mobCheckboxesContainer->Add(checkbox);
+    }
+    auto mobCheckboxesComponent = wrapComponent("Mob Types", ftxui::Renderer(mobCheckboxesContainer, [&] {
+        return mobCheckboxesContainer->Render() | ftxui::vscroll_indicator | ftxui::frame | ftxui::size(ftxui::HEIGHT, ftxui::LESS_THAN, 3) | ftxui::xflex_grow;
+    }));
+
     // -- Container for all options
     auto customGameOptionsContainer = ftxui::Container::Vertical({
         gameMapFileInputComponent,
-        playerHPSliderComponent
+        playerHPSliderComponent,
+        mobCheckboxesComponent
     });
     auto customGameOptionsRenderer = ftxui::Renderer(customGameOptionsContainer, [&] {
         return ftxui::vbox({
@@ -278,9 +311,24 @@ void difficultyMenu() {
             ftxui::separator(),
             gameMapFileInputComponent->Render(),
             ftxui::separator(),
-            playerHPSliderComponent->Render()
+            playerHPSliderComponent->Render(),
+            ftxui::separator(),
+            mobCheckboxesComponent->Render(),
         });
     }) | ftxui::border;
+
+    // -- Back button
+    auto backButton = ftxui::Button(" < Back to Menu ", [&] {
+        ui::appScreen.ExitLoopClosure()();
+
+        // Garbage collection
+        for (const auto& mobType : mobFlags) {
+            delete mobType.second;
+        }
+    });
+
+    // -- Start button
+    auto startButton = ftxui::Button(" Start Game > ", [] {}); // TODO: Implement start game function
 
     // -- Wrapper Box
     auto layout = ftxui::Container::Vertical({
