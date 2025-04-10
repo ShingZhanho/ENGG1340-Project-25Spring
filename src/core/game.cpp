@@ -2,9 +2,9 @@
 
 namespace core {
 
-    Game::Game() {
+    //  -- Game class ---------------------------------------------
 
-    }
+    Game::Game(GameOptions* options) : options(options) { }
 
     Game::~Game() {
         delete runEventHandler;
@@ -33,7 +33,7 @@ namespace core {
 
     void Game::InitialiseArena() {
         if (!arenaInitialised) {
-            arena = new Arena();
+            arena = GetOptions()->GameArena != nullptr ? GetOptions()->GameArena : new Arena();
             arenaInitialised = true;
         }
     }
@@ -43,4 +43,8 @@ namespace core {
         return arena;
     }
 
-}
+    GameOptions* Game::GetOptions() const {
+        return options;
+    }
+
+} // namespace core

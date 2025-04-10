@@ -6,7 +6,13 @@ namespace core {
     Arena::Arena() {
         for (int i = 0; i < ARENA_HEIGHT; i++) {
             for (int j = 0; j < ARENA_WIDTH; j++) {
-                pixel[i][j] = new Air({i, j}, this);
+                if (i == 0 || i == ARENA_HEIGHT - 1 || j == 0 || j == ARENA_WIDTH - 1) {
+                    // The outermost layer of the arena is always walls
+                    pixel[i][j] = new Wall({i, j}, this);
+                } else {
+                    // Initialize the inner pixels with air
+                    pixel[i][j] = new Air({i, j}, this);
+                }
             }
         }
     }
@@ -25,8 +31,21 @@ namespace core {
     }
 
     void Arena::SetPixel(Point p, Entity* entity) {
+        if (p.x == 0 || p.x == ARENA_WIDTH - 1 || p.y == 0 || p.y == ARENA_HEIGHT - 1) {
+            // Do not allow setting pixels on the outermost layer
+            return;
+        }
         delete pixel[p.y][p.x];
         pixel[p.y][p.x] = entity;
+    }
+
+    void Arena::SetPixelWithId(Point p, Entity* entity) {
+        //  TODO: implement this method
+        //  Steps:
+        //      1. Call SetPixel() with the given parameters.
+        //      2. In the object std::unordered_map<int, Entity*> entityIndex,
+        //          add the entity with the idIncr as the key and the entity pointer as the value.
+        //      3. Increment idIncr.
     }
 
     Entity* Arena::GetPixelById(int id) {

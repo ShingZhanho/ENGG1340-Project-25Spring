@@ -25,9 +25,12 @@ namespace core {
             Arena();
             ~Arena();
 
-            //  TODO: these two might be removed in the future.
             Entity* GetPixel(Point p);
             void SetPixel(Point p, Entity* entity);
+            //  Sets the pixel at (x, y) to the given entity and assigns it an ID.
+            //  This method should ONLY be used for non-block entities.
+            //  The ID is assigned automatically in this class.
+            void SetPixelWithId(Point p, Entity* entity);
             Entity* GetPixelById(int id);
 
             Game* GetGame();

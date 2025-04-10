@@ -2,6 +2,7 @@
 #define CORE_ENTITY_HPP
 
 #include <core/arena.hpp>
+#include <core/entity_type.hpp>
 #include <ui/render_option.hpp>
 
 namespace core {
@@ -21,6 +22,7 @@ namespace core {
         int x;
         int y;
     } Point;
+    typedef EntityType EntityType;
 
     class EntityRenderOptions {
         public:
@@ -44,13 +46,6 @@ namespace core {
             virtual bool Move(Point to) = 0;
 
         protected:
-            //  Used internally for checking the type of entity.
-            //  Update this enum when adding new entity types.
-            enum class EntityType {
-                ABSTRACT_BLOCK, ABSTRACT_MOB, PLAYER_BULLET,
-                WALL, AIR, PLAYER, ZOMBIE
-            };
-
             //  Returns true if the entity is of the given type.
             //  This is a wrapper for dynamic_cast.
             static bool IsType(Entity* entity, EntityType type);
@@ -132,7 +127,7 @@ namespace core {
 
     class Player : public Entity {
         public:
-            Player(Point position, Arena* arena, int hp);
+            Player(Point position, Arena* arena);
             
             void TakeDamage(int damage);
             bool Move(Point to) override;

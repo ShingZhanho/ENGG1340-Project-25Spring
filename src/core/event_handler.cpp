@@ -56,7 +56,7 @@ namespace core {
 
         //  Create player
         //  NOTE: The player MUST be the first non-block entity to have the ID 0.
-        game->GetArena()->Replace({15, 50}, new Player({15, 50}, game->GetArena(), 5));
+        game->GetArena()->Replace({15, 50}, new Player({15, 50}, game->GetArena()));
     }
 
     void InitialiseEventHandler::execute() {}
@@ -66,6 +66,17 @@ namespace core {
     //  BEGIN: PlayerMoveEventHandler
 
     PlayerMoveEventHandler::PlayerMoveEventHandler(Game* game) : EventHandler(game) {}
+
+    void PlayerMoveEventHandler::Fire() {
+        // your code here ...
+        //  TODO: implement this function BEFORE this line, remove this comment when you're done
+        EventHandler::Fire();
+    }
+
+    void PlayerMoveEventHandler::SetDirection(Direction direction) {
+        //  TODO: impolement this function AFTER this line, remove this comment when you're done
+        // your code here ...
+    }
 
     void PlayerMoveEventHandler::execute(Direction direction){
         //  Get player entity

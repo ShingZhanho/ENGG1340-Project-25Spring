@@ -70,10 +70,16 @@ namespace core {
         public:
             PlayerMoveEventHandler(Game* game);
             enum class Direction { UP, DOWN, LEFT, RIGHT };
+            //  Sets the direction of the player. Call this method before calling Fire().
+            //  The Fire() method will then use this direction to move the player.
+            void SetDirection(Direction direction);
+            void Fire() override;
 
         private:
             //  Executed when the event is fired.
             void execute(Direction direction);
+            //  Indicates the direction of the player.
+            Direction movementDirection = Direction::UP;
     };
 
     //  The tick event. Called every tick.

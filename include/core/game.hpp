@@ -1,20 +1,25 @@
 #ifndef CORE_GAME_HPP
 #define CORE_GAME_HPP
 
+#include <set>
+
 #include <core/arena.hpp>
+#include <core/entity.hpp>
 #include <core/event_handler.hpp>
+#include <core/game_options.hpp>
 
 namespace core {
 
     //  Forward declarations
     class Arena;
     class EventHandler;
+    struct GameOptions;
 
     //  The main object representing the whole round.
     class Game {
         public:
             //  Constructor
-            Game();
+            Game(GameOptions* options);
             //  Destructor
             ~Game();
 
@@ -24,8 +29,14 @@ namespace core {
             void ChangeScore(int delta);
             int GetScore() const;
             
+            //  Initialise the game arena. If the arena is provided in the GameOptions,
+            //  that arena is used instead. This function does nothing if the arena is
+            //  already initialised.
             void InitialiseArena();
+            //  Returns the arena of the game.
             Arena* GetArena() const;
+            //  Returns the game options.
+            GameOptions* GetOptions() const;
 
         private:
             //  The score. Initial score is 0.
@@ -35,8 +46,10 @@ namespace core {
             bool arenaInitialised = false;
             //  The root event.
             EventHandler* runEventHandler;
+            //  The game options.
+            GameOptions* options;
     };
 
-}
+} // namespace core
 
 #endif // CORE_ENTITY_HPP
