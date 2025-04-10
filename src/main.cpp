@@ -251,7 +251,15 @@ void difficultyMenu() {
 
     //    -- Player HP (slider, 10 - 100)
     int options_playerHP = 50;
-    auto playerHPSlider = ftxui::Slider("", &options_playerHP, 10, 100, 1);
+    auto sliderOption = ftxui::SliderOption<int>();
+    sliderOption.value = &options_playerHP;
+    sliderOption.min = 10;
+    sliderOption.max = 100;
+    sliderOption.increment = 1;
+    sliderOption.color_active = ftxui::Color::Green1;
+    sliderOption.color_inactive = ftxui::Color::White;
+    auto playerHPSlider = ftxui::Slider(sliderOption);
+
     auto playerHPSliderComponent = wrapComponent("Player HP", ftxui::Renderer(playerHPSlider, [&] {
         return ftxui::hbox({
             playerHPSlider->Render() | ftxui::flex_grow,
