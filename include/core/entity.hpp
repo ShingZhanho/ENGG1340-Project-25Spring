@@ -43,7 +43,6 @@ namespace core {
             void SetPosition(Point position);
             virtual bool Move(Point to) = 0;
 
-        protected:
             //  Used internally for checking the type of entity.
             //  Update this enum when adding new entity types.
             enum class EntityType {
@@ -51,6 +50,7 @@ namespace core {
                 WALL, AIR, PLAYER, ZOMBIE
             };
 
+        protected:
             //  Returns true if the entity is of the given type.
             //  This is a wrapper for dynamic_cast.
             static bool IsType(Entity* entity, EntityType type);

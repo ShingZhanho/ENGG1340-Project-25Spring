@@ -1,6 +1,8 @@
 #ifndef CORE_GAME_HPP
 #define CORE_GAME_HPP
 
+#include <set>
+
 #include <core/arena.hpp>
 #include <core/event_handler.hpp>
 
@@ -17,6 +19,9 @@ namespace core {
         //  The game arena. Built-in GameOptions should set this to nullptr.
         //  Only provide arena if loaded from a user-defined file.
         Arena* GameArena;
+        //  The types of mobs that will be spawned in the game.
+        //  Although the set uses the EntityType enum, it should only include types that are actually mobs.
+        std::set<core::Entity::EntityType> MobTypesGenerated;
     } GameOptions;
 
     //  The main object representing the whole round.

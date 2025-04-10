@@ -53,17 +53,20 @@ namespace core {
 
         const GameOptions EASY = GameOptions({
             100,        //  PlayerHp
-            nullptr     //  GameArena
+            nullptr,    //  GameArena
+            {Entity::EntityType::ZOMBIE} //  MobTypesGenerated
         });
 
         const GameOptions MEDIUM = GameOptions({
-            100,        //  PlayerHp
-            nullptr     //  GameArena
+            50,        //  PlayerHp
+            nullptr,   //  GameArena
+            {Entity::EntityType::ZOMBIE} //  MobTypesGenerated
         });
 
         const GameOptions HARD = GameOptions({
-            100,        //  PlayerHp
-            nullptr     //  GameArena
+            25,        //  PlayerHp
+            nullptr,   //  GameArena
+            {Entity::EntityType::ZOMBIE} //  MobTypesGenerated
         });
 
     } // namespace GameOptions
