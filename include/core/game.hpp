@@ -4,31 +4,22 @@
 #include <set>
 
 #include <core/arena.hpp>
+#include <core/entity.hpp>
 #include <core/event_handler.hpp>
+#include <core/game_options.hpp>
 
 namespace core {
 
     //  Forward declarations
     class Arena;
     class EventHandler;
-    
-    //  The options for the game.
-    typedef struct GameOptions {
-        //  The initial health of the player.
-        int PlayerHp;
-        //  The game arena. Built-in GameOptions should set this to nullptr.
-        //  Only provide arena if loaded from a user-defined file.
-        Arena* GameArena;
-        //  The types of mobs that will be spawned in the game.
-        //  Although the set uses the EntityType enum, it should only include types that are actually mobs.
-        std::set<core::Entity::EntityType> MobTypesGenerated;
-    } GameOptions;
+    struct GameOptions;
 
     //  The main object representing the whole round.
     class Game {
         public:
             //  Constructor
-            Game(GameOptions options);
+            Game(GameOptions* options);
             //  Destructor
             ~Game();
 
@@ -45,7 +36,7 @@ namespace core {
             //  Returns the arena of the game.
             Arena* GetArena() const;
             //  Returns the game options.
-            GameOptions GetOptions() const;
+            GameOptions* GetOptions() const;
 
         private:
             //  The score. Initial score is 0.
@@ -56,15 +47,8 @@ namespace core {
             //  The root event.
             EventHandler* runEventHandler;
             //  The game options.
-            GameOptions options;
+            GameOptions* options;
     };
-
-    //  Built-in GameOptions
-    namespace DefaultGameOptions {
-        extern const GameOptions EASY;
-        extern const GameOptions MEDIUM;
-        extern const GameOptions HARD;
-    } // namespace DefaultGameOptions
 
 } // namespace core
 

@@ -172,7 +172,7 @@ namespace core {
     Player::Player(Point position, Arena* arena) : Entity(position, arena) {
         Entity::renderOption = &EntityRenderOptions::PlayerRenderOption;
         // set hp to the initial value from GameOptions
-        hp = arena->GetGame()->GetOptions().PlayerHp;
+        hp = arena->GetGame()->GetOptions()->PlayerHp;
     }
 
     void Player::TakeDamage(int damage) {

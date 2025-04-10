@@ -4,7 +4,7 @@ namespace core {
 
     //  -- Game class ---------------------------------------------
 
-    Game::Game(GameOptions options) : options(options) { }
+    Game::Game(GameOptions* options) : options(options) { }
 
     Game::~Game() {
         delete runEventHandler;
@@ -33,7 +33,7 @@ namespace core {
 
     void Game::InitialiseArena() {
         if (!arenaInitialised) {
-            arena = GetOptions().GameArena != nullptr ? GetOptions().GameArena : new Arena();
+            arena = GetOptions()->GameArena != nullptr ? GetOptions()->GameArena : new Arena();
             arenaInitialised = true;
         }
     }
@@ -43,32 +43,8 @@ namespace core {
         return arena;
     }
 
-    GameOptions Game::GetOptions() const {
+    GameOptions* Game::GetOptions() const {
         return options;
     }
-
-    //  -- built-in GameOptions structs -----------------------------------
-
-    namespace DefaultGameOptions {
-
-        const GameOptions EASY = GameOptions({
-            100,        //  PlayerHp
-            nullptr,    //  GameArena
-            {Entity::EntityType::ZOMBIE} //  MobTypesGenerated
-        });
-
-        const GameOptions MEDIUM = GameOptions({
-            50,        //  PlayerHp
-            nullptr,   //  GameArena
-            {Entity::EntityType::ZOMBIE} //  MobTypesGenerated
-        });
-
-        const GameOptions HARD = GameOptions({
-            25,        //  PlayerHp
-            nullptr,   //  GameArena
-            {Entity::EntityType::ZOMBIE} //  MobTypesGenerated
-        });
-
-    } // namespace GameOptions
 
 } // namespace core

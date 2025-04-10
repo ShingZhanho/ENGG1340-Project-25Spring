@@ -25,7 +25,6 @@ namespace core {
             Arena();
             ~Arena();
 
-            //  TODO: these two might be removed in the future.
             Entity* GetPixel(Point p);
             void SetPixel(Point p, Entity* entity);
             //  Sets the pixel at (x, y) to the given entity and assigns it an ID.
