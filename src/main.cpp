@@ -3,7 +3,9 @@
 #include <map>
 #include <unordered_map>
 #include <vector>
+#include <set>
 #include <string>
+#include <fstream>
 
 // FTXUI
 #include <ftxui/screen/screen.hpp>
@@ -14,6 +16,7 @@
 // Core Components
 #include <ui/common.hpp>
 #include <core/arena.hpp>
+#include <core/arena_reader.hpp>
 #include <core/entity_type.hpp>
 
 // Declarations
@@ -33,6 +36,13 @@ void difficultyMenu();
 // Takes a field name and a component to be wrapped, returns the wrapped component.
 // The field name must be less than or equal to 15 characters, otherwise it is truncated and "..." is added.
 ftxui::Component wrapComponent(std::string fieldName, ftxui::Component component);
+
+// -- Custom Game Options Functions -------------------------------------------------------
+
+//  Gets the selected mob types from the custom game options.
+std::set<core::EntityType> getMobTypes(std::unordered_map<core::EntityType, bool*> mobFlags);
+//  Sets the error message and shows the error message.
+void setErrorMessage(std::string& errorMessage, std::string msg, bool& showError);
  
 int main(void) {
     // Check if the terminal is large enough
@@ -299,6 +309,19 @@ void difficultyMenu() {
         return mobCheckboxesContainer->Render() | ftxui::vscroll_indicator | ftxui::frame | ftxui::size(ftxui::HEIGHT, ftxui::LESS_THAN, 3) | ftxui::xflex_grow;
     }));
 
+    //    -- Error message about invalid options
+    bool showOptionError = false;
+    std::string optionErrorMsg = "";
+    auto errorMessageRenderer = ftxui::Renderer([&] {
+        return ftxui::vbox({
+            ftxui::text("Error occurred while seting up the game:") | ftxui::bold | ftxui::color(ftxui::Color::Red),
+            ftxui::hbox({
+                ftxui::filler() | ftxui::size(ftxui::WIDTH, ftxui::EQUAL, 4),
+                ftxui::text(optionErrorMsg) | ftxui::color(ftxui::Color::Red),
+            })
+        });
+    });
+
     // -- Container for all options
     auto customGameOptionsContainer = ftxui::Container::Vertical({
         gameMapFileInputComponent,
@@ -328,7 +351,45 @@ void difficultyMenu() {
     });
 
     // -- Start button
-    auto startButton = ftxui::Button(" Start Game > ", [] {}); // TODO: Implement start game function
+    auto startButton = ftxui::Button(" Start Game > ", [&] {
+        core::GameOptions gameOptions;
+        switch (selectedDifficulty) {
+            case 0: gameOptions = core::DefaultGameOptions::EASY; break;
+            case 1: gameOptions = core::DefaultGameOptions::MEDIUM; break;
+            case 2: gameOptions = core::DefaultGameOptions::HARD; break;
+            // case 3: CUSTOM
+        }
+
+        if (selectedDifficulty == 3) {
+            // ===== Here checks if the custom game file & options are valid =====
+            // e.g., At least one mob type must be selected, etc.
+
+            // check game map file
+            if (options_gameMapFile.empty()) {
+                setErrorMessage(optionErrorMsg, "Game file path cannot be empty.", showOptionError);
+                return;
+            }
+            std::ifstream fin(options_gameMapFile.c_str());
+            auto reader = core::ArenaReader(fin);
+            if (!reader.IsSuccess()) {
+                setErrorMessage(optionErrorMsg, reader.GetErrorMessage(), showOptionError);
+                return;
+            }
+            fin.close();
+
+            // check player HP (nothing to be checked)
+            gameOptions.PlayerHp = options_playerHP;
+
+            // check mob types
+            auto mobTypes = getMobTypes(mobFlags);
+            if (mobTypes.empty()) {
+                setErrorMessage(optionErrorMsg, "At least one type of mobs must be enabled.", showOptionError);
+                return;
+            }
+            gameOptions.MobTypesGenerated = mobTypes;
+        }
+
+    });
 
     // -- Wrapper Box
     auto layout = ftxui::Container::Vertical({
@@ -340,6 +401,7 @@ void difficultyMenu() {
         }),
         difficultyRadioButtons | ftxui::borderDouble,
         customGameOptionsRenderer | ftxui::Maybe(&loadCustomGame),
+        errorMessageRenderer | ftxui::Maybe(&showOptionError),
         ftxui::Renderer([] {return ftxui::filler();}),
         ftxui::Container::Horizontal({
             backButton, startButton
@@ -365,4 +427,21 @@ ftxui::Component wrapComponent(std::string fieldName, ftxui::Component component
             ftxui::text(" ")
         });
     });
+}
+
+//  -- Custom Game Options Functions -------------------------------------------------------
+
+std::set<core::EntityType> getMobTypes(std::unordered_map<core::EntityType, bool*> mobFlags) {
+    std::set<core::EntityType> mobTypes;
+    for (const auto& mobType : mobFlags) {
+        if (*mobType.second) {
+            mobTypes.insert(mobType.first);
+        }
+    }
+    return mobTypes;
+}
+
+void setErrorMessage(std::string& errorMessageRef, std::string msg, bool& showError) {
+    errorMessageRef = msg;
+    showError = true;
 }

@@ -8,6 +8,14 @@ namespace core {
         success = parseFile_();
     }
 
+    ArenaReader::~ArenaReader() {
+        // file stream is closed by the code that created it
+        if (GetArena() != nullptr) {
+            delete arena;
+            arena = nullptr;
+        }
+    }
+
     bool ArenaReader::parseFile_() {
         // TODO: implement the file parsing logic
         /*
@@ -21,15 +29,20 @@ namespace core {
                     ' ' = air; 'X' = wall; 'P' = starting poing of the player;
                 7. The file MUST not contain mobs or other entities, otherwise a fail should be returned.
         */
+        errmsg = "File parsing not implemented yet.";
         return false;
     }
 
     Arena* ArenaReader::GetArena() {
-        return success ? &arena : nullptr;
+        return success ? arena : nullptr;
     }
 
     std::string ArenaReader::GetErrorMessage() {
-        return errmsg;
+        return success ? "" : errmsg;
+    }
+
+    bool ArenaReader::IsSuccess() {
+        return success;
     }
 
 }
