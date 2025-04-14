@@ -154,9 +154,11 @@ namespace core {
 
     class MobGenerateEventHandler : public EventHandler {
     public:
-    MobGenerateEventHandler(Game* game) : EventHandler(game), 
-                                         lastSpawnTime(std::chrono::steady_clock::now()),
-                                         maxMobs(10) {}
+    MobGenerateEventHandler(Game* game): EventHandler(game),
+        
+    lastSpawnTime(std::chrono::steady_clock::now()),
+    maxMobs(10),
+    rng(std::random_device{})
 
     private:
     std::chrono::steady_clock::time_point lastSpawnTime;
