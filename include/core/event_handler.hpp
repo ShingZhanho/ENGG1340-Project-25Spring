@@ -1,6 +1,7 @@
 #ifndef CORE_EVENTHANDLER_HPP
 #define CORE_EVENTHANDLER_HPP
-
+#include "core/arena.hpp"
+#include <random>
 #include <vector>
 #include <chrono>
 #include <thread>
@@ -114,6 +115,18 @@ namespace core {
         private:
             //  Executed when the event is fired.
             void execute();
+            int countMobs();
+            void spawnMob();
+            const int maxMobs;
+    
+            // Valid spawn area boundaries (inside the walls)
+            const int minX = 2;
+            const int maxX = ARENA_WIDTH - 2;
+            const int minY = 3;
+            const int maxY = ARENA_HEIGHT - 2;
+    
+            // Random number generator
+            std::mt19937 rng;
     };
     
     //  Entity movement event handler

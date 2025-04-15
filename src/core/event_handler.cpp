@@ -1,6 +1,13 @@
 //  core components
 #include <core/event_handler.hpp>
 #include <core/entity.hpp>
+#include "core/eventhandler.hpp"
+#include "core/game.hpp"
+#include "core/arena.hpp"
+#include "core/entity.hpp"
+#include "core/mob.hpp" // Assuming there's a Mob class that inherits from Entity
+#include <random>
+#include <chrono>
 
 namespace core {
 
@@ -142,6 +149,99 @@ namespace core {
     
     void MobGenerateEventHandler::execute() {
         // Implement mob generation logic
+
+    namespace core {
+
+    class MobGenerateEventHandler : public EventHandler {
+    public:
+    MobGenerateEventHandler(Game* game): EventHandler(game),
+        
+    lastSpawnTime(std::chrono::steady_clock::now()),
+    maxMobs(10),
+    rng(std::random_device{})
+
+    private:
+    std::chrono::steady_clock::time_point lastSpawnTime;
+    const int maxMobs;
+    
+    // Valid spawn area boundaries (inside the walls)
+    const int minX = 2;
+    const int maxX = ARENA_WIDTH - 2;
+    const int minY = 3;
+    const int maxY = ARENA_HEIGHT - 2;
+    
+    // Random number generator
+    std::mt19937 rng{std::random_device{}()};
+    
+    void execute() override {
+        auto currentTime = std::chrono::steady_clock::now();
+        auto elapsedTime = std::chrono::duration_cast<std::chrono::seconds>(
+            currentTime - lastSpawnTime).count();
+        
+        // Check if 3 seconds have passed since last spawn
+        if (elapsedTime >= 3) {
+            // Count current mobs in the arena
+            int currentMobCount = countMobs();
+            
+            // If we have less than max mobs, spawn a new one
+            if (currentMobCount < maxMobs) {
+                spawnMob();
+                lastSpawnTime = currentTime;
+            }
+        }
+    }
+    
+    int countMobs() {
+        int count = 0;
+        Arena* arena = GetGame()->GetArena();
+        
+        // Iterate through the entity index to count mobs
+        for (const auto& pair : arena->entityIndex) {
+            if (dynamic_cast<Mob*>(pair.second) != nullptr) {
+                count++;
+            }
+        }
+        
+        return count;
+    }
+    
+    void spawnMob() {
+        Arena* arena = GetGame()->GetArena();
+        
+        // Find a valid spawn position (must be air)
+        Point spawnPos;
+        bool validPosition = false;
+        
+        // Distribution for random coordinates within valid area
+        std::uniform_int_distribution<int> xDist(minX, maxX);
+        std::uniform_int_distribution<int> yDist(minY, maxY);
+        
+        // Try up to 20 times to find a valid position
+        for (int attempts = 0; attempts < 20; attempts++) {
+            spawnPos.x = xDist(rng);
+            spawnPos.y = yDist(rng);
+            
+            Entity* currentEntity = arena->GetPixel(spawnPos);
+            // Check if position is empty (air)
+            if (dynamic_cast<Air*>(currentEntity) != nullptr) {
+                validPosition = true;
+                break;
+            }
+        }
+        
+        // If we found a valid position, spawn the mob
+        if (validPosition) {
+            Mob* newMob = new Mob(spawnPos, arena);
+            arena->SetPixelWithId(spawnPos, newMob);
+            
+            // Optional: Log the spawn
+            // std::cout << "Spawned mob at (" << spawnPos.x << ", " << spawnPos.y << ")" << std::endl;
+        }
+    }
+};
+
+} // namespace core
+
     }
     
     //  END: MobGenerateEventHandler
