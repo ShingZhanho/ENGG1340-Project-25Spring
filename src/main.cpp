@@ -19,6 +19,9 @@
 #include <core/arena_reader.hpp>
 #include <core/entity_type.hpp>
 
+// Misc headers
+#include "game_level_ui.hpp"
+
 // Declarations
 // -- Main Menu Functions -------------------------------------------------------
 
@@ -54,6 +57,9 @@ int main(void) {
         switch (menuOption) {
             case 0: // Start Game
                 difficultyMenu();
+                if (!gameLvl_gameOptionsConfigured) continue; //  If the game options are not configured, go back to the main menu.
+                // Start the main game loop
+                gameLvl_mainGameLoop();
                 break;
             case 1: // How to Play
                 // TODO:
@@ -297,8 +303,8 @@ void difficultyMenu() {
                 ftxui::text("] "),
                 ftxui::text(state.label),
                 ftxui::text(" "),
-                state.focused
-                    ? ftxui::text(mobTypeDescriptions[key]) | ftxui::dim
+                state.focused || state.state
+                    ? ftxui::text("[" + mobTypeDescriptions[key] + "]") | ftxui::dim
                     : ftxui::text(""),
             });
         };
@@ -352,12 +358,13 @@ void difficultyMenu() {
 
     // -- Start button
     auto startButton = ftxui::Button(" Start Game > ", [&] {
-        core::GameOptions gameOptions;
+        static std::unique_ptr<core::GameOptions> gameOptions = std::make_unique<core::GameOptions>();
         switch (selectedDifficulty) {
-            case 0: gameOptions = core::DefaultGameOptions::EASY; break;
-            case 1: gameOptions = core::DefaultGameOptions::MEDIUM; break;
-            case 2: gameOptions = core::DefaultGameOptions::HARD; break;
-            // case 3: CUSTOM
+            case 0: *gameOptions = core::DefaultGameOptions::EASY; break;
+            case 1: *gameOptions = core::DefaultGameOptions::MEDIUM; break;
+            case 2: *gameOptions = core::DefaultGameOptions::HARD; break;
+            // case 3: CUSTOM, handled below
+            default: break;
         }
 
         if (selectedDifficulty == 3) {
@@ -378,7 +385,7 @@ void difficultyMenu() {
             fin.close();
 
             // check player HP (nothing to be checked)
-            gameOptions.PlayerHp = options_playerHP;
+            gameOptions->PlayerHp = options_playerHP;
 
             // check mob types
             auto mobTypes = getMobTypes(mobFlags);
@@ -386,9 +393,19 @@ void difficultyMenu() {
                 setErrorMessage(optionErrorMsg, "At least one type of mobs must be enabled.", showOptionError);
                 return;
             }
-            gameOptions.MobTypesGenerated = mobTypes;
+            gameOptions->MobTypesGenerated = mobTypes;
         }
 
+        // Set the game options
+        gameLvl_gameOptions = gameOptions.get();
+
+        // garbage collection
+        for (const auto& mobType : mobFlags) {
+            delete mobType.second;
+        }
+
+        // Exit the menu and hand over to main menu for starting the game
+        ui::appScreen.ExitLoopClosure()();
     });
 
     // -- Wrapper Box
