@@ -12,11 +12,10 @@
 
 #include <core/game.hpp>
 
+#include <atomic>
+
 // The game options to be used in the game loop.
 static core::GameOptions* gameLvl_gameOptions;
-// To check if the game options have been properly configured.
-// Do not modify this variable outside this file.
-static bool gameLvl_gameOptionsConfigured = false;
 // To configure the game options.
 void gameLvl_configureGameOptions(core::GameOptions* options);
 // The main game loop.

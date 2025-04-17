@@ -59,9 +59,6 @@ int main(void) {
         switch (menuOption) {
             case 0: // Start Game
                 difficultyMenu();
-                if (!gameLvl_gameOptionsConfigured) continue; //  If the game options are not configured, go back to the main menu.
-                // Start the main game loop
-                gameLvl_mainGameLoop();
                 break;
             case 1: // How to Play
                 // TODO:
@@ -407,7 +404,8 @@ void difficultyMenu() {
         }
 
         // Set the game options
-        gameLvl_gameOptions = gameOptions.get();
+        gameLvl_configureGameOptions(gameOptions.get());
+        gameLvl_mainGameLoop();
 
         // garbage collection
         for (const auto& mobType : mobFlags) {

@@ -2,8 +2,8 @@
 #include <util/log.hpp>
 
 void gameLvl_configureGameOptions(core::GameOptions* options) {
+    util::WriteToLog("Configuring game options...", "gameLvl_configureGameOptions()");
     gameLvl_gameOptions = options;
-    gameLvl_gameOptionsConfigured = true;
 }
 
 void gameLvl_mainGameLoop() {
@@ -12,6 +12,5 @@ void gameLvl_mainGameLoop() {
     util::WriteToLog("Executing core::Game::Run()...", "gameLvl_mainGameLoop()");
     gameLvl_score = _game->Run();
     delete _game;
-    gameLvl_gameOptionsConfigured = false;
     gameLvl_gameOptions = nullptr;
 }
