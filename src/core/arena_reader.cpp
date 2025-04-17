@@ -1,5 +1,5 @@
 #include <fstream>
-
+#include <string>
 #include <core/arena_reader.hpp>
 
 namespace core {
@@ -16,7 +16,7 @@ namespace core {
         }
     }
 
-    bool ArenaReader::parseFile_() {
+    bool ArenaReader::parseFile_() : {
         // TODO: implement the file parsing logic
         /*
             Format & Syntax of the file:
@@ -29,11 +29,33 @@ namespace core {
                     ' ' = air; 'X' = wall; 'P' = starting poing of the player;
                 7. The file MUST not contain mobs or other entities, otherwise a fail should be returned.
         */
+        /* there are several parameters:
+        parse_success, which represents whether the file is valid and parsing can be done successfully.
+        custom_width and custom_height, which represents the width and height of the user_defined map.
+        The abovementioned two parameters need not be equal, larger, or smaller thatn ARENA_WIDth and ARENA_HEIGHT.
+        A comparison will be made to determine whether the user defined map is greater or smaller than the
+        predifined width and height.
+        arena =  new Arena() will be created and extra internal walls may be created
+        depending on whether the custom_width and custom_height is greater/smaller than
+        ARENA_WIDTH and ARENA_HEIGHT.
+        */
         bool parse_success = true;
-        bool no_other_entities  = true;
-        
-        errmsg = "File parsing not implemented yet.";
-        return false;
+        if (!file->is_open()) {
+            parse_success = false;
+        }
+        else {
+            int custom_width, custom_height;
+            std::string mob;
+            while (file >> mob) {
+                if (mob != " " && mob != "X" && mob != "P"){
+                    parse_success = false;
+                    break;
+                }
+            }
+            std::string line;
+            custom_width = (getline(file, line)).length();
+        }
+        return parse_success;
     }
 
     Arena* ArenaReader::GetArena() {
