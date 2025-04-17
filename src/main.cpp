@@ -21,6 +21,7 @@
 
 // Misc headers
 #include "game_level_ui.hpp"
+#include <util/log.hpp>
 
 // Declarations
 // -- Main Menu Functions -------------------------------------------------------
@@ -48,6 +49,7 @@ std::set<core::EntityType> getMobTypes(std::unordered_map<core::EntityType, bool
 void setErrorMessage(std::string& errorMessage, std::string msg, bool& showError);
  
 int main(void) {
+    util::WriteToLog("Process started.", "main()");
     // Check if the terminal is large enough
     checkTerminalSize();
 
@@ -76,8 +78,14 @@ int main(void) {
 }
 
 void checkTerminalSize() {// Check if the terminal is large enough
+    util::WriteToLog("Checking terminal size...");
+    util::WriteToLog("Required size: " + std::to_string(ui::MIN_TERMINAL_WIDTH) + " x " + std::to_string(ui::MIN_TERMINAL_HEIGHT) + ". Actual size: " + std::to_string(ui::ACTUAL_TERMINAL_WIDTH) + " x " + std::to_string(ui::ACTUAL_TERMINAL_HEIGHT) + ".");
+
     if (ui::ACTUAL_TERMINAL_WIDTH >= ui::MIN_TERMINAL_WIDTH 
-     && ui::ACTUAL_TERMINAL_HEIGHT >= ui::MIN_TERMINAL_HEIGHT) return;
+     && ui::ACTUAL_TERMINAL_HEIGHT >= ui::MIN_TERMINAL_HEIGHT) {
+        util::WriteToLog("Terminal size check passed.");
+        return;
+    }
 
     auto document = ftxui::hbox({
             ftxui::vbox({
@@ -100,9 +108,9 @@ void checkTerminalSize() {// Check if the terminal is large enough
     );
     ftxui::Render(screen, document);
     screen.Print();
+    util::WriteToLog("Terminal is too small to launch. Exiting...", "?", "FATAL");
 
     exit(1);
-    
 }
 
 //  -- Main Menu Functions -------------------------------------------------------
@@ -218,6 +226,7 @@ void getMenuOption(int& option) {
     ui::appScreen.Loop(renderer);
 
     option = selected;
+    util::WriteToLog("Menu option selected: " + std::to_string(option), "getMenuOption()");
 }
 
 //  -- Game Difficulty Menu Functions -------------------------------------------------------
@@ -366,6 +375,7 @@ void difficultyMenu() {
             // case 3: CUSTOM, handled below
             default: break;
         }
+        util::WriteToLog("Difficulty selected: " + std::to_string(selectedDifficulty), "difficultyMenu()");
 
         if (selectedDifficulty == 3) {
             // ===== Here checks if the custom game file & options are valid =====
