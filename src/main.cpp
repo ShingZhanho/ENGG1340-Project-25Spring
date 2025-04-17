@@ -366,9 +366,9 @@ void difficultyMenu() {
     auto startButton = ftxui::Button(" Start Game > ", [&] {
         static std::unique_ptr<core::GameOptions> gameOptions = std::make_unique<core::GameOptions>();
         switch (selectedDifficulty) {
-            case 0: *gameOptions = core::DefaultGameOptions::EASY; break;
-            case 1: *gameOptions = core::DefaultGameOptions::MEDIUM; break;
-            case 2: *gameOptions = core::DefaultGameOptions::HARD; break;
+            case 0: *gameOptions = core::DefaultGameOptions::EASY(); break;
+            case 1: *gameOptions = core::DefaultGameOptions::MEDIUM(); break;
+            case 2: *gameOptions = core::DefaultGameOptions::HARD(); break;
             // case 3: CUSTOM, handled below
             default: break;
         }

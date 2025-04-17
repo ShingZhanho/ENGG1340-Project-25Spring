@@ -24,9 +24,9 @@ namespace core {
 
     //  Built-in GameOptions
     namespace DefaultGameOptions {
-        extern const GameOptions EASY;
-        extern const GameOptions MEDIUM;
-        extern const GameOptions HARD;
+        GameOptions EASY();
+        GameOptions MEDIUM();
+        GameOptions HARD();
     } // namespace DefaultGameOptions
 
 } // namespace core
