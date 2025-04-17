@@ -1,7 +1,8 @@
 #ifndef CORE_EVENTHANDLER_HPP
 #define CORE_EVENTHANDLER_HPP
-#include "core/arena.hpp"
-#include <random>
+
+#include <core/arena.hpp>
+#include <core/game.hpp>
 #include <vector>
 #include <chrono>
 #include <thread>
@@ -9,7 +10,7 @@
 namespace core {
 
     //  Forward declarations
-    class Game; // TODO: Remove this line when Game is separated in its own file.
+    class Game;
     class EventHandler;
     class RunEventHandler;
     class InitialiseEventHandler;
@@ -119,14 +120,12 @@ namespace core {
             void spawnMob();
             const int maxMobs;
     
-            // Valid spawn area boundaries (inside the walls)
-            const int minX = 2;
-            const int maxX = ARENA_WIDTH - 2;
-            const int minY = 3;
-            const int maxY = ARENA_HEIGHT - 2;
-    
             // Random number generator
-            std::mt19937 rng;
+            // std::mt19937 rng;
+            // TODO: FIX: random number should be generated using the method taught in the course
+            // i.e. via rand() in <cstdlib> and srand() to seed the random number generator
+
+            std::chrono::steady_clock::time_point lastSpawnTime;
     };
     
     //  Entity movement event handler

@@ -44,11 +44,11 @@ namespace core {
             //  the movement of the entity.
             void SetPosition(Point position);
             virtual bool Move(Point to) = 0;
-
-        protected:
             //  Returns true if the entity is of the given type.
             //  This is a wrapper for dynamic_cast.
             static bool IsType(Entity* entity, EntityType type);
+
+        protected:
 
             //  A link to the arena.
             Arena* arena;

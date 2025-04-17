@@ -41,6 +41,7 @@ namespace core {
             void Remove(Point p);
             //  Moves the entity from one pixel to another.
             void Move(Point start, Point dest);
+            std::unordered_map<int, Entity*> entityIndex;
 
         private:
             //  A pixel is one single entity in the arena.
@@ -50,7 +51,6 @@ namespace core {
             //  Used for efficiently searching through non-block entities.
             //  The id is incremented for each non-block entity created.
             int idIncr = 0;
-            std::unordered_map<int, Entity*> entityIndex;
             Game* game;
     };
 
