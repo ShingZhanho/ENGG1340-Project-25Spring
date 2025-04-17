@@ -40,12 +40,9 @@ namespace core {
     }
 
     void Arena::SetPixelWithId(Point p, Entity* entity) {
-        //  TODO: implement this method
-        //  Steps:
-        //      1. Call SetPixel() with the given parameters.
-        //      2. In the object std::unordered_map<int, Entity*> entityIndex,
-        //          add the entity with the idIncr as the key and the entity pointer as the value.
-        //      3. Increment idIncr.
+        SetPixel(p, entity);
+        entityIndex[idIncr] = entity;
+        idIncr++;
     }
 
     Entity* Arena::GetPixelById(int id) {
