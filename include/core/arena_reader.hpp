@@ -12,16 +12,23 @@ namespace core {
         public:
             //  Constructor
             ArenaReader(std::ifstream& file);
+            //  Destructor
+            ~ArenaReader();
 
             //  Gets a pointer to the constructed arena object if successful.
             //  Otherwise, returns nullptr.
             Arena* GetArena();
 
+            //  Gets the error message if the read operation fails.
+            //  Returns an empty string if the read operation is successful.
             std::string GetErrorMessage();
+
+            //  Checks if the read operation was successful.
+            bool IsSuccess();
 
         private:
             //  The constructed arena object.
-            Arena arena;
+            Arena* arena;
             //  The file stream to read from.
             std::ifstream* file;
             //  The result of the read operation.
