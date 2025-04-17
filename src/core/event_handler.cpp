@@ -60,9 +60,11 @@ namespace core {
         //  Setup arena layout (walls etc.)
         //  TODO: set layout according to level difficulty
 
-        //  Create player
+        //  Create player if it doesn't exist
         //  NOTE: The player MUST be the first non-block entity to have the ID 0.
+        if (game->GetArena()->GetPixelById(0) == nullptr){
         game->GetArena()->Replace({15, 50}, new Player({15, 50}, game->GetArena()));
+        }
     }
 
     void InitialiseEventHandler::execute() {}
