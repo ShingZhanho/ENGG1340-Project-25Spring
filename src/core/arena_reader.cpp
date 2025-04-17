@@ -1,6 +1,6 @@
 #include <fstream>
 #include <string>
-#include <strstream>
+#include <sstream>
 
 #include <core/arena.hpp>
 #include <core/arena_reader.hpp>
