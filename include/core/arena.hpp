@@ -37,6 +37,8 @@ namespace core {
 
             //  Replaces the pixel at (x, y) with the given entity.
             void Replace(Point p, Entity* entity);
+            //  Replaces the pixel at (x, y) with ID and update the map.
+            void ReplaceWithId(int id, Entity* entity);
             //  Removes the pixel at (x, y) and replaces it with air.
             void Remove(Point p);
             //  Moves the entity from one pixel to another.

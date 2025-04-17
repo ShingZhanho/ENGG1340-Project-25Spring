@@ -1,6 +1,7 @@
 #ifndef CORE_GAME_HPP
 #define CORE_GAME_HPP
 
+#include <atomic>
 #include <set>
 
 #include <core/arena.hpp>
@@ -25,6 +26,10 @@ namespace core {
 
             //  The entry point of the game. Returns the final score.
             int Run();
+            //  Terminates the game.
+            void Terminate();
+            //  Returns true if the game is running.
+            bool IsRunning() const;
 
             void ChangeScore(int delta);
             int GetScore() const;
@@ -48,6 +53,8 @@ namespace core {
             EventHandler* runEventHandler;
             //  The game options.
             GameOptions* options;
+            //  The flag indicating whether the game is running.
+            std::atomic<bool> running = false;
     };
 
 } // namespace core

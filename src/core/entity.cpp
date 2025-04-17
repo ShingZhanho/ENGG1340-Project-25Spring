@@ -1,5 +1,6 @@
 #include <core/entity.hpp>
 #include <ftxui/screen/color.hpp>
+#include <util/log.hpp>
 
 namespace core {
 
@@ -173,10 +174,8 @@ namespace core {
 
     //  BEGIN: Player
 
-    Player::Player(Point position, Arena* arena) : Entity(position, arena) {
+    Player::Player(Point position, Arena* arena, int initialHp) : Entity(position, arena), hp(initialHp) {
         Entity::renderOption = &EntityRenderOptions::PlayerRenderOption;
-        // set hp to the initial value from GameOptions
-        hp = arena->GetGame()->GetOptions()->PlayerHp;
     }
 
     void Player::TakeDamage(int damage) {

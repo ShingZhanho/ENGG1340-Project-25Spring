@@ -50,6 +50,7 @@ namespace core {
         public:
             //  Constructor.
             RunEventHandler(Game* game);
+            void Fire() override;
 
         private:
             InitialiseEventHandler* initialiseEventHandler;
@@ -62,6 +63,7 @@ namespace core {
         public:
             //  Constructor
             InitialiseEventHandler(Game* game);
+            void Fire() override;
 
         private:
             //  Executed when the event is fired.
@@ -90,6 +92,7 @@ namespace core {
         public:
             //  Constructor
             TickEventHandler(Game* game);
+            void Fire() override;
 
         private:
             //  Executed when the event is fired.
@@ -101,6 +104,7 @@ namespace core {
         public:
             //  Constructor
             PlayerShootEventHandler(Game* game);
+            void Fire() override;
 
         private:
             //  Executed when the event is fired.
@@ -112,7 +116,8 @@ namespace core {
         public:
             //  Constructor
             MobGenerateEventHandler(Game* game);
-
+            void Fire() override;
+            
         private:
             //  Executed when the event is fired.
             void execute();
@@ -133,6 +138,7 @@ namespace core {
         public:
             //  Constructor
             EntityMoveEventHandler(Game* game);
+            void Fire() override;
 
         private:
             //  Executed when the event is fired.
@@ -144,6 +150,7 @@ namespace core {
         public:
             //  Constructor
             ScreenRefreshEventHandler(Game* game);
+            void Fire() override;
 
         private:
             //  Executed when the event is fired.

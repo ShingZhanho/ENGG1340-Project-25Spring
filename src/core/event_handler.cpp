@@ -9,11 +9,16 @@
 
 // ui components
 #include <ui/common.hpp>
+#include <ui/game_ui_renderer.hpp>
 #include <ui/render_option.hpp>
+
+// util components
+#include <util/log.hpp>
 
 // standard library
 #include <random>
 #include <chrono>
+#include <thread>
 
 namespace core {
 
@@ -30,8 +35,11 @@ namespace core {
     }
 
     void EventHandler::Fire() {
+        util::WriteToLog("Event triggered", "EventHandler::Fire()");
         execute();
-        for (auto subevent : subevents) subevent->Fire();
+        for (auto it = subevents.begin(); it != subevents.end(); ++it) {
+            (*it)->Fire();
+        }
     }
 
     void EventHandler::execute() { }
@@ -41,21 +49,37 @@ namespace core {
     //  BEGIN: RunEventHandler
 
     RunEventHandler::RunEventHandler(Game* game) : EventHandler(game) {
+        util::WriteToLog("Constructing child InitialiseEventHandler and TickEventHandler", "RunEventHandler::RunEventHandler()");
         initialiseEventHandler = new InitialiseEventHandler(game);
         tickEventHandler = new TickEventHandler(game);
+    }
+
+    void RunEventHandler::Fire() {
+        util::WriteToLog("RunEvent triggered", "RunEventHandler::Fire()");
+        execute();
+        EventHandler::Fire();
     }
 
     void RunEventHandler::execute() {
         //  Initialize the game.
         initialiseEventHandler->Fire();
-        //  Run the game.
-        //  The game will end with throw endType so there is no need of condition testing.
-        while (true) {
-            auto now = std::chrono::system_clock::now();
-            tickEventHandler->Fire();
-            //  Time interval between ticks.
-            std::this_thread::sleep_until(now + std::chrono::milliseconds(20));
-        }
+        util::WriteToLog("InitialiseEventHandler fire completed.", "RunEventHandler::execute()");
+
+        //  Run the game UI renderer.
+        ui::GameUIRenderer renderer(GetGame());
+        renderer.StartRenderLoop();
+
+        //  Run the tick event handler in a separate thread.
+        std::thread tickThread([&] {
+            //  The game will end with throw endType so there is no need of condition testing.
+            while (GetGame()->IsRunning()) {
+                using namespace std::chrono_literals;
+                tickEventHandler->Fire();
+                std::this_thread::sleep_for(20ms);
+            }
+        });
+        
+        //tickThread.join();
     }
 
     //  END: RunEventHandler
@@ -63,15 +87,29 @@ namespace core {
     //  BEGIN: InitialiseEventHandler
 
     InitialiseEventHandler::InitialiseEventHandler(Game* game) : EventHandler(game) {
+        util::WriteToLog("Initialising Game Arena...", "InitialiseEventHandler::InitialiseEventHandler()");
         game->InitialiseArena();
         //  Setup arena layout (walls etc.)
         //  TODO: set layout according to level difficulty
 
         //  Create player if it doesn't exist
         //  NOTE: The player MUST be the first non-block entity to have the ID 0.
-        if (game->GetArena()->GetPixelById(0) == nullptr){
-            game->GetArena()->Replace({15, 50}, new Player({15, 50}, game->GetArena()));
+        util::WriteToLog("Checking player ID...", "InitialiseEventHandler::InitialiseEventHandler()");
+        if (game->GetArena()->GetPixelById(0) == nullptr) {
+            util::WriteToLog("Entity with ID 0 not found. Creating player...", "InitialiseEventHandler::InitialiseEventHandler()");
+            game->GetArena()->SetPixelWithId({15, 50}, new Player({15, 50}, game->GetArena(), game->GetOptions()->PlayerHp));
+        } else {
+            // set player HP by reconstructing the player
+            auto playerPoint = game->GetArena()->GetPixelById(0)->GetPosition();
+            game->GetArena()->ReplaceWithId(0, new Player(playerPoint, game->GetArena(), game->GetOptions()->PlayerHp));
         }
+        util::WriteToLog("InitialiseEventHandler constructed.", "InitialiseEventHandler::InitialiseEventHandler()");
+    }
+
+    void InitialiseEventHandler::Fire() {
+        util::WriteToLog("InitialiseEvent triggered", "InitialiseEventHandler::Fire()");
+        execute();
+        EventHandler::Fire();
     }
 
     void InitialiseEventHandler::execute() {}
@@ -124,6 +162,7 @@ namespace core {
     
     TickEventHandler::TickEventHandler(Game* game) : EventHandler(game) {
         //  Add all subevent handlers
+        util::WriteToLog("Adding children event handlers", "TickEventHandler::TickEventHandler()");
         subevents = {
             new PlayerMoveEventHandler(game),
             new PlayerShootEventHandler(game),
@@ -131,6 +170,12 @@ namespace core {
             new EntityMoveEventHandler(game),
             new ScreenRefreshEventHandler(game)
         };
+    }
+
+    void TickEventHandler::Fire() {
+        util::WriteToLog("TickEvent triggered", "TickEventHandler::Fire()");
+        execute();
+        EventHandler::Fire();
     }
     
     void TickEventHandler::execute() {
@@ -142,6 +187,13 @@ namespace core {
     //  BEGIN: PlayerShootEventHandler
     
     PlayerShootEventHandler::PlayerShootEventHandler(Game* game) : EventHandler(game) {
+        util::WriteToLog("Constructing PlayerShootEventHandler", "PlayerShootEventHandler::PlayerShootEventHandler()");
+    }
+
+    void PlayerShootEventHandler::Fire() {
+        util::WriteToLog("PlayerShootEvent triggered", "PlayerShootEventHandler::Fire()");
+        execute();
+        EventHandler::Fire();
     }
     
     void PlayerShootEventHandler::execute() {
@@ -156,6 +208,13 @@ namespace core {
         EventHandler(game),
         lastSpawnTime(std::chrono::steady_clock::now()),
         maxMobs(10) {
+        util::WriteToLog("Constructing MobGenerateEventHandler", "MobGenerateEventHandler::MobGenerateEventHandler()");
+    }
+
+    void MobGenerateEventHandler::Fire() {
+        util::WriteToLog("MobGenerateEvent triggered", "MobGenerateEventHandler::Fire()");
+        execute();
+        EventHandler::Fire();
     }
     
     void MobGenerateEventHandler::execute() {
@@ -235,6 +294,13 @@ namespace core {
     //  BEGIN: EntityMoveEventHandler
     
     EntityMoveEventHandler::EntityMoveEventHandler(Game* game) : EventHandler(game) {
+        util::WriteToLog("Constructing EntityMoveEventHandler", "EntityMoveEventHandler::EntityMoveEventHandler()");
+    }
+
+    void EntityMoveEventHandler::Fire() {
+        util::WriteToLog("EntityMoveEvent triggered", "EntityMoveEventHandler::Fire()");
+        execute();
+        EventHandler::Fire();
     }
     
     void EntityMoveEventHandler::execute() {
@@ -246,29 +312,18 @@ namespace core {
     //  BEGIN: ScreenRefreshEventHandler
     
     ScreenRefreshEventHandler::ScreenRefreshEventHandler(Game* game) : EventHandler(game) {
+        util::WriteToLog("Constructing ScreenRefreshEventHandler", "ScreenRefreshEventHandler::ScreenRefreshEventHandler()");
+    }
+
+    void ScreenRefreshEventHandler::Fire() {
+        util::WriteToLog("ScreenRefreshEvent triggered", "ScreenRefreshEventHandler::Fire()");
+        execute();
+        EventHandler::Fire();
     }
     
     void ScreenRefreshEventHandler::execute() {
-        auto container = ftxui::Container::Vertical({});
-        ui::RenderOption* entityRenderer = nullptr;
-        for (int y = 0; y < ARENA_HEIGHT; ++y) {
-            auto row = ftxui::Container::Horizontal({});
-            for (int x = 0; x < ARENA_WIDTH; ++x) {
-                entityRenderer = GetGame()->GetArena()->GetPixel({x, y})->GetRenderOption();
-                row->Add(ftxui::Renderer([&] {
-                    return entityRenderer->Render();
-                }));
-            }
-            container->Add(row);
-        }
-        auto ui = ftxui::Renderer(container, [&] {
-            return ftxui::vbox({
-                ftxui::text("Game Screen") | ftxui::center | ftxui::bold,
-                ftxui::separator(),
-                container->Render()
-            });
-        });
-        ui::appScreen.Loop(ui);
+        ui::GameUIRenderer renderer(GetGame());
+        renderer.RefreshUI();
     }
     
     //  END: ScreenRefreshEventHandler

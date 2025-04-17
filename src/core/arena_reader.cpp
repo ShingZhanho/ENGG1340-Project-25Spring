@@ -41,7 +41,7 @@ namespace core {
                         break;
                     case 'P': // player
                         if (!playerFound) {
-                            arena->SetPixelWithId({x, y}, new Player({x, y}, arena));
+                            arena->SetPixelWithId({x, y}, new Player({x, y}, arena, 0)); // player HP will be set in InitialiseEventHandler
                             playerFound = true;
                             break;
                         }

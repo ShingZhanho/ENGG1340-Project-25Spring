@@ -1,5 +1,7 @@
 #include <core/game.hpp>
 
+#include <util/log.hpp>
+
 namespace core {
 
     //  -- Game class ---------------------------------------------
@@ -14,13 +16,24 @@ namespace core {
 
     int Game::Run() {
         try {
+            util::WriteToLog("Starting game...", "Game::Run()");
+            running = true;
             runEventHandler = new RunEventHandler(this);
+            util::WriteToLog("Triggering run event handler...", "Game::Run()");
             runEventHandler->Fire();
         } catch (int endType) {
             return score;
         }
 
         return -1;
+    }
+
+    void Game::Terminate() {
+        running = false;
+    }
+
+    bool Game::IsRunning() const {
+        return running;
     }
 
     void Game::ChangeScore(int delta) {
@@ -32,10 +45,14 @@ namespace core {
     }
 
     void Game::InitialiseArena() {
+        util::WriteToLog("Checking Arena initialisation status...", "Game::InitialiseArena()");
         if (!arenaInitialised) {
+            util::WriteToLog("Arena not initialised. Initialising...", "Game::InitialiseArena()");
             arena = GetOptions()->GameArena != nullptr ? GetOptions()->GameArena : new Arena();
             arenaInitialised = true;
+            return;
         }
+        util::WriteToLog("Arena already initialised.", "Game::InitialiseArena()");
     }
 
     Arena* Game::GetArena() const {

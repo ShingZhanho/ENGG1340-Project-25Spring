@@ -129,7 +129,7 @@ namespace core {
 
     class Player : public Entity {
         public:
-            Player(Point position, Arena* arena);
+            Player(Point position, Arena* arena, int initialHp);
             
             void TakeDamage(int damage);
             bool Move(Point to) override;
