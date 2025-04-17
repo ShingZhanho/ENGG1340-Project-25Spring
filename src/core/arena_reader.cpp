@@ -16,7 +16,7 @@ namespace core {
         }
     }
 
-    bool ArenaReader::parseFile_() : {
+    bool ArenaReader::parseFile_() {
         // TODO: implement the file parsing logic
         /*
             Format & Syntax of the file:
