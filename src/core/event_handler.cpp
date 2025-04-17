@@ -4,6 +4,13 @@
 #include <core/entity.hpp>
 #include <core/arena.hpp>
 
+// ftxui
+#include <ftxui/component/component.hpp>
+
+// ui components
+#include <ui/common.hpp>
+#include <ui/render_option.hpp>
+
 // standard library
 #include <random>
 #include <chrono>
@@ -63,7 +70,7 @@ namespace core {
         //  Create player if it doesn't exist
         //  NOTE: The player MUST be the first non-block entity to have the ID 0.
         if (game->GetArena()->GetPixelById(0) == nullptr){
-        game->GetArena()->Replace({15, 50}, new Player({15, 50}, game->GetArena()));
+            game->GetArena()->Replace({15, 50}, new Player({15, 50}, game->GetArena()));
         }
     }
 
@@ -242,7 +249,26 @@ namespace core {
     }
     
     void ScreenRefreshEventHandler::execute() {
-        // Implement screen refresh logic
+        auto container = ftxui::Container::Vertical({});
+        ui::RenderOption* entityRenderer = nullptr;
+        for (int y = 0; y < ARENA_HEIGHT; ++y) {
+            auto row = ftxui::Container::Horizontal({});
+            for (int x = 0; x < ARENA_WIDTH; ++x) {
+                entityRenderer = GetGame()->GetArena()->GetPixel({x, y})->GetRenderOption();
+                row->Add(ftxui::Renderer([&] {
+                    return entityRenderer->Render();
+                }));
+            }
+            container->Add(row);
+        }
+        auto ui = ftxui::Renderer(container, [&] {
+            return ftxui::vbox({
+                ftxui::text("Game Screen") | ftxui::center | ftxui::bold,
+                ftxui::separator(),
+                container->Render()
+            });
+        });
+        ui::appScreen.Loop(ui);
     }
     
     //  END: ScreenRefreshEventHandler

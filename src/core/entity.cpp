@@ -56,6 +56,10 @@ namespace core {
         }
     }
 
+    ui::RenderOption* Entity::GetRenderOption() {
+        return renderOption;
+    }
+
     //  END: Entity
 
     //  -- Abstract Classes ---------------------------------------------------------

@@ -47,6 +47,8 @@ namespace core {
             //  Returns true if the entity is of the given type.
             //  This is a wrapper for dynamic_cast.
             static bool IsType(Entity* entity, EntityType type);
+            //  Returns the render option of the entity
+            ui::RenderOption* GetRenderOption();
 
         protected:
 
