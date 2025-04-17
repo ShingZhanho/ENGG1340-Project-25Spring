@@ -29,6 +29,9 @@ namespace core {
                     ' ' = air; 'X' = wall; 'P' = starting poing of the player;
                 7. The file MUST not contain mobs or other entities, otherwise a fail should be returned.
         */
+        bool parse_success = true;
+        bool no_other_entities  = true;
+        
         errmsg = "File parsing not implemented yet.";
         return false;
     }
