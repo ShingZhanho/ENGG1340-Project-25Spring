@@ -2,6 +2,7 @@
 #define CORE_ARENA_HPP
 
 #include <unordered_map>
+#include <mutex>
 
 #include <core/game.hpp>
 #include <core/entity.hpp>
@@ -56,6 +57,8 @@ namespace core {
             //  The id is incremented for each non-block entity created.
             int idIncr = 0;
             Game* game;
+            //  Thread lock for the arena.
+            std::mutex arenaMutex;
     };
 
 }

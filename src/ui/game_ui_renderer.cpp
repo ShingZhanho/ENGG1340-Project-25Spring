@@ -28,14 +28,31 @@ namespace ui {
             auto rows = ftxui::vbox(allRows);
             return rows | ftxui::center;
         }) | ftxui::CatchEvent([&] (ftxui::Event event) {
-            if (event == ftxui::Event::Escape) {
+            util::WriteToLog("UI Event captured.", "GameUIRenderer::StartRenderLoop()");
+            if (event == ftxui::Event::Escape) { // Exit the game (temporary)
                 appScreen.ExitLoopClosure()();
                 game->Terminate();
                 return true;
-            }
-            if (event == ftxui::Event::Custom) {
+            } else if (event == ftxui::Event::Custom) {
+                return true;
+            } else if (event == ftxui::Event::Character('w')) {
+                game->PlayerMoveEventHandlerPtr->SetDirection(core::PlayerMoveEventHandler::Direction::UP);
+                game->PlayerMoveEventHandlerPtr->Fire();
+                return true;
+            } else if (event == ftxui::Event::Character('s')) {
+                game->PlayerMoveEventHandlerPtr->SetDirection(core::PlayerMoveEventHandler::Direction::DOWN);
+                game->PlayerMoveEventHandlerPtr->Fire();
+                return true;
+            } else if (event == ftxui::Event::Character('a')) {
+                game->PlayerMoveEventHandlerPtr->SetDirection(core::PlayerMoveEventHandler::Direction::LEFT);
+                game->PlayerMoveEventHandlerPtr->Fire();
+                return true;
+            } else if (event == ftxui::Event::Character('d')) {
+                game->PlayerMoveEventHandlerPtr->SetDirection(core::PlayerMoveEventHandler::Direction::RIGHT);
+                game->PlayerMoveEventHandlerPtr->Fire();
                 return true;
             }
+            util::WriteToLog("UI redraw not needed. Skipping...", "GameUIRenderer::StartRenderLoop()");
             return false;
         });
         ui::appScreen.Loop(ui);

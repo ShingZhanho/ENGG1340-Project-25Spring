@@ -30,6 +30,10 @@ namespace core {
             void Terminate();
             //  Returns true if the game is running.
             bool IsRunning() const;
+            //  Returns true if the game is initialised.
+            bool IsInitialised() const;
+            //  Signals the game that initialisation is complete.
+            void SetInitialisationComplete();
 
             void ChangeScore(int delta);
             int GetScore() const;
@@ -42,6 +46,8 @@ namespace core {
             Arena* GetArena() const;
             //  Returns the game options.
             GameOptions* GetOptions() const;
+            //  The exposed PlayerMovementEventHandler.
+            PlayerMoveEventHandler* PlayerMoveEventHandlerPtr = nullptr;
 
         private:
             //  The score. Initial score is 0.
@@ -58,6 +64,8 @@ namespace core {
             GameOptions* options;
             //  The flag indicating whether the game is running.
             std::atomic<bool> running = false;
+            //  The flag indicating whether the initialisation is complete.
+            std::atomic<bool> initialisationComplete = false;
     };
 
 } // namespace core

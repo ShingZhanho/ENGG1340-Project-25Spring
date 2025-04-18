@@ -36,7 +36,6 @@ namespace core {
     }
 
     void EventHandler::Fire() {
-        util::WriteToLog("Event triggered", "EventHandler::Fire()");
         execute();
         for (auto it = subevents.begin(); it != subevents.end(); ++it) {
             (*it)->Fire();
@@ -75,6 +74,10 @@ namespace core {
         //  Run the tick event handler in a separate thread.
         std::thread tickThread([&] {
             util::WriteToLog("Starting tick event handler thread...", "RunEventHandler::execute() {thread: tickThread}");
+            while (GetGame()->IsInitialised() == false) {
+                using namespace std::chrono_literals;
+                std::this_thread::sleep_for(500ms); // wait for the game to be initialised
+            }
             //  The game will end with throw endType so there is no need of condition testing.
             while (GetGame()->IsRunning()) {
                 using namespace std::chrono_literals;
@@ -111,6 +114,8 @@ namespace core {
             game->GetArena()->ReplaceWithId(0, new Player(playerPoint, game->GetArena(), game->GetOptions()->PlayerHp));
         }
         util::WriteToLog("InitialiseEventHandler constructed.", "InitialiseEventHandler::InitialiseEventHandler()");
+
+        game->SetInitialisationComplete();
     }
 
     void InitialiseEventHandler::Fire() {
@@ -131,14 +136,12 @@ namespace core {
     }
 
     void PlayerMoveEventHandler::Fire() {
-        // your code here ...
-        //  TODO: implement this function BEFORE this line, remove this comment when you're done
+        execute(movementDirection);
         EventHandler::Fire();
     }
 
     void PlayerMoveEventHandler::SetDirection(Direction direction) {
-        //  TODO: impolement this function AFTER this line, remove this comment when you're done
-        // your code here ...
+        movementDirection = direction;
     }
 
     void PlayerMoveEventHandler::execute(Direction direction){
@@ -161,9 +164,12 @@ namespace core {
                 player->Move({player->GetPosition().x + 1, player->GetPosition().y});
                 break;
             default:
-                //  Invalid direction
+                SetDirection(Direction::STILL);
                 break;
         }
+
+        //  Redraw UI
+        ui::appScreen.PostEvent(ftxui::Event::Custom);
     }
 
     // END: PlayerMoveEventHandler
@@ -174,12 +180,18 @@ namespace core {
         //  Add all subevent handlers
         util::WriteToLog("Adding children event handlers", "TickEventHandler::TickEventHandler()");
         subevents = {
-            new PlayerMoveEventHandler(game),
             new PlayerShootEventHandler(game),
             new MobGenerateEventHandler(game),
             new EntityMoveEventHandler(game),
             new ScreenRefreshEventHandler(game)
         };
+        playerMoveEventHandler = new PlayerMoveEventHandler(game);
+        game->PlayerMoveEventHandlerPtr = playerMoveEventHandler; // expose handler to UI
+    }
+
+    TickEventHandler::~TickEventHandler() {
+        util::WriteToLog("Deleting internal PlayerMoveEventHandler", "TickEventHandler::~TickEventHandler()");
+        delete playerMoveEventHandler;
     }
 
     void TickEventHandler::Fire() {
@@ -197,11 +209,11 @@ namespace core {
     //  BEGIN: PlayerShootEventHandler
     
     PlayerShootEventHandler::PlayerShootEventHandler(Game* game) : EventHandler(game) {
-        util::WriteToLog("Constructing PlayerShootEventHandler", "PlayerShootEventHandler::PlayerShootEventHandler()");
+        // util::WriteToLog("Constructing PlayerShootEventHandler", "PlayerShootEventHandler::PlayerShootEventHandler()");
     }
 
     void PlayerShootEventHandler::Fire() {
-        util::WriteToLog("PlayerShootEvent triggered", "PlayerShootEventHandler::Fire()");
+        // util::WriteToLog("PlayerShootEvent triggered", "PlayerShootEventHandler::Fire()");
         execute();
         EventHandler::Fire();
     }
@@ -218,11 +230,11 @@ namespace core {
         EventHandler(game),
         lastSpawnTime(std::chrono::steady_clock::now()),
         maxMobs(10) {
-        util::WriteToLog("Constructing MobGenerateEventHandler", "MobGenerateEventHandler::MobGenerateEventHandler()");
+        // util::WriteToLog("Constructing MobGenerateEventHandler", "MobGenerateEventHandler::MobGenerateEventHandler()");
     }
 
     void MobGenerateEventHandler::Fire() {
-        util::WriteToLog("MobGenerateEvent triggered", "MobGenerateEventHandler::Fire()");
+        // util::WriteToLog("MobGenerateEvent triggered", "MobGenerateEventHandler::Fire()");
         execute();
         EventHandler::Fire();
     }
@@ -304,11 +316,11 @@ namespace core {
     //  BEGIN: EntityMoveEventHandler
     
     EntityMoveEventHandler::EntityMoveEventHandler(Game* game) : EventHandler(game) {
-        util::WriteToLog("Constructing EntityMoveEventHandler", "EntityMoveEventHandler::EntityMoveEventHandler()");
+        // util::WriteToLog("Constructing EntityMoveEventHandler", "EntityMoveEventHandler::EntityMoveEventHandler()");
     }
 
     void EntityMoveEventHandler::Fire() {
-        util::WriteToLog("EntityMoveEvent triggered", "EntityMoveEventHandler::Fire()");
+        // util::WriteToLog("EntityMoveEvent triggered", "EntityMoveEventHandler::Fire()");
         execute();
         EventHandler::Fire();
     }
@@ -322,11 +334,11 @@ namespace core {
     //  BEGIN: ScreenRefreshEventHandler
     
     ScreenRefreshEventHandler::ScreenRefreshEventHandler(Game* game) : EventHandler(game) {
-        util::WriteToLog("Constructing ScreenRefreshEventHandler", "ScreenRefreshEventHandler::ScreenRefreshEventHandler()");
+        // util::WriteToLog("Constructing ScreenRefreshEventHandler", "ScreenRefreshEventHandler::ScreenRefreshEventHandler()");
     }
 
     void ScreenRefreshEventHandler::Fire() {
-        util::WriteToLog("ScreenRefreshEvent triggered", "ScreenRefreshEventHandler::Fire()");
+        // util::WriteToLog("ScreenRefreshEvent triggered", "ScreenRefreshEventHandler::Fire()");
         execute();
         EventHandler::Fire();
     }

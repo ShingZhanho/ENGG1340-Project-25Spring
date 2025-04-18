@@ -76,7 +76,7 @@ namespace core {
     class PlayerMoveEventHandler : public EventHandler {
         public:
             PlayerMoveEventHandler(Game* game);
-            enum class Direction { UP, DOWN, LEFT, RIGHT };
+            enum class Direction { UP, DOWN, LEFT, RIGHT, STILL };
             //  Sets the direction of the player. Call this method before calling Fire().
             //  The Fire() method will then use this direction to move the player.
             void SetDirection(Direction direction);
@@ -86,7 +86,7 @@ namespace core {
             //  Executed when the event is fired.
             void execute(Direction direction);
             //  Indicates the direction of the player.
-            Direction movementDirection = Direction::UP;
+            Direction movementDirection = Direction::STILL;
     };
 
     //  The tick event. Called every tick.
@@ -95,11 +95,17 @@ namespace core {
         public:
             //  Constructor
             TickEventHandler(Game* game);
+            //  Destructor
+            ~TickEventHandler();
+            //  Triggers the event.
             void Fire() override;
 
         private:
             //  Executed when the event is fired.
             void execute();
+            //  The internal PlayerMoveEventHandler. This event will be exposed to UI and NOT
+            //  triggered by the tick event.
+            PlayerMoveEventHandler* playerMoveEventHandler;
     };
     
     //  Player shooting event handler

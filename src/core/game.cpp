@@ -38,6 +38,15 @@ namespace core {
         return running;
     }
 
+    bool Game::IsInitialised() const {
+        return arenaInitialised;
+    }
+
+    void Game::SetInitialisationComplete() {
+        util::WriteToLog("Game initialisation complete.", "Game::SetInitialisationComplete()");
+        arenaInitialised = true;
+    }
+
     void Game::ChangeScore(int delta) {
         score += delta;
     }

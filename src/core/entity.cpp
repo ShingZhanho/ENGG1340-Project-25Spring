@@ -47,6 +47,7 @@ namespace core {
     }
 
     bool Entity::IsType(Entity* entity, EntityType type) {
+        if (entity == nullptr) return false;
         switch (type) {
             case EntityType::ABSTRACT_BLOCK:
                 return dynamic_cast<AbstractBlock*>(entity) != nullptr;
@@ -194,14 +195,18 @@ namespace core {
     }
 
     bool Player::Move(Point to) {
+        util::WriteToLog("Attempting to move player to: " + std::to_string(to.x) + ", " + std::to_string(to.y), "Player::Move()");
         Entity* target = arena->GetPixel(to);
 
         if (IsType(target, EntityType::WALL) || IsType(target, EntityType::ABSTRACT_MOB)) {
+            util::WriteToLog("Cannot move into wall or mob. Request blocked.", "Player::Move()");
             return false; // Cannot move into wall or mob
         }
 
         if (IsType(target, EntityType::AIR)) {
+            util::WriteToLog("Requesting arena to move Player entity...", "Player::Move()");
             arena->Move(GetPosition(), to);
+            util::WriteToLog("Player moved to: " + std::to_string(to.x) + ", " + std::to_string(to.y), "Player::Move()");
             return true;
         }
 
