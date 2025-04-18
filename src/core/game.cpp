@@ -29,6 +29,7 @@ namespace core {
     }
 
     void Game::Terminate() {
+        util::WriteToLog("Game termination requested.", "Game::Terminate()");
         running = false;
     }
 

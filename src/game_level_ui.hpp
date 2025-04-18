@@ -18,6 +18,8 @@
 static core::GameOptions* gameLvl_gameOptions;
 // To configure the game options.
 void gameLvl_configureGameOptions(core::GameOptions* options);
+// Indicates if the game options are constructed by custom mode.
+static std::atomic<bool> gameLvl_customMode = false;
 // The main game loop.
 void gameLvl_mainGameLoop();
 // The score of the game.

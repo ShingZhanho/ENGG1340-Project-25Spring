@@ -65,12 +65,9 @@ namespace core {
         initialiseEventHandler->Fire();
         util::WriteToLog("InitialiseEventHandler fire completed.", "RunEventHandler::execute()");
 
-        //  Run the game UI renderer.
-        ui::GameUIRenderer renderer(GetGame());
-        renderer.StartRenderLoop();
-
         //  Run the tick event handler in a separate thread.
         std::thread tickThread([&] {
+            util::WriteToLog("Starting tick event handler thread...", "RunEventHandler::execute() {thread: tickThread}");
             //  The game will end with throw endType so there is no need of condition testing.
             while (GetGame()->IsRunning()) {
                 using namespace std::chrono_literals;
@@ -78,8 +75,12 @@ namespace core {
                 std::this_thread::sleep_for(20ms);
             }
         });
+
+        //  Run the game UI renderer.
+        ui::GameUIRenderer renderer(GetGame());
+        renderer.StartRenderLoop();
         
-        //tickThread.join();
+        // tickThread.join();
     }
 
     //  END: RunEventHandler

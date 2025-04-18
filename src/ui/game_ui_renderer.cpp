@@ -30,6 +30,13 @@ namespace ui {
                 ftxui::separator(),
                 container->Render()
             });
+        }) | ftxui::CatchEvent([&] (ftxui::Event event) {
+            if (event == ftxui::Event::Escape) {
+                game->Terminate();
+                appScreen.ExitLoopClosure()();
+                return true;
+            }
+            return false;
         });
         ui::appScreen.Loop(ui);
     }
