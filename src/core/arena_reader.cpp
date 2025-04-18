@@ -15,10 +15,7 @@ namespace core {
 
     ArenaReader::~ArenaReader() {
         // file stream is closed by the code that created it
-        if (GetArena() != nullptr) {
-            delete arena;
-            arena = nullptr;
-        }
+        // DO NOT delete arena here, it is needed and will be deleted by the game
     }
 
     bool ArenaReader::parseFile_() {

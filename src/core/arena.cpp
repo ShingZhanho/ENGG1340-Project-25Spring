@@ -22,6 +22,7 @@ namespace core {
     }
 
     Arena::~Arena() {
+        util::WriteToLog("Arena destructor called.", "Arena::~Arena()");
         for (int i = 0; i < ARENA_HEIGHT; i++) {
             for (int j = 0; j < ARENA_WIDTH; j++) {
                 delete pixel[i][j];
@@ -51,10 +52,14 @@ namespace core {
     }
 
     Entity* Arena::GetPixelById(int id) {
+        util::WriteToLog("Searching for entity with ID: " + std::to_string(id), "Arena::GetPixelById()");
         auto it = entityIndex.find(id);
         if (it != entityIndex.end()) {
+            util::WriteToLog("Entity found with ID: " + std::to_string(id), "Arena::GetPixelById()");
             return it->second;
         }
+        // If not found, return nullptr
+        util::WriteToLog("Entity with ID: " + std::to_string(id) + " not found.", "Arena::GetPixelById()");
         return nullptr;
     }
 

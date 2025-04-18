@@ -31,6 +31,7 @@ namespace core {
             //  This method should ONLY be used for non-block entities.
             //  The ID is assigned automatically in this class.
             void SetPixelWithId(Point p, Entity* entity);
+            //  Returns the entity with the given ID. nullptr if not found.
             Entity* GetPixelById(int id);
 
             Game* GetGame();
@@ -43,6 +44,7 @@ namespace core {
             void Remove(Point p);
             //  Moves the entity from one pixel to another.
             void Move(Point start, Point dest);
+            //  Maps the ID to the entity.
             std::unordered_map<int, Entity*> entityIndex;
 
         private:
@@ -55,44 +57,6 @@ namespace core {
             int idIncr = 0;
             Game* game;
     };
-
-    //  This 32 * 102 is the exact size of the arena:
-    //          
-    //       Y
-    //       0         1         2         3         4         5         6         7         8         9         0
-    //       012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901
-    //  X 0 0XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-    //      1X -                                                                                                  X
-    //      2X|+-------------------------------------------------------------------------------------------------|X
-    //      3X |                                            100 wall
-    //      4X |
-    //      5X |
-    //      6X |
-    //      7X |
-    //      8X |
-    //      9X |
-    //    1 0X |
-    //      1X |
-    //      2X |
-    //      3X |
-    //      4X |
-    //      5X | 30 Wall
-    //      6X |
-    //      7X |
-    //      8X |
-    //      9X |
-    //    2 0X |
-    //      1X |
-    //      2X |
-    //      3X |
-    //      4X |
-    //      5X |
-    //      6X |
-    //      7X |
-    //      8X |
-    //      9X |
-    //    3 0X -
-    //      1XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
 }
 
