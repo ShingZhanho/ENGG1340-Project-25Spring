@@ -31,7 +31,10 @@ Monsters spawn unpredictably from the four boundaries, forcing you to stay alert
 
 _SHOOT!_ is straightforward but brutally intense:  
 1. **Eliminate or be eliminated**: Monsters will keep coming and your job is to gun them down before they overrun you.
-2. **One Mistake can be fatal**: Some monsters are faster, tougher, or deadlier than others. Learn their behaviors or face a quick defeat.
+2. **One mistake can be fatal**: Some monsters are faster, tougher, or deadlier than others. Learn their behaviors or face a quick defeat.
+3. **Score to win**: Every kill adds to your score. Push your limits, beat your high score, and prove your dominance.
+4. **No Escape**: The arena is locked! Fight until the last monster falls… or until you do.
+
 
 
 ## Build Instructions
