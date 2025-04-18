@@ -35,7 +35,10 @@ _SHOOT!_ is straightforward but brutally intense:
 3. **Score to win**: Every kill adds to your score. Push your limits, beat your high score, and prove your dominance.
 4. **No Escape**: The arena is locked! Fight until the last monster falls… or until you do.
 
+## Features That Will Keep You Hooked
 
+1. **Monster mayhem-no two enemies are the same**: Randomized spawn is based on generating random numbers in every round. Every monster
+   in the wild arena will or will not be identical. 
 
 ## Build Instructions
 
