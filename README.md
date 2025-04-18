@@ -38,7 +38,11 @@ _SHOOT!_ is straightforward but brutally intense:
 ## Features That Will Keep You Hooked
 
 1. **Monster mayhem-no two enemies are the same**: Randomized spawn is based on generating random numbers in every round. Every monster
-   in the wild arena will or will not be identical. 
+   in the wild arena will or will not be identical. You may never face the same wave twice. Some creatures charge recklessly, while others
+   lurk and strike when you least expect it. Adapt or perish—the arena shows no mercy.  
+2. **Fully customizable arenas**: Why stick to the default battlefield when you can design your own? _SHOOT!_ is equipped with fileIO which  
+   allows you to import custom map files, and set up your own initial player position. The freedom is in your hands.
+
 
 ## Build Instructions
 
