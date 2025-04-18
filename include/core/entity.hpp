@@ -59,8 +59,6 @@ namespace core {
             ui::RenderOption renderOption;
 
         private:
-            //  The ID. Non-block entity will have an ID.
-            int id;
             Point position;
     };
 

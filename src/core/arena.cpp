@@ -58,6 +58,7 @@ namespace core {
 
     void Arena::SetPixelWithId(Point p, Entity* entity) {
         arenaMutex.lock();
+        util::WriteToLog("Attempting to set pixel and assign an ID at (" + std::to_string(p.x) + ", " + std::to_string(p.y) + ")...", "Arena::SetPixelWithId()");
         if (p.x == 0 || p.x == ARENA_WIDTH - 1 || p.y == 0 || p.y == ARENA_HEIGHT - 1) {
             // Do not allow setting pixels on the outermost layer
             arenaMutex.unlock();
@@ -70,8 +71,7 @@ namespace core {
         }
         pixel[p.y][p.x] = entity;
         util::WriteToLog("Entity at (" + std::to_string(p.x) + ", " + std::to_string(p.y) + ") assigned ID: " + std::to_string(idIncr), "Arena::SetPixelWithId()");
-        entityIndex[idIncr] = entity;
-        idIncr++;
+        entityIndex[idIncr++] = entity;
         entity->SetPosition(p);
         arenaMutex.unlock();
     }

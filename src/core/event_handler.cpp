@@ -107,7 +107,8 @@ namespace core {
         util::WriteToLog("Checking player ID...", "InitialiseEventHandler::InitialiseEventHandler()");
         if (game->GetArena()->GetPixelById(0) == nullptr) {
             util::WriteToLog("Entity with ID 0 not found. Creating player...", "InitialiseEventHandler::InitialiseEventHandler()");
-            game->GetArena()->SetPixelWithId({15, 50}, new Player({15, 50}, game->GetArena(), game->GetOptions()->PlayerHp));
+            auto player = new Player({ARENA_WIDTH / 2, ARENA_HEIGHT / 2}, game->GetArena(), game->GetOptions()->PlayerHp);
+            game->GetArena()->SetPixelWithId(player->GetPosition(), player);
         } else {
             // set player HP by reconstructing the player
             auto playerPoint = game->GetArena()->GetPixelById(0)->GetPosition();
