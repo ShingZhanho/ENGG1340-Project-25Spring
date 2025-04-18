@@ -13,7 +13,7 @@ namespace core {
     } // default options
     ui::RenderOption EntityRenderOptions::WallRenderOption() {
         return {
-            'X', ftxui::Color::GrayDark, ftxui::Color::Default, false, false, false, false
+            'X', ftxui::Color::White, ftxui::Color::Default, true, false, false, false
         };
     }
     ui::RenderOption EntityRenderOptions::PlayerRenderOption() {

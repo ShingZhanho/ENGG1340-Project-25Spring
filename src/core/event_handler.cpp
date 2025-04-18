@@ -85,8 +85,8 @@ namespace core {
 
         //  Run the game UI renderer.
         ui::publicGameUIRenderer->StartRenderLoop();
-        
-        // tickThread.join();
+        util::WriteToLog("Game UI renderer started. Detaching from tickThread...", "RunEventHandler::execute()");
+        tickThread.detach();
     }
 
     //  END: RunEventHandler
