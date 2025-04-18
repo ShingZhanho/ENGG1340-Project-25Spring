@@ -15,6 +15,13 @@
 - SONG, Sizhe （3036457247）[@TIP-SoNg](https://github.com/TIP-SoNg)
 - XIN, Yucheng (3036289755) [@Scevenate](https://github.com/Scevenate)
 
+## About SHOOT!
+
+Welcome to SHOOT!, a high-octane, adrenaline-fueled shooting game where quick reflexes, sharp aim, and tactical thinking  
+are your only keys to survival!  
+Step into a deadly arena where monstrous foes emerge relentlessly from every direction, and your mission is simple:  
+**shoot to survive, survive to dominate**.
+
 ## Build Instructions
 
 1. Change your working directory to `build`:
