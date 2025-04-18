@@ -27,6 +27,7 @@ namespace core {
     EventHandler::EventHandler(Game* game) : game(game) { }
 
     EventHandler::~EventHandler() {
+        util::WriteToLog("Deleting subevents...", "EventHandler::~EventHandler()");
         for (auto subevent : subevents) delete subevent;
     }
 
@@ -52,6 +53,12 @@ namespace core {
         util::WriteToLog("Constructing child InitialiseEventHandler and TickEventHandler", "RunEventHandler::RunEventHandler()");
         initialiseEventHandler = new InitialiseEventHandler(game);
         tickEventHandler = new TickEventHandler(game);
+    }
+
+    RunEventHandler::~RunEventHandler() {
+        util::WriteToLog("Deleting child InitialiseEventHandler and TickEventHandler", "RunEventHandler::~RunEventHandler()");
+        delete initialiseEventHandler;
+        delete tickEventHandler;
     }
 
     void RunEventHandler::Fire() {
@@ -119,7 +126,10 @@ namespace core {
 
     //  BEGIN: PlayerMoveEventHandler
 
-    PlayerMoveEventHandler::PlayerMoveEventHandler(Game* game) : EventHandler(game) {}
+    PlayerMoveEventHandler::PlayerMoveEventHandler(Game* game) : EventHandler(game) {
+        util::WriteToLog("Constructing PlayerMoveEventHandler", "PlayerMoveEventHandler::PlayerMoveEventHandler()");
+        
+    }
 
     void PlayerMoveEventHandler::Fire() {
         // your code here ...
