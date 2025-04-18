@@ -19,7 +19,6 @@ namespace core {
     class PlayerShootEventHandler;
     class MobGenerateEventHandler;
     class EntityMoveEventHandler;
-    class ScreenRefreshEventHandler;
 
     //  The abstract EventHandler.
     //  Eventhandlers are where your actual code lives. A EventHandler can be fired to exeucte the event.
@@ -147,18 +146,6 @@ namespace core {
         public:
             //  Constructor
             EntityMoveEventHandler(Game* game);
-            void Fire() override;
-
-        private:
-            //  Executed when the event is fired.
-            void execute();
-    };
-    
-    //  Screen refresh event handler
-    class ScreenRefreshEventHandler : public EventHandler {
-        public:
-            //  Constructor
-            ScreenRefreshEventHandler(Game* game);
             void Fire() override;
 
         private:

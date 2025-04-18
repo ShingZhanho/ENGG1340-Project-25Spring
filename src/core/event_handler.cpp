@@ -187,8 +187,7 @@ namespace core {
         subevents = {
             new PlayerShootEventHandler(game),
             new MobGenerateEventHandler(game),
-            new EntityMoveEventHandler(game),
-            new ScreenRefreshEventHandler(game)
+            new EntityMoveEventHandler(game)
         };
         playerMoveEventHandler = new PlayerMoveEventHandler(game);
         game->PlayerMoveEventHandlerPtr = playerMoveEventHandler; // expose handler to UI
@@ -335,23 +334,4 @@ namespace core {
     }
     
     //  END: EntityMoveEventHandler
-    
-    //  BEGIN: ScreenRefreshEventHandler
-    
-    ScreenRefreshEventHandler::ScreenRefreshEventHandler(Game* game) : EventHandler(game) {
-        // util::WriteToLog("Constructing ScreenRefreshEventHandler", "ScreenRefreshEventHandler::ScreenRefreshEventHandler()");
-    }
-
-    void ScreenRefreshEventHandler::Fire() {
-        // util::WriteToLog("ScreenRefreshEvent triggered", "ScreenRefreshEventHandler::Fire()");
-        execute();
-        EventHandler::Fire();
-    }
-    
-    void ScreenRefreshEventHandler::execute() {
-        // ui::GameUIRenderer renderer(GetGame());
-        // renderer.RefreshUI();
-    }
-    
-    //  END: ScreenRefreshEventHandler
 }
