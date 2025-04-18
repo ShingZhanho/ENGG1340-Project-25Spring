@@ -13,14 +13,24 @@
 - LIU, Jia Lin (3036391493) [@Kylineason-Liu](https://github.com/Kylineason-Liu)
 - SHING, Zhan Ho Jacob (3036228892) [@ShingZhanho](https://github.com/ShingZhanho)
 - SONG, Sizhe （3036457247）[@TIP-SoNg](https://github.com/TIP-SoNg)
-- XIN, Yucheng (3036289755) [@Scevenate](https://github.com/Scevenate)
+- XIN, Yucheng (3036289755) [@Scevenate](https://github.com/Scevenate)  
+  
+Welcome to _SHOOT!_, a high-octane, adrenaline-fueled shooting game where quick reflexes, sharp aim, and tactical thinking  
+are your only keys to survival! Step into a deadly arena where monstrous foes emerge relentlessly from every direction, and  
+your mission is simple: **shoot to survive, survive to dominate**.  
 
-## About SHOOT!
+## The Battlefield Awaits
 
-Welcome to SHOOT!, a high-octane, adrenaline-fueled shooting game where quick reflexes, sharp aim, and tactical thinking  
-are your only keys to survival!  
-Step into a deadly arena where monstrous foes emerge relentlessly from every direction, and your mission is simple:  
-**shoot to survive, survive to dominate**.
+You are the lone warrior in a hostile arena, armed with nothing but your wits and a powerful gun. The arena is a grid-based  
+battleground where every pixel could mean life or death—walkable terrain, deadly monsters, or you, the last line of defense.  
+Monsters spawn unpredictably from the four boundaries, forcing you to stay alert, move strategically, and fire with precision.
+
+## Rules of Survival
+
+_SHOOT!_ is straightforward but brutally intense:  
+1. **Eliminate or be eliminated**: Monsters will keep coming and your job is to gun them down before they overrun you.
+2. **One Mistake can be fatal**: Some monsters are faster, tougher, or deadlier than others. Learn their behaviors or face a quick defeat.
+
 
 ## Build Instructions
 
