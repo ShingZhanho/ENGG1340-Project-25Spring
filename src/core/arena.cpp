@@ -33,6 +33,7 @@ namespace core {
                 }
             }
         }
+        util::WriteToLog("Arena destructor completed.", "Arena::~Arena()");
     }
 
     Entity* Arena::GetPixel(Point p) {

@@ -57,9 +57,4 @@ namespace ui {
         });
         ui::appScreen.Loop(ui);
     }
-
-    void GameUIRenderer::RefreshUI() {
-        util::WriteToLog("Refresh of game UI requested...", "GameUIRenderer::RefreshUI()");
-        ui::appScreen.Post(ftxui::Event::Custom);
-    }
 }

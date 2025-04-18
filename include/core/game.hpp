@@ -34,6 +34,10 @@ namespace core {
             bool IsInitialised() const;
             //  Signals the game that initialisation is complete.
             void SetInitialisationComplete();
+            //  Returns true if the game is fully terminated.
+            bool IsTerminated() const;
+            //  Signals that the game is fully terminated.
+            void SetTerminated();
 
             void ChangeScore(int delta);
             int GetScore() const;
@@ -66,6 +70,8 @@ namespace core {
             std::atomic<bool> running = false;
             //  The flag indicating whether the initialisation is complete.
             std::atomic<bool> initialisationComplete = false;
+            //  The flag indicating whether the game is fully terminated.
+            std::atomic<bool> terminated = false;
     };
 
 } // namespace core

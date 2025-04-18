@@ -77,13 +77,17 @@ namespace core {
             while (GetGame()->IsInitialised() == false) {
                 using namespace std::chrono_literals;
                 std::this_thread::sleep_for(500ms); // wait for the game to be initialised
+                util::WriteToLog("Waiting for game initialisation...", "RunEventHandler::execute() {thread: tickThread}");
             }
             //  The game will end with throw endType so there is no need of condition testing.
+            util::WriteToLog("Game initialised. Starting tick event handler loop...", "RunEventHandler::execute() {thread: tickThread}");
             while (GetGame()->IsRunning()) {
                 using namespace std::chrono_literals;
                 tickEventHandler->Fire();
                 std::this_thread::sleep_for(1s);
             }
+            util::WriteToLog("Game loop exited. Terminating tickThread...", "RunEventHandler::execute() {thread: tickThread}");
+            GetGame()->SetTerminated();
         });
 
         //  Run the game UI renderer.

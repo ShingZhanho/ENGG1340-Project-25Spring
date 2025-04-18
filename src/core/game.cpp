@@ -10,8 +10,13 @@ namespace core {
 
     Game::~Game() {
         util::WriteToLog("Deleting game...", "Game::~Game()");
+        while (!terminated) {
+            util::WriteToLog("Waiting for game to fully terminate...", "Game::~Game()");
+            std::this_thread::sleep_for(std::chrono::milliseconds(100));
+        }
         delete runEventHandler;
         if (arenaIsDynamicallyCreated) delete arena;
+        util::WriteToLog("Game deleted successfully.", "Game::~Game()");
     }
 
     int Game::Run() {
@@ -45,6 +50,15 @@ namespace core {
     void Game::SetInitialisationComplete() {
         util::WriteToLog("Game initialisation complete.", "Game::SetInitialisationComplete()");
         arenaInitialised = true;
+    }
+
+    bool Game::IsTerminated() const {
+        return terminated;
+    }
+
+    void Game::SetTerminated() {
+        util::WriteToLog("Game fully terminated.", "Game::SetTerminated()");
+        terminated = true;
     }
 
     void Game::ChangeScore(int delta) {

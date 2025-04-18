@@ -54,33 +54,25 @@ int main(void) {
     checkTerminalSize();
 
     int menuOption = 0;
-    while (menuOption != 3) { // 3 = "Exit"
+    while (menuOption != 1) { // 1 = "Exit"
         getMenuOption(menuOption);
-        switch (menuOption) {
-            case 0: // Start Game
-                difficultyMenu();
-                break;
-            case 1: // How to Play
-                // TODO:
-                break;
-            case 2: // About us
-                // TODO:
-                break;
-            default:
-                break;
-        }
+        difficultyMenu();
+        util::WriteToLog("One iteration of main menu completed.", "main()");
     }
+
+    util::WriteToLog("Reached target: [SHUTDOWN]", "main()");
+    util::WriteToLog("Process completed.", "main()");
 
     return 0;
 }
 
 void checkTerminalSize() {// Check if the terminal is large enough
-    util::WriteToLog("Checking terminal size...");
+    util::WriteToLog("Checking terminal size...", "checkTerminalSize()");
     util::WriteToLog("Required size: " + std::to_string(ui::MIN_TERMINAL_WIDTH) + " x " + std::to_string(ui::MIN_TERMINAL_HEIGHT) + ". Actual size: " + std::to_string(ui::ACTUAL_TERMINAL_WIDTH) + " x " + std::to_string(ui::ACTUAL_TERMINAL_HEIGHT) + ".");
 
     if (ui::ACTUAL_TERMINAL_WIDTH >= ui::MIN_TERMINAL_WIDTH 
      && ui::ACTUAL_TERMINAL_HEIGHT >= ui::MIN_TERMINAL_HEIGHT) {
-        util::WriteToLog("Terminal size check passed.");
+        util::WriteToLog("Terminal size check passed.", "checkTerminalSize()");
         return;
     }
 
@@ -105,7 +97,7 @@ void checkTerminalSize() {// Check if the terminal is large enough
     );
     ftxui::Render(screen, document);
     screen.Print();
-    util::WriteToLog("Terminal is too small to launch. Exiting...", "?", "FATAL");
+    util::WriteToLog("Terminal is too small to launch. Exiting...", "checkTerminalSize()", "FATAL");
 
     exit(1);
 }
@@ -113,19 +105,17 @@ void checkTerminalSize() {// Check if the terminal is large enough
 //  -- Main Menu Functions -------------------------------------------------------
 
 void getMenuOption(int& option) {
-    int selected = 0;
-    int prevSelected = 0; // for implementing mouse double click
+    util::WriteToLog("Starting main menu...", "getMenuOption()");
 
-    const std::vector<std::string> menuOptions = {
+    int selected = 0;
+    int prevSelected = -1; // for implementing mouse double click
+
+    std::vector<std::string> menuOptions = {
         "Start Game",
-        "How to Play",
-        "About Us",
         "Exit"
     };
-    const std::vector<std::string> descriptionStrings = {
+    std::vector<std::string> descriptionStrings = {
         " Starts the game.",
-        " Learn how to play the game.",
-        " See information about the game and the developers.",
         " Exit the game."
     };
     std::unordered_map<int, std::string> optionDescriptions = {};
@@ -139,10 +129,10 @@ void getMenuOption(int& option) {
         if (entryState.active) {
             e |= ftxui::bold;
             e |= ftxui::color(ftxui::Color::Black);
-            e |= (entryState.index == 3) ? ftxui::bgcolor(ftxui::Color::Red) : ftxui::bgcolor(ftxui::Color::Green1);
+            e |= (entryState.index == 1) ? ftxui::bgcolor(ftxui::Color::Red) : ftxui::bgcolor(ftxui::Color::Green1);
         } 
         if (entryState.focused) {
-            e |= (entryState.index == 3) ? ftxui::color(ftxui::Color::Red) : ftxui::color(ftxui::Color::Green1);
+            e |= (entryState.index == 1) ? ftxui::color(ftxui::Color::Red) : ftxui::color(ftxui::Color::Green1);
         }
         return e;
     };
@@ -224,6 +214,7 @@ void getMenuOption(int& option) {
 
     option = selected;
     util::WriteToLog("Menu option selected: " + std::to_string(option), "getMenuOption()");
+    util::WriteToLog("Exiting main menu...", "getMenuOption()");
 }
 
 //  -- Game Difficulty Menu Functions -------------------------------------------------------
@@ -352,18 +343,26 @@ void difficultyMenu() {
         });
     }) | ftxui::border;
 
-    // -- Back button
-    auto backButton = ftxui::Button(" < Back to Menu ", [&] {
-        ui::appScreen.ExitLoopClosure()();
-
-        // Garbage collection
+    // -- Garbage collection
+    auto cleanup = [&] {
+        util::WriteToLog("Cleaning up...", "difficultyMenu()");
         for (const auto& mobType : mobFlags) {
             delete mobType.second;
         }
+    };
+
+    // -- Back button
+    auto backButton = ftxui::Button(" < Back to Menu ", [&] {
+        // Garbage collection
+        cleanup();
+
+        util::WriteToLog("Back button pressed. Game start cancelled. Exiting difficulty menu...", "difficultyMenu()");
+        ui::appScreen.ExitLoopClosure()();
     });
 
     // -- Start button
     auto startButton = ftxui::Button(" Start Game > ", [&] {
+        util::WriteToLog("Start button pressed. Setting up game...", "difficultyMenu()");
         static core::GameOptions* gameOptions;
         gameOptions = nullptr;
         static core::GameOptions defaultOptionObj;
@@ -377,18 +376,19 @@ void difficultyMenu() {
         util::WriteToLog("Difficulty selected: " + std::to_string(selectedDifficulty), "difficultyMenu()");
 
         if (selectedDifficulty == 3) {
-            // ===== Here checks if the custom game file & options are valid =====
-            // e.g., At least one mob type must be selected, etc.
+            util::WriteToLog("Custom game selected. Validating options...", "difficultyMenu()");
 
             // check game map file
             if (options_gameMapFile.empty()) {
                 setErrorMessage(optionErrorMsg, "Game file path cannot be empty.", showOptionError);
+                util::WriteToLog("Game setup failed. Reason: could not open file " + options_gameMapFile, "difficultyMenu()", "ERROR");
                 return;
             }
             std::ifstream fin(options_gameMapFile.c_str());
             auto reader = core::ArenaReader(fin);
             if (!reader.IsSuccess()) {
                 setErrorMessage(optionErrorMsg, reader.GetErrorMessage(), showOptionError);
+                util::WriteToLog("Game setup failed. Reason: " + reader.GetErrorMessage(), "difficultyMenu()", "ERROR");
                 return;
             }
             fin.close();
@@ -401,6 +401,7 @@ void difficultyMenu() {
             auto mobTypes = getMobTypes(mobFlags);
             if (mobTypes.empty()) {
                 setErrorMessage(optionErrorMsg, "At least one type of mobs must be enabled.", showOptionError);
+                util::WriteToLog("Game setup failed. Reason: no mob types selected.", "difficultyMenu()", "ERROR");
                 return;
             }
             gameOptions->MobTypesGenerated = mobTypes;
@@ -411,12 +412,12 @@ void difficultyMenu() {
         gameLvl_customMode = selectedDifficulty == 3;
         gameLvl_mainGameLoop();
 
-        // garbage collection
-        for (const auto& mobType : mobFlags) {
-            delete mobType.second;
-        }
+        util::WriteToLog("Game loop exited. Cleaning up...", "difficultyMenu()");
 
-        // Exit the menu and hand over to main menu for starting the game
+        // garbage collection
+        cleanup();
+
+        // Exit the menu
         ui::appScreen.ExitLoopClosure()();
     });
 
@@ -441,6 +442,8 @@ void difficultyMenu() {
 
     // Render the menu
     ui::appScreen.Loop(layout);
+
+    util::WriteToLog("Game difficulty menu exited.", "difficultyMenu()");
 }
 
 ftxui::Component wrapComponent(std::string fieldName, ftxui::Component component) {

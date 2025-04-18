@@ -14,8 +14,6 @@ namespace ui {
             //  Takes over ui::appScreen for rendering the game's UI.
             //  This function must be called in the main thread, NOT from the tick thread.
             void StartRenderLoop();
-            //  Refreshes the game UI. This method is thread-safe.
-            void RefreshUI();
 
         private:
             core::Game* game;
