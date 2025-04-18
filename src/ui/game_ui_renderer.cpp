@@ -5,35 +5,35 @@
 
 #include <ftxui/component/component.hpp>
 
+#include <vector>
+#include <string>
+
 namespace ui {
 
     GameUIRenderer::GameUIRenderer(core::Game* game) : game(game) { }
 
     void GameUIRenderer::StartRenderLoop() {
         util::WriteToLog("Starting game UI renderer...", "GameUIRenderer::StartRenderLoop()");
-
         auto container = ftxui::Container::Vertical({});
-        ui::RenderOption entityRenderer;
-        for (int y = 0; y < ARENA_HEIGHT; ++y) {
-            auto row = ftxui::Container::Horizontal({});
-            for (int x = 0; x < ARENA_WIDTH; ++x) {
-                entityRenderer = game->GetArena()->GetPixel({x, y})->GetRenderOption();
-                row->Add(ftxui::Renderer([&] {
-                    return entityRenderer.Render();
-                }));
-            }
-            container->Add(row);
-        }
         auto ui = ftxui::Renderer(container, [&] {
-            return ftxui::vbox({
-                ftxui::text("Game Screen") | ftxui::center | ftxui::bold,
-                ftxui::separator(),
-                container->Render()
-            });
+            std::vector<ftxui::Element> allRows;
+            for (int y = 0; y < ARENA_HEIGHT; y++) {
+                std::vector<ftxui::Element> rowElements;
+                for (int x = 0; x < ARENA_WIDTH; x++) {
+                    auto entityRenderer = game->GetArena()->GetPixel({x, y})->GetRenderOption();
+                    rowElements.push_back(entityRenderer.Render());
+                }
+                allRows.push_back(ftxui::hbox(rowElements));
+            }
+            auto rows = ftxui::vbox(allRows);
+            return rows | ftxui::center;
         }) | ftxui::CatchEvent([&] (ftxui::Event event) {
             if (event == ftxui::Event::Escape) {
-                game->Terminate();
                 appScreen.ExitLoopClosure()();
+                game->Terminate();
+                return true;
+            }
+            if (event == ftxui::Event::Custom) {
                 return true;
             }
             return false;
@@ -45,5 +45,4 @@ namespace ui {
         util::WriteToLog("Refresh of game UI requested...", "GameUIRenderer::RefreshUI()");
         ui::appScreen.Post(ftxui::Event::Custom);
     }
-
 }

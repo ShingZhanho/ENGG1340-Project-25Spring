@@ -12,4 +12,6 @@ namespace ui {
     const int ACTUAL_TERMINAL_WIDTH = ftxui::Dimension::Full().dimx;
     const int ACTUAL_TERMINAL_HEIGHT = ftxui::Dimension::Full().dimy;
 
+    GameUIRenderer* publicGameUIRenderer = nullptr;
+
 }

@@ -9,27 +9,27 @@ namespace core {
     //  here defines the render options for each entity.
 
     ui::RenderOption EntityRenderOptions::AirRenderOption() {
-        return ui::RenderOption();
+        return {};
     } // default options
     ui::RenderOption EntityRenderOptions::WallRenderOption() {
-        return ui::RenderOption(
+        return {
             'X', ftxui::Color::GrayDark, ftxui::Color::Default, false, false, false, false
-        );
+        };
     }
     ui::RenderOption EntityRenderOptions::PlayerRenderOption() {
-        return ui::RenderOption(
+        return {
             '@', ftxui::Color::Green, ftxui::Color::Default, true, false, false, false
-        );
+        };
     }
     ui::RenderOption EntityRenderOptions::ZombieRenderOption() {
-        return ui::RenderOption(
+        return {
             'Z', ftxui::Color::Red, ftxui::Color::Default, true, false, false, false
-        );
+        };
     }
     ui::RenderOption EntityRenderOptions::PlayerBulletRenderOption() { 
-        return ui::RenderOption(
+        return {
             '*', ftxui::Color::Yellow, ftxui::Color::Default, true, false, false, false
-        );
+        };
     }
 
     //  END: EntityRenderOptions
@@ -43,7 +43,7 @@ namespace core {
     }
 
     void Entity::SetPosition(Point position) {
-        position = position;
+        this->position = position;
     }
 
     bool Entity::IsType(Entity* entity, EntityType type) {

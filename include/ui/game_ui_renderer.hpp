@@ -2,6 +2,7 @@
 #define UI_GAME_UI_RENDERER_HPP
 
 #include <core/game.hpp>
+#include <ftxui/component/component.hpp>
 
 namespace ui {
 
@@ -18,6 +19,7 @@ namespace ui {
 
         private:
             core::Game* game;
+            ftxui::Component draw();
     };
     
 }

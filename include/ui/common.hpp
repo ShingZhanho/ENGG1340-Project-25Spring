@@ -5,6 +5,7 @@
 
 #include <core/arena.hpp>
 #include <ftxui/component/screen_interactive.hpp>
+#include <ui/game_ui_renderer.hpp>
 
 namespace ui {
 
@@ -18,6 +19,9 @@ namespace ui {
 
     extern const int ACTUAL_TERMINAL_WIDTH;
     extern const int ACTUAL_TERMINAL_HEIGHT;
+
+    // The shared game ui renderer object.
+    extern GameUIRenderer* publicGameUIRenderer;
 
 } // namespace ui
 

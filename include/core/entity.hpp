@@ -62,7 +62,6 @@ namespace core {
             //  The ID. Non-block entity will have an ID.
             int id;
             Point position;
-            char character; // the appearance of the entity; TODO: replace with RenderOption
     };
 
     //  -- Abstract Classes ---------------------------------------------------------

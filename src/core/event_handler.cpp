@@ -79,13 +79,12 @@ namespace core {
             while (GetGame()->IsRunning()) {
                 using namespace std::chrono_literals;
                 tickEventHandler->Fire();
-                std::this_thread::sleep_for(20ms);
+                std::this_thread::sleep_for(1s);
             }
         });
 
         //  Run the game UI renderer.
-        ui::GameUIRenderer renderer(GetGame());
-        renderer.StartRenderLoop();
+        ui::publicGameUIRenderer->StartRenderLoop();
         
         // tickThread.join();
     }
@@ -333,8 +332,8 @@ namespace core {
     }
     
     void ScreenRefreshEventHandler::execute() {
-        ui::GameUIRenderer renderer(GetGame());
-        renderer.RefreshUI();
+        // ui::GameUIRenderer renderer(GetGame());
+        // renderer.RefreshUI();
     }
     
     //  END: ScreenRefreshEventHandler
