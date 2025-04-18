@@ -13,13 +13,13 @@ namespace ui {
         util::WriteToLog("Starting game UI renderer...", "GameUIRenderer::StartRenderLoop()");
 
         auto container = ftxui::Container::Vertical({});
-        ui::RenderOption* entityRenderer = nullptr;
+        ui::RenderOption entityRenderer;
         for (int y = 0; y < ARENA_HEIGHT; ++y) {
             auto row = ftxui::Container::Horizontal({});
             for (int x = 0; x < ARENA_WIDTH; ++x) {
                 entityRenderer = game->GetArena()->GetPixel({x, y})->GetRenderOption();
                 row->Add(ftxui::Renderer([&] {
-                    return entityRenderer->Render();
+                    return entityRenderer.Render();
                 }));
             }
             container->Add(row);

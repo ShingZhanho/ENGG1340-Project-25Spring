@@ -26,11 +26,11 @@ namespace core {
 
     class EntityRenderOptions {
         public:
-            static ui::RenderOption AirRenderOption;
-            static ui::RenderOption WallRenderOption;
-            static ui::RenderOption PlayerRenderOption;
-            static ui::RenderOption ZombieRenderOption;
-            static ui::RenderOption PlayerBulletRenderOption;
+            static ui::RenderOption AirRenderOption();
+            static ui::RenderOption WallRenderOption();
+            static ui::RenderOption PlayerRenderOption();
+            static ui::RenderOption ZombieRenderOption();
+            static ui::RenderOption PlayerBulletRenderOption();
     };
 
     class Entity {
@@ -48,7 +48,7 @@ namespace core {
             //  This is a wrapper for dynamic_cast.
             static bool IsType(Entity* entity, EntityType type);
             //  Returns the render option of the entity
-            ui::RenderOption* GetRenderOption();
+            ui::RenderOption GetRenderOption();
 
         protected:
 
@@ -56,7 +56,7 @@ namespace core {
             Arena* arena;
 
             //  The render option for the entity. Must be manually set in the constructor.
-            ui::RenderOption* renderOption = nullptr;
+            ui::RenderOption renderOption;
 
         private:
             //  The ID. Non-block entity will have an ID.

@@ -364,7 +364,8 @@ void difficultyMenu() {
 
     // -- Start button
     auto startButton = ftxui::Button(" Start Game > ", [&] {
-        core::GameOptions* gameOptions = nullptr;
+        static core::GameOptions* gameOptions;
+        gameOptions = nullptr;
         static core::GameOptions defaultOptionObj;
         switch (selectedDifficulty) {
             case 0: defaultOptionObj = core::DefaultGameOptions::EASY(); gameOptions = &defaultOptionObj; break;
@@ -391,6 +392,7 @@ void difficultyMenu() {
                 return;
             }
             fin.close();
+            gameOptions->GameArena = reader.GetArena();
 
             // check player HP (nothing to be checked)
             gameOptions->PlayerHp = options_playerHP;

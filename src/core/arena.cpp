@@ -35,10 +35,8 @@ namespace core {
     }
 
     void Arena::SetPixel(Point p, Entity* entity) {
-        util::WriteToLog("Setting pixel at (" + std::to_string(p.x) + ", " + std::to_string(p.y) + ")", "Arena::SetPixel()");
         if (p.x == 0 || p.x == ARENA_WIDTH - 1 || p.y == 0 || p.y == ARENA_HEIGHT - 1) {
             // Do not allow setting pixels on the outermost layer
-            util::WriteToLog("Attempted to set pixel on the outermost layer. Request Ignored.", "Arena::SetPixel()", "WARNING");
             return;
         }
         delete pixel[p.y][p.x];
@@ -47,7 +45,7 @@ namespace core {
 
     void Arena::SetPixelWithId(Point p, Entity* entity) {
         SetPixel(p, entity);
-        util::WriteToLog("Entity assigned ID: " + std::to_string(idIncr), "Arena::SetPixelWithId()");
+        util::WriteToLog("Entity at (" + std::to_string(p.x) + ", " + std::to_string(p.y) + ") assigned ID: " + std::to_string(idIncr), "Arena::SetPixelWithId()");
         entityIndex[idIncr] = entity;
         idIncr++;
     }

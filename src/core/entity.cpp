@@ -8,19 +8,29 @@ namespace core {
 
     //  here defines the render options for each entity.
 
-    ui::RenderOption EntityRenderOptions::AirRenderOption = ui::RenderOption(); // default options
-    ui::RenderOption EntityRenderOptions::WallRenderOption = ui::RenderOption(
-        'X', ftxui::Color::GrayDark, ftxui::Color::Default, false, false, false, false
-    );
-    ui::RenderOption EntityRenderOptions::PlayerRenderOption = ui::RenderOption(
-        '@', ftxui::Color::Green, ftxui::Color::Default, true, false, false, false
-    );
-    ui::RenderOption EntityRenderOptions::ZombieRenderOption = ui::RenderOption(
-        'Z', ftxui::Color::Red, ftxui::Color::Default, true, false, false, false
-    );
-    ui::RenderOption EntityRenderOptions::PlayerBulletRenderOption = ui::RenderOption(
-        '*', ftxui::Color::Yellow, ftxui::Color::Default, true, false, false, false
-    );
+    ui::RenderOption EntityRenderOptions::AirRenderOption() {
+        return ui::RenderOption();
+    } // default options
+    ui::RenderOption EntityRenderOptions::WallRenderOption() {
+        return ui::RenderOption(
+            'X', ftxui::Color::GrayDark, ftxui::Color::Default, false, false, false, false
+        );
+    }
+    ui::RenderOption EntityRenderOptions::PlayerRenderOption() {
+        return ui::RenderOption(
+            '@', ftxui::Color::Green, ftxui::Color::Default, true, false, false, false
+        );
+    }
+    ui::RenderOption EntityRenderOptions::ZombieRenderOption() {
+        return ui::RenderOption(
+            'Z', ftxui::Color::Red, ftxui::Color::Default, true, false, false, false
+        );
+    }
+    ui::RenderOption EntityRenderOptions::PlayerBulletRenderOption() { 
+        return ui::RenderOption(
+            '*', ftxui::Color::Yellow, ftxui::Color::Default, true, false, false, false
+        );
+    }
 
     //  END: EntityRenderOptions
 
@@ -57,7 +67,7 @@ namespace core {
         }
     }
 
-    ui::RenderOption* Entity::GetRenderOption() {
+    ui::RenderOption Entity::GetRenderOption() {
         return renderOption;
     }
 
@@ -123,8 +133,8 @@ namespace core {
     //  BEGIN: PlayerBullet
 
     PlayerBullet::PlayerBullet(Point position, Arena* arena, int damage, int direction)
-        : Entity(position, arena), damage(damage), direction(direction) {
-        Entity::renderOption = &EntityRenderOptions::PlayerBulletRenderOption;
+        : Entity(position, arena), damage(damage), direction(direction) { 
+        renderOption = EntityRenderOptions::PlayerBulletRenderOption();
     }
 
     int PlayerBullet::GetDamage() const { return damage; }
@@ -159,7 +169,7 @@ namespace core {
     //  BEGIN: Wall
 
     Wall::Wall(Point position, Arena* arena) : AbstractBlock(position, arena) {
-        Entity::renderOption = &EntityRenderOptions::WallRenderOption;
+        renderOption = EntityRenderOptions::WallRenderOption();
     }
 
     //  END: Wall
@@ -167,7 +177,7 @@ namespace core {
     //  BEGIN: Air
 
     Air::Air(Point position, Arena* arena) : AbstractBlock(position, arena) {
-        Entity::renderOption = &EntityRenderOptions::AirRenderOption;
+        renderOption = EntityRenderOptions::AirRenderOption();
     }
 
     //  END: Air
@@ -175,7 +185,7 @@ namespace core {
     //  BEGIN: Player
 
     Player::Player(Point position, Arena* arena, int initialHp) : Entity(position, arena), hp(initialHp) {
-        Entity::renderOption = &EntityRenderOptions::PlayerRenderOption;
+        renderOption = EntityRenderOptions::PlayerRenderOption();
     }
 
     void Player::TakeDamage(int damage) {
@@ -207,7 +217,7 @@ namespace core {
             position, arena,
             1, 1, 1 // HP, damage, killScore
         ) {
-        Entity::renderOption = &EntityRenderOptions::ZombieRenderOption;
+        renderOption = EntityRenderOptions::ZombieRenderOption();
     }
 
     //  END: Zombie

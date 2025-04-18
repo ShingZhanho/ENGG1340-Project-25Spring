@@ -9,9 +9,9 @@ namespace core {
     Game::Game(GameOptions* options) : options(options) { }
 
     Game::~Game() {
+        util::WriteToLog("Deleting game...", "Game::~Game()");
         delete runEventHandler;
-        //  The arena is constructed in the event handler,
-        //  so it should be deleted in the event handler.
+        if (arenaIsDynamicallyCreated) delete arena;
     }
 
     int Game::Run() {
@@ -34,6 +34,7 @@ namespace core {
     }
 
     bool Game::IsRunning() const {
+
         return running;
     }
 
@@ -49,7 +50,14 @@ namespace core {
         util::WriteToLog("Checking Arena initialisation status...", "Game::InitialiseArena()");
         if (!arenaInitialised) {
             util::WriteToLog("Arena not initialised. Initialising...", "Game::InitialiseArena()");
-            arena = GetOptions()->GameArena != nullptr ? GetOptions()->GameArena : new Arena();
+            if (GetOptions()->GameArena != nullptr) {
+                util::WriteToLog("Using provided arena.", "Game::InitialiseArena()");
+                arena = GetOptions()->GameArena;
+            } else {
+                util::WriteToLog("Using default arena.", "Game::InitialiseArena()");
+                arena = new Arena();
+                arenaIsDynamicallyCreated = true;
+            }
             arenaInitialised = true;
             return;
         }

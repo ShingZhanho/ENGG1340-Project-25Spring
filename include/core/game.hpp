@@ -48,7 +48,10 @@ namespace core {
             int score = 0;
             //  The arena of the game.
             Arena* arena;
+            //  The flag indicating whether the arena is initialised.
             bool arenaInitialised = false;
+            //  The flag indicating whether the arena is created using new in this class.
+            bool arenaIsDynamicallyCreated = false;
             //  The root event.
             EventHandler* runEventHandler;
             //  The game options.
