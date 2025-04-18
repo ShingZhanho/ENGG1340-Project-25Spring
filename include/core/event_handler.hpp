@@ -50,6 +50,9 @@ namespace core {
         public:
             //  Constructor.
             RunEventHandler(Game* game);
+            //  Destructor.
+            ~RunEventHandler();
+            //  Triggers the event.
             void Fire() override;
 
         private:
