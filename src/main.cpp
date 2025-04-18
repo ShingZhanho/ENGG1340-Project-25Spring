@@ -364,12 +364,13 @@ void difficultyMenu() {
 
     // -- Start button
     auto startButton = ftxui::Button(" Start Game > ", [&] {
-        static std::unique_ptr<core::GameOptions> gameOptions = std::make_unique<core::GameOptions>();
+        core::GameOptions* gameOptions = nullptr;
+        static core::GameOptions defaultOptionObj;
         switch (selectedDifficulty) {
-            case 0: *gameOptions = core::DefaultGameOptions::EASY(); break;
-            case 1: *gameOptions = core::DefaultGameOptions::MEDIUM(); break;
-            case 2: *gameOptions = core::DefaultGameOptions::HARD(); break;
-            // case 3: CUSTOM, handled below
+            case 0: defaultOptionObj = core::DefaultGameOptions::EASY(); gameOptions = &defaultOptionObj; break;
+            case 1: defaultOptionObj = core::DefaultGameOptions::MEDIUM(); gameOptions = &defaultOptionObj; break;
+            case 2: defaultOptionObj = core::DefaultGameOptions::HARD(); gameOptions = &defaultOptionObj; break;
+            case 3: gameOptions = new core::GameOptions(); break;
             default: break;
         }
         util::WriteToLog("Difficulty selected: " + std::to_string(selectedDifficulty), "difficultyMenu()");
@@ -404,7 +405,8 @@ void difficultyMenu() {
         }
 
         // Set the game options
-        gameLvl_configureGameOptions(gameOptions.get());
+        gameLvl_configureGameOptions(gameOptions);
+        gameLvl_customMode = selectedDifficulty == 3;
         gameLvl_mainGameLoop();
 
         // garbage collection

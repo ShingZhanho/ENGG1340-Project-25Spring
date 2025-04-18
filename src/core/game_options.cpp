@@ -16,7 +16,7 @@ namespace core {
 
         GameOptions MEDIUM() {
             return GameOptions({
-                100,        //  PlayerHp
+                50,        //  PlayerHp
                 nullptr,    //  GameArena
                 {EntityType::ZOMBIE} //  MobTypesGenerated}
             });
@@ -24,7 +24,7 @@ namespace core {
 
         GameOptions HARD() {
             return GameOptions({
-                100,        //  PlayerHp
+                25,        //  PlayerHp
                 nullptr,    //  GameArena
                 {EntityType::ZOMBIE} //  MobTypesGenerated}
             });
