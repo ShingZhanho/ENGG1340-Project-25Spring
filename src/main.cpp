@@ -56,7 +56,7 @@ int main(void) {
     int menuOption = 0;
     while (menuOption != 1) { // 1 = "Exit"
         getMenuOption(menuOption);
-        difficultyMenu();
+        if (menuOption == 0 ) difficultyMenu();
         util::WriteToLog("One iteration of main menu completed.", "main()");
     }
 
