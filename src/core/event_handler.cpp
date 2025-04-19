@@ -209,7 +209,7 @@ namespace core {
     }
     
     void TickEventHandler::execute() {
-        // Execute operations needed for each tick
+        ui::appScreen.Post(ftxui::Event::Custom);
     }
     
     //  END: TickEventHandler
