@@ -56,15 +56,15 @@ _SHOOT!_ is straightforward but brutally intense:
 
 ## How to Play
 
-1. Change your working directory to `build`:
+Change your working directory to `build`:
    ```bash
    cd build
    ```
-2. `make` the target:
+`make` the target:
    ```bash
    make all
    ```
-3. Run the program:
+Run the program:
    ```bash
    ./main
    ```
