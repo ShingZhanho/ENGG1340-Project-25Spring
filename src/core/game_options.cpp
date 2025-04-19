@@ -10,7 +10,8 @@ namespace core {
             return GameOptions({
                 100,        //  PlayerHp
                 nullptr,    //  GameArena
-                {EntityType::ZOMBIE} //  MobTypesGenerated}
+                {EntityType::ZOMBIE}, //  MobTypesGenerated
+                10          // MaxMobs
             });
         }
 
@@ -18,7 +19,8 @@ namespace core {
             return GameOptions({
                 50,        //  PlayerHp
                 nullptr,    //  GameArena
-                {EntityType::ZOMBIE} //  MobTypesGenerated}
+                {EntityType::ZOMBIE}, //  MobTypesGenerated
+                15          // MaxMobs
             });
         }
 
@@ -26,7 +28,8 @@ namespace core {
             return GameOptions({
                 25,        //  PlayerHp
                 nullptr,    //  GameArena
-                {EntityType::ZOMBIE} //  MobTypesGenerated}
+                {EntityType::ZOMBIE}, //  MobTypesGenerated
+                30          // MaxMobs
             });
         }
 

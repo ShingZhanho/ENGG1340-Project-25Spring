@@ -20,6 +20,8 @@ namespace core {
         //  The types of mobs that will be spawned in the game.
         //  Although the set uses the EntityType enum, it should only include types that are actually mobs.
         std::set<core::EntityType> MobTypesGenerated;
+        //  The maximum number of mobs at any given moment.
+        int MaxMobs;
     };
 
     //  Built-in GameOptions

@@ -260,14 +260,14 @@ void difficultyMenu() {
 
     //    -- Player HP (slider, 10 - 100)
     int options_playerHP = 50;
-    auto sliderOption = ftxui::SliderOption<int>();
-    sliderOption.value = &options_playerHP;
-    sliderOption.min = 10;
-    sliderOption.max = 100;
-    sliderOption.increment = 1;
-    sliderOption.color_active = ftxui::Color::Green1;
-    sliderOption.color_inactive = ftxui::Color::White;
-    auto playerHPSlider = ftxui::Slider(sliderOption);
+    auto playerHpSliderOption = ftxui::SliderOption<int>();
+    playerHpSliderOption.value = &options_playerHP;
+    playerHpSliderOption.min = 10;
+    playerHpSliderOption.max = 100;
+    playerHpSliderOption.increment = 1;
+    playerHpSliderOption.color_active = ftxui::Color::Green1;
+    playerHpSliderOption.color_inactive = ftxui::Color::White;
+    auto playerHPSlider = ftxui::Slider(playerHpSliderOption);
 
     auto playerHPSliderComponent = wrapComponent("Player HP", ftxui::Renderer(playerHPSlider, [&] {
         return ftxui::hbox({
@@ -312,6 +312,24 @@ void difficultyMenu() {
         return mobCheckboxesContainer->Render() | ftxui::vscroll_indicator | ftxui::frame | ftxui::size(ftxui::HEIGHT, ftxui::LESS_THAN, 3) | ftxui::xflex_grow;
     }));
 
+    //      -- Max Mobs (slider)
+    int options_maxMobs = 15;
+    auto maxMobsSliderOption = ftxui::SliderOption<int>();
+    maxMobsSliderOption.value = &options_maxMobs;
+    maxMobsSliderOption.min = 10;
+    maxMobsSliderOption.max = 50;
+    maxMobsSliderOption.increment = 1;
+    maxMobsSliderOption.color_active = ftxui::Color::Green1;
+    maxMobsSliderOption.color_inactive = ftxui::Color::White;
+    auto maxMobsSlider = ftxui::Slider(maxMobsSliderOption);
+
+    auto maxMobsSliderComponent = wrapComponent("Max. Mobs", ftxui::Renderer(maxMobsSlider, [&] {
+        return ftxui::hbox({
+            maxMobsSlider->Render() | ftxui::flex_grow,
+            ftxui::text(" " +std::to_string(options_maxMobs) + " / 50 ") |  ftxui::flex_shrink 
+        }) | ftxui::flex_grow;
+    }));
+
     //    -- Error message about invalid options
     bool showOptionError = false;
     std::string optionErrorMsg = "";
@@ -329,7 +347,8 @@ void difficultyMenu() {
     auto customGameOptionsContainer = ftxui::Container::Vertical({
         gameMapFileInputComponent,
         playerHPSliderComponent,
-        mobCheckboxesComponent
+        mobCheckboxesComponent,
+        maxMobsSliderComponent
     });
     auto customGameOptionsRenderer = ftxui::Renderer(customGameOptionsContainer, [&] {
         return ftxui::vbox({
@@ -340,6 +359,8 @@ void difficultyMenu() {
             playerHPSliderComponent->Render(),
             ftxui::separator(),
             mobCheckboxesComponent->Render(),
+            ftxui::separator(),
+            maxMobsSliderComponent->Render(),
         });
     }) | ftxui::border;
 
@@ -405,6 +426,9 @@ void difficultyMenu() {
                 return;
             }
             gameOptions->MobTypesGenerated = mobTypes;
+
+            // check max mobs (nothing to be checked)
+            gameOptions->MaxMobs = options_maxMobs;
         }
 
         // Set the game options
