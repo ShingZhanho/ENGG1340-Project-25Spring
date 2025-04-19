@@ -45,6 +45,12 @@ _SHOOT!_ is straightforward but brutally intense:
 3. **Difficulty levels for every player**: Whether you are a novice seeking a gentle introduction to the chaos, a veteran who survives relent
    less waves and is equipped with precise skills, or a elite shooter, there is always a difficulty level just for you. In each level, the
    monster spawn rates, their speed and their amount are always changing. Get ready to push your limits and conquer the arena!
+4. **Dynamic combat–fast, fluid, and ferocious**: Bullets fly, monsters swarm, and every second counts. The game’s smooth mechanics ensure
+   that your skill—not luck—determines victory.
+5. **Glory of the achievers**: After each round, your score is automatically stored into the leaderboard. Compete against yourself or others.
+   How long can you last? How many monsters can you slay before the inevitable end? The leaderboard awaits the boldest shooters.
+
+
 
 
 
