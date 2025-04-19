@@ -96,13 +96,3 @@ Run the program:
 > * Add platform suffix to the target if you are not building on Linux. For example, use `make all_macos` or `make run_macos` for macOS. The supported suffixes are `_macos` and `_windows`.  
 > * The executable on Windows is `main.exe`.
       
-## Coding Requirements
-
-The requirements for this project have been met:
-
-- ✅ **Random event generation** - mob generation depends on random numbers.
-- ✅ **Data structures** - the game uses STL containers such as `std::vector`, `std::unordered_map`.
-- ✅ **Dynamic memory management** - certain objects are created on runtime using `new` and destructed using `delete`.
-- ✅ **File I/O** - the game supports loading a custom map from a file.
-- ✅ **Program codes in multiple files** - the project separates the components into multiple files and multiple namespaces.
-- ✅ **Multiple difficulty levels** - there are different difficulty levels to choose from.
