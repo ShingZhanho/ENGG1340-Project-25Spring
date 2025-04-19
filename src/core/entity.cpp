@@ -105,6 +105,7 @@ namespace core {
     }
 
     bool AbstractMob::Move(Point to) {
+        util::WriteToLog("Attempting to move mob to: (" + std::to_string(to.x) + ", " + std::to_string(to.y) + ")", "AbstractMob::Move()");
         Entity* target = arena->GetPixel(to);
 
         if (IsType(target, EntityType::PLAYER)) { // collides with player
@@ -123,9 +124,23 @@ namespace core {
 
         if (IsType(target, EntityType::AIR)) { // collides with air
             arena->Move(GetPosition(), to);
+            util::WriteToLog("Mob moved to: (" + std::to_string(to.x) + ", " + std::to_string(to.y) + ")", "AbstractMob::Move()");
             return true;
         }
 
+        return false;
+    }
+
+    bool AbstractMob::Move() {
+        //  Move towards the player using the given path.
+        if (Path.empty()) {
+            return false;
+        } 
+        Point nextPos = Path.front();
+        if (Move(nextPos)) { // Try to move to the next position
+            Path.pop_front();
+            return true;
+        }
         return false;
     }
 
@@ -197,7 +212,7 @@ namespace core {
     }
 
     bool Player::Move(Point to) {
-        util::WriteToLog("Attempting to move player to: " + std::to_string(to.x) + ", " + std::to_string(to.y), "Player::Move()");
+        util::WriteToLog("Attempting to move player to: (" + std::to_string(to.x) + ", " + std::to_string(to.y) + ")", "Player::Move()");
         Entity* target = arena->GetPixel(to);
 
         if (IsType(target, EntityType::WALL) || IsType(target, EntityType::ABSTRACT_MOB)) {
@@ -208,7 +223,7 @@ namespace core {
         if (IsType(target, EntityType::AIR)) {
             util::WriteToLog("Requesting arena to move Player entity...", "Player::Move()");
             arena->Move(GetPosition(), to);
-            util::WriteToLog("Player moved to: " + std::to_string(to.x) + ", " + std::to_string(to.y), "Player::Move()");
+            util::WriteToLog("Player moved to: (" + std::to_string(to.x) + ", " + std::to_string(to.y) + ")", "Player::Move()");
             return true;
         }
 

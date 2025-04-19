@@ -151,6 +151,7 @@ namespace core {
             //  and if pathfinding is needed. Initial value is (-1, -1) to ensure
             //  pathfinding must be done at the start.
             Point playerPrevPos;
+            int prevMobCount;
             //  Finds the shortest path from start to end on the given arena using A* algorithm.
             //  Returns a list of points representing the path, where the first point is
             //  the one closest to the start and the last point is the one closest to the end.
@@ -159,6 +160,9 @@ namespace core {
             static std::list<Point> findPath(Arena* arena, Point start, Point end);
             //  Returns the manhattan distance between two points.
             inline static int heuristic(Point a, Point b);
+            //  Returns neighbours iff they are within x:[1, ARENA_WIDTH-2] and y:[1, ARENA_HEIGHT-2]
+            //  i.e. not on the border. Includes diagonal neighbours.
+            inline static std::list<Point> getNeighbours(Point point);
     };
 }
 

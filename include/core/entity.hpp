@@ -1,6 +1,8 @@
 #ifndef CORE_ENTITY_HPP
 #define CORE_ENTITY_HPP
 
+#include <list>
+
 #include <core/arena.hpp>
 #include <core/point.hpp>
 #include <core/entity_type.hpp>
@@ -19,10 +21,6 @@ namespace core {
     class Player;
     class Zombie;
 
-    typedef struct Point {
-        int x;
-        int y;
-    } Point;
     typedef EntityType EntityType;
 
     class EntityRenderOptions {
@@ -85,7 +83,16 @@ namespace core {
             int GetHP() const;
             //  Applies damage to the mob.
             void TakeDamage(int damage);
+            //  Moves the mob to the given position.
+            //  Returns true if the mob was able to move.
+            //  Only used internally in the AbstractMob class.
+            //  Please call Move() that takes no arguments to move the mob along its path.
             bool Move(Point to) override;
+            //  Moves the mob along its path.
+            //  This is a dedicated function that is called by the game loop.
+            bool Move();
+            //  The path towards the player. Updated through MobMoveEventHandler.
+            std::list<Point> Path;
 
         private:
             int hp;

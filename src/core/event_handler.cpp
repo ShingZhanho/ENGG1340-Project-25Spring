@@ -20,6 +20,9 @@
 #include <cstdlib>
 #include <chrono>
 #include <thread>
+#include <unordered_map>
+#include <queue>
+#include <string>
 
 namespace core {
 
@@ -313,37 +316,104 @@ namespace core {
         }
     }
 
-    
-    
     //  END: MobGenerateEventHandler
     
     //  BEGIN: MobMoveEventHandler
     
     MobMoveEventHandler::MobMoveEventHandler(Game* game) : EventHandler(game) {
-        // util::WriteToLog("Constructing MobMoveEventHandler", "MobMoveEventHandler::MobMoveEventHandler()");
+        playerPrevPos = {-1, -1}; // Initial value to ensure pathfinding is done at the start
+        prevMobCount = 0;
     }
 
     void MobMoveEventHandler::Fire() {
-        // util::WriteToLog("EntityMoveEvent triggered", "MobMoveEventHandler::Fire()");
+        util::WriteToLog("MobMoveEvent triggered", "MobMoveEventHandler::Fire()");
         execute();
         EventHandler::Fire();
     }
     
     void MobMoveEventHandler::execute() {
         auto playerPos = GetGame()->GetArena()->GetPixelById(0)->GetPosition();
-        if (playerPos == playerPrevPos) return;
+        // Move all mobs
+        auto entities = GetGame()->GetArena()->GetMappedEntities();
+        int mobCount = 0;
+        for (auto entity : entities) {
+            if (!Entity::IsType(entity, EntityType::ABSTRACT_MOB)) continue;
+            auto mob = dynamic_cast<AbstractMob*>(entity);
+            if (mob == nullptr) continue;
+            mobCount++;
+            mob->Move();
+        }
+        if (playerPos == playerPrevPos && mobCount == prevMobCount) return; // No need to recalculate path if player hasn't moved
         playerPrevPos = playerPos;
+        prevMobCount = mobCount;
 
         // Perform pathfinding for all mobs
-        auto entities = GetGame()->GetArena()->GetMappedEntities();
+        for (auto entity : entities) {
+            if (!Entity::IsType(entity, EntityType::ABSTRACT_MOB)) continue;
+            auto mob = dynamic_cast<AbstractMob*>(entity);
+            if (mob == nullptr) continue;
+            mob->Path = findPath(GetGame()->GetArena(), mob->GetPosition(), playerPos);
+        }
     }
 
     std::list<Point> MobMoveEventHandler::findPath(Arena* arena, Point start, Point end) {
+        // References:
+        // - https://www.redblobgames.com/pathfinding/a-star/introduction.html
+        // - https://www.redblobgames.com/pathfinding/a-star/implementation.html#cpp-astar
+        typedef std::pair<int, Point> Node;
+        std::unordered_map<Point, Point> cameFrom;
+        std::unordered_map<Point, int> costSoFar;
+        std::priority_queue<Node, std::vector<Node>, std::greater<Node>> frontier;
+
+        frontier.emplace(0, start);
+        cameFrom[start] = start;
+        costSoFar[start] = 0;
+
+        while (!frontier.empty()) {
+            Point current = frontier.top().second;
+            frontier.pop();
+            if (current == end) break;
+
+            for (auto next : getNeighbours(current)) {
+                if (Entity::IsType(arena->GetPixel(next), EntityType::WALL)) continue; // Skip walls
+                int newCost = costSoFar[current] + 1;
+                if (costSoFar.find(next) == costSoFar.end() || newCost < costSoFar[next]) {
+                    costSoFar[next] = newCost;
+                    frontier.emplace(newCost + heuristic(next, end), next);
+                    cameFrom[next] = current;
+                }
+            }
+        }
+
+        // Reconstruct path
         std::list<Point> path;
+        Point current = cameFrom[end]; // exclude the end point
+        if (cameFrom.find(end) == cameFrom.end()) return path; // No path found
+        while (current != start) {
+            path.push_front(current);
+            current = cameFrom[current];
+        }
+
+        return path;
     }
 
     int MobMoveEventHandler::heuristic(Point a, Point b) {
         return std::abs(a.x - b.x) + std::abs(a.y - b.y);
+    }
+
+    std::list<Point> MobMoveEventHandler::getNeighbours(Point point) {
+        std::list<Point> neighbours;
+        for (int dx = -1; dx <= 1; ++dx) {
+            for (int dy = -1; dy <= 1; ++dy) {
+                if (dx == 0 && dy == 0) continue;
+                int nx = point.x + dx;
+                int ny = point.y + dy;
+                if (nx >= 1 && nx < ARENA_WIDTH - 1 && ny >= 1 && ny < ARENA_HEIGHT - 1) {
+                    neighbours.push_back({nx, ny});
+                }
+            }
+        }
+        return neighbours;
     }
     
     //  END: MobMoveEventHandler
