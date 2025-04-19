@@ -54,7 +54,7 @@ _SHOOT!_ is straightforward but brutally intense:
 
 
 
-## Build Instructions
+## How to Play
 
 1. Change your working directory to `build`:
    ```bash
@@ -68,10 +68,10 @@ _SHOOT!_ is straightforward but brutally intense:
    ```bash
    ./main
    ```
-
-> - `make run` is a shortcut for `make all` and `./main`.
-> - Add platform suffix to the target if you are not building on Linux. For example, use `make all_macos` or `make run_macos` for macOS. The supported suffixes are `_macos` and `_windows`.
-> - The executable on Windows is `main.exe`.
+   Please note that:
+> * `make run` is a shortcut for `make all` and `./main`.  
+> * Add platform suffix to the target if you are not building on Linux. For example, use `make all_macos` or `make run_macos` for macOS. The supported suffixes are `_macos` and `_windows`.  
+> * The executable on Windows is `main.exe`.
       
 ## Coding Requirements
 
