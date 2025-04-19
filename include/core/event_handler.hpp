@@ -75,7 +75,7 @@ namespace core {
     class PlayerMoveEventHandler : public EventHandler {
         public:
             PlayerMoveEventHandler(Game* game);
-            enum class Direction { UP, DOWN, LEFT, RIGHT, STILL };
+            enum class Direction { UP, DOWN, LEFT, RIGHT, UP_LEFT, UP_RIGHT, DOWN_LEFT, DOWN_RIGHT, STILL };
             //  Sets the direction of the player. Call this method before calling Fire().
             //  The Fire() method will then use this direction to move the player.
             void SetDirection(Direction direction);

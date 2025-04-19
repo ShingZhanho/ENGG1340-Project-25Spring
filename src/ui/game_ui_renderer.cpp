@@ -50,13 +50,12 @@ namespace ui {
                 }),
                 ftxui::separator(),
                 ftxui::text(" INSTRUCTIONS:") | ftxui::bold,
-                ftxui::paragraphAlignLeft("  - Move: W/A/S/D"),
-                ftxui::paragraphAlignLeft("  - Shoot a bullet: I/J/K/L")
+                ftxui::paragraphAlignLeft("  - Move: W/A/S/D (or Q/Z/C/E for diagonal movements)"),
+                ftxui::paragraphAlignLeft("  - Shoot a bullet: I/J/K/L (bullets cannot go diagonally)")
             })  | ftxui::size(ftxui::WIDTH, ftxui::EQUAL, MIN_TERMINAL_WIDTH)
                 | ftxui::size(ftxui::HEIGHT, ftxui::LESS_THAN, MIN_TERMINAL_HEIGHT + 1)
                 | ftxui::borderRounded;
         }) | ftxui::CatchEvent([&] (ftxui::Event event) {
-            util::WriteToLog("UI Event captured.", "GameUIRenderer::StartRenderLoop()");
             if (event == ftxui::Event::Escape) { // Exit the game (temporary)
                 appScreen.ExitLoopClosure()();
                 game->Terminate();
@@ -67,20 +66,35 @@ namespace ui {
                 game->PlayerMoveEventHandlerPtr->SetDirection(core::PlayerMoveEventHandler::Direction::UP);
                 game->PlayerMoveEventHandlerPtr->Fire();
                 return true;
-            } else if (event == ftxui::Event::Character('s')) {
-                game->PlayerMoveEventHandlerPtr->SetDirection(core::PlayerMoveEventHandler::Direction::DOWN);
+            } else if (event == ftxui::Event::Character('q')) {
+                game->PlayerMoveEventHandlerPtr->SetDirection(core::PlayerMoveEventHandler::Direction::UP_LEFT);
                 game->PlayerMoveEventHandlerPtr->Fire();
                 return true;
             } else if (event == ftxui::Event::Character('a')) {
                 game->PlayerMoveEventHandlerPtr->SetDirection(core::PlayerMoveEventHandler::Direction::LEFT);
                 game->PlayerMoveEventHandlerPtr->Fire();
                 return true;
+            } else if (event == ftxui::Event::Character('z')) { 
+                game->PlayerMoveEventHandlerPtr->SetDirection(core::PlayerMoveEventHandler::Direction::DOWN_LEFT);
+                game->PlayerMoveEventHandlerPtr->Fire();
+                return true;
+            } else if (event == ftxui::Event::Character('s')) {
+                game->PlayerMoveEventHandlerPtr->SetDirection(core::PlayerMoveEventHandler::Direction::DOWN);
+                game->PlayerMoveEventHandlerPtr->Fire();
+                return true;
+            } else if (event == ftxui::Event::Character('c')) {
+                game->PlayerMoveEventHandlerPtr->SetDirection(core::PlayerMoveEventHandler::Direction::DOWN_RIGHT);
+                game->PlayerMoveEventHandlerPtr->Fire();
+                return true;
             } else if (event == ftxui::Event::Character('d')) {
                 game->PlayerMoveEventHandlerPtr->SetDirection(core::PlayerMoveEventHandler::Direction::RIGHT);
                 game->PlayerMoveEventHandlerPtr->Fire();
                 return true;
+            } else if (event == ftxui::Event::Character('e')) {
+                game->PlayerMoveEventHandlerPtr->SetDirection(core::PlayerMoveEventHandler::Direction::UP_RIGHT);
+                game->PlayerMoveEventHandlerPtr->Fire();
+                return true;
             }
-            util::WriteToLog("UI redraw not needed. Skipping...", "GameUIRenderer::StartRenderLoop()");
             return false;
         })  | ftxui::center;
         ui::appScreen.Loop(ui);

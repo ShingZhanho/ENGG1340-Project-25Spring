@@ -172,6 +172,18 @@ namespace core {
             case Direction::RIGHT:
                 player->Move({player->GetPosition().x + 1, player->GetPosition().y});
                 break;
+            case Direction::UP_LEFT:
+                player->Move({player->GetPosition().x - 1, player->GetPosition().y - 1});
+                break;
+            case Direction::UP_RIGHT:
+                player->Move({player->GetPosition().x + 1, player->GetPosition().y - 1});
+                break;
+            case Direction::DOWN_LEFT:
+                player->Move({player->GetPosition().x - 1, player->GetPosition().y + 1});
+                break;
+            case Direction::DOWN_RIGHT:
+                player->Move({player->GetPosition().x + 1, player->GetPosition().y + 1});
+                break;
             default:
                 SetDirection(Direction::STILL);
                 break;
