@@ -41,7 +41,7 @@ _SHOOT!_ is straightforward enough but brutally intense:
 1. **Monster mayhem-no two enemies are the same**: Randomized spawn is based on generating random numbers in every round. Every monster in the wild arena will or will not be identical. You may never face the same 
    wave twice. Some creatures charge recklessly, while others lurk and strike when you least expect it. Adapt or perish—the arena shows no mercy.  
   
-2. **Fully customizable arenas**: Why stick to the default battlefield when you can design your own? _SHOOT!_ is equipped with fileIO which allows you to import custom map files, and set up your own initial player 
+2. **Fully customizable arenas**: Why stick to the default battlefield when you can design your own? _SHOOT!_ is equipped with file I/O which allows you to import custom map files, and set up your own initial player 
    position. The freedom is in your hands.
   
 3. **Difficulty levels for every player**: Whether you are a novice seeking a gentle introduction to the chaos, a veteran who survives relentless waves and is equipped with precise skills, or a elite shooter, 
@@ -56,14 +56,12 @@ _SHOOT!_ is straightforward enough but brutally intense:
 
 Since _SHOOT!_ is our group project for the course ENGG1340, we have carefully designed our game and smartly implemented the codes so that this enthralling game meets all the coding requirements of ENGG1340 Group Project. In the following context the technical details will be thoroughly explained.
 
-The requirements for this project have been met:
-
-- ✅ **Random event generation** - mob generation depends on random numbers.
-- ✅ **Data structures** - the game uses STL containers such as `std::vector`, `std::unordered_map`.
-- ✅ **Dynamic memory management** - certain objects are created on runtime using `new` and destructed using `delete`.
-- ✅ **File I/O** - the game supports loading a custom map from a file.
-- ✅ **Program codes in multiple files** - the project separates the components into multiple files and multiple namespaces.
-- ✅ **Multiple difficulty levels** - there are different difficulty levels to choose from.
+* ✅ **Random event generation**: mob generation depends on random numbers.
+* ✅ **Data structures**: the game uses STL containers such as `std::vector`, `std::unordered_map`.
+* ✅ **Dynamic memory management**: certain objects are created on runtime using `new` and destructed using `delete`.
+* ✅ **File I/O**: the game supports loading a custom map from a file.
+* ✅ **Program codes in multiple files**: the project separates the components into multiple files and multiple namespaces.
+* ✅ **Multiple difficulty levels**: there are different difficulty levels to choose from.
 
 
 ## Are You Ready for the Ultimate Test?
