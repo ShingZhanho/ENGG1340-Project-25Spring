@@ -67,7 +67,7 @@ the challenge or fall like the rest?
 
 ## How to Play
 
-Download the zip file and extract it.
+Download the ZIP file and extract it.
 Change your working directory to `build`:
    ```bash
    cd build
