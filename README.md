@@ -30,7 +30,7 @@ Monsters spawn unpredictably from the four boundaries, forcing you to stay alert
 ## Rules of Survival
 
 _SHOOT!_ is straightforward enough but brutally intense:  
-  
+
 1. **Eliminate or be eliminated**: Monsters will keep coming and your job is to gun them down before they overrun you.
   
 2. **One mistake can be fatal**: Some monsters are faster, tougher, or deadlier than others. Learn their behaviors or face a quick defeat.  
