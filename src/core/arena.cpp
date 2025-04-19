@@ -41,10 +41,9 @@ namespace core {
     }
 
     void Arena::SetPixel(Point p, Entity* entity) {
-        arenaMutex.lock();
+        std::lock_guard<std::mutex> lock(arenaMutex);
         if (p.x == 0 || p.x == ARENA_WIDTH - 1 || p.y == 0 || p.y == ARENA_HEIGHT - 1) {
             // Do not allow setting pixels on the outermost layer
-            arenaMutex.unlock();
             return;
         }
         try {
@@ -54,7 +53,6 @@ namespace core {
         }
         pixel[p.y][p.x] = entity;
         entity->SetPosition(p);
-        arenaMutex.unlock();
     }
 
     bool Arena::SetPixelSafe(Point p, Entity* entity) {
@@ -83,11 +81,10 @@ namespace core {
     }
 
     void Arena::SetPixelWithId(Point p, Entity* entity) {
-        arenaMutex.lock();
+        std::lock_guard<std::mutex> lock(arenaMutex);
         util::WriteToLog("Attempting to set pixel and assign an ID at (" + std::to_string(p.x) + ", " + std::to_string(p.y) + ")...", "Arena::SetPixelWithId()");
         if (p.x == 0 || p.x == ARENA_WIDTH - 1 || p.y == 0 || p.y == ARENA_HEIGHT - 1) {
             // Do not allow setting pixels on the outermost layer
-            arenaMutex.unlock();
             return;
         }
         try {
@@ -99,7 +96,6 @@ namespace core {
         util::WriteToLog("Entity at (" + std::to_string(p.x) + ", " + std::to_string(p.y) + ") assigned ID: " + std::to_string(idIncr), "Arena::SetPixelWithId()");
         entityIndex[idIncr++] = entity;
         entity->SetPosition(p);
-        arenaMutex.unlock();
     }
 
     bool Arena::SetPixelWithIdSafe(Point p, Entity* entity) {
@@ -126,17 +122,13 @@ namespace core {
     }
 
     Entity* Arena::GetPixelById(int id) {
-        arenaMutex.lock();
-        util::WriteToLog("Searching for entity with ID: " + std::to_string(id), "Arena::GetPixelById()");
+        std::lock_guard<std::mutex> lock(arenaMutex);
         auto it = entityIndex.find(id);
         if (it != entityIndex.end()) {
-            util::WriteToLog("Entity found with ID: " + std::to_string(id), "Arena::GetPixelById()");
-            arenaMutex.unlock();
             return it->second;
         }
         // If not found, return nullptr
         util::WriteToLog("Entity with ID: " + std::to_string(id) + " not found.", "Arena::GetPixelById()");
-        arenaMutex.unlock();
         return nullptr;
     }
 
@@ -145,7 +137,7 @@ namespace core {
     }
 
     void Arena::Replace(Point p, Entity* entity) {
-        arenaMutex.lock();
+        std::lock_guard<std::mutex> lock(arenaMutex);
         util::WriteToLog("Attempting to replace entity at (" + std::to_string(p.x) + ", " + std::to_string(p.y) + ")...", "Arena::Replace()");
         try {
             delete pixel[p.y][p.x];
@@ -154,12 +146,11 @@ namespace core {
         }
         pixel[p.y][p.x] = entity;
         entity->SetPosition(p);
-        arenaMutex.unlock();
         util::WriteToLog("Entity at (" + std::to_string(p.x) + ", " + std::to_string(p.y) + ") replaced successfully.", "Arena::Replace()");
     }
 
     void Arena::ReplaceWithId(int id, Entity* entity) {
-        arenaMutex.lock();
+        std::lock_guard<std::mutex> lock(arenaMutex);
         auto it = entityIndex.find(id);
         if (it != entityIndex.end()) {
             Point p = it->second->GetPosition();
@@ -173,11 +164,10 @@ namespace core {
             entityIndex.erase(it);
             entityIndex[id] = entity;
         }
-        arenaMutex.unlock();
     }
 
     void Arena::Remove(Point p) {
-        arenaMutex.lock();
+        std::lock_guard<std::mutex> lock(arenaMutex);
         util::WriteToLog("Attempting to remove entity at (" + std::to_string(p.x) + ", " + std::to_string(p.y) + ")...", "Arena::Remove()");
         try {
             delete pixel[p.y][p.x];
@@ -186,12 +176,11 @@ namespace core {
         }
         pixel[p.y][p.x] = new Air({p.x, p.y}, this);
         util::WriteToLog("Entity at (" + std::to_string(p.x) + ", " + std::to_string(p.y) + ") removed successfully.", "Arena::Remove()");
-        arenaMutex.unlock();
     }
 
     void Arena::Move(Point start, Point dest) {
         util::WriteToLog("Attempting to move entity from (" + std::to_string(start.x) + ", " + std::to_string(start.y) + ") to (" + std::to_string(dest.x) + ", " + std::to_string(dest.y) + ")...", "Arena::Move()");
-        arenaMutex.lock();
+        std::lock_guard<std::mutex> lock(arenaMutex);
         try {
             delete pixel[dest.y][dest.x];
         } catch(const std::exception& _) {
@@ -200,7 +189,6 @@ namespace core {
         pixel[dest.y][dest.x] = pixel[start.y][start.x];
         pixel[start.y][start.x] = new Air({start.x, start.y}, this);
         pixel[dest.y][dest.x]->SetPosition(dest);
-        arenaMutex.unlock();
         util::WriteToLog("Entity moved from (" + std::to_string(start.x) + ", " + std::to_string(start.y) + ") to (" + std::to_string(dest.x) + ", " + std::to_string(dest.y) + ") successfully.", "Arena::Move()");
     }
 
