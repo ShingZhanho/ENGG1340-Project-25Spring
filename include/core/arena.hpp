@@ -37,6 +37,8 @@ namespace core {
             //  This method should ONLY be used for non-block entities.
             //  The ID is assigned automatically in this class.
             void SetPixelWithId(Point p, Entity* entity);
+            //  Sets the pixel at (x, y) safely to the given entity and assigns it an ID.
+            bool SetPixelWithIdSafe(Point p, Entity* entity);
             //  Returns the entity with the given ID. nullptr if not found.
             Entity* GetPixelById(int id);
 
@@ -50,8 +52,8 @@ namespace core {
             void Remove(Point p);
             //  Moves the entity from one pixel to another.
             void Move(Point start, Point dest);
-            //  Maps the ID to the entity.
-            std::unordered_map<int, Entity*> entityIndex;
+            //  Gets a list of mapped entities.
+            std::vector<Entity*> GetMappedEntities();
 
         private:
             //  A pixel is one single entity in the arena.
@@ -64,6 +66,8 @@ namespace core {
             Game* game;
             //  Thread lock for the arena.
             std::mutex arenaMutex;
+            //  Maps the ID to the entity.
+            std::unordered_map<int, Entity*> entityIndex;
     };
 
 }

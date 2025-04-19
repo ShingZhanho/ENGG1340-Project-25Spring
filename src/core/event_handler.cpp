@@ -264,23 +264,19 @@ namespace core {
     
     int MobGenerateEventHandler::countMobs() {
         int count = 0;
-        Arena* arena = GetGame()->GetArena();
+        auto entities = GetGame()->GetArena()->GetMappedEntities();
         
         // Iterate through the entity index to count mobs
-        for (const auto& pair : arena->entityIndex) {
-            if (Entity::IsType(pair.second, EntityType::ABSTRACT_MOB)) {
+        for (auto it = entities.begin(); it != entities.end(); ++it) {
+            if (Entity::IsType(*it, EntityType::ABSTRACT_MOB)) {
                 count++;
             }
         }
-        
         return count;
     }
     
     void MobGenerateEventHandler::spawnMob() {
         Arena* arena = GetGame()->GetArena();
-
-        // TODO: Rewrite this function to use the method taught in the course
-        
         
         // Find a valid spawn position (must be air)
         Point spawnPos = {0, 0};
@@ -295,7 +291,7 @@ namespace core {
                 continue;
             }
 
-            bool success = arena->SetPixelSafe(spawnPos, new Zombie(spawnPos, arena)); // TODO: use a random mob type
+            bool success = arena->SetPixelWithIdSafe(spawnPos, new Zombie(spawnPos, arena)); // TODO: use a random mob type
             if (success)
                 util::WriteToLog("Mob spawned successfully at (" + std::to_string(spawnPos.x) + ", " + std::to_string(spawnPos.y) + ")", "MobGenerateEventHandler::spawnMob()");
             else

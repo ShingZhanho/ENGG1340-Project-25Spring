@@ -102,6 +102,29 @@ namespace core {
         arenaMutex.unlock();
     }
 
+    bool Arena::SetPixelWithIdSafe(Point p, Entity* entity) {
+        std::lock_guard<std::mutex> lock(arenaMutex);
+        util::WriteToLog("Attempting to set pixel safely and assign an ID at (" + std::to_string(p.x) + ", " + std::to_string(p.y) + ")...", "Arena::SetPixelWithIdSafe()");
+        if (p.x == 0 || p.x == ARENA_WIDTH - 1 || p.y == 0 || p.y == ARENA_HEIGHT - 1) {
+            // Do not allow setting pixels on the outermost layer
+            return false;
+        }
+        if (Entity::IsType(pixel[p.y][p.x], EntityType::AIR)) {
+            try {
+                delete pixel[p.y][p.x];
+            } catch(const std::exception& _) {
+                ; // do nothing
+            }
+            pixel[p.y][p.x] = entity;
+            util::WriteToLog("Entity at (" + std::to_string(p.x) + ", " + std::to_string(p.y) + ") assigned ID: " + std::to_string(idIncr), "Arena::SetPixelWithIdSafe()");
+            entityIndex[idIncr++] = entity;
+            entity->SetPosition(p);
+            return true;
+        }
+        util::WriteToLog("Failed to set pixel at (" + std::to_string(p.x) + ", " + std::to_string(p.y) + ").", "Arena::SetPixelWithIdSafe()");
+        return false;
+    }
+
     Entity* Arena::GetPixelById(int id) {
         arenaMutex.lock();
         util::WriteToLog("Searching for entity with ID: " + std::to_string(id), "Arena::GetPixelById()");
@@ -179,6 +202,15 @@ namespace core {
         pixel[dest.y][dest.x]->SetPosition(dest);
         arenaMutex.unlock();
         util::WriteToLog("Entity moved from (" + std::to_string(start.x) + ", " + std::to_string(start.y) + ") to (" + std::to_string(dest.x) + ", " + std::to_string(dest.y) + ") successfully.", "Arena::Move()");
+    }
+
+    std::vector<Entity*> Arena::GetMappedEntities() {
+        std::lock_guard<std::mutex> lock(arenaMutex);
+        std::vector<Entity*> entities;
+        for (const auto& pair : entityIndex) {
+            entities.push_back(pair.second);
+        }
+        return entities;
     }
 
 }
