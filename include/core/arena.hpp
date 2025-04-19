@@ -26,8 +26,13 @@ namespace core {
             Arena();
             ~Arena();
 
+            //  Returns the width of the arena.
             Entity* GetPixel(Point p);
+            //  Sets the pixel at (x, y) to the given entity.
             void SetPixel(Point p, Entity* entity);
+            //  Sets the pixel safely at (x, y) to the given entity.
+            //  This method will only set the pixel if the target pixel is air.
+            bool SetPixelSafe(Point p, Entity* entity);
             //  Sets the pixel at (x, y) to the given entity and assigns it an ID.
             //  This method should ONLY be used for non-block entities.
             //  The ID is assigned automatically in this class.

@@ -16,7 +16,7 @@
 #include <util/log.hpp>
 
 // standard library
-#include <random>
+#include <cstdlib>
 #include <chrono>
 #include <thread>
 
@@ -105,6 +105,10 @@ namespace core {
         game->InitialiseArena();
         //  Setup arena layout (walls etc.)
         //  TODO: set layout according to level difficulty
+
+        //  Pollinate the random number generator seed
+        util::WriteToLog("Seeding random number generator...", "InitialiseEventHandler::InitialiseEventHandler()");
+        std::srand(std::chrono::system_clock::now().time_since_epoch().count());
 
         //  Create player if it doesn't exist
         //  NOTE: The player MUST be the first non-block entity to have the ID 0.
@@ -232,8 +236,7 @@ namespace core {
     
     MobGenerateEventHandler::MobGenerateEventHandler(Game* game) :
         EventHandler(game),
-        lastSpawnTime(std::chrono::steady_clock::now()),
-        maxMobs(10) {
+        lastSpawnTime(std::chrono::steady_clock::now()) {
         // util::WriteToLog("Constructing MobGenerateEventHandler", "MobGenerateEventHandler::MobGenerateEventHandler()");
     }
 
@@ -250,16 +253,13 @@ namespace core {
             currentTime - lastSpawnTime).count();
         
         // Check if 3 seconds have passed since last spawn
-        if (elapsedTime >= 3) {
-            // Count current mobs in the arena
-            int currentMobCount = countMobs();
-            
-            // If we have less than max mobs, spawn a new one
-            if (currentMobCount < maxMobs) {
-                spawnMob();
-                lastSpawnTime = currentTime;
-            }
-        }
+        if (elapsedTime < 3) return;
+
+        if (countMobs() >= GetGame()->GetOptions()->MaxMobs) return;
+
+        util::WriteToLog("Spawning mob...", "MobGenerateEventHandler::execute()");
+        spawnMob();
+        lastSpawnTime = currentTime;
     }
     
     int MobGenerateEventHandler::countMobs() {
@@ -282,35 +282,26 @@ namespace core {
         // TODO: Rewrite this function to use the method taught in the course
         
         
-        // // Find a valid spawn position (must be air)
-        // Point spawnPos;
-        // bool validPosition = false;
-        
-        // // Distribution for random coordinates within valid area
-        // std::uniform_int_distribution<int> xDist(minX, maxX);
-        // std::uniform_int_distribution<int> yDist(minY, maxY);
-        
-        // // Try up to 20 times to find a valid position
-        // for (int attempts = 0; attempts < 20; attempts++) {
-        //     spawnPos.x = xDist(rng);
-        //     spawnPos.y = yDist(rng);
+        // Find a valid spawn position (must be air)
+        Point spawnPos = {0, 0};
+        int attempts = 0;
+        while (attempts < 20) {
+            spawnPos.x = std::rand() % ARENA_WIDTH;
+            spawnPos.y = std::rand() % ARENA_HEIGHT;
             
-        //     Entity* currentEntity = arena->GetPixel(spawnPos);
-        //     // Check if position is empty (air)
-        //     if (dynamic_cast<Air*>(currentEntity) != nullptr) {
-        //         validPosition = true;
-        //         break;
-        //     }
-        // }
-        
-        // // If we found a valid position, spawn the mob
-        // if (validPosition) {
-        //     Mob* newMob = new Mob(spawnPos, arena);
-        //     arena->SetPixelWithId(spawnPos, newMob);
-            
-        //     // Optional: Log the spawn
-        //     // std::cout << "Spawned mob at (" << spawnPos.x << ", " << spawnPos.y << ")" << std::endl;
-        // }
+            Entity* currentEntity = arena->GetPixel(spawnPos);
+            if (!Entity::IsType(currentEntity, EntityType::AIR)) {
+                attempts++;
+                continue;
+            }
+
+            bool success = arena->SetPixelSafe(spawnPos, new Zombie(spawnPos, arena)); // TODO: use a random mob type
+            if (success)
+                util::WriteToLog("Mob spawned successfully at (" + std::to_string(spawnPos.x) + ", " + std::to_string(spawnPos.y) + ")", "MobGenerateEventHandler::spawnMob()");
+            else
+                util::WriteToLog("Failed to spawn mob at (" + std::to_string(spawnPos.x) + ", " + std::to_string(spawnPos.y) + ")", "MobGenerateEventHandler::spawnMob()");
+            break;
+        }
     }
 
     

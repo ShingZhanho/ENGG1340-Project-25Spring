@@ -131,12 +131,6 @@ namespace core {
             void execute();
             int countMobs();
             void spawnMob();
-            const int maxMobs;
-    
-            // Random number generator
-            // std::mt19937 rng;
-            // TODO: FIX: random number should be generated using the method taught in the course
-            // i.e. via rand() in <cstdlib> and srand() to seed the random number generator
 
             std::chrono::steady_clock::time_point lastSpawnTime;
     };

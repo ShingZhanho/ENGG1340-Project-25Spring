@@ -57,6 +57,31 @@ namespace core {
         arenaMutex.unlock();
     }
 
+    bool Arena::SetPixelSafe(Point p, Entity* entity) {
+        arenaMutex.lock();
+        util::WriteToLog("Attempting to set pixel safely at (" + std::to_string(p.x) + ", " + std::to_string(p.y) + ")...", "Arena::SetPixelSafe()");
+        if (p.x == 0 || p.x == ARENA_WIDTH - 1 || p.y == 0 || p.y == ARENA_HEIGHT - 1) {
+            // Do not allow setting pixels on the outermost layer
+            arenaMutex.unlock();
+            return false;
+        }
+        if (Entity::IsType(pixel[p.y][p.x], EntityType::AIR)) {
+            try {
+                delete pixel[p.y][p.x];
+            } catch(const std::exception& _) {
+                ; // do nothing
+            }
+            pixel[p.y][p.x] = entity;
+            entity->SetPosition(p);
+            util::WriteToLog("Pixel set successfully at (" + std::to_string(p.x) + ", " + std::to_string(p.y) + ").", "Arena::SetPixelSafe()");
+            arenaMutex.unlock();
+            return true;
+        }
+        util::WriteToLog("Failed to set pixel at (" + std::to_string(p.x) + ", " + std::to_string(p.y) + ").", "Arena::SetPixelSafe()");
+        arenaMutex.unlock();
+        return false;
+    }
+
     void Arena::SetPixelWithId(Point p, Entity* entity) {
         arenaMutex.lock();
         util::WriteToLog("Attempting to set pixel and assign an ID at (" + std::to_string(p.x) + ", " + std::to_string(p.y) + ")...", "Arena::SetPixelWithId()");
