@@ -58,6 +58,13 @@ _SHOOT!_ is straightforward enough but brutally intense:
 5. **Glory of the achievers**: After each round, your score is automatically stored into the leaderboard. Compete against yourself or others.
    How long can you last? How many monsters can you slay before the inevitable end? The leaderboard awaits the boldest shooters.
 
+## Are You Ready for the Ultimate Test?
+
+_SHOOT!_ isn’t just a game—it’s a trial of endurance, skill, and sheer will. The monsters won’t stop. The arena won’t forgive. Will you rise to  
+the challenge or fall like the rest?  
+  
+**Lock and load. The hunt begins now**. Dare to enter the arena? The monsters are waiting… 
+
 ## How to Play
 
 Download the zip file and extract it.
