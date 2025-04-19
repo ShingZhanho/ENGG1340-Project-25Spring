@@ -387,7 +387,7 @@ namespace core {
 
         // Reconstruct path
         std::list<Point> path;
-        Point current = cameFrom[end]; // exclude the end point
+        Point current = end; // include end point (player position) in path for collision
         if (cameFrom.find(end) == cameFrom.end()) return path; // No path found
         while (current != start) {
             path.push_front(current);
