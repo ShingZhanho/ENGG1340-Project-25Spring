@@ -60,11 +60,11 @@ Since _SHOOT!_ is our group project for the course ENGG1340, we have carefully d
 
 * ✅ **Data structures**: The game uses STL containers such as `std::vector`, `std::unordered_map`.
 
-* ✅ **Dynamic memory management**: Certain objects are created on runtime using `new` and destructed using `delete`. For example, in arena_reader.cpp, a dynamic arena instance is created based on user defined map if the input map file is valid.
+* ✅ **Dynamic memory management**: Certain objects are created on runtime using `new` and destructed using `delete`. For example, in arena_reader.cpp, a dynamic `arena` instance is created based on user defined map if the input map file is valid.
 
 * ✅ **File I/O**: _SHOOT!_ supports loading a custom map from a file.
 
-* ✅ **Program codes in multiple files**: The project separates the components into multiple files and multiple namespaces.
+* ✅ **Program codes in multiple files**: The project separates the components into multiple files and multiple namespaces, such as `core` and `util`.
 
 * ✅ **Multiple difficulty levels**: There are different difficulty levels to choose from. Novice can start practising on the easiest level, whereas veterans are able to choose higher levels featuring more frequent monster generation and stronger monsters to shoot.
 
