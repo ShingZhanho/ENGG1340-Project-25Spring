@@ -3,6 +3,7 @@
 
 #include <core/arena.hpp>
 #include <core/game.hpp>
+#include <core/point.hpp>
 #include <vector>
 #include <chrono>
 #include <thread>

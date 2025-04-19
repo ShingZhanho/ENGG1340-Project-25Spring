@@ -2,6 +2,7 @@
 #define CORE_ENTITY_HPP
 
 #include <core/arena.hpp>
+#include <core/point.hpp>
 #include <core/entity_type.hpp>
 #include <ui/render_option.hpp>
 

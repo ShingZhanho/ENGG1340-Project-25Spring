@@ -3,6 +3,7 @@
 #include <core/event_handler.hpp>
 #include <core/entity.hpp>
 #include <core/arena.hpp>
+#include <core/point.hpp>
 
 // ftxui
 #include <ftxui/component/component.hpp>
