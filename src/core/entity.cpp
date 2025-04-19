@@ -7,6 +7,14 @@ namespace core {
     //  BEGIN: EntityRenderOptions
 
     //  here defines the render options for each entity.
+    //  The arguments are:
+    //      1. Character to render - the character to display on the screen
+    //      2. Foreground color - the color of the character
+    //      3. Background color - the color of the background of the entity
+    //      4. Bold - whether the character is bold
+    //      5. Italic - whether the character is italic
+    //      6. Underline - whether the character is underlined
+    //      7. Blink - whether the character is blinking
 
     ui::RenderOption EntityRenderOptions::AirRenderOption() {
         return {};
