@@ -130,6 +130,8 @@ namespace core {
             
             void TakeDamage(int damage);
             bool Move(Point to) override;
+            //  Returns the health points of the player.
+            int GetHP() const;
 
         private:
             //  The health points of the player.

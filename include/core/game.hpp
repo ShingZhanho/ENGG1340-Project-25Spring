@@ -3,6 +3,7 @@
 
 #include <atomic>
 #include <set>
+#include <mutex>
 
 #include <core/arena.hpp>
 #include <core/entity.hpp>
@@ -40,7 +41,7 @@ namespace core {
             void SetTerminated();
 
             void ChangeScore(int delta);
-            int GetScore() const;
+            int GetScore();
             
             //  Initialise the game arena. If the arena is provided in the GameOptions,
             //  that arena is used instead. This function does nothing if the arena is
@@ -72,6 +73,8 @@ namespace core {
             std::atomic<bool> initialisationComplete = false;
             //  The flag indicating whether the game is fully terminated.
             std::atomic<bool> terminated = false;
+            //  The mutex for the game.
+            std::mutex gameMutex;
     };
 
 } // namespace core

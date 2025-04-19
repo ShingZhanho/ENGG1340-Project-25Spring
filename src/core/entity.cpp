@@ -213,6 +213,10 @@ namespace core {
         return false;
     }
 
+    int Player::GetHP() const {
+        return hp;
+    }
+
     //  END: Player
 
     //  BEGIN: Zombie

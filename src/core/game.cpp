@@ -62,10 +62,12 @@ namespace core {
     }
 
     void Game::ChangeScore(int delta) {
+        std::lock_guard<std::mutex> lock(gameMutex);
         score += delta;
     }
 
-    int Game::GetScore() const {
+    int Game::GetScore() {
+        std::lock_guard<std::mutex> lock(gameMutex);
         return score;
     }
 
