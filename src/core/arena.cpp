@@ -37,6 +37,7 @@ namespace core {
     }
 
     Entity* Arena::GetPixel(Point p) {
+        std::lock_guard<std::mutex> lock(arenaMutex);
         return pixel[p.y][p.x];
     }
 
