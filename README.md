@@ -56,17 +56,18 @@ _SHOOT!_ is straightforward enough but brutally intense:
 
 Since _SHOOT!_ is our group project for the course ENGG1340, we have carefully designed our game and smartly implemented the codes so that this enthralling game meets all the coding requirements of ENGG1340 Group Project. In the following context the technical details will be thoroughly explained.
 
-* ✅ **Random event generation**: Mob generation depends on random numbers.
+* ✅ **Random event generation**: Monster generation depends on random numbers. In each round of game, the amount of a paticular monster type is random, and so is the sequence of monster generation.
 
 * ✅ **Data structures**: The game uses STL containers such as `std::vector`, `std::unordered_map`.
 
 * ✅ **Dynamic memory management**: Certain objects are created on runtime using `new` and destructed using `delete`. For example, in arena_reader.cpp, a dynamic arena instance is created based on user defined map if the input map file is valid.
 
-* ✅ **File I/O**: The game supports loading a custom map from a file.
+* ✅ **File I/O**: _SHOOT!_ supports loading a custom map from a file.
 
 * ✅ **Program codes in multiple files**: The project separates the components into multiple files and multiple namespaces.
 
-* ✅ **Multiple difficulty levels**: There are different difficulty levels to choose from.
+* ✅ **Multiple difficulty levels**: There are different difficulty levels to choose from. Novice can start practising on the easiest level, whereas veterans are able to choose higher levels featuring more frequent monster generation and stronger monsters to shoot.
+
 
 
 ## Are You Ready for the Ultimate Test?
