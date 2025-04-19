@@ -49,6 +49,8 @@ namespace core {
     bool Entity::IsType(Entity* entity, EntityType type) {
         if (entity == nullptr) return false;
         switch (type) {
+            case EntityType::ABSTRACT_ENTITY:
+                return dynamic_cast<Entity*>(entity) != nullptr;
             case EntityType::ABSTRACT_BLOCK:
                 return dynamic_cast<AbstractBlock*>(entity) != nullptr;
             case EntityType::ABSTRACT_MOB:
