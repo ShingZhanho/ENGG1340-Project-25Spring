@@ -1,6 +1,6 @@
 # Compiler and flags
 CXX = g++
-CXXFLAGS = -pedantic-errors -std=c++17
+CXXFLAGS = -pedantic-errors -std=c++17 -g
 
 ################## BEGIN LIBRARIES ##################
 
