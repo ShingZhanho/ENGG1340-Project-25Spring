@@ -12,6 +12,7 @@ namespace core {
 
     //  Forward declarations
     class Game;
+    class Arena;
     class EventHandler;
     class RunEventHandler;
     class InitialiseEventHandler;
@@ -19,7 +20,7 @@ namespace core {
     class PlayerMoveEventHandler;
     class PlayerShootEventHandler;
     class MobGenerateEventHandler;
-    class EntityMoveEventHandler;
+    class MobMoveEventHandler;
 
     //  The abstract EventHandler.
     //  Eventhandlers are where your actual code lives. A EventHandler can be fired to exeucte the event.
@@ -136,16 +137,28 @@ namespace core {
             std::chrono::steady_clock::time_point lastSpawnTime;
     };
     
-    //  Entity movement event handler
-    class EntityMoveEventHandler : public EventHandler {
+    //  Handles the movement of mobs.
+    class MobMoveEventHandler : public EventHandler {
         public:
             //  Constructor
-            EntityMoveEventHandler(Game* game);
+            MobMoveEventHandler(Game* game);
             void Fire() override;
 
         private:
             //  Executed when the event is fired.
             void execute();
+            //  The player's previous position. Used to check if the player has moved
+            //  and if pathfinding is needed. Initial value is (-1, -1) to ensure
+            //  pathfinding must be done at the start.
+            Point playerPrevPos;
+            //  Finds the shortest path from start to end on the given arena using A* algorithm.
+            //  Returns a list of points representing the path, where the first point is
+            //  the one closest to the start and the last point is the one closest to the end.
+            //  The path does not include the start and end points.
+            //  Returns an empty list if no path is found.
+            static std::list<Point> findPath(Arena* arena, Point start, Point end);
+            //  Returns the manhattan distance between two points.
+            inline static int heuristic(Point a, Point b);
     };
 }
 

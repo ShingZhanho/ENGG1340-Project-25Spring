@@ -204,7 +204,7 @@ namespace core {
         subevents = {
             new PlayerShootEventHandler(game),
             new MobGenerateEventHandler(game),
-            new EntityMoveEventHandler(game)
+            new MobMoveEventHandler(game)
         };
         playerMoveEventHandler = new PlayerMoveEventHandler(game);
         game->PlayerMoveEventHandlerPtr = playerMoveEventHandler; // expose handler to UI
@@ -317,21 +317,34 @@ namespace core {
     
     //  END: MobGenerateEventHandler
     
-    //  BEGIN: EntityMoveEventHandler
+    //  BEGIN: MobMoveEventHandler
     
-    EntityMoveEventHandler::EntityMoveEventHandler(Game* game) : EventHandler(game) {
-        // util::WriteToLog("Constructing EntityMoveEventHandler", "EntityMoveEventHandler::EntityMoveEventHandler()");
+    MobMoveEventHandler::MobMoveEventHandler(Game* game) : EventHandler(game) {
+        // util::WriteToLog("Constructing MobMoveEventHandler", "MobMoveEventHandler::MobMoveEventHandler()");
     }
 
-    void EntityMoveEventHandler::Fire() {
-        // util::WriteToLog("EntityMoveEvent triggered", "EntityMoveEventHandler::Fire()");
+    void MobMoveEventHandler::Fire() {
+        // util::WriteToLog("EntityMoveEvent triggered", "MobMoveEventHandler::Fire()");
         execute();
         EventHandler::Fire();
     }
     
-    void EntityMoveEventHandler::execute() {
-        // Implement entity movement logic
+    void MobMoveEventHandler::execute() {
+        auto playerPos = GetGame()->GetArena()->GetPixelById(0)->GetPosition();
+        if (playerPos == playerPrevPos) return;
+        playerPrevPos = playerPos;
+
+        // Perform pathfinding for all mobs
+        auto entities = GetGame()->GetArena()->GetMappedEntities();
+    }
+
+    std::list<Point> MobMoveEventHandler::findPath(Arena* arena, Point start, Point end) {
+        std::list<Point> path;
+    }
+
+    int MobMoveEventHandler::heuristic(Point a, Point b) {
+        return std::abs(a.x - b.x) + std::abs(a.y - b.y);
     }
     
-    //  END: EntityMoveEventHandler
+    //  END: MobMoveEventHandler
 }
