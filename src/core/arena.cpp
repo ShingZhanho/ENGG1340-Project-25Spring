@@ -56,11 +56,10 @@ namespace core {
     }
 
     bool Arena::SetPixelSafe(Point p, Entity* entity) {
-        arenaMutex.lock();
+        std::lock_guard<std::mutex> lock(arenaMutex);
         util::WriteToLog("Attempting to set pixel safely at (" + std::to_string(p.x) + ", " + std::to_string(p.y) + ")...", "Arena::SetPixelSafe()");
         if (p.x == 0 || p.x == ARENA_WIDTH - 1 || p.y == 0 || p.y == ARENA_HEIGHT - 1) {
             // Do not allow setting pixels on the outermost layer
-            arenaMutex.unlock();
             return false;
         }
         if (Entity::IsType(pixel[p.y][p.x], EntityType::AIR)) {
@@ -72,11 +71,9 @@ namespace core {
             pixel[p.y][p.x] = entity;
             entity->SetPosition(p);
             util::WriteToLog("Pixel set successfully at (" + std::to_string(p.x) + ", " + std::to_string(p.y) + ").", "Arena::SetPixelSafe()");
-            arenaMutex.unlock();
             return true;
         }
         util::WriteToLog("Failed to set pixel at (" + std::to_string(p.x) + ", " + std::to_string(p.y) + ").", "Arena::SetPixelSafe()");
-        arenaMutex.unlock();
         return false;
     }
 
@@ -133,6 +130,7 @@ namespace core {
     }
 
     Game* Arena::GetGame() {
+        std::lock_guard<std::mutex> lock(arenaMutex);
         return game;
     }
 
@@ -197,6 +195,19 @@ namespace core {
         std::vector<Entity*> entities;
         for (const auto& pair : entityIndex) {
             entities.push_back(pair.second);
+        }
+        return entities;
+    }
+
+    std::list<Entity*> Arena::GetEntitiesOfType(EntityType type) {
+        std::lock_guard<std::mutex> lock(arenaMutex);
+        std::list<Entity*> entities;
+        for (int y = 0; y < ARENA_HEIGHT; y++) {
+            for (int x = 0; x < ARENA_WIDTH; x++) {
+                if (Entity::IsType(pixel[y][x], type)) {
+                    entities.push_back(pixel[y][x]);
+                }
+            }
         }
         return entities;
     }

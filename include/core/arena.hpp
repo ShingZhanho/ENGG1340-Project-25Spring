@@ -54,6 +54,8 @@ namespace core {
             void Move(Point start, Point dest);
             //  Gets a list of mapped entities.
             std::vector<Entity*> GetMappedEntities();
+            //  Returns a list of entities of the given type.
+            std::list<Entity*> GetEntitiesOfType(EntityType type);
 
         private:
             //  A pixel is one single entity in the arena.
