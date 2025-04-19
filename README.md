@@ -29,33 +29,38 @@ Monsters spawn unpredictably from the four boundaries, forcing you to stay alert
 
 ## Rules of Survival
 
-_SHOOT!_ is straightforward but brutally intense:  
+_SHOOT!_ is straightforward enough but brutally intense:  
+  
 1. **Eliminate or be eliminated**: Monsters will keep coming and your job is to gun them down before they overrun you.
-2. **One mistake can be fatal**: Some monsters are faster, tougher, or deadlier than others. Learn their behaviors or face a quick defeat.
-3. **Score to win**: Every kill adds to your score. Push your limits, beat your high score, and prove your dominance.
-4. **No Escape**: The arena is locked! Fight until the last monster falls… or until you do.
-
+  
+2. **One mistake can be fatal**: Some monsters are faster, tougher, or deadlier than others. Learn their behaviors or face a quick defeat.  
+  
+3. **Score to win**: Every kill adds to your score. Push your limits, beat your high score, and prove your dominance.  
+  
+4. **No Escape**: The arena is locked! Fight until the last monster falls… or until you do.  
+  
 ## Features That Will Keep You Hooked
 
 1. **Monster mayhem-no two enemies are the same**: Randomized spawn is based on generating random numbers in every round. Every monster
    in the wild arena will or will not be identical. You may never face the same wave twice. Some creatures charge recklessly, while others
    lurk and strike when you least expect it. Adapt or perish—the arena shows no mercy.  
+  
 2. **Fully customizable arenas**: Why stick to the default battlefield when you can design your own? _SHOOT!_ is equipped with fileIO which  
    allows you to import custom map files, and set up your own initial player position. The freedom is in your hands.
+  
 3. **Difficulty levels for every player**: Whether you are a novice seeking a gentle introduction to the chaos, a veteran who survives relent
    less waves and is equipped with precise skills, or a elite shooter, there is always a difficulty level just for you. In each level, the
    monster spawn rates, their speed and their amount are always changing. Get ready to push your limits and conquer the arena!
+  
 4. **Dynamic combat–fast, fluid, and ferocious**: Bullets fly, monsters swarm, and every second counts. The game’s smooth mechanics ensure
    that your skill—not luck—determines victory.
+  
 5. **Glory of the achievers**: After each round, your score is automatically stored into the leaderboard. Compete against yourself or others.
    How long can you last? How many monsters can you slay before the inevitable end? The leaderboard awaits the boldest shooters.
 
-
-
-
-
 ## How to Play
 
+Download the zip file and extract it.
 Change your working directory to `build`:
    ```bash
    cd build
