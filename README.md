@@ -42,6 +42,10 @@ _SHOOT!_ is straightforward but brutally intense:
    lurk and strike when you least expect it. Adapt or perish—the arena shows no mercy.  
 2. **Fully customizable arenas**: Why stick to the default battlefield when you can design your own? _SHOOT!_ is equipped with fileIO which  
    allows you to import custom map files, and set up your own initial player position. The freedom is in your hands.
+3. **Difficulty levels for every player**: Whether you are a novice seeking a gentle introduction to the chaos, a veteran who survives relent
+   less waves and is equipped with precise skills, or a elite shooter, there is always a difficulty level just for you. In each level, the
+   monster spawn rates, their speed and their amount are always changing. Get ready to push your limits and conquer the arena!
+
 
 
 ## Build Instructions
