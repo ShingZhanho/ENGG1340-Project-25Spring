@@ -56,6 +56,16 @@ _SHOOT!_ is straightforward enough but brutally intense:
 
 Since _SHOOT!_ is our group project for the course ENGG1340, we have carefully designed our game and smartly implemented the codes so that this enthralling game meets all the coding requirements of ENGG1340 Group Project. In the following context the technical details will be thoroughly explained.
 
+The requirements for this project have been met:
+
+- ✅ **Random event generation** - mob generation depends on random numbers.
+- ✅ **Data structures** - the game uses STL containers such as `std::vector`, `std::unordered_map`.
+- ✅ **Dynamic memory management** - certain objects are created on runtime using `new` and destructed using `delete`.
+- ✅ **File I/O** - the game supports loading a custom map from a file.
+- ✅ **Program codes in multiple files** - the project separates the components into multiple files and multiple namespaces.
+- ✅ **Multiple difficulty levels** - there are different difficulty levels to choose from.
+
+
 ## Are You Ready for the Ultimate Test?
 
 _SHOOT!_ isn’t just a game—it’s a trial of endurance, skill, and sheer will. The monsters won’t stop. The arena won’t forgive. Will you rise to the challenge or fall like the rest?  
