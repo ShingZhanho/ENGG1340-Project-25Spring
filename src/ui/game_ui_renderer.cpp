@@ -38,7 +38,7 @@ namespace ui {
                 ftxui::separator(),
                 ftxui::hbox({
                     ftxui::text(" HP: ") | ftxui::bold,
-                    ftxui::gaugeLeft(hp)    | ftxui::size(ftxui::WIDTH, ftxui::EQUAL, 15)
+                    ftxui::gauge(hp)    | ftxui::size(ftxui::WIDTH, ftxui::EQUAL, 15)
                                             | ftxui::color(hpColour),
                     ftxui::text(" " + std::to_string(dynamic_cast<core::Player*>(game->GetArena()->GetPixelById(0))->GetHP()) + " / " + std::to_string(game->GetOptions()->PlayerHp) + " ")
                         | ftxui::color(hpColour),
