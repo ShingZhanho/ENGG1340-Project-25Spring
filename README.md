@@ -17,15 +17,12 @@
 
 ##  
 
-Welcome to _SHOOT!_, a high-octane, adrenaline-fueled shooting game where quick reflexes, sharp aim, and tactical thinking  
-are your only keys to survival! Step into a deadly arena where monstrous foes emerge relentlessly from every direction, and  
-your mission is simple: **shoot to survive, survive to dominate**.  
+Welcome to _SHOOT!_, a high-octane, adrenaline-fueled shooting game where quick reflexes, sharp aim, and tactical thinking are your only keys to survival! Step into a deadly arena where monstrous foes emerge
+relentlessly from every direction, and your mission is simple: **shoot to survive, survive to dominate**.
 
 ## The Battlefield Awaits
 
-You are the lone warrior in a hostile arena, armed with nothing but your wits and a powerful gun. The arena is a grid-based  
-battleground where every pixel could mean life or death—walkable terrain, deadly monsters, or you, the last line of defense.  
-Monsters spawn unpredictably from the four boundaries, forcing you to stay alert, move strategically, and fire with precision.
+You are the lone warrior in a hostile arena, armed with nothing but your wits and a powerful gun. The arena is a grid-based battleground where every pixel could mean life or death—walkable terrain, deadly monsters, or you, the last line of defense. Monsters spawn unpredictably from the four boundaries, forcing you to stay alert, move strategically, and fire with precision.
 
 ## Rules of Survival
 
@@ -41,27 +38,23 @@ _SHOOT!_ is straightforward enough but brutally intense:
   
 ## Features That Will Keep You Hooked
 
-1. **Monster mayhem-no two enemies are the same**: Randomized spawn is based on generating random numbers in every round. Every monster
-   in the wild arena will or will not be identical. You may never face the same wave twice. Some creatures charge recklessly, while others
-   lurk and strike when you least expect it. Adapt or perish—the arena shows no mercy.  
+1. **Monster mayhem-no two enemies are the same**: Randomized spawn is based on generating random numbers in every round. Every monster in the wild arena will or will not be identical. You may never face the same 
+   wave twice. Some creatures charge recklessly, while others lurk and strike when you least expect it. Adapt or perish—the arena shows no mercy.  
   
-2. **Fully customizable arenas**: Why stick to the default battlefield when you can design your own? _SHOOT!_ is equipped with fileIO which  
-   allows you to import custom map files, and set up your own initial player position. The freedom is in your hands.
+2. **Fully customizable arenas**: Why stick to the default battlefield when you can design your own? _SHOOT!_ is equipped with fileIO which allows you to import custom map files, and set up your own initial player 
+   position. The freedom is in your hands.
   
-3. **Difficulty levels for every player**: Whether you are a novice seeking a gentle introduction to the chaos, a veteran who survives relent
-   less waves and is equipped with precise skills, or a elite shooter, there is always a difficulty level just for you. In each level, the
-   monster spawn rates, their speed and their amount are always changing. Get ready to push your limits and conquer the arena!
+3. **Difficulty levels for every player**: Whether you are a novice seeking a gentle introduction to the chaos, a veteran who survives relentless waves and is equipped with precise skills, or a elite shooter, 
+   there is always a difficulty level just for you. In each level, the monster spawn rates, their speed and their amount are always changing. Get ready to push your limits and conquer the arena!
   
-4. **Dynamic combat–fast, fluid, and ferocious**: Bullets fly, monsters swarm, and every second counts. The game’s smooth mechanics ensure
-   that your skill—not luck—determines victory.
+4. **Dynamic combat–fast, fluid, and ferocious**: Bullets fly, monsters swarm, and every second counts. The game’s smooth mechanics ensure that your skill—not luck—determines victory.
   
-5. **Glory of the achievers**: After each round, your score is automatically stored into the leaderboard. Compete against yourself or others.
-   How long can you last? How many monsters can you slay before the inevitable end? The leaderboard awaits the boldest shooters.
+5. **Glory of the achievers**: After each round, your score is automatically stored into the leaderboard. Compete against yourself or others. How long can you last? How many monsters can you slay before the 
+   inevitable end? The leaderboard awaits the boldest shooters.
 
 ## Are You Ready for the Ultimate Test?
 
-_SHOOT!_ isn’t just a game—it’s a trial of endurance, skill, and sheer will. The monsters won’t stop. The arena won’t forgive. Will you rise to  
-the challenge or fall like the rest?  
+_SHOOT!_ isn’t just a game—it’s a trial of endurance, skill, and sheer will. The monsters won’t stop. The arena won’t forgive. Will you rise to the challenge or fall like the rest?  
   
 **Lock and load. The hunt begins now**. Dare to enter the arena? The monsters are waiting… 
 
