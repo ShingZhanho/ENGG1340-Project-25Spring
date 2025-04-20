@@ -11,7 +11,9 @@ namespace core {
         WALL,
         AIR,
         PLAYER,
-        ZOMBIE
+        ZOMBIE, // moderate HP, moderate speed
+        TROLL, // high HP, moves slowly
+        
     };
 
 } // namespace core
