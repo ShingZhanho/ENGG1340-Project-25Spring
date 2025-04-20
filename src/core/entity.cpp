@@ -264,12 +264,12 @@ namespace core {
     
     //  BEGIN: Troll
 
-    Troll:Troll(Point position, Arena* arena)
+    Troll::Troll(Point position, Arena* arena)
         : AbstractMob(
             position, arena, 
             5, 0.5, 5 // HP, damage, killScore
         ) {
-        renderOption = EntityRenderOptions::TrollRenderOption():
+        renderOption = EntityRenderOptions::TrollRenderOption();
     }
 
     //  END: Troll
