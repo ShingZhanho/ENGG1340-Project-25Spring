@@ -19,7 +19,7 @@ namespace core {
             return GameOptions({
                 50,        //  PlayerHp
                 nullptr,    //  GameArena
-                {EntityType::ZOMBIE}, //  MobTypesGenerated
+                {EntityType::ZOMBIE, EntityType::TROLL}, //  MobTypesGenerated
                 15          // MaxMobs
             });
         }

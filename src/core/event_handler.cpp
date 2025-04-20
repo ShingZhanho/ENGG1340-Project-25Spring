@@ -306,6 +306,22 @@ namespace core {
                 attempts++;
                 continue;
             }
+            auto it = GetGame()->GetOptions()->MobTypesGenerated.begin();
+            std::advance(it, std::rand() % GetGame()->GetOptions()->MobTypesGenerated.size());
+            EntityType mobType = *it;
+            AbstractMob* mob;
+            switch (mobType) {
+                case EntityType::ZOMBIE:
+                    mob = new Zombie(spawnPos, arena);
+                    break;
+                case EntityType::TROLL:
+                    mob = new Troll(spawnPos, arena);
+                    break;
+                default:
+                    util::WriteToLog("Unknown mob type: " + std::to_string(static_cast<int>(mobType)), "MobGenerateEventHandler::spawnMob()");
+                    return;
+            }
+            bool success = arena->SetPixelWithIdSafe(spawnPos, mob);
             if (success) {
                 util::WriteToLog("Mob spawned successfully at (" + std::to_string(spawnPos.x) + ", " + std::to_string(spawnPos.y) + ")", "MobGenerateEventHandler::spawnMob()");
             } else {
@@ -334,7 +350,7 @@ namespace core {
     void MobMoveEventHandler::execute() {
         auto playerPos = GetGame()->GetArena()->GetPixelById(0)->GetPosition();
         // Move all mobs
-        auto entities = GetGame()->GetArena()->GetMappedEntities();
+        auto entities = GetGame()->GetArena()->GetEntitiesOfType(EntityType::ABSTRACT_MOB);
         int mobCount = 0;
         for (auto entity : entities) {
             if (!Entity::IsType(entity, EntityType::ABSTRACT_MOB)) continue;
