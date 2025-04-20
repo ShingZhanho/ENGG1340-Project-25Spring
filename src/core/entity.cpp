@@ -36,7 +36,7 @@ namespace core {
     }
     ui::RenderOption EntityRenderOptions::TrollRenderOption() { 
         return {
-            'T', ftxui::Color::Crimson, ftxui::Color::Default, true, false, false, false
+            'T', ftxui::Color::Red, ftxui::Color::Default, true, false, false, false
         };
     }
     ui::RenderOption EntityRenderOptions::PlayerBulletRenderOption() { 
@@ -79,6 +79,8 @@ namespace core {
                 return dynamic_cast<Player*>(entity) != nullptr;
             case EntityType::ZOMBIE:
                 return dynamic_cast<Zombie*>(entity) != nullptr;
+            case EntityType::TROLL:
+                return dynamic_cast<Troll*>(entity) != nullptr;
             default:
                 return false;
         }
