@@ -1,6 +1,7 @@
 #include <core/entity.hpp>
 #include <ftxui/screen/color.hpp>
 #include <util/log.hpp>
+#include <ui/common.hpp>
 
 namespace core {
 
@@ -224,7 +225,10 @@ namespace core {
 
     void Player::TakeDamage(int damage) {
         hp -= damage;
-        if (hp <= 0) throw 0; // Player died
+        if (hp <= 0) {
+            ui::appScreen.ExitLoopClosure()();
+            arena->GetGame()->Terminate();
+        }
     }
 
     bool Player::Move(Point to) {
