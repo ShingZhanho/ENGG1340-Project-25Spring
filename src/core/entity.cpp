@@ -34,11 +34,17 @@ namespace core {
             'Z', ftxui::Color::Red, ftxui::Color::Default, true, false, false, false
         };
     }
+    ui::RenderOption EntityRenderOptions::TrollRenderOption() { 
+        return {
+            'T', ftxui::Color::Crimson, ftxui::Color::Default, true, false, false, false
+        };
+    }
     ui::RenderOption EntityRenderOptions::PlayerBulletRenderOption() { 
         return {
             '*', ftxui::Color::Yellow, ftxui::Color::Default, true, false, false, false
         };
     }
+    
 
     //  END: EntityRenderOptions
 
@@ -256,4 +262,16 @@ namespace core {
 
     //  END: Zombie
     
+    //  BEGIN: Troll
+
+    Troll:Troll(Point position, Arena* arena)
+        : AbstractMob(
+            position, arena, 
+            5, 0.5, 5 // HP, damage, killScore
+        ) {
+        renderOption = EntityRenderOptions::TrollRenderOption():
+    }
+
+    //  END: Troll
+        
 } // namespace Core
