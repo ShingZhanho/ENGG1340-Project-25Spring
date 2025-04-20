@@ -31,8 +31,8 @@ namespace core {
         };
     }
     ui::RenderOption EntityRenderOptions::ZombieRenderOption() {
-        return {
-            'Z', ftxui::Color::Red, ftxui::Color::Default, true, false, false, false
+        return { // mobs with 1 HP should be italic, zombies are 1 HP so they are always italic
+            'Z', ftxui::Color::Red, ftxui::Color::Default, true, true, false, false
         };
     }
     ui::RenderOption EntityRenderOptions::TrollRenderOption() { 
@@ -117,6 +117,7 @@ namespace core {
 
     void AbstractMob::TakeDamage(int damage) {
         hp -= damage;
+        if (hp <= 1) renderOption.SetItalic(true); //  Set to italic when HP is low
         if (hp <= 0) {
             arena->GetGame()->ChangeScore(killScore);
             arena->Remove(GetPosition());
@@ -135,6 +136,7 @@ namespace core {
 
         if (IsType(target, EntityType::PLAYER)) { // collides with player
             dynamic_cast<Player*>(target)->TakeDamage(damage);
+            lastMoveTick = currentTime;
             return false; // Mob does not disappear after attack, it will stay and attack again until killed.
         }
 
