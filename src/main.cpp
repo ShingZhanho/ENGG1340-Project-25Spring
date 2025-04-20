@@ -333,6 +333,24 @@ void difficultyMenu() {
         }) | ftxui::flex_grow;
     }));
 
+    //      -- Mob Spawn Interval (slider, 2 - 15)
+    int options_mobSpawnInterval = 5;
+    auto mobSpawnIntervalSliderOption = ftxui::SliderOption<int>();
+    mobSpawnIntervalSliderOption.value = &options_mobSpawnInterval;
+    mobSpawnIntervalSliderOption.min = 2;
+    mobSpawnIntervalSliderOption.max = 15;
+    mobSpawnIntervalSliderOption.increment = 1;
+    mobSpawnIntervalSliderOption.color_active = ftxui::Color::Green1;
+    mobSpawnIntervalSliderOption.color_inactive = ftxui::Color::White;
+    auto mobSpawnIntervalSlider = ftxui::Slider(mobSpawnIntervalSliderOption);
+
+    auto mobSpawnIntervalSliderComponent = wrapComponent("Spawn Interval", ftxui::Renderer(mobSpawnIntervalSlider, [&] {
+        return ftxui::hbox({
+            mobSpawnIntervalSlider->Render() | ftxui::flex_grow,
+            ftxui::text((options_mobSpawnInterval < 9 ? "  " : " ") + std::to_string(options_mobSpawnInterval) + " / 15 seconds ") |  ftxui::flex_shrink 
+        }) | ftxui::flex_grow;
+    }));
+
     //    -- Error message about invalid options
     bool showOptionError = false;
     std::string optionErrorMsg = "";
@@ -351,7 +369,8 @@ void difficultyMenu() {
         gameMapFileInputComponent,
         playerHPSliderComponent,
         mobCheckboxesComponent,
-        maxMobsSliderComponent
+        maxMobsSliderComponent,
+        mobSpawnIntervalSliderComponent,
     });
     auto customGameOptionsRenderer = ftxui::Renderer(customGameOptionsContainer, [&] {
         return ftxui::vbox({
@@ -364,6 +383,8 @@ void difficultyMenu() {
             mobCheckboxesComponent->Render(),
             ftxui::separator(),
             maxMobsSliderComponent->Render(),
+            ftxui::separator(),
+            mobSpawnIntervalSliderComponent->Render(),
         });
     }) | ftxui::border;
 
@@ -432,6 +453,9 @@ void difficultyMenu() {
 
             // check max mobs (nothing to be checked)
             gameOptions->MaxMobs = options_maxMobs;
+
+            // check spawn interval (nothing to be checked)
+            gameOptions->MobSpawnInterval = options_mobSpawnInterval * 50; // 50 ticks = 1 second
         }
 
         // Set the game options

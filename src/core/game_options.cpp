@@ -11,25 +11,28 @@ namespace core {
                 100,        //  PlayerHp
                 nullptr,    //  GameArena
                 {EntityType::ZOMBIE}, //  MobTypesGenerated
-                10          // MaxMobs
+                10,         // MaxMobs
+                250,        // MobSpawnInterval
             });
         }
 
         GameOptions MEDIUM() {
             return GameOptions({
-                50,        //  PlayerHp
+                50,         //  PlayerHp
                 nullptr,    //  GameArena
                 {EntityType::ZOMBIE, EntityType::TROLL}, //  MobTypesGenerated
-                15          // MaxMobs
+                15,         // MaxMobs
+                150,        // MobSpawnInterval
             });
         }
 
         GameOptions HARD() {
             return GameOptions({
-                25,        //  PlayerHp
+                25,         //  PlayerHp
                 nullptr,    //  GameArena
-                {EntityType::ZOMBIE}, //  MobTypesGenerated
-                30          // MaxMobs
+                {EntityType::ZOMBIE, EntityType::TROLL}, //  MobTypesGenerated
+                30,         // MaxMobs
+                100,        // MobSpawnInterval
             });
         }
 

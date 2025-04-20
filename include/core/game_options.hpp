@@ -22,6 +22,9 @@ namespace core {
         std::set<core::EntityType> MobTypesGenerated;
         //  The maximum number of mobs at any given moment.
         int MaxMobs;
+        //  The tick interval between each mob generation.
+        //  Measured in ticks (50 ticks per second).
+        int MobSpawnInterval;
     };
 
     //  Built-in GameOptions

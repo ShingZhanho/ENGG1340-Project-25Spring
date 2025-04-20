@@ -5,7 +5,6 @@
 #include <core/game.hpp>
 #include <core/point.hpp>
 #include <vector>
-#include <chrono>
 #include <thread>
 
 namespace core {
@@ -134,7 +133,7 @@ namespace core {
             int countMobs();
             void spawnMob();
 
-            std::chrono::steady_clock::time_point lastSpawnTime;
+            int lastSpawnTick;
     };
     
     //  Handles the movement of mobs.

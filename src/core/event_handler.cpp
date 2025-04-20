@@ -252,7 +252,7 @@ namespace core {
     
     MobGenerateEventHandler::MobGenerateEventHandler(Game* game) :
         EventHandler(game),
-        lastSpawnTime(std::chrono::steady_clock::now()) {
+        lastSpawnTick(-GetGame()->GetOptions()->MobSpawnInterval) {
         // util::WriteToLog("Constructing MobGenerateEventHandler", "MobGenerateEventHandler::MobGenerateEventHandler()");
     }
 
@@ -263,19 +263,14 @@ namespace core {
     }
     
     void MobGenerateEventHandler::execute() {
-        // Implement mob generation logic
-        auto currentTime = std::chrono::steady_clock::now();
-        auto elapsedTime = std::chrono::duration_cast<std::chrono::seconds> (
-            currentTime - lastSpawnTime).count();
-        
-        // Check if 3 seconds have passed since last spawn
-        if (elapsedTime < 3) return;
+        int currentTime = GetGame()->GetGameClock();
+        if (currentTime - lastSpawnTick < GetGame()->GetOptions()->MobSpawnInterval) return;
 
         if (countMobs() >= GetGame()->GetOptions()->MaxMobs) return;
 
         util::WriteToLog("Spawning mob...", "MobGenerateEventHandler::execute()");
         spawnMob();
-        lastSpawnTime = currentTime;
+        lastSpawnTick = currentTime;
     }
     
     int MobGenerateEventHandler::countMobs() {
