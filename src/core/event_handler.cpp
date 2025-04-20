@@ -225,6 +225,7 @@ namespace core {
     }
     
     void TickEventHandler::execute() {
+        GetGame()->IncrementGameClock();
         ui::appScreen.Post(ftxui::Event::Custom);
     }
     

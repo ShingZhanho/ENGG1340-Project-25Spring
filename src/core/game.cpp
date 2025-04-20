@@ -100,4 +100,12 @@ namespace core {
         return options;
     }
 
+    void Game::IncrementGameClock() {
+        gameClock.fetch_add(1);
+    }
+
+    int Game::GetGameClock() const {
+        return gameClock.load();
+    }
+
 } // namespace core
