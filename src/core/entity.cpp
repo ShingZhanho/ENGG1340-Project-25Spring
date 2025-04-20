@@ -37,7 +37,7 @@ namespace core {
     }
     ui::RenderOption EntityRenderOptions::TrollRenderOption() { 
         return {
-            'T', ftxui::Color::Red, ftxui::Color::Default, true, false, false, false
+            'T', ftxui::Color::Purple, ftxui::Color::Default, true, false, false, false
         };
     }
     ui::RenderOption EntityRenderOptions::PlayerBulletRenderOption() { 

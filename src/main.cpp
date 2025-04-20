@@ -44,7 +44,7 @@ ftxui::Component wrapComponent(std::string fieldName, ftxui::Component component
 // -- Custom Game Options Functions -------------------------------------------------------
 
 //  Gets the selected mob types from the custom game options.
-std::set<core::EntityType> getMobTypes(std::unordered_map<core::EntityType, bool*> mobFlags);
+std::set<core::EntityType> getMobTypes(std::map<int, bool*> mobFlags);
 //  Sets the error message and shows the error message.
 void setErrorMessage(std::string& errorMessage, std::string msg, bool& showError);
  
@@ -277,20 +277,23 @@ void difficultyMenu() {
     }));
 
     //    -- Types of mob generated (checkboxes in frame)
-    std::map<core::EntityType, std::string> mobTypeNames = {
-        {core::EntityType::ZOMBIE, "Zombie"},
+    std::map<int, std::string> mobTypeNames = {
+        {static_cast<int>(core::EntityType::ZOMBIE), "Zombie"},
+        {static_cast<int>(core::EntityType::TROLL), "Troll"},
     };
-    std::unordered_map<core::EntityType, std::string> mobTypeDescriptions = {
-        {core::EntityType::ZOMBIE, "Zombies: 5 HP, 1 damage."},
+    std::map<int, std::string> mobTypeDescriptions = {
+        {static_cast<int>(core::EntityType::ZOMBIE), "1 HP, 1 damage, 1 point, moves every 1 second."},
+        {static_cast<int>(core::EntityType::TROLL), "5 HP, ?? damage, 5 points, moves every 2 seconds."},
     };
-    std::unordered_map<core::EntityType, bool*> mobFlags = {
-        {core::EntityType::ZOMBIE, new bool(true)},
+    std::map<int, bool*> mobFlags = {
+        {static_cast<int>(core::EntityType::ZOMBIE), new bool(true)},
+        {static_cast<int>(core::EntityType::TROLL), new bool(true)},
     };
     auto mobCheckboxesContainer = ftxui::Container::Vertical({});
     for (const auto& mobType : mobTypeNames) {
-        auto key = mobType.first;
         auto checkboxOption = ftxui::CheckboxOption();
         checkboxOption.transform = [&] (ftxui::EntryState state) {
+            auto key = mobType.first;
             return ftxui::hbox({
                 ftxui::text("["),
                 (state.state
@@ -305,7 +308,7 @@ void difficultyMenu() {
                     : ftxui::text(""),
             });
         };
-        auto checkbox = ftxui::Checkbox(mobTypeNames[key], mobFlags[key], checkboxOption);
+        auto checkbox = ftxui::Checkbox(mobTypeNames[mobType.first], mobFlags[mobType.first], checkboxOption);
         mobCheckboxesContainer->Add(checkbox);
     }
     auto mobCheckboxesComponent = wrapComponent("Mob Types", ftxui::Renderer(mobCheckboxesContainer, [&] {
@@ -487,11 +490,11 @@ ftxui::Component wrapComponent(std::string fieldName, ftxui::Component component
 
 //  -- Custom Game Options Functions -------------------------------------------------------
 
-std::set<core::EntityType> getMobTypes(std::unordered_map<core::EntityType, bool*> mobFlags) {
+std::set<core::EntityType> getMobTypes(std::map<int, bool*> mobFlags) {
     std::set<core::EntityType> mobTypes;
     for (const auto& mobType : mobFlags) {
         if (*mobType.second) {
-            mobTypes.insert(mobType.first);
+            mobTypes.insert((core::EntityType) mobType.first);
         }
     }
     return mobTypes;
