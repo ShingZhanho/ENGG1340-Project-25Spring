@@ -92,7 +92,9 @@ namespace core {
         }
         pixel[p.y][p.x] = entity;
         util::WriteToLog("Entity at (" + std::to_string(p.x) + ", " + std::to_string(p.y) + ") assigned ID: " + std::to_string(idIncr), "Arena::SetPixelWithId()");
-        entityIndex[idIncr++] = entity;
+        entityIndex[idIncr] = entity;
+        entity->Id = idIncr;
+        idIncr++;
         entity->SetPosition(p);
     }
 
@@ -104,14 +106,12 @@ namespace core {
             return false;
         }
         if (Entity::IsType(pixel[p.y][p.x], EntityType::AIR)) {
-            try {
-                delete pixel[p.y][p.x];
-            } catch(const std::exception& _) {
-                ; // do nothing
-            }
+            delete pixel[p.y][p.x];
             pixel[p.y][p.x] = entity;
             util::WriteToLog("Entity at (" + std::to_string(p.x) + ", " + std::to_string(p.y) + ") assigned ID: " + std::to_string(idIncr), "Arena::SetPixelWithIdSafe()");
-            entityIndex[idIncr++] = entity;
+            entityIndex[idIncr] = entity;
+            entity->Id = idIncr;
+            idIncr++;
             entity->SetPosition(p);
             return true;
         }
@@ -165,6 +165,7 @@ namespace core {
             }
             pixel[p.y][p.x] = entity;
             entity->SetPosition(p);
+            entity->Id = id;
             entityIndex.erase(it);
             entityIndex[id] = entity;
         }
@@ -180,6 +181,17 @@ namespace core {
         }
         pixel[p.y][p.x] = new Air({p.x, p.y}, this);
         util::WriteToLog("Entity at (" + std::to_string(p.x) + ", " + std::to_string(p.y) + ") removed successfully.", "Arena::Remove()");
+    }
+
+    void Arena::RemoveById(int id) {
+        std::lock_guard<std::mutex> lock(arenaMutex);
+        auto it = entityIndex.find(id);
+        if (it != entityIndex.end()) {
+            Point p = it->second->GetPosition();
+            delete pixel[p.y][p.x];
+            pixel[p.y][p.x] = new Air({p.x, p.y}, this);
+            entityIndex.erase(it);
+        }
     }
 
     void Arena::Move(Point start, Point dest) {

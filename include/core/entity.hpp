@@ -50,6 +50,8 @@ namespace core {
             static bool IsType(Entity* entity, EntityType type);
             //  Returns the render option of the entity
             ui::RenderOption GetRenderOption();
+            //  The ID of the entity. For unmapped entities, the ID will be negative.
+            int Id = -1;
 
         protected:
 
@@ -95,6 +97,8 @@ namespace core {
             bool Move();
             //  The path towards the player. Updated through MobMoveEventHandler.
             std::list<Point> Path;
+            //  Returns the kill score of the mob.
+            int GetKillScore() const;
 
         private:
             int hp;

@@ -118,10 +118,7 @@ namespace core {
     void AbstractMob::TakeDamage(int damage) {
         hp -= damage;
         if (hp <= 1) renderOption.SetItalic(true); //  Set to italic when HP is low
-        if (hp <= 0) {
-            arena->GetGame()->ChangeScore(killScore);
-            arena->Remove(GetPosition());
-        }
+        // mob removal logic implemented in the event handler
     }
 
     bool AbstractMob::Move(Point to) {
@@ -169,6 +166,8 @@ namespace core {
         }
         return false;
     }
+
+    int AbstractMob::GetKillScore() const { return killScore; }
 
     //  END: AbstractMob
 

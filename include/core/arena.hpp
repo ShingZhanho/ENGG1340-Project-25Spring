@@ -51,6 +51,9 @@ namespace core {
             void ReplaceWithId(int id, Entity* entity);
             //  Removes the pixel at (x, y) and replaces it with air.
             void Remove(Point p);
+            //  Removes a mapped entity by its ID. If an entity has been assigned an ID,
+            //  this method MUST be used to remove it. Using Remove() will cause SIGSEGV.
+            void RemoveById(int id);
             //  Moves the entity from one pixel to another.
             void Move(Point start, Point dest);
             //  Gets a list of mapped entities.

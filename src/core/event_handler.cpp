@@ -344,12 +344,18 @@ namespace core {
     void MobMoveEventHandler::execute() {
         auto playerPos = GetGame()->GetArena()->GetPixelById(0)->GetPosition();
         // Move all mobs
-        auto entities = GetGame()->GetArena()->GetEntitiesOfType(EntityType::ABSTRACT_MOB);
+        auto entities = GetGame()->GetArena()->GetMappedEntities();
         int mobCount = 0;
         for (auto entity : entities) {
             if (!Entity::IsType(entity, EntityType::ABSTRACT_MOB)) continue;
             auto mob = dynamic_cast<AbstractMob*>(entity);
             if (mob == nullptr) continue;
+            // Check if the mob is dead
+            if (mob->GetHP() <= 0) {
+                GetGame()->GetArena()->RemoveById(mob->Id);
+                GetGame()->ChangeScore(mob->GetKillScore());
+                continue;
+            }
             mobCount++;
             mob->Move();
         }
@@ -358,6 +364,7 @@ namespace core {
         prevMobCount = mobCount;
 
         // Perform pathfinding for all mobs
+        entities = GetGame()->GetArena()->GetMappedEntities(); // refresh entity list to exclude dead mobs
         for (auto entity : entities) {
             if (!Entity::IsType(entity, EntityType::ABSTRACT_MOB)) continue;
             auto mob = dynamic_cast<AbstractMob*>(entity);
