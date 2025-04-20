@@ -20,6 +20,7 @@ namespace core {
     class Wall;
     class Player;
     class Zombie;
+    class Troll;
 
     typedef EntityType EntityType;
 
@@ -30,6 +31,7 @@ namespace core {
             static ui::RenderOption PlayerRenderOption();
             static ui::RenderOption ZombieRenderOption();
             static ui::RenderOption PlayerBulletRenderOption();
+            static ui::RenderOption TrollRenderOption();
     };
 
     class Entity {
