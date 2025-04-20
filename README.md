@@ -39,18 +39,17 @@ _SHOOT!_ is straightforward enough but brutally intense:
 ## Features That Will Keep You Hooked
 
 * **Monster mayhem-no two enemies are the same**: Randomized spawn is based on generating random numbers in every round. Every monster in the wild arena will or will not be identical. You may never face the same 
-   wave twice. Some creatures charge recklessly, while others lurk and strike when you least expect it. Adapt or perish—the arena shows no mercy.  
+   wave twice. Some creatures charge recklessly, while others lurk and strike when you least expect it. Adapt or perish—the arena shows no mercy.:thinking:  
   
-* **Fully customizable arenas**: Why stick to the default battlefield when you can design your own? _SHOOT!_ is equipped with file I/O which allows you to import custom map files, and set up your own initial player 
-   position. The freedom is in your hands.
+* **Fully customizable arenas**: Why stick to the default battlefield when you can design your own? _SHOOT!_ is equipped with file I/O which allows you to import custom map files, and set up your own initial player position. The freedom is in your hands.:world_map:  
   
 * **Difficulty levels for every player**: Whether you are a novice seeking a gentle introduction to the chaos, a veteran who survives relentless waves and is equipped with precise skills, or a elite shooter, 
    there is always a difficulty level just for you. In each level, the monster spawn rates, their speed and their amount are always changing. Get ready to push your limits and conquer the arena!
   
-* **Dynamic combat–fast, fluid, and ferocious**: Bullets fly, monsters swarm, and every second counts. The game’s smooth mechanics ensure that your skill—not luck—determines victory.
+* **Dynamic combat–fast, fluid, and ferocious**: Bullets fly, monsters swarm, and every second counts. The game’s smooth mechanics ensure that your skill—not luck—determines victory.:smiling_imp:
   
 * **Glory of the achievers**: After each round, your score is automatically stored into the leaderboard. Compete against yourself or others. How long can you last? How many monsters can you slay before the 
-   inevitable end? The leaderboard awaits the boldest shooters.
+   inevitable end? The leaderboard awaits the boldest shooters.:1st_place_medal::2nd_place_medal::3rd_place_medal:
 
 ## Technical Details--If You are Interested
 
