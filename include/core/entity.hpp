@@ -79,7 +79,7 @@ namespace core {
     //  Mobs move towards the player using A* algorithm.
     class AbstractMob : public Entity {
         public:
-            AbstractMob(Point position, Arena* arena, int hp, int damage, int killScore);
+            AbstractMob(Point position, Arena* arena, int hp, int damage, int killScore, int ticksPerMove);
             virtual ~AbstractMob() = default;
 
             int GetHP() const;
@@ -101,6 +101,12 @@ namespace core {
             int damage;
             //  Scores earned when the mob is killed.
             int killScore;
+            //  Determines the speed of the mob, in ticks per move.
+            //  The game runs at 50 ticks per second (i.e. 20ms per tick).
+            //  tickPerMove = 50 means the mob moves one step every second.
+            int ticksPerMove;
+            //  The moment when the mob last moved.
+            int lastMoveTick = -1;
     };
 
     class PlayerBullet : public Entity {

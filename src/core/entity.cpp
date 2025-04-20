@@ -108,8 +108,10 @@ namespace core {
 
     //  BEGIN: AbstractMob
 
-    AbstractMob::AbstractMob(Point position, Arena* arena, int hp, int damage, int killScore)
-        : Entity(position, arena), hp(hp), damage(damage), killScore(killScore) {}
+    AbstractMob::AbstractMob(Point position, Arena* arena, int hp, int damage, int killScore, int ticksPerMove)
+        : Entity(position, arena), hp(hp), damage(damage), killScore(killScore), ticksPerMove(ticksPerMove) {
+            lastMoveTick = arena->GetGame()->GetGameClock();
+        }
 
     int AbstractMob::GetHP() const { return hp; }
 
@@ -122,6 +124,12 @@ namespace core {
     }
 
     bool AbstractMob::Move(Point to) {
+        //  Check if move time has reached
+        int currentTime = arena->GetGame()->GetGameClock();
+        if (currentTime - lastMoveTick < ticksPerMove) {
+            return false; // Not enough time has passed
+        }
+
         util::WriteToLog("Attempting to move mob to: (" + std::to_string(to.x) + ", " + std::to_string(to.y) + ")", "AbstractMob::Move()");
         Entity* target = arena->GetPixel(to);
 
@@ -142,6 +150,7 @@ namespace core {
         if (IsType(target, EntityType::AIR)) { // collides with air
             arena->Move(GetPosition(), to);
             util::WriteToLog("Mob moved to: (" + std::to_string(to.x) + ", " + std::to_string(to.y) + ")", "AbstractMob::Move()");
+            lastMoveTick = currentTime;
             return true;
         }
 
@@ -261,7 +270,7 @@ namespace core {
     Zombie::Zombie(Point position, Arena* arena) 
         : AbstractMob(
             position, arena,
-            1, 1, 1 // HP, damage, killScore
+            1, 1, 1, 50 // HP, damage, killScore, ticksPerMove
         ) {
         renderOption = EntityRenderOptions::ZombieRenderOption();
     }
@@ -273,7 +282,7 @@ namespace core {
     Troll::Troll(Point position, Arena* arena)
         : AbstractMob(
             position, arena, 
-            5, 0.5, 5 // HP, damage, killScore
+            5, 0.5, 5, 100 // HP, damage, killScore, ticksPerMove
         ) {
         renderOption = EntityRenderOptions::TrollRenderOption();
     }

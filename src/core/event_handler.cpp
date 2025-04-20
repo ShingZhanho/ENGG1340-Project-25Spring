@@ -88,7 +88,7 @@ namespace core {
             while (GetGame()->IsRunning()) {
                 using namespace std::chrono_literals;
                 tickEventHandler->Fire();
-                std::this_thread::sleep_for(1s);
+                std::this_thread::sleep_for(20ms);
             }
             util::WriteToLog("Game loop exited. Terminating tickThread...", "RunEventHandler::execute() {thread: tickThread}");
             GetGame()->SetTerminated();
@@ -219,7 +219,6 @@ namespace core {
     }
 
     void TickEventHandler::Fire() {
-        util::WriteToLog("TickEvent triggered", "TickEventHandler::Fire()");
         execute();
         EventHandler::Fire();
     }
