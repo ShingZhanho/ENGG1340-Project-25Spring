@@ -306,12 +306,12 @@ namespace core {
                 attempts++;
                 continue;
             }
-
-            bool success = arena->SetPixelWithIdSafe(spawnPos, new Zombie(spawnPos, arena)); // TODO: use a random mob type
-            if (success)
+            if (success) {
                 util::WriteToLog("Mob spawned successfully at (" + std::to_string(spawnPos.x) + ", " + std::to_string(spawnPos.y) + ")", "MobGenerateEventHandler::spawnMob()");
-            else
+            } else {
                 util::WriteToLog("Failed to spawn mob at (" + std::to_string(spawnPos.x) + ", " + std::to_string(spawnPos.y) + ")", "MobGenerateEventHandler::spawnMob()");
+                delete mob;
+            } 
             break;
         }
     }
