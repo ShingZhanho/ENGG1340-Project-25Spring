@@ -131,7 +131,6 @@ namespace core {
             return false; // Not enough time has passed
         }
 
-        util::WriteToLog("Attempting to move mob to: (" + std::to_string(to.x) + ", " + std::to_string(to.y) + ")", "AbstractMob::Move()");
         Entity* target = arena->GetPixel(to);
 
         if (IsType(target, EntityType::PLAYER)) { // collides with player
@@ -151,7 +150,6 @@ namespace core {
 
         if (IsType(target, EntityType::AIR)) { // collides with air
             arena->Move(GetPosition(), to);
-            util::WriteToLog("Mob moved to: (" + std::to_string(to.x) + ", " + std::to_string(to.y) + ")", "AbstractMob::Move()");
             lastMoveTick = currentTime;
             return true;
         }
@@ -243,18 +241,14 @@ namespace core {
     }
 
     bool Player::Move(Point to) {
-        util::WriteToLog("Attempting to move player to: (" + std::to_string(to.x) + ", " + std::to_string(to.y) + ")", "Player::Move()");
         Entity* target = arena->GetPixel(to);
 
         if (IsType(target, EntityType::WALL) || IsType(target, EntityType::ABSTRACT_MOB)) {
-            util::WriteToLog("Cannot move into wall or mob. Request blocked.", "Player::Move()");
             return false; // Cannot move into wall or mob
         }
 
         if (IsType(target, EntityType::AIR)) {
-            util::WriteToLog("Requesting arena to move Player entity...", "Player::Move()");
             arena->Move(GetPosition(), to);
-            util::WriteToLog("Player moved to: (" + std::to_string(to.x) + ", " + std::to_string(to.y) + ")", "Player::Move()");
             return true;
         }
 

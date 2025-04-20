@@ -95,9 +95,9 @@ namespace core {
         });
 
         //  Run the game UI renderer.
-        ui::publicGameUIRenderer->StartRenderLoop();
-        util::WriteToLog("Game UI renderer started. Detaching from tickThread...", "RunEventHandler::execute()");
         tickThread.detach();
+        util::WriteToLog("Game UI renderer started. Detaching from tickThread...", "RunEventHandler::execute()");
+        ui::publicGameUIRenderer->StartRenderLoop();
     }
 
     //  END: RunEventHandler
@@ -342,7 +342,6 @@ namespace core {
     }
 
     void MobMoveEventHandler::Fire() {
-        util::WriteToLog("MobMoveEvent triggered", "MobMoveEventHandler::Fire()");
         execute();
         EventHandler::Fire();
     }
