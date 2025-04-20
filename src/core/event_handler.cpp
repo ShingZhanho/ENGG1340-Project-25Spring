@@ -352,8 +352,8 @@ namespace core {
             if (mob == nullptr) continue;
             // Check if the mob is dead
             if (mob->GetHP() <= 0) {
-                GetGame()->GetArena()->RemoveById(mob->Id);
                 GetGame()->ChangeScore(mob->GetKillScore());
+                GetGame()->GetArena()->RemoveById(mob->Id);
                 continue;
             }
             mobCount++;
