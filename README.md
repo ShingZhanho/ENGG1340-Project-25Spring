@@ -3,7 +3,7 @@
 <p align="center">
    <img src="docs/game_logo.gif" alt="Logo of the game, blinking."/>
    <br/>
-   <span>Made by ENGG1340 Group 1 (2024/25 Spring Semester)</span>
+   <span> ENGG1340 Group 1 Presents (2024/25 Spring Semester)</span>
 </p>
 
 ## Team Members (alphabetically)
