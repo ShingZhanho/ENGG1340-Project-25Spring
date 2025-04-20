@@ -263,7 +263,7 @@ namespace core {
     }
     
     void MobGenerateEventHandler::execute() {
-        int currentTime = GetGame()->GetGameClock();
+        long long currentTime = GetGame()->GetGameClock();
         if (currentTime - lastSpawnTick < GetGame()->GetOptions()->MobSpawnInterval) return;
 
         if (countMobs() >= GetGame()->GetOptions()->MaxMobs) return;

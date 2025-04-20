@@ -133,7 +133,7 @@ namespace core {
             int countMobs();
             void spawnMob();
 
-            int lastSpawnTick;
+            long long lastSpawnTick;
     };
     
     //  Handles the movement of mobs.

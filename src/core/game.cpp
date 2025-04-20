@@ -104,7 +104,7 @@ namespace core {
         gameClock.fetch_add(1);
     }
 
-    int Game::GetGameClock() const {
+    long long Game::GetGameClock() const {
         return gameClock.load();
     }
 

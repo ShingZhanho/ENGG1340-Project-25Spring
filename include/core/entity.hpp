@@ -106,7 +106,7 @@ namespace core {
             //  tickPerMove = 50 means the mob moves one step every second.
             int ticksPerMove;
             //  The moment when the mob last moved.
-            int lastMoveTick = -1;
+            long long lastMoveTick = -1;
     };
 
     class PlayerBullet : public Entity {

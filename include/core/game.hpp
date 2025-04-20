@@ -56,7 +56,7 @@ namespace core {
             //  Increments the game clock by 1 tick.
             void IncrementGameClock();
             //  Returns the game clock.
-            int GetGameClock() const;
+            long long GetGameClock() const;
 
         private:
             //  The score. Initial score is 0.
@@ -80,7 +80,7 @@ namespace core {
             //  The mutex for the game.
             std::mutex gameMutex;
             //  The clock of the game. Unit: ticks.
-            std::atomic<int> gameClock = 0;
+            std::atomic<long long> gameClock = 0;
     };
 
 } // namespace core
