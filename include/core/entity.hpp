@@ -152,6 +152,11 @@ namespace core {
         public:
             Zombie(Point position, Arena* arena);
     };
+
+    class Troll: public AbstractMob {
+        public:
+            Troll(Point position, Arena* arena);
+    };
 }
 
 #endif // CORE_ENTITY_HPP
