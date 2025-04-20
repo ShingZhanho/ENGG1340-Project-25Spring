@@ -78,9 +78,11 @@ namespace core {
             if (GetOptions()->GameArena != nullptr) {
                 util::WriteToLog("Using provided arena.", "Game::InitialiseArena()");
                 arena = GetOptions()->GameArena;
+                arena->SetGame(this);
             } else {
                 util::WriteToLog("Using default arena.", "Game::InitialiseArena()");
                 arena = new Arena();
+                arena->SetGame(this);
                 arenaIsDynamicallyCreated = true;
             }
             arenaInitialised = true;

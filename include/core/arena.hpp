@@ -41,9 +41,10 @@ namespace core {
             bool SetPixelWithIdSafe(Point p, Entity* entity);
             //  Returns the entity with the given ID. nullptr if not found.
             Entity* GetPixelById(int id);
-
+            //  Returns the game object.
             Game* GetGame();
-
+            //  Sets the game object.
+            void SetGame(Game* game);
             //  Replaces the pixel at (x, y) with the given entity.
             void Replace(Point p, Entity* entity);
             //  Replaces the pixel at (x, y) with ID and update the map.

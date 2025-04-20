@@ -64,7 +64,7 @@ namespace core {
         if (entity == nullptr) return false;
         switch (type) {
             case EntityType::ABSTRACT_ENTITY:
-                return dynamic_cast<Entity*>(entity) != nullptr;
+                return true;
             case EntityType::ABSTRACT_BLOCK:
                 return dynamic_cast<AbstractBlock*>(entity) != nullptr;
             case EntityType::ABSTRACT_MOB:

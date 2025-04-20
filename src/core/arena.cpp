@@ -135,6 +135,11 @@ namespace core {
         return game;
     }
 
+    void Arena::SetGame(Game* game) {
+        std::lock_guard<std::mutex> lock(arenaMutex);
+        this->game = game;
+    }
+
     void Arena::Replace(Point p, Entity* entity) {
         std::lock_guard<std::mutex> lock(arenaMutex);
         util::WriteToLog("Attempting to replace entity at (" + std::to_string(p.x) + ", " + std::to_string(p.y) + ")...", "Arena::Replace()");
