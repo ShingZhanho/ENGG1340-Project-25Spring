@@ -380,6 +380,9 @@ namespace core {
                 case EntityType::TROLL:
                     mob = new Troll(spawnPos, arena);
                     break;
+                case EntityType::BABY_ZOMBIE:
+                    mob = new BabyZombie(spawnPos, arena);
+                    break;
                 default:
                     util::WriteToLog("Unknown mob type: " + std::to_string(static_cast<int>(mobType)), "MobGenerateEventHandler::spawnMob()");
                     return;

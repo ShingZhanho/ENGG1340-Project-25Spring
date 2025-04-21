@@ -32,6 +32,7 @@ namespace core {
             static ui::RenderOption ZombieRenderOption();
             static ui::RenderOption PlayerBulletRenderOption();
             static ui::RenderOption TrollRenderOption();
+            static ui::RenderOption BabyZombieRenderOption();
     };
 
     class Entity {
@@ -189,6 +190,11 @@ namespace core {
     class Troll: public AbstractMob {
         public:
             Troll(Point position, Arena* arena);
+    };
+
+    class BabyZombie: public AbstractMob {
+        public:
+            BabyZombie(Point position, Arena* arena);
     };
 }
 

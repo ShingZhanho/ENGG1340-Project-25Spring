@@ -40,6 +40,11 @@ namespace core {
             'T', ftxui::Color::Purple, ftxui::Color::Default, true, false, false, false
         };
     }
+    ui::RenderOption EntityRenderOptions::BabyZombieRenderOption() {
+        return {
+            'b', ftxui::Color::Red, ftxui::Color::Default, true, true, false, false
+        };
+    }
     ui::RenderOption EntityRenderOptions::PlayerBulletRenderOption() { 
         return {
             '*', ftxui::Color::Yellow, ftxui::Color::Default, true, false, false, false
@@ -82,6 +87,8 @@ namespace core {
                 return dynamic_cast<Zombie*>(entity) != nullptr;
             case EntityType::TROLL:
                 return dynamic_cast<Troll*>(entity) != nullptr;
+            case EntityType::BABY_ZOMBIE:
+                return dynamic_cast<BabyZombie*>(entity) != nullptr;
             default:
                 return false;
         }
@@ -382,11 +389,23 @@ namespace core {
     Troll::Troll(Point position, Arena* arena)
         : AbstractMob(
             position, arena, 
-            5, 0.5, 5, 100 // HP, damage, killScore, ticksPerMove
+            5, 2, 5, 100 // HP, damage, killScore, ticksPerMove
         ) {
         renderOption = EntityRenderOptions::TrollRenderOption();
     }
 
     //  END: Troll
+
+    //  BEGIN: BabyZombie
+
+    BabyZombie::BabyZombie(Point position, Arena* arena)
+        : AbstractMob(
+            position, arena,
+            1, 1, 2, 25 // HP, damage, killScore, ticksPerMove
+        ) {
+        renderOption = EntityRenderOptions::BabyZombieRenderOption();
+    }
+
+    //  END: BabyZombie
         
 } // namespace Core

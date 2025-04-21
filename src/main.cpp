@@ -280,14 +280,17 @@ void difficultyMenu() {
     std::map<int, std::string> mobTypeNames = {
         {static_cast<int>(core::EntityType::ZOMBIE), "Zombie"},
         {static_cast<int>(core::EntityType::TROLL), "Troll"},
+        {static_cast<int>(core::EntityType::BABY_ZOMBIE), "Baby Zombie"},
     };
     std::map<int, std::string> mobTypeDescriptions = {
         {static_cast<int>(core::EntityType::ZOMBIE), "1 HP, 1 damage, 1 point, moves every 1 second."},
-        {static_cast<int>(core::EntityType::TROLL), "5 HP, ?? damage, 5 points, moves every 2 seconds."},
+        {static_cast<int>(core::EntityType::TROLL), "5 HP, 2 damage, 5 points, moves every 2 seconds."},
+        {static_cast<int>(core::EntityType::BABY_ZOMBIE), "1 HP, 1 damage, 2 points, moves every 0.5 seconds."},
     };
     std::map<int, bool*> mobFlags = {
         {static_cast<int>(core::EntityType::ZOMBIE), new bool(true)},
-        {static_cast<int>(core::EntityType::TROLL), new bool(true)},
+        {static_cast<int>(core::EntityType::TROLL), new bool(false)},
+        {static_cast<int>(core::EntityType::BABY_ZOMBIE), new bool(false)},
     };
     auto mobCheckboxesContainer = ftxui::Container::Vertical({});
     for (const auto& mobType : mobTypeNames) {

@@ -13,7 +13,7 @@ namespace core {
         PLAYER,
         ZOMBIE, // moderate HP, moderate speed
         TROLL, // high HP, moves slowly
-        
+        BABY_ZOMBIE, // low HP, moves fast
     };
 
 } // namespace core
