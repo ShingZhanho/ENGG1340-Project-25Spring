@@ -209,6 +209,11 @@ namespace core {
     }
 
     bool PlayerBullet::Move() {
+        //  Check if move time has reached
+        long long currentTime = arena->GetGame()->GetGameClock();
+        if (currentTime - lastMoveTick < 25) { // 2 moves per second
+            return false;
+        }
         //  Move the bullet to the next position based on its direction.
         Point nextPos = GetNextPosition();
         return Move(nextPos);

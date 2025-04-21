@@ -95,9 +95,9 @@ namespace core {
         });
 
         //  Run the game UI renderer.
-        ui::publicGameUIRenderer->StartRenderLoop();
-        util::WriteToLog("Game UI renderer ended. Detaching from tickThread...", "RunEventHandler::execute()");
         tickThread.detach();
+        util::WriteToLog("Game UI renderer started. Detaching from tickThread...", "RunEventHandler::execute()");
+        ui::publicGameUIRenderer->StartRenderLoop();
     }
 
     //  END: RunEventHandler
@@ -260,6 +260,9 @@ namespace core {
         if (bulletDirection < 0 || bulletDirection > 8) return; // invalid direction
         Point pos = GetGame()->GetArena()->GetPixelById(0)->GetPosition();
         if (bulletDirection == 8) {
+            long long currentTime = GetGame()->GetGameClock();
+            if (currentTime - lastAllDirectionTick < 5 * 50) return; // 5 seconds cooldown
+            lastAllDirectionTick = currentTime;
             // shoot in all directions
             for (int i = 0; i < 8; i++) {
                 auto bullet = new PlayerBullet(pos, GetGame()->GetArena(), 1, i);

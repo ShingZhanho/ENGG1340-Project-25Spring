@@ -150,6 +150,8 @@ namespace core {
             bool onArena = false;
             //  Gets the next position of the bullet based on the direction.
             Point GetNextPosition();
+            //  The last tick when the bullet moved.
+            long long lastMoveTick = -1;
     };
 
     //  -- Implementation Classes -------------------------------------------------

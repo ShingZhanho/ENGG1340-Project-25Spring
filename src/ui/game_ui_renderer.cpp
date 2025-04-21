@@ -66,83 +66,101 @@ namespace ui {
                 appScreen.ExitLoopClosure()();
                 game->Terminate();
                 return true;
-            } else if (event == ftxui::Event::Custom) {
+            }
+            if (event == ftxui::Event::Custom) {
                 return true;
+            }
 
             // ==============================================================================================
             //     Player movement events
             // ==============================================================================================
 
-            } else if (event == ftxui::Event::Character('w')) {
+            if (event == ftxui::Event::Character('w')) {
                 game->PlayerMoveEventHandlerPtr->SetDirection(core::PlayerMoveEventHandler::Direction::UP);
                 game->PlayerMoveEventHandlerPtr->Fire();
                 return true;
-            } else if (event == ftxui::Event::Character('q')) {
+            }
+            if (event == ftxui::Event::Character('q')) {
                 game->PlayerMoveEventHandlerPtr->SetDirection(core::PlayerMoveEventHandler::Direction::UP_LEFT);
                 game->PlayerMoveEventHandlerPtr->Fire();
                 return true;
-            } else if (event == ftxui::Event::Character('a')) {
+            }
+            if (event == ftxui::Event::Character('a')) {
                 game->PlayerMoveEventHandlerPtr->SetDirection(core::PlayerMoveEventHandler::Direction::LEFT);
                 game->PlayerMoveEventHandlerPtr->Fire();
                 return true;
-            } else if (event == ftxui::Event::Character('z')) { 
+            }
+            if (event == ftxui::Event::Character('z')) {
                 game->PlayerMoveEventHandlerPtr->SetDirection(core::PlayerMoveEventHandler::Direction::DOWN_LEFT);
                 game->PlayerMoveEventHandlerPtr->Fire();
                 return true;
-            } else if (event == ftxui::Event::Character('s')) {
+            }
+            if (event == ftxui::Event::Character('s')) {
                 game->PlayerMoveEventHandlerPtr->SetDirection(core::PlayerMoveEventHandler::Direction::DOWN);
                 game->PlayerMoveEventHandlerPtr->Fire();
                 return true;
-            } else if (event == ftxui::Event::Character('c')) {
+            }
+            if (event == ftxui::Event::Character('c')) {
                 game->PlayerMoveEventHandlerPtr->SetDirection(core::PlayerMoveEventHandler::Direction::DOWN_RIGHT);
                 game->PlayerMoveEventHandlerPtr->Fire();
                 return true;
-            } else if (event == ftxui::Event::Character('d')) {
+            }
+            if (event == ftxui::Event::Character('d')) {
                 game->PlayerMoveEventHandlerPtr->SetDirection(core::PlayerMoveEventHandler::Direction::RIGHT);
                 game->PlayerMoveEventHandlerPtr->Fire();
                 return true;
-            } else if (event == ftxui::Event::Character('e')) {
+            }
+            if (event == ftxui::Event::Character('e')) {
                 game->PlayerMoveEventHandlerPtr->SetDirection(core::PlayerMoveEventHandler::Direction::UP_RIGHT);
                 game->PlayerMoveEventHandlerPtr->Fire();
                 return true;
-
+            }
+            
             // ==============================================================================================
             //     Player shooting events
             // ==============================================================================================
             
-            } else if (event == ftxui::Event::Character('i')) {
+            if (event == ftxui::Event::Character('i')) {
                 game->PlayerShootEventHandlerPtr->SetBulletDirection(0);
                 game->PlayerShootEventHandlerPtr->Fire();
                 return true;
-            } else if (event == ftxui::Event::Character('u')) {
+            }
+            if (event == ftxui::Event::Character('u')) {
                 game->PlayerShootEventHandlerPtr->SetBulletDirection(1);
                 game->PlayerShootEventHandlerPtr->Fire();
                 return true;
-            } else if (event == ftxui::Event::Character('j')) {
+            }
+            if (event == ftxui::Event::Character('j')) {
                 game->PlayerShootEventHandlerPtr->SetBulletDirection(2);
                 game->PlayerShootEventHandlerPtr->Fire();
                 return true;
-            } else if (event == ftxui::Event::Character('m')) {
+            }
+            if (event == ftxui::Event::Character('m')) {
                 game->PlayerShootEventHandlerPtr->SetBulletDirection(3);
                 game->PlayerShootEventHandlerPtr->Fire();
                 return true;
-            } else if (event == ftxui::Event::Character('k')) {
+            }
+            if (event == ftxui::Event::Character('k')) {
                 game->PlayerShootEventHandlerPtr->SetBulletDirection(4);
                 game->PlayerShootEventHandlerPtr->Fire();
                 return true;
-            } else if (event == ftxui::Event::Character('.')) {
+            }
+            if (event == ftxui::Event::Character('.')) {
                 game->PlayerShootEventHandlerPtr->SetBulletDirection(5);
                 game->PlayerShootEventHandlerPtr->Fire();
                 return true;
-            } else if (event == ftxui::Event::Character('l')) {
+            }
+            if (event == ftxui::Event::Character('l')) {
                 game->PlayerShootEventHandlerPtr->SetBulletDirection(6);
                 game->PlayerShootEventHandlerPtr->Fire();
                 return true;
-            } else if (event == ftxui::Event::Character('o')) {
+            }
+            if (event == ftxui::Event::Character('o')) {
                 game->PlayerShootEventHandlerPtr->SetBulletDirection(7);
                 game->PlayerShootEventHandlerPtr->Fire();
                 return true;
-            } else if (event == ftxui::Event::Character(' ')) {
+            }
+            if (event == ftxui::Event::Character(' ')) {
                 game->PlayerShootEventHandlerPtr->SetBulletDirection(8);
                 game->PlayerShootEventHandlerPtr->Fire();
                 return true;

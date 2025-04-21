@@ -132,6 +132,8 @@ namespace core {
             //  0 = UP, 1 = UP_LEFT, 2 = LEFT, 3 = DOWN_LEFT, 4 = DOWN, 5 = DOWN_RIGHT, 6 = RIGHT, 7 = UP_RIGHT, 8 = ALL
             //  Other values = ignored.
             int bulletDirection = -1;
+            //  The tick last time an ALL direction bullet was launched.
+            long long lastAllDirectionTick = -1;
     };
 
     //  Handles movements of bullet entities.
