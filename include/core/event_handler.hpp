@@ -1,23 +1,27 @@
 #ifndef CORE_EVENTHANDLER_HPP
 #define CORE_EVENTHANDLER_HPP
 
+#include <core/arena.hpp>
+#include <core/game.hpp>
+#include <core/point.hpp>
 #include <vector>
-#include <chrono>
 #include <thread>
 
 namespace core {
 
     //  Forward declarations
-    class Game; // TODO: Remove this line when Game is separated in its own file.
+    class Game;
+    class Arena;
+    class PlayerBullet;
     class EventHandler;
     class RunEventHandler;
     class InitialiseEventHandler;
     class TickEventHandler;
     class PlayerMoveEventHandler;
     class PlayerShootEventHandler;
+    class BulletMoveEventHandler;
     class MobGenerateEventHandler;
-    class EntityMoveEventHandler;
-    class ScreenRefreshEventHandler;
+    class MobMoveEventHandler;
 
     //  The abstract EventHandler.
     //  Eventhandlers are where your actual code lives. A EventHandler can be fired to exeucte the event.
@@ -48,6 +52,10 @@ namespace core {
         public:
             //  Constructor.
             RunEventHandler(Game* game);
+            //  Destructor.
+            ~RunEventHandler();
+            //  Triggers the event.
+            void Fire() override;
 
         private:
             InitialiseEventHandler* initialiseEventHandler;
@@ -60,6 +68,7 @@ namespace core {
         public:
             //  Constructor
             InitialiseEventHandler(Game* game);
+            void Fire() override;
 
         private:
             //  Executed when the event is fired.
@@ -69,11 +78,17 @@ namespace core {
     class PlayerMoveEventHandler : public EventHandler {
         public:
             PlayerMoveEventHandler(Game* game);
-            enum class Direction { UP, DOWN, LEFT, RIGHT };
+            enum class Direction { UP, DOWN, LEFT, RIGHT, UP_LEFT, UP_RIGHT, DOWN_LEFT, DOWN_RIGHT, STILL };
+            //  Sets the direction of the player. Call this method before calling Fire().
+            //  The Fire() method will then use this direction to move the player.
+            void SetDirection(Direction direction);
+            void Fire() override;
 
         private:
             //  Executed when the event is fired.
             void execute(Direction direction);
+            //  Indicates the direction of the player.
+            Direction movementDirection = Direction::STILL;
     };
 
     //  The tick event. Called every tick.
@@ -82,10 +97,21 @@ namespace core {
         public:
             //  Constructor
             TickEventHandler(Game* game);
+            //  Destructor
+            ~TickEventHandler();
+            //  Triggers the event.
+            void Fire() override;
 
         private:
             //  Executed when the event is fired.
             void execute();
+            //  The internal PlayerMoveEventHandler. This event will be exposed to UI and NOT
+            //  triggered by the tick event.
+            PlayerMoveEventHandler* playerMoveEventHandler;
+            //  The internal PlayerShootEventHandler. This event will be exposed to UI.
+            PlayerShootEventHandler* playerShootEventHandler;
+            //  The internal BulletMoveEventHandler. This event will be triggered by the tick event.
+            BulletMoveEventHandler* bulletMoveEventHandler;
     };
     
     //  Player shooting event handler
@@ -93,10 +119,37 @@ namespace core {
         public:
             //  Constructor
             PlayerShootEventHandler(Game* game);
+            //  Launches the bullet.
+            void Fire() override;
+            //  Sets the direction of the bullet to be shot.
+            //  0 = UP, 1 = UP_LEFT, 2 = LEFT, 3 = DOWN_LEFT, 4 = DOWN, 5 = DOWN_RIGHT, 6 = RIGHT, 7 = UP_RIGHT, 8 = ALL
+            void SetBulletDirection(int direction);
 
         private:
             //  Executed when the event is fired.
             void execute();
+            //  The direction of the bullet to be shot.
+            //  0 = UP, 1 = UP_LEFT, 2 = LEFT, 3 = DOWN_LEFT, 4 = DOWN, 5 = DOWN_RIGHT, 6 = RIGHT, 7 = UP_RIGHT, 8 = ALL
+            //  Other values = ignored.
+            int bulletDirection = -1;
+            //  The tick last time an ALL direction bullet was launched.
+            long long lastAllDirectionTick = -1;
+    };
+
+    //  Handles movements of bullet entities.
+    class BulletMoveEventHandler : public EventHandler {
+        public:
+            //  Constructor
+            BulletMoveEventHandler(Game* game);
+            //  Triggers the event
+            void Fire() override;
+            //  Adds a bullet entity to the managed list.
+            void AddManagedBullet(PlayerBullet* bullet);
+
+        private:
+            //  Executed when the event is triggered.
+            void execute();
+            std::list<PlayerBullet*> managedBullets;
     };
     
     //  Mob generation event handler
@@ -104,32 +157,43 @@ namespace core {
         public:
             //  Constructor
             MobGenerateEventHandler(Game* game);
-
+            void Fire() override;
+            
         private:
             //  Executed when the event is fired.
             void execute();
+            int countMobs();
+            void spawnMob();
+
+            long long lastSpawnTick;
     };
     
-    //  Entity movement event handler
-    class EntityMoveEventHandler : public EventHandler {
+    //  Handles the movement of mobs.
+    class MobMoveEventHandler : public EventHandler {
         public:
             //  Constructor
-            EntityMoveEventHandler(Game* game);
+            MobMoveEventHandler(Game* game);
+            void Fire() override;
 
         private:
             //  Executed when the event is fired.
             void execute();
-    };
-    
-    //  Screen refresh event handler
-    class ScreenRefreshEventHandler : public EventHandler {
-        public:
-            //  Constructor
-            ScreenRefreshEventHandler(Game* game);
-
-        private:
-            //  Executed when the event is fired.
-            void execute();
+            //  The player's previous position. Used to check if the player has moved
+            //  and if pathfinding is needed. Initial value is (-1, -1) to ensure
+            //  pathfinding must be done at the start.
+            Point playerPrevPos;
+            int prevMobCount;
+            //  Finds the shortest path from start to end on the given arena using A* algorithm.
+            //  Returns a list of points representing the path, where the first point is
+            //  the one closest to the start and the last point is the one closest to the end.
+            //  The path does not include the start and end points.
+            //  Returns an empty list if no path is found.
+            static std::list<Point> findPath(Arena* arena, Point start, Point end);
+            //  Returns the manhattan distance between two points.
+            inline static int heuristic(Point a, Point b);
+            //  Returns neighbours iff they are within x:[1, ARENA_WIDTH-2] and y:[1, ARENA_HEIGHT-2]
+            //  i.e. not on the border. Includes diagonal neighbours.
+            inline static std::list<Point> getNeighbours(Point point);
     };
 }
 

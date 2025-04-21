@@ -1,6 +1,6 @@
 # Compiler and flags
 CXX = g++
-CXXFLAGS = -pedantic-errors -std=c++17
+CXXFLAGS = -pedantic-errors -std=c++17 -g
 
 ################## BEGIN LIBRARIES ##################
 
@@ -28,7 +28,7 @@ LIBS_ALL_INCLUDE = $(LIB_FTXUI_INCLUDE) $(LIB_CORE_INCLUDE)
 # Source files
 SRCS = $(shell find ../src -type f -name '*.cpp')
 OBJS_TARGET_DIR = objs
-OBJS = $(patsubst ../src/%.cpp, $(OBJS_TARGET_DIR)/%.o, $(SRCS))
+OBJS = $(patsubst ../src/%.cpp,$(OBJS_TARGET_DIR)/%.o,$(SRCS))
 
 # Executable
 TARGET = main

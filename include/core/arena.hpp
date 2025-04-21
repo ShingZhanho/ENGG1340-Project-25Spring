@@ -2,6 +2,7 @@
 #define CORE_ARENA_HPP
 
 #include <unordered_map>
+#include <mutex>
 
 #include <core/game.hpp>
 #include <core/entity.hpp>
@@ -25,19 +26,40 @@ namespace core {
             Arena();
             ~Arena();
 
-            //  TODO: these two might be removed in the future.
+            //  Returns the width of the arena.
             Entity* GetPixel(Point p);
+            //  Sets the pixel at (x, y) to the given entity.
             void SetPixel(Point p, Entity* entity);
+            //  Sets the pixel safely at (x, y) to the given entity.
+            //  This method will only set the pixel if the target pixel is air.
+            bool SetPixelSafe(Point p, Entity* entity);
+            //  Sets the pixel at (x, y) to the given entity and assigns it an ID.
+            //  This method should ONLY be used for non-block entities.
+            //  The ID is assigned automatically in this class.
+            void SetPixelWithId(Point p, Entity* entity);
+            //  Sets the pixel at (x, y) safely to the given entity and assigns it an ID.
+            bool SetPixelWithIdSafe(Point p, Entity* entity);
+            //  Returns the entity with the given ID. nullptr if not found.
             Entity* GetPixelById(int id);
-
+            //  Returns the game object.
             Game* GetGame();
-
+            //  Sets the game object.
+            void SetGame(Game* game);
             //  Replaces the pixel at (x, y) with the given entity.
             void Replace(Point p, Entity* entity);
+            //  Replaces the pixel at (x, y) with ID and update the map.
+            void ReplaceWithId(int id, Entity* entity);
             //  Removes the pixel at (x, y) and replaces it with air.
             void Remove(Point p);
+            //  Removes a mapped entity by its ID. If an entity has been assigned an ID,
+            //  this method MUST be used to remove it. Using Remove() will cause SIGSEGV.
+            void RemoveById(int id);
             //  Moves the entity from one pixel to another.
             void Move(Point start, Point dest);
+            //  Gets a list of mapped entities.
+            std::vector<Entity*> GetMappedEntities();
+            //  Returns a list of entities of the given type.
+            std::list<Entity*> GetEntitiesOfType(EntityType type);
 
         private:
             //  A pixel is one single entity in the arena.
@@ -47,47 +69,12 @@ namespace core {
             //  Used for efficiently searching through non-block entities.
             //  The id is incremented for each non-block entity created.
             int idIncr = 0;
-            std::unordered_map<int, Entity*> entityIndex;
             Game* game;
+            //  Thread lock for the arena.
+            std::mutex arenaMutex;
+            //  Maps the ID to the entity.
+            std::unordered_map<int, Entity*> entityIndex;
     };
-
-    //  This 32 * 102 is the exact size of the arena:
-    //          
-    //       Y
-    //       0         1         2         3         4         5         6         7         8         9         0
-    //       012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901
-    //  X 0 0XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-    //      1X -                                                                                                  X
-    //      2X|+-------------------------------------------------------------------------------------------------|X
-    //      3X |                                            100 wall
-    //      4X |
-    //      5X |
-    //      6X |
-    //      7X |
-    //      8X |
-    //      9X |
-    //    1 0X |
-    //      1X |
-    //      2X |
-    //      3X |
-    //      4X |
-    //      5X | 30 Wall
-    //      6X |
-    //      7X |
-    //      8X |
-    //      9X |
-    //    2 0X |
-    //      1X |
-    //      2X |
-    //      3X |
-    //      4X |
-    //      5X |
-    //      6X |
-    //      7X |
-    //      8X |
-    //      9X |
-    //    3 0X -
-    //      1XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
 }
 

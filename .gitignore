@@ -61,3 +61,7 @@ Thumbs.db
 ehthumbs.db
 Desktop.ini
 $RECYCLE.BIN/
+
+# Debug game map file
+*.shoot
+*.log

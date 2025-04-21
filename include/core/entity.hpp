@@ -1,7 +1,11 @@
 #ifndef CORE_ENTITY_HPP
 #define CORE_ENTITY_HPP
 
+#include <list>
+
 #include <core/arena.hpp>
+#include <core/point.hpp>
+#include <core/entity_type.hpp>
 #include <ui/render_option.hpp>
 
 namespace core {
@@ -16,19 +20,19 @@ namespace core {
     class Wall;
     class Player;
     class Zombie;
+    class Troll;
 
-    typedef struct Point {
-        int x;
-        int y;
-    } Point;
+    typedef EntityType EntityType;
 
     class EntityRenderOptions {
         public:
-            static ui::RenderOption AirRenderOption;
-            static ui::RenderOption WallRenderOption;
-            static ui::RenderOption PlayerRenderOption;
-            static ui::RenderOption ZombieRenderOption;
-            static ui::RenderOption PlayerBulletRenderOption;
+            static ui::RenderOption AirRenderOption();
+            static ui::RenderOption WallRenderOption();
+            static ui::RenderOption PlayerRenderOption();
+            static ui::RenderOption ZombieRenderOption();
+            static ui::RenderOption PlayerBulletRenderOption();
+            static ui::RenderOption TrollRenderOption();
+            static ui::RenderOption BabyZombieRenderOption();
     };
 
     class Entity {
@@ -42,30 +46,24 @@ namespace core {
             //  the movement of the entity.
             void SetPosition(Point position);
             virtual bool Move(Point to) = 0;
-
-        protected:
-            //  Used internally for checking the type of entity.
-            //  Update this enum when adding new entity types.
-            enum class EntityType {
-                ABSTRACT_BLOCK, ABSTRACT_MOB, PLAYER_BULLET,
-                WALL, AIR, PLAYER, ZOMBIE
-            };
-
             //  Returns true if the entity is of the given type.
             //  This is a wrapper for dynamic_cast.
             static bool IsType(Entity* entity, EntityType type);
+            //  Returns the render option of the entity
+            ui::RenderOption GetRenderOption();
+            //  The ID of the entity. For unmapped entities, the ID will be negative.
+            int Id = -1;
+
+        protected:
 
             //  A link to the arena.
             Arena* arena;
 
             //  The render option for the entity. Must be manually set in the constructor.
-            ui::RenderOption* renderOption = nullptr;
+            ui::RenderOption renderOption;
 
         private:
-            //  The ID. Non-block entity will have an ID.
-            int id;
             Point position;
-            char character; // the appearance of the entity; TODO: replace with RenderOption
     };
 
     //  -- Abstract Classes ---------------------------------------------------------
@@ -84,38 +82,78 @@ namespace core {
     //  Mobs move towards the player using A* algorithm.
     class AbstractMob : public Entity {
         public:
-            AbstractMob(Point position, Arena* arena, int hp, int damage, int killScore);
+            AbstractMob(Point position, Arena* arena, int hp, int damage, int killScore, int ticksPerMove);
             virtual ~AbstractMob() = default;
 
             int GetHP() const;
             //  Applies damage to the mob.
             void TakeDamage(int damage);
+            //  Moves the mob to the given position.
+            //  Returns true if the mob was able to move.
+            //  Only used internally in the AbstractMob class.
+            //  Please call Move() that takes no arguments to move the mob along its path.
             bool Move(Point to) override;
+            //  Moves the mob along its path.
+            //  This is a dedicated function that is called by the game loop.
+            bool Move();
+            //  The path towards the player. Updated through MobMoveEventHandler.
+            std::list<Point> Path;
+            //  Returns the kill score of the mob.
+            int GetKillScore() const;
 
         private:
             int hp;
             int damage;
             //  Scores earned when the mob is killed.
             int killScore;
+            //  Determines the speed of the mob, in ticks per move.
+            //  The game runs at 50 ticks per second (i.e. 20ms per tick).
+            //  tickPerMove = 50 means the mob moves one step every second.
+            int ticksPerMove;
+            //  The moment when the mob last moved.
+            long long lastMoveTick = -1;
     };
 
     class PlayerBullet : public Entity {
         public:
             PlayerBullet(Point position, Arena* arena, int damage, int direction);
 
-            //  The bullet moves in the given direction.
+            //  The bullet moves in the given direction. Should only be used internally.
+            //  Call Move() in BulletMoveEventHandler to move the bullet.
+            //  Call TryShoot() in PlayerShootEventHandler to shoot the bullet.
             bool Move(Point to) override;
-
+            //  The Move() method dedicated to BulletMoveEventHandler.
+            bool Move();
             //  Returns the damage of the bullet.
             int GetDamage() const;
             //  Returns the direction of the bullet.
+            //  0 = UP, 1 = UP_LEFT, 2 = LEFT, 3 = DOWN_LEFT, 4 = DOWN, 5 = DOWN_RIGHT, 6 = RIGHT, 7 = UP_RIGHT
             int GetDirection() const;
+            //  Attempts to shoot the bullet.
+            //  Returns true if the bullet was placed in the arena successfully.
+            //  Note that the bullet will not be placed in the arena if it directly collides with non-air entity,
+            //  even if the entity took damage.
+            bool TryShoot();
+            //  Returns true if the bullet has exploded and should be removed.
+            bool IsExploded() const;
+            //  Returns true if the bullet is on the arena.
+            bool IsOnArena() const;
 
         private:
             //  The damage of the bullet.
             int damage;
-            //  The direction of the bullet. 0 = up, 1 = right, 2 = down, 3 = left.
+            //  The direction of the bullet.
+            //  0 = UP, 1 = UP_LEFT, 2 = LEFT, 3 = DOWN_LEFT, 4 = DOWN, 5 = DOWN_RIGHT, 6 = RIGHT, 7 = UP_RIGHT
             int direction;
+            //  Determines if the bullet has exploded and should be removed.
+            bool exploded = false;
+            //  Indicates if the bullet is on the arena.
+            bool onArena = false;
+            //  Gets the next position of the bullet based on the direction.
+            Point GetNextPosition();
+            //  The last tick when the bullet moved.
+            long long lastMoveTick = -1;
+            long long bulletSpawnTick;
     };
 
     //  -- Implementation Classes -------------------------------------------------
@@ -132,10 +170,12 @@ namespace core {
 
     class Player : public Entity {
         public:
-            Player(Point position, Arena* arena, int hp);
+            Player(Point position, Arena* arena, int initialHp);
             
             void TakeDamage(int damage);
             bool Move(Point to) override;
+            //  Returns the health points of the player.
+            int GetHP() const;
 
         private:
             //  The health points of the player.
@@ -145,6 +185,16 @@ namespace core {
     class Zombie : public AbstractMob {
         public:
             Zombie(Point position, Arena* arena);
+    };
+
+    class Troll: public AbstractMob {
+        public:
+            Troll(Point position, Arena* arena);
+    };
+
+    class BabyZombie: public AbstractMob {
+        public:
+            BabyZombie(Point position, Arena* arena);
     };
 }
 
