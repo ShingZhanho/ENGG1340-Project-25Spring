@@ -44,12 +44,12 @@ namespace core {
     }
 
     bool Game::IsInitialised() const {
-        return arenaInitialised;
+        return initialisationComplete;
     }
 
     void Game::SetInitialisationComplete() {
         util::WriteToLog("Game initialisation complete.", "Game::SetInitialisationComplete()");
-        arenaInitialised = true;
+        initialisationComplete = true;
     }
 
     bool Game::IsTerminated() const {
@@ -78,11 +78,9 @@ namespace core {
             if (GetOptions()->GameArena != nullptr) {
                 util::WriteToLog("Using provided arena.", "Game::InitialiseArena()");
                 arena = GetOptions()->GameArena;
-                arena->SetGame(this);
             } else {
                 util::WriteToLog("Using default arena.", "Game::InitialiseArena()");
                 arena = new Arena();
-                arena->SetGame(this);
                 arenaIsDynamicallyCreated = true;
             }
             arenaInitialised = true;
