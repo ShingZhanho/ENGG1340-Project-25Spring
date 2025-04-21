@@ -134,6 +134,7 @@ namespace core {
     void AbstractMob::TakeDamage(int damage) {
         hp -= damage;
         if (hp <= 1) renderOption.SetItalic(true); //  Set to italic when HP is low
+        if (hp > 1) renderOption.SetItalic(false);
         // mob removal logic implemented in the event handler
     }
 

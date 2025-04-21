@@ -23,6 +23,7 @@
 #include <unordered_map>
 #include <queue>
 #include <string>
+#include <map>
 
 namespace core {
 
@@ -441,7 +442,18 @@ namespace core {
             if (!Entity::IsType(entity, EntityType::ABSTRACT_MOB)) continue;
             auto mob = dynamic_cast<AbstractMob*>(entity);
             if (mob == nullptr) continue;
-            mob->Path = findPath(GetGame()->GetArena(), mob->GetPosition(), playerPos);
+
+            std::map<int, Point> targets = {{heuristic(playerPos, entity->GetPosition()), playerPos}};
+            // prioritise collectibles over player if the mob is about to die (HP = 1)
+            if (mob->GetHP() == 1) {
+                auto collectibles = GetGame()->GetArena()->GetEntitiesOfType(EntityType::ABSTRACT_COLLECTIBLE);
+                for (auto collectible : collectibles) {
+                    if (collectible == nullptr) continue;
+                    auto collectiblePos = collectible->GetPosition();
+                    targets[heuristic(collectiblePos, entity->GetPosition())] = collectiblePos;
+                }
+            }
+            mob->Path = findPath(GetGame()->GetArena(), mob->GetPosition(), targets.begin()->second);
         }
     }
 
@@ -534,7 +546,7 @@ namespace core {
 
         // Spawn new collectibles
         long long currentTime = GetGame()->GetGameClock();
-        if (currentTime - lastSpawnTick < 10 * 50) return; // collectibles spawn every 10 seconds
+        if (currentTime - lastSpawnTick < 3 * 50) return; // collectibles spawn every 10 seconds
         int attempts = 0;
         while (attempts < 10) {
             Point spawnPos = {std::rand() % ARENA_WIDTH, std::rand() % ARENA_HEIGHT};
