@@ -22,6 +22,10 @@ namespace core {
     class Player;
     class Zombie;
     class Troll;
+    class BabyZombie;
+    class Monster;
+    class Boss;
+    class StrengthPotion;
     class EnergyDrink;
 
     typedef EntityType EntityType;
@@ -35,6 +39,8 @@ namespace core {
             static ui::RenderOption PlayerBulletRenderOption();
             static ui::RenderOption TrollRenderOption();
             static ui::RenderOption BabyZombieRenderOption();
+            static ui::RenderOption MonsterRenderOption();
+            static ui::RenderOption BossRenderOption();
             static ui::RenderOption EnergyDrinkRenderOption(int hp);
             static ui::RenderOption StrengthPotionRenderOption(int damage);
     };
@@ -234,9 +240,19 @@ namespace core {
             Troll(Point position, Arena* arena);
     };
 
-    class BabyZombie: public AbstractMob {
+    class BabyZombie : public AbstractMob {
         public:
             BabyZombie(Point position, Arena* arena);
+    };
+
+    class Monster : public AbstractMob {
+        public:
+            Monster(Point position, Arena* arena);
+    };
+
+    class Boss : public AbstractMob {
+        public:
+            Boss(Point position, Arena* arena);
     };
 
     //  EnergyDrink is a tool that can be picked up by either the player or mobs.

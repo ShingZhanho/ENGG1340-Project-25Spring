@@ -49,7 +49,7 @@ namespace ui {
                     ftxui::text(std::to_string(game->GetScore()) + " ") | ftxui::color(ftxui::Color::Cyan),
                     ftxui::separator(),
                     ftxui::text(" Damage: ") | ftxui::bold,
-                    ftxui::text(std::to_string(dynamic_cast<core::Player*>(game->GetArena()->GetPixelById(0))->GetDamage()) + " ") | ftxui::color(ftxui::Color::DarkRed),
+                    ftxui::text(std::to_string(dynamic_cast<core::Player*>(game->GetArena()->GetPixelById(0))->GetDamage()) + " ") | ftxui::color(ftxui::Color::Red),
                 }),
                 ftxui::separator(),
                 ftxui::text(" INSTRUCTIONS:") | ftxui::bold,

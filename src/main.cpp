@@ -15,6 +15,7 @@
 
 // Core Components
 #include <ui/common.hpp>
+#include <ui/render_option.hpp>
 #include <core/arena.hpp>
 #include <core/arena_reader.hpp>
 #include <core/entity_type.hpp>
@@ -281,16 +282,29 @@ void difficultyMenu() {
         {static_cast<int>(core::EntityType::ZOMBIE), "Zombie"},
         {static_cast<int>(core::EntityType::TROLL), "Troll"},
         {static_cast<int>(core::EntityType::BABY_ZOMBIE), "Baby Zombie"},
+        {static_cast<int>(core::EntityType::MONSTER), "Monster"},
+        {static_cast<int>(core::EntityType::BOSS), "Boss"},
     };
     std::map<int, std::string> mobTypeDescriptions = {
         {static_cast<int>(core::EntityType::ZOMBIE), "1 HP, 1 damage, 1 point, moves every 1 second."},
         {static_cast<int>(core::EntityType::TROLL), "5 HP, 2 damage, 5 points, moves every 2 seconds."},
         {static_cast<int>(core::EntityType::BABY_ZOMBIE), "1 HP, 1 damage, 2 points, moves every 0.5 seconds."},
+        {static_cast<int>(core::EntityType::MONSTER), "10 HP, 5 damage, 10 points, moves every 0.5 seconds."},
+        {static_cast<int>(core::EntityType::BOSS), "1000 HP, 50 damage, 1000 points, moves every 4 seconds."},
+    };
+    std::map<int, ui::RenderOption> mobTypeAppearance = {
+        {static_cast<int>(core::EntityType::ZOMBIE), core::EntityRenderOptions::ZombieRenderOption()},
+        {static_cast<int>(core::EntityType::TROLL), core::EntityRenderOptions::TrollRenderOption()},
+        {static_cast<int>(core::EntityType::BABY_ZOMBIE), core::EntityRenderOptions::BabyZombieRenderOption()},
+        {static_cast<int>(core::EntityType::MONSTER), core::EntityRenderOptions::MonsterRenderOption()},
+        {static_cast<int>(core::EntityType::BOSS), core::EntityRenderOptions::BossRenderOption()},
     };
     std::map<int, bool*> mobFlags = {
         {static_cast<int>(core::EntityType::ZOMBIE), new bool(true)},
         {static_cast<int>(core::EntityType::TROLL), new bool(false)},
         {static_cast<int>(core::EntityType::BABY_ZOMBIE), new bool(false)},
+        {static_cast<int>(core::EntityType::MONSTER), new bool(false)},
+        {static_cast<int>(core::EntityType::BOSS), new bool(false)},
     };
     auto mobCheckboxesContainer = ftxui::Container::Vertical({});
     for (const auto& mobType : mobTypeNames) {
@@ -305,7 +319,9 @@ void difficultyMenu() {
                         | (state.focused ? ftxui::inverted : ftxui::nothing),
                 ftxui::text("] "),
                 ftxui::text(state.label),
-                ftxui::text(" "),
+                ftxui::text(" ("),
+                mobTypeAppearance[key].Render(),
+                ftxui::text(") "),
                 state.focused || state.state
                     ? ftxui::text("[" + mobTypeDescriptions[key] + "]") | ftxui::dim
                     : ftxui::text(""),

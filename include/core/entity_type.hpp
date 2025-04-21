@@ -15,6 +15,8 @@ namespace core {
         ZOMBIE, // moderate HP, moderate speed
         TROLL, // high HP, moves slowly
         BABY_ZOMBIE, // low HP, moves fast
+        MONSTER, // high HP, high damage, moves fast
+        BOSS, // very high HP, very high damage, moves very slow, only one in the arena
         ENERGY_DRINK, // heals player/mob
         STRENGTH_POTION, // increases damage of player/mob
     };

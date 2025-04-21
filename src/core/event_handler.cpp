@@ -385,6 +385,14 @@ namespace core {
                 case EntityType::BABY_ZOMBIE:
                     mob = new BabyZombie(spawnPos, arena);
                     break;
+                case EntityType::MONSTER:
+                    mob = new Monster(spawnPos, arena);
+                    break;
+                case EntityType::BOSS:
+                    // Only one boss can be spawned at a time
+                    if (GetGame()->GetArena()->GetEntitiesOfType(EntityType::BOSS).size() > 0) continue;
+                    mob = new Boss(spawnPos, arena);
+                    break;
                 default:
                     util::WriteToLog("Unknown mob type: " + std::to_string(static_cast<int>(mobType)), "MobGenerateEventHandler::spawnMob()");
                     return;

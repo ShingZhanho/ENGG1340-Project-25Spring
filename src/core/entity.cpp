@@ -42,7 +42,17 @@ namespace core {
     }
     ui::RenderOption EntityRenderOptions::BabyZombieRenderOption() {
         return {
-            'b', ftxui::Color::Red, ftxui::Color::Default, true, true, false, false
+            'z', ftxui::Color::Red, ftxui::Color::Default, true, true, false, false
+        };
+    }
+    ui::RenderOption EntityRenderOptions::MonsterRenderOption() {
+        return {
+            'M', ftxui::Color::Blue, ftxui::Color::Default, true, false, false, false
+        };
+    }
+    ui::RenderOption EntityRenderOptions::BossRenderOption() {
+        return {
+            'B', ftxui::Color::Magenta, ftxui::Color::Default, true, false, false, true
         };
     }
     ui::RenderOption EntityRenderOptions::PlayerBulletRenderOption() { 
@@ -101,6 +111,10 @@ namespace core {
                 return dynamic_cast<Troll*>(entity) != nullptr;
             case EntityType::BABY_ZOMBIE:
                 return dynamic_cast<BabyZombie*>(entity) != nullptr;
+            case EntityType::MONSTER:
+                return dynamic_cast<Monster*>(entity) != nullptr;
+            case EntityType::BOSS:
+                return dynamic_cast<Boss*>(entity) != nullptr;
             case EntityType::ENERGY_DRINK:
                 return dynamic_cast<EnergyDrink*>(entity) != nullptr;
             case EntityType::STRENGTH_POTION:
@@ -489,6 +503,30 @@ namespace core {
     }
 
     //  END: BabyZombie
+
+    //  BEGIN: Monster
+
+    Monster::Monster(Point position, Arena* arena)
+        : AbstractMob(
+            position, arena,
+            10, 5, 10, 25 // HP, damage, killScore, ticksPerMove
+        ) {
+        renderOption = EntityRenderOptions::MonsterRenderOption();
+    }
+
+    //  END: Monster
+
+    //  BEGIN: Boss
+
+    Boss::Boss(Point position, Arena* arena)
+        : AbstractMob(
+            position, arena,
+            1000, 50, 1000, 200 // HP, damage, killScore, ticksPerMove
+        ) {
+        renderOption = EntityRenderOptions::BossRenderOption();
+    }
+
+    //  END: Boss
 
     //  BEGIN: EnergyDrink
 
