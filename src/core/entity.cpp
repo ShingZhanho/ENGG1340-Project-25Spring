@@ -169,7 +169,7 @@ namespace core {
     //  BEGIN: PlayerBullet
 
     PlayerBullet::PlayerBullet(Point position, Arena* arena, int damage, int direction)
-        : Entity(position, arena), damage(damage), direction(direction) { 
+        : Entity(position, arena), damage(damage), direction(direction), bulletSpawnTick(arena->GetGame()->GetGameClock()) { 
         renderOption = EntityRenderOptions::PlayerBulletRenderOption();
     }
 
@@ -182,9 +182,30 @@ namespace core {
     bool PlayerBullet::IsOnArena() const { return onArena; }
 
     bool PlayerBullet::Move(Point to) {
+        //  check if bullet life time has reached
+        long long currentTime = arena->GetGame()->GetGameClock();
+        if (currentTime - bulletSpawnTick > 50 * 2) { // 2 seconds
+            exploded = true; // bullet should be removed
+            return false;
+        }
+
         Entity* target = arena->GetPixel(to);
 
-        if (IsType(target, EntityType::WALL) || IsType(target, EntityType::PLAYER_BULLET)) {
+        if (IsType(target, EntityType::WALL)) {
+            // reverses the direction of the bullet
+            // the bullet will continue to move in the opposite direction
+            if (direction == 0) direction = 4; // UP -> DOWN
+            else if (direction == 1) direction = 5; // UP_LEFT -> DOWN_RIGHT
+            else if (direction == 2) direction = 6; // LEFT -> RIGHT
+            else if (direction == 3) direction = 7; // DOWN_LEFT -> UP_RIGHT
+            else if (direction == 4) direction = 0; // DOWN -> UP
+            else if (direction == 5) direction = 1; // DOWN_RIGHT -> UP_LEFT
+            else if (direction == 6) direction = 2; // RIGHT -> LEFT
+            else if (direction == 7) direction = 3; // UP_RIGHT -> DOWN_LEFT
+            return false;
+        }
+
+        if (IsType(target, EntityType::PLAYER_BULLET)) {
             exploded = true; 
             return false;
         }

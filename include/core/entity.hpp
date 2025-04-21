@@ -152,6 +152,7 @@ namespace core {
             Point GetNextPosition();
             //  The last tick when the bullet moved.
             long long lastMoveTick = -1;
+            long long bulletSpawnTick;
     };
 
     //  -- Implementation Classes -------------------------------------------------
