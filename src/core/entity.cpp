@@ -52,7 +52,7 @@ namespace core {
     }
     ui::RenderOption EntityRenderOptions::EnergyDrinkRenderOption(int hp) {
         return {
-            static_cast<char>('0' + hp), ftxui::Color::White, ftxui::Color::Green, true, false, false, false
+            static_cast<char>('0' + hp), ftxui::Color::DarkGreen, ftxui::Color::Green, true, false, false, false
         };
     }
     
@@ -153,6 +153,12 @@ namespace core {
         }
 
         // collision with bullet will be handled in the bullet class
+
+        if (IsType(target, EntityType::ABSTRACT_COLLECTIBLE)) { // collides with wall
+            dynamic_cast<AbstractCollectible*>(target)->PickUp(this);
+            lastMoveTick = currentTime;
+            return false;
+        }
 
         if (IsType(target, EntityType::AIR)) { // collides with air
             arena->Move(GetPosition(), to);
@@ -406,6 +412,11 @@ namespace core {
 
         if (IsType(target, EntityType::WALL) || IsType(target, EntityType::ABSTRACT_MOB)) {
             return false; // Cannot move into wall or mob
+        }
+
+        if (IsType(target, EntityType::ABSTRACT_COLLECTIBLE)) {
+            dynamic_cast<AbstractCollectible*>(target)->PickUp(this);
+            return false;
         }
 
         if (IsType(target, EntityType::AIR)) {

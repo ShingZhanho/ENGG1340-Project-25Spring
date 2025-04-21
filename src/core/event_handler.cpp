@@ -211,6 +211,7 @@ namespace core {
             new MobGenerateEventHandler(game),
             new MobMoveEventHandler(game),
             new BulletMoveEventHandler(game),
+            new CollectiblesEventHandler(game),
         };
         playerMoveEventHandler = new PlayerMoveEventHandler(game);
         playerShootEventHandler = new PlayerShootEventHandler(game);
@@ -505,4 +506,66 @@ namespace core {
     }
     
     //  END: MobMoveEventHandler
+
+    //  BEGIN: CollectiblesEventHandler
+
+    CollectiblesEventHandler::CollectiblesEventHandler(Game* game) : EventHandler(game) {
+        lastSpawnTick = GetGame()->GetGameClock(); // Initialize to current time, collectibles will not be spawned immediately
+    }
+
+    void CollectiblesEventHandler::Fire() {
+        execute();
+        EventHandler::Fire();
+    }
+
+    void CollectiblesEventHandler::execute() {
+        // refresh all existing collectibles
+        auto entities = GetGame()->GetArena()->GetEntitiesOfType(EntityType::ABSTRACT_COLLECTIBLE);
+        for (auto entity : entities) {
+            auto collectible = dynamic_cast<AbstractCollectible*>(entity);
+            if (collectible == nullptr) continue;
+            collectible->RefreshStatus();
+
+            // Remove expired collectibles
+            if (collectible->IsInvalid()) {
+                GetGame()->GetArena()->Remove(collectible->GetPosition());
+            }
+        }
+
+        // Spawn new collectibles
+        long long currentTime = GetGame()->GetGameClock();
+        if (currentTime - lastSpawnTick < 10 * 50) return; // collectibles spawn every 10 seconds
+        int attempts = 0;
+        while (attempts < 10) {
+            Point spawnPos = {std::rand() % ARENA_WIDTH, std::rand() % ARENA_HEIGHT};
+            Entity* currentEntity = GetGame()->GetArena()->GetPixel(spawnPos);
+            if (!Entity::IsType(currentEntity, EntityType::AIR)) {
+                attempts++;
+                continue;
+            }
+            const static std::set<EntityType> collectibleTypes = {
+                EntityType::ENERGY_DRINK,
+            };
+            auto it = collectibleTypes.begin();
+            std::advance(it, std::rand() % collectibleTypes.size());
+            EntityType collectibleType = *it;
+            AbstractCollectible* collectible;
+            switch (collectibleType) {
+                case EntityType::ENERGY_DRINK:
+                    collectible = new EnergyDrink(spawnPos, GetGame()->GetArena(), std::rand() % 9 + 1); // random HP (1-9)
+                    break;
+                default:
+                    util::WriteToLog("Unknown collectible type: " + std::to_string(static_cast<int>(collectibleType)), "CollectiblesEventHandler::execute()");
+                    return;
+            }
+            if (!GetGame()->GetArena()->SetPixelSafe(spawnPos, collectible)) {
+                delete collectible;
+                continue;
+            }
+            break;
+        }
+        lastSpawnTick = currentTime;
+    }
+
+    //  END: CollectiblesEventHandler
 }
