@@ -566,6 +566,7 @@ namespace core {
             const static std::set<EntityType> collectibleTypes = {
                 EntityType::ENERGY_DRINK,
                 EntityType::STRENGTH_POTION,
+                EntityType::SHIELD,
             };
             auto it = collectibleTypes.begin();
             std::advance(it, std::rand() % collectibleTypes.size());
@@ -577,6 +578,9 @@ namespace core {
                     break;
                 case EntityType::STRENGTH_POTION:
                     collectible = new StrengthPotion(spawnPos, GetGame()->GetArena(), std::rand() % 9 + 1); // random damage (1-9)
+                    break;
+                case EntityType::SHIELD:
+                    collectible = new Shield(spawnPos, GetGame()->GetArena(), std::rand() % 450 + 150); // random shield duration (150 - 600 ticks)
                     break;
                 default:
                     util::WriteToLog("Unknown collectible type: " + std::to_string(static_cast<int>(collectibleType)), "CollectiblesEventHandler::execute()");

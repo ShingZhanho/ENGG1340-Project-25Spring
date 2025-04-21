@@ -19,6 +19,7 @@ namespace core {
         BOSS, // very high HP, very high damage, moves very slow, only one in the arena
         ENERGY_DRINK, // heals player/mob
         STRENGTH_POTION, // increases damage of player/mob
+        SHIELD, // temporary protection for player/mob
     };
 
 } // namespace core

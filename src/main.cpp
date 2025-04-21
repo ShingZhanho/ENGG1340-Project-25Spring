@@ -290,7 +290,7 @@ void difficultyMenu() {
         {static_cast<int>(core::EntityType::TROLL), "5 HP, 2 damage, 5 points, moves every 2 seconds."},
         {static_cast<int>(core::EntityType::BABY_ZOMBIE), "1 HP, 1 damage, 2 points, moves every 0.5 seconds."},
         {static_cast<int>(core::EntityType::MONSTER), "10 HP, 5 damage, 10 points, moves every 0.5 seconds."},
-        {static_cast<int>(core::EntityType::BOSS), "1000 HP, 50 damage, 1000 points, moves every 4 seconds."},
+        {static_cast<int>(core::EntityType::BOSS), "1000 HP, 50 damage, 100 points, moves every 4 seconds."},
     };
     std::map<int, ui::RenderOption> mobTypeAppearance = {
         {static_cast<int>(core::EntityType::ZOMBIE), core::EntityRenderOptions::ZombieRenderOption()},

@@ -27,6 +27,7 @@ namespace core {
     class Boss;
     class StrengthPotion;
     class EnergyDrink;
+    class Shield;
 
     typedef EntityType EntityType;
 
@@ -43,6 +44,7 @@ namespace core {
             static ui::RenderOption BossRenderOption();
             static ui::RenderOption EnergyDrinkRenderOption(int hp);
             static ui::RenderOption StrengthPotionRenderOption(int damage);
+            static ui::RenderOption ShieldRenderOption();
     };
 
     class Entity {
@@ -112,6 +114,8 @@ namespace core {
             std::list<Point> Path;
             //  Returns the kill score of the mob.
             int GetKillScore() const;
+            //  Applies a shield to the mob for a given duration in ticks.
+            void ApplyShield(int duration);
 
         private:
             int hp;
@@ -124,6 +128,8 @@ namespace core {
             int ticksPerMove;
             //  The moment when the mob last moved.
             long long lastMoveTick = -1;
+            //  The moment when the shield will expire.
+            long long shieldExpireTick = -1;
     };
 
     //  Collectibles are entities that can be picked up by the player or mobs.
@@ -222,12 +228,16 @@ namespace core {
             bool Move(Point to) override;
             //  Returns the health points of the player.
             int GetHP() const;
+            //  Applies a shield to the player for a given duration in ticks.
+            void ApplyShield(int duration);
 
         private:
             //  The health points of the player.
             int hp;
             //  The damage of the player.
             int damage = 1;
+            //  The moment when the shield will expire.
+            long long shieldExpireTick = -1;
     };
 
     class Zombie : public AbstractMob {
@@ -258,7 +268,7 @@ namespace core {
     //  EnergyDrink is a tool that can be picked up by either the player or mobs.
     //  It restores the health points of the entity. It will disappear after a certain
     //  amount of time.
-    class EnergyDrink: public AbstractCollectible{
+    class EnergyDrink : public AbstractCollectible{
         public:
             //  Constructor
             EnergyDrink(Point position, Arena* arena, int hp);
@@ -275,7 +285,7 @@ namespace core {
     //  StrengthPotion is a tool that can be picked up by either the player or mobs.
     //  It increases the damage of the entity. It will disappear after a certain
     //  amount of time.
-    class StrengthPotion: public AbstractCollectible{
+    class StrengthPotion : public AbstractCollectible{
         public:
             //  Constructor
             StrengthPotion(Point position, Arena* arena, int damage);
@@ -287,6 +297,20 @@ namespace core {
         private:
             //  The damage of the strength potion. (1 - 9)
             int damage;
+    };
+
+    //  A shield is a temporary protection that can be applied to the player or mobs.
+    //  It prevents the entity from taking damage for a certain amount of time.
+    class Shield : public AbstractCollectible{
+        public:
+            //  Constructor
+            Shield(Point position, Arena* arena, int duration);
+            //  Let the given entity pick up the shield.
+            bool PickUp(Entity* by) override;
+
+        private:
+            //  The duration of the shield in ticks.
+            int duration;
     };
 }
 

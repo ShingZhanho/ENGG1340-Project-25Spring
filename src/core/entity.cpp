@@ -70,6 +70,11 @@ namespace core {
             static_cast<char>('0' + damage), ftxui::Color::DarkRed, ftxui::Color::Red, true, false, false, false
         };
     }
+    ui::RenderOption EntityRenderOptions::ShieldRenderOption() {
+        return {
+            '|', ftxui::Color::Black, ftxui::Color::DarkCyan, true, false, false, false
+        };
+    }
     
 
     //  END: EntityRenderOptions
@@ -119,6 +124,8 @@ namespace core {
                 return dynamic_cast<EnergyDrink*>(entity) != nullptr;
             case EntityType::STRENGTH_POTION:
                 return dynamic_cast<StrengthPotion*>(entity) != nullptr;
+            case EntityType::SHIELD:
+                return dynamic_cast<Shield*>(entity) != nullptr;
             default:
                 return false;
         }
@@ -153,7 +160,10 @@ namespace core {
     int AbstractMob::GetHP() const { return hp; }
 
     void AbstractMob::TakeDamage(int damage) {
-        hp -= damage;
+        if (shieldExpireTick < arena->GetGame()->GetGameClock()) {
+            hp -= damage;
+            renderOption.SetUnderline(false);
+        }
         if (hp <= 1) renderOption.SetItalic(true); //  Set to italic when HP is low
         if (hp > 1) renderOption.SetItalic(false);
         // mob removal logic implemented in the event handler
@@ -166,6 +176,9 @@ namespace core {
     bool AbstractMob::Move(Point to) {
         //  Check if move time has reached
         int currentTime = arena->GetGame()->GetGameClock();
+        if (shieldExpireTick < currentTime) {
+            renderOption.SetUnderline(false);
+        }
         if (currentTime - lastMoveTick < ticksPerMove) {
             return false; // Not enough time has passed
         }
@@ -209,6 +222,11 @@ namespace core {
     }
 
     int AbstractMob::GetKillScore() const { return killScore; }
+
+    void AbstractMob::ApplyShield(int duration) {
+        shieldExpireTick = arena->GetGame()->GetGameClock() + duration;
+        renderOption.SetUnderline(true);
+    }
 
     //  END: AbstractMob
 
@@ -427,7 +445,10 @@ namespace core {
     }
 
     void Player::TakeDamage(int damage) {
-        hp -= damage;
+        if (shieldExpireTick < arena->GetGame()->GetGameClock()) {
+            hp -= damage;
+            renderOption.SetUnderline(false);
+        }
         if (hp <= 0) {
             ui::appScreen.ExitLoopClosure()();
             arena->GetGame()->Terminate();
@@ -444,6 +465,10 @@ namespace core {
 
     bool Player::Move(Point to) {
         Entity* target = arena->GetPixel(to);
+
+        if (shieldExpireTick < arena->GetGame()->GetGameClock()) {
+            renderOption.SetUnderline(false);
+        }
 
         if (IsType(target, EntityType::WALL) || IsType(target, EntityType::ABSTRACT_MOB)) {
             return false; // Cannot move into wall or mob
@@ -464,6 +489,11 @@ namespace core {
 
     int Player::GetHP() const {
         return hp;
+    }
+
+    void Player::ApplyShield(int duration) {
+        shieldExpireTick = arena->GetGame()->GetGameClock() + duration;
+        renderOption.SetUnderline(true);
     }
 
     //  END: Player
@@ -521,7 +551,7 @@ namespace core {
     Boss::Boss(Point position, Arena* arena)
         : AbstractMob(
             position, arena,
-            1000, 50, 1000, 200 // HP, damage, killScore, ticksPerMove
+            1000, 50, 100, 200 // HP, damage, killScore, ticksPerMove
         ) {
         renderOption = EntityRenderOptions::BossRenderOption();
     }
@@ -587,5 +617,36 @@ namespace core {
     int StrengthPotion::GetDamage() const {
         return damage;
     }
+
+    //  END: StrengthPotion
+
+    //  BEGIN: Shield
+
+    Shield::Shield(Point position, Arena* arena, int duration) : AbstractCollectible(position, arena, 50 * 10), duration(duration) {
+        renderOption = EntityRenderOptions::ShieldRenderOption();
+    }
+
+    bool Shield::PickUp(Entity* by) {
+        if (IsType(by, EntityType::PLAYER)) {
+            dynamic_cast<Player*>(by)->ApplyShield(duration);
+            pickedUp = true;
+            return true;
+        }
+
+        if (IsType(by, EntityType::ABSTRACT_MOB)) {
+            dynamic_cast<AbstractMob*>(by)->ApplyShield(duration);
+            pickedUp = true;
+            return true;
+        }
+
+        if (IsType(by, EntityType::PLAYER_BULLET)) {
+            pickedUp = true; // bullet will shatter the shield, as if it was picked up
+            return true;
+        }
+
+        return false;
+    }
+
+    //  END: Shield
         
 } // namespace Core
