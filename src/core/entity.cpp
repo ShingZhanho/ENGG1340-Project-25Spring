@@ -50,6 +50,11 @@ namespace core {
             '*', ftxui::Color::Yellow, ftxui::Color::Default, true, false, false, false
         };
     }
+    ui::RenderOption EntityRenderOptions::EnergyDrinkRenderOption(int hp) {
+        return {
+            static_cast<char>('0' + hp), ftxui::Color::White, ftxui::Color::Green, true, false, false, false
+        };
+    }
     
 
     //  END: EntityRenderOptions
@@ -77,6 +82,8 @@ namespace core {
                 return dynamic_cast<AbstractMob*>(entity) != nullptr;
             case EntityType::PLAYER_BULLET:
                 return dynamic_cast<PlayerBullet*>(entity) != nullptr;
+            case EntityType::ABSTRACT_COLLECTIBLE:
+                return dynamic_cast<AbstractCollectible*>(entity) != nullptr;
             case EntityType::WALL:
                 return dynamic_cast<Wall*>(entity) != nullptr;
             case EntityType::AIR:
@@ -89,6 +96,8 @@ namespace core {
                 return dynamic_cast<Troll*>(entity) != nullptr;
             case EntityType::BABY_ZOMBIE:
                 return dynamic_cast<BabyZombie*>(entity) != nullptr;
+            case EntityType::ENERGY_DRINK:
+                return dynamic_cast<EnergyDrink*>(entity) != nullptr;
             default:
                 return false;
         }
@@ -171,6 +180,34 @@ namespace core {
 
     //  END: AbstractMob
 
+    //  BEGIN: AbstractCollectible
+
+    AbstractCollectible::AbstractCollectible(Point position, Arena* arena, int lifetime) : Entity(position, arena), lifetime(lifetime) {
+        spawnTick = arena->GetGame()->GetGameClock();
+    }
+
+    void AbstractCollectible::RefreshStatus() {
+        long long currentTime = arena->GetGame()->GetGameClock();
+        if (lifetime - (currentTime - spawnTick) <= 50 * 3) {
+            //  When the collectible lifetime is less than 3 seconds, blink the collectible
+            renderOption.SetBlink(true);
+        }
+    }
+
+    bool AbstractCollectible::IsInvalid() const {
+        if (pickedUp) return true; // picked up
+        long long currentTime = arena->GetGame()->GetGameClock();
+        if (currentTime - spawnTick > lifetime) {
+            return true; // expired
+        }
+        return false; // still valid
+    }
+
+    bool AbstractCollectible::Move(Point p) {
+        //  Collectibles cannot move.
+        return false;
+    }
+
     //  -- Implementation Classes -------------------------------------------------
 
     //  BEGIN: PlayerBullet
@@ -229,6 +266,12 @@ namespace core {
             return false;
         }
 
+        if (IsType(target, EntityType::ABSTRACT_COLLECTIBLE)) {
+            dynamic_cast<AbstractCollectible*>(target)->PickUp(this);
+            exploded = true;
+            return false;
+        }
+
         if (IsType(target, EntityType::AIR)) {
             arena->Move(GetPosition(), to);
             return true;
@@ -267,6 +310,13 @@ namespace core {
 
         if (IsType(target, EntityType::WALL) || IsType(target, EntityType::PLAYER_BULLET)) {
             exploded = true; // Bullet explodes on wall or other bullet
+            return false;
+        }
+
+        if (IsType(target, EntityType::ABSTRACT_COLLECTIBLE)) {
+            //  The bullet will shatter the collectible, as if it was picked up
+            dynamic_cast<AbstractCollectible*>(target)->PickUp(this);
+            exploded = true; // Bullet explodes on collectible
             return false;
         }
 
@@ -407,5 +457,32 @@ namespace core {
     }
 
     //  END: BabyZombie
+
+    //  BEGIN: EnergyDrink
+
+    EnergyDrink::EnergyDrink(Point position, Arena* arena, int healingPoint) : AbstractCollectible(position, arena, 50 * 10), hp(healingPoint) {
+        renderOption = EntityRenderOptions::EnergyDrinkRenderOption(healingPoint);
+    }
+
+    bool EnergyDrink::PickUp(Entity* by) {
+        if (IsType(by, EntityType::PLAYER)) {
+            dynamic_cast<Player*>(by)->TakeDamage(-hp);
+            pickedUp = true;
+            return true;
+        }
+
+        if (IsType(by, EntityType::ABSTRACT_MOB)) {
+            dynamic_cast<AbstractMob*>(by)->TakeDamage(-hp);
+            pickedUp = true;
+            return true;
+        }
+
+        if (IsType(by, EntityType::PLAYER_BULLET)) {
+            pickedUp = true; // bullet will shatter the energy drink, as if it was picked up
+            return true;
+        }
+
+        return false;
+    }
         
 } // namespace Core

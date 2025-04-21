@@ -15,12 +15,14 @@ namespace core {
 
     class AbstractBlock;
     class AbstractMob;
-    class AbstractBullet;
+    class AbstractCollectible;
+    class PlayerBullet;
     class Air;
     class Wall;
     class Player;
     class Zombie;
     class Troll;
+    class EnergyDrink;
 
     typedef EntityType EntityType;
 
@@ -33,6 +35,7 @@ namespace core {
             static ui::RenderOption PlayerBulletRenderOption();
             static ui::RenderOption TrollRenderOption();
             static ui::RenderOption BabyZombieRenderOption();
+            static ui::RenderOption EnergyDrinkRenderOption(int hp);
     };
 
     class Entity {
@@ -86,8 +89,10 @@ namespace core {
             virtual ~AbstractMob() = default;
 
             int GetHP() const;
-            //  Applies damage to the mob.
+            //  Applies damage to the mob. Apply negative damage to heal.
             void TakeDamage(int damage);
+            //  Changes the damage value by delta.
+            void ChangeDamage(int delta);
             //  Moves the mob to the given position.
             //  Returns true if the mob was able to move.
             //  Only used internally in the AbstractMob class.
@@ -113,6 +118,37 @@ namespace core {
             //  The moment when the mob last moved.
             long long lastMoveTick = -1;
     };
+
+    //  Collectibles are entities that can be picked up by the player or mobs.
+    //  The collectibles do not move and have limited lifetime. 
+    class AbstractCollectible : public Entity {
+        public:
+            //  Constructor
+            AbstractCollectible(Point position, Arena* arena, int lifetime);
+            //  Let the given entity pick up the collectible.
+            //  Returns true if the entity was able to pick up the collectible.
+            virtual bool PickUp(Entity* by) = 0;
+            //  Refreshes the status of the collectible.
+            //  Should be called by dedicated event handler.
+            void RefreshStatus();
+            //  Determines if the collectible has expired/been picked up.
+            bool IsInvalid() const;
+            //  The override of the Move() method. Always returns false.
+            bool Move(Point p) override;
+
+        protected:
+            //  Whether the collectible has been picked up.
+            bool pickedUp = false;
+
+        private:
+            //  The tick when the collectible was spawned.
+            long long spawnTick;
+            //  The lifetime of the collectible in ticks.
+            int lifetime;
+
+    };
+
+    //  -- Implementation Classes -------------------------------------------------
 
     class PlayerBullet : public Entity {
         public:
@@ -156,8 +192,6 @@ namespace core {
             long long bulletSpawnTick;
     };
 
-    //  -- Implementation Classes -------------------------------------------------
-
     class Wall : public AbstractBlock {
         public:
             Wall(Point position, Arena* arena);
@@ -195,6 +229,23 @@ namespace core {
     class BabyZombie: public AbstractMob {
         public:
             BabyZombie(Point position, Arena* arena);
+    };
+
+    //  EnergyDrink is a tool that can be picked up by either the player or mobs.
+    //  It restores the health points of the entity. It will disappear after a certain
+    //  amount of time.
+    class EnergyDrink: public AbstractCollectible{
+        public:
+            //  Constructor
+            EnergyDrink(Point position, Arena* arena, int hp);
+            //  Returns the health points of the energy drink.
+            int GetHP() const;
+            //  Let the given entity pick up the energy drink.
+            bool PickUp(Entity* by) override;
+
+        private:
+            //  The health points of the energy drink. (1 - 9)
+            int hp;
     };
 }
 

@@ -7,6 +7,7 @@ namespace core {
         ABSTRACT_ENTITY,
         ABSTRACT_BLOCK,
         ABSTRACT_MOB,
+        ABSTRACT_COLLECTIBLE,
         PLAYER_BULLET,
         WALL,
         AIR,
@@ -14,6 +15,7 @@ namespace core {
         ZOMBIE, // moderate HP, moderate speed
         TROLL, // high HP, moves slowly
         BABY_ZOMBIE, // low HP, moves fast
+        ENERGY_DRINK, // heals player/mob
     };
 
 } // namespace core
