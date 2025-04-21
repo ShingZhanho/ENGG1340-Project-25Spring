@@ -224,8 +224,9 @@ void difficultyMenu() {
     // -- Game Difficulty Menu (Radio Buttons)
     int selectedDifficulty = 0;
     bool loadCustomGame = false;
+    bool showHelp = true;
     auto radioOption = ftxui::RadioboxOption();
-    radioOption.on_change = [&] { loadCustomGame = (selectedDifficulty == 3); };
+    radioOption.on_change = [&] { loadCustomGame = (selectedDifficulty == 3); showHelp = !loadCustomGame; };
     radioOption.transform = [&] (ftxui::EntryState state) {
         state.label = (state.state ? " [*] " : " [ ] ") + state.label;
         ftxui::Element e = ftxui::text(state.label);
@@ -383,6 +384,55 @@ void difficultyMenu() {
         });
     });
 
+    auto gameHelpRenderer = ftxui::Renderer([] {
+        return ftxui::vbox({
+            ftxui::text(" OBJECTS IN THE GAME") | ftxui::bold,
+            ftxui::separator(),
+            ftxui::hbox({
+                ftxui::text(" BASIC OBJECTS: ") | ftxui::bold,
+                ftxui::separator(),
+                core::EntityRenderOptions::PlayerRenderOption().Render(), ftxui::text(" - Player (you)"),
+                ftxui::separator(),
+                core::EntityRenderOptions::WallRenderOption().Render(), ftxui::text(" - Wall (obstacle)"),
+                ftxui::separator(),
+                core::EntityRenderOptions::AirRenderOption().Render(), ftxui::text(" - Air (empty space)"),
+                ftxui::separator(),
+                core::EntityRenderOptions::PlayerBulletRenderOption().Render(), ftxui::text(" - Player Bullet"),
+            }),
+            ftxui::separator(),
+            ftxui::hbox({
+                ftxui::text(" MOBS: ") | ftxui::bold,
+                ftxui::separator(),
+                core::EntityRenderOptions::ZombieRenderOption().Render(), ftxui::text(" - Zombie"),
+                ftxui::separator(),
+                core::EntityRenderOptions::TrollRenderOption().Render(), ftxui::text(" - Troll"),
+                ftxui::separator(),
+                core::EntityRenderOptions::BabyZombieRenderOption().Render(), ftxui::text(" - Baby Zombie"),
+                ftxui::separator(),
+                core::EntityRenderOptions::MonsterRenderOption().Render(), ftxui::text(" - Monster"),
+                ftxui::separator(),
+                core::EntityRenderOptions::BossRenderOption().Render(), ftxui::text(" - Boss")
+            }),
+            ftxui::separator(),
+            ftxui::hbox({
+                ftxui::text(" ITEMS: ") | ftxui::bold,
+                ftxui::separator(),
+                ftxui::vbox({
+                    ftxui::text(" (Be careful! Mobs can also pick up these collectibles and use them against you!)"),
+                    ftxui::separator(),
+                    ftxui::hbox({
+                        core::EntityRenderOptions::EnergyDrinkRenderOption(5).Render(), ftxui::text(" - Energy Drink (+HP)"),
+                        ftxui::separator(),
+                        core::EntityRenderOptions::StrengthPotionRenderOption(5).Render(), ftxui::text(" - Strength Potion (+damage)"),
+                        ftxui::separator(),
+                        core::EntityRenderOptions::ShieldRenderOption().Render(), ftxui::text(" - Shield (temporary invincibility)"),
+                    })
+                }) | ftxui::xflex_grow
+            }),
+            
+        }) | ftxui::border | ftxui::xflex_grow;
+    });
+
     // -- Container for all options
     auto customGameOptionsContainer = ftxui::Container::Vertical({
         gameMapFileInputComponent,
@@ -501,6 +551,7 @@ void difficultyMenu() {
         }),
         difficultyRadioButtons | ftxui::borderDouble,
         customGameOptionsRenderer | ftxui::Maybe(&loadCustomGame),
+        gameHelpRenderer | ftxui::Maybe(&showHelp),
         errorMessageRenderer | ftxui::Maybe(&showOptionError),
         ftxui::Renderer([] {return ftxui::filler();}),
         ftxui::Container::Horizontal({
