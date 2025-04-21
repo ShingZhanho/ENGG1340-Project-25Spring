@@ -117,19 +117,39 @@ namespace core {
         public:
             PlayerBullet(Point position, Arena* arena, int damage, int direction);
 
-            //  The bullet moves in the given direction.
+            //  The bullet moves in the given direction. Should only be used internally.
+            //  Call Move() in BulletMoveEventHandler to move the bullet.
+            //  Call TryShoot() in PlayerShootEventHandler to shoot the bullet.
             bool Move(Point to) override;
-
+            //  The Move() method dedicated to BulletMoveEventHandler.
+            bool Move();
             //  Returns the damage of the bullet.
             int GetDamage() const;
             //  Returns the direction of the bullet.
+            //  0 = UP, 1 = UP_LEFT, 2 = LEFT, 3 = DOWN_LEFT, 4 = DOWN, 5 = DOWN_RIGHT, 6 = RIGHT, 7 = UP_RIGHT
             int GetDirection() const;
+            //  Attempts to shoot the bullet.
+            //  Returns true if the bullet was placed in the arena successfully.
+            //  Note that the bullet will not be placed in the arena if it directly collides with non-air entity,
+            //  even if the entity took damage.
+            bool TryShoot();
+            //  Returns true if the bullet has exploded and should be removed.
+            bool IsExploded() const;
+            //  Returns true if the bullet is on the arena.
+            bool IsOnArena() const;
 
         private:
             //  The damage of the bullet.
             int damage;
-            //  The direction of the bullet. 0 = up, 1 = right, 2 = down, 3 = left.
+            //  The direction of the bullet.
+            //  0 = UP, 1 = UP_LEFT, 2 = LEFT, 3 = DOWN_LEFT, 4 = DOWN, 5 = DOWN_RIGHT, 6 = RIGHT, 7 = UP_RIGHT
             int direction;
+            //  Determines if the bullet has exploded and should be removed.
+            bool exploded = false;
+            //  Indicates if the bullet is on the arena.
+            bool onArena = false;
+            //  Gets the next position of the bullet based on the direction.
+            Point GetNextPosition();
     };
 
     //  -- Implementation Classes -------------------------------------------------

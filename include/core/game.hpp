@@ -53,6 +53,10 @@ namespace core {
             GameOptions* GetOptions() const;
             //  The exposed PlayerMovementEventHandler.
             PlayerMoveEventHandler* PlayerMoveEventHandlerPtr = nullptr;
+            //  The exposed PlayerShootEventHandler.
+            PlayerShootEventHandler* PlayerShootEventHandlerPtr = nullptr;
+            //  The exposed BulletMoveEventHandler.
+            BulletMoveEventHandler* BulletMoveEventHandlerPtr = nullptr;
             //  Increments the game clock by 1 tick.
             void IncrementGameClock();
             //  Returns the game clock.

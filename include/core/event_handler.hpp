@@ -12,12 +12,14 @@ namespace core {
     //  Forward declarations
     class Game;
     class Arena;
+    class PlayerBullet;
     class EventHandler;
     class RunEventHandler;
     class InitialiseEventHandler;
     class TickEventHandler;
     class PlayerMoveEventHandler;
     class PlayerShootEventHandler;
+    class BulletMoveEventHandler;
     class MobGenerateEventHandler;
     class MobMoveEventHandler;
 
@@ -106,6 +108,10 @@ namespace core {
             //  The internal PlayerMoveEventHandler. This event will be exposed to UI and NOT
             //  triggered by the tick event.
             PlayerMoveEventHandler* playerMoveEventHandler;
+            //  The internal PlayerShootEventHandler. This event will be exposed to UI.
+            PlayerShootEventHandler* playerShootEventHandler;
+            //  The internal BulletMoveEventHandler. This event will be triggered by the tick event.
+            BulletMoveEventHandler* bulletMoveEventHandler;
     };
     
     //  Player shooting event handler
@@ -113,11 +119,35 @@ namespace core {
         public:
             //  Constructor
             PlayerShootEventHandler(Game* game);
+            //  Launches the bullet.
             void Fire() override;
+            //  Sets the direction of the bullet to be shot.
+            //  0 = UP, 1 = UP_LEFT, 2 = LEFT, 3 = DOWN_LEFT, 4 = DOWN, 5 = DOWN_RIGHT, 6 = RIGHT, 7 = UP_RIGHT, 8 = ALL
+            void SetBulletDirection(int direction);
 
         private:
             //  Executed when the event is fired.
             void execute();
+            //  The direction of the bullet to be shot.
+            //  0 = UP, 1 = UP_LEFT, 2 = LEFT, 3 = DOWN_LEFT, 4 = DOWN, 5 = DOWN_RIGHT, 6 = RIGHT, 7 = UP_RIGHT, 8 = ALL
+            //  Other values = ignored.
+            int bulletDirection = -1;
+    };
+
+    //  Handles movements of bullet entities.
+    class BulletMoveEventHandler : public EventHandler {
+        public:
+            //  Constructor
+            BulletMoveEventHandler(Game* game);
+            //  Triggers the event
+            void Fire() override;
+            //  Adds a bullet entity to the managed list.
+            void AddManagedBullet(PlayerBullet* bullet);
+
+        private:
+            //  Executed when the event is triggered.
+            void execute();
+            std::list<PlayerBullet*> managedBullets;
     };
     
     //  Mob generation event handler

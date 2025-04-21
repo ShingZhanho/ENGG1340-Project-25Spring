@@ -95,9 +95,9 @@ namespace core {
         });
 
         //  Run the game UI renderer.
-        tickThread.detach();
-        util::WriteToLog("Game UI renderer started. Detaching from tickThread...", "RunEventHandler::execute()");
         ui::publicGameUIRenderer->StartRenderLoop();
+        util::WriteToLog("Game UI renderer ended. Detaching from tickThread...", "RunEventHandler::execute()");
+        tickThread.detach();
     }
 
     //  END: RunEventHandler
@@ -105,8 +105,19 @@ namespace core {
     //  BEGIN: InitialiseEventHandler
 
     InitialiseEventHandler::InitialiseEventHandler(Game* game) : EventHandler(game) {
+
+    }
+
+    void InitialiseEventHandler::Fire() {
+        util::WriteToLog("InitialiseEvent triggered", "InitialiseEventHandler::Fire()");
+        execute();
+        EventHandler::Fire();
+    }
+
+    void InitialiseEventHandler::execute() {
         util::WriteToLog("Initialising Game Arena...", "InitialiseEventHandler::InitialiseEventHandler()");
-        game->InitialiseArena();
+        GetGame()->InitialiseArena();
+        GetGame()->GetArena()->SetGame(GetGame());
         //  Setup arena layout (walls etc.)
         //  TODO: set layout according to level difficulty
 
@@ -117,27 +128,19 @@ namespace core {
         //  Create player if it doesn't exist
         //  NOTE: The player MUST be the first non-block entity to have the ID 0.
         util::WriteToLog("Checking player ID...", "InitialiseEventHandler::InitialiseEventHandler()");
-        if (game->GetArena()->GetPixelById(0) == nullptr) {
+        if (GetGame()->GetArena()->GetPixelById(0) == nullptr) {
             util::WriteToLog("Entity with ID 0 not found. Creating player...", "InitialiseEventHandler::InitialiseEventHandler()");
-            auto player = new Player({ARENA_WIDTH / 2, ARENA_HEIGHT / 2}, game->GetArena(), game->GetOptions()->PlayerHp);
-            game->GetArena()->SetPixelWithId(player->GetPosition(), player);
+            auto player = new Player({ARENA_WIDTH / 2, ARENA_HEIGHT / 2}, GetGame()->GetArena(), GetGame()->GetOptions()->PlayerHp);
+            GetGame()->GetArena()->SetPixelWithId(player->GetPosition(), player);
         } else {
             // set player HP by reconstructing the player
-            auto playerPoint = game->GetArena()->GetPixelById(0)->GetPosition();
-            game->GetArena()->ReplaceWithId(0, new Player(playerPoint, game->GetArena(), game->GetOptions()->PlayerHp));
+            auto playerPoint = GetGame()->GetArena()->GetPixelById(0)->GetPosition();
+            GetGame()->GetArena()->ReplaceWithId(0, new Player(playerPoint, GetGame()->GetArena(), GetGame()->GetOptions()->PlayerHp));
         }
         util::WriteToLog("InitialiseEventHandler constructed.", "InitialiseEventHandler::InitialiseEventHandler()");
 
-        game->SetInitialisationComplete();
+        GetGame()->SetInitialisationComplete();
     }
-
-    void InitialiseEventHandler::Fire() {
-        util::WriteToLog("InitialiseEvent triggered", "InitialiseEventHandler::Fire()");
-        execute();
-        EventHandler::Fire();
-    }
-
-    void InitialiseEventHandler::execute() {}
 
     //  END: InitialiseEventHandler
 
@@ -205,17 +208,24 @@ namespace core {
         //  Add all subevent handlers
         util::WriteToLog("Adding children event handlers", "TickEventHandler::TickEventHandler()");
         subevents = {
-            new PlayerShootEventHandler(game),
             new MobGenerateEventHandler(game),
-            new MobMoveEventHandler(game)
+            new MobMoveEventHandler(game),
+            new BulletMoveEventHandler(game),
         };
         playerMoveEventHandler = new PlayerMoveEventHandler(game);
+        playerShootEventHandler = new PlayerShootEventHandler(game);
+        bulletMoveEventHandler = dynamic_cast<BulletMoveEventHandler*>(subevents[2]);
         game->PlayerMoveEventHandlerPtr = playerMoveEventHandler; // expose handler to UI
+        game->PlayerShootEventHandlerPtr = playerShootEventHandler; // expose handler to UI
+        game->BulletMoveEventHandlerPtr = bulletMoveEventHandler; // expose handler to Game
     }
 
     TickEventHandler::~TickEventHandler() {
         util::WriteToLog("Deleting internal PlayerMoveEventHandler", "TickEventHandler::~TickEventHandler()");
         delete playerMoveEventHandler;
+        util::WriteToLog("Deleting internal PlayerShootEventHandler", "TickEventHandler::~TickEventHandler()");
+        delete playerShootEventHandler;
+        // bulletMoveEventHandler is managed by base class destructor
     }
 
     void TickEventHandler::Fire() {
@@ -237,16 +247,71 @@ namespace core {
     }
 
     void PlayerShootEventHandler::Fire() {
-        // util::WriteToLog("PlayerShootEvent triggered", "PlayerShootEventHandler::Fire()");
         execute();
         EventHandler::Fire();
     }
+
+    void PlayerShootEventHandler::SetBulletDirection(int direction) {
+        bulletDirection = direction;
+    }
     
     void PlayerShootEventHandler::execute() {
-        // Implement player shooting logic
+        util::WriteToLog("PlayerShootEvent triggered", "PlayerShootEventHandler::execute()");
+        if (bulletDirection < 0 || bulletDirection > 8) return; // invalid direction
+        Point pos = GetGame()->GetArena()->GetPixelById(0)->GetPosition();
+        if (bulletDirection == 8) {
+            // shoot in all directions
+            for (int i = 0; i < 8; i++) {
+                auto bullet = new PlayerBullet(pos, GetGame()->GetArena(), 1, i);
+                bullet->TryShoot();
+                GetGame()->BulletMoveEventHandlerPtr->AddManagedBullet(bullet);
+            }
+        } else {
+            // shoot in the specified direction
+            util::WriteToLog("Generating bullet in direction " + std::to_string(bulletDirection), "PlayerShootEventHandler::execute()");
+            auto bullet = new PlayerBullet(pos, GetGame()->GetArena(), 1, bulletDirection);
+            util::WriteToLog("Trying to shoot bullet in direction " + std::to_string(bulletDirection), "PlayerShootEventHandler::execute()");
+            bullet->TryShoot();
+            GetGame()->BulletMoveEventHandlerPtr->AddManagedBullet(bullet);
+        }
     }
     
     //  END: PlayerShootEventHandler
+
+    //  BEGIN: BulletMoveEventHandler
+
+    BulletMoveEventHandler::BulletMoveEventHandler(Game* game) : EventHandler(game) { }
+
+    void BulletMoveEventHandler::Fire() {
+        execute();
+        EventHandler::Fire();
+    }
+
+    void BulletMoveEventHandler::execute() {
+        // Move all bullets
+        auto it = managedBullets.begin();
+        while (it != managedBullets.end()) {
+            auto bullet = *it;
+            if (bullet->IsExploded()) {
+                if (bullet->IsOnArena()) {
+                    GetGame()->GetArena()->Remove(bullet->GetPosition()); // no delete is needed
+                } else {
+                    delete bullet; // delete the bullet if it is not on the arena
+                }
+                it = managedBullets.erase(it); // remove from the list
+                continue;
+            }
+
+            bullet->Move();
+            it++;
+        }
+    }
+
+    void BulletMoveEventHandler::AddManagedBullet(PlayerBullet* bullet) {
+        managedBullets.push_back(bullet);
+    }
+
+    //  END: BulletMoveEventHandler
     
     //  BEGIN: MobGenerateEventHandler
     

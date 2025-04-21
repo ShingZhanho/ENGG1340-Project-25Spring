@@ -17,8 +17,10 @@ namespace ui {
         auto ui = ftxui::Renderer([&] {
             //  Render the game arena
             std::vector<ftxui::Element> allRows;
+            allRows.reserve(ARENA_HEIGHT);
             for (int y = 0; y < ARENA_HEIGHT; y++) {
                 std::vector<ftxui::Element> rowElements;
+                rowElements.reserve(ARENA_WIDTH);
                 for (int x = 0; x < ARENA_WIDTH; x++) {
                     auto entityRenderer = game->GetArena()->GetPixel({x, y})->GetRenderOption();
                     rowElements.push_back(entityRenderer.Render());
@@ -51,17 +53,26 @@ namespace ui {
                 ftxui::separator(),
                 ftxui::text(" INSTRUCTIONS:") | ftxui::bold,
                 ftxui::paragraphAlignLeft("  - Move: W/A/S/D (or Q/Z/C/E for diagonal movements)"),
-                ftxui::paragraphAlignLeft("  - Shoot a bullet: I/J/K/L (bullets cannot go diagonally)")
+                ftxui::paragraphAlignLeft("  - Shoot a bullet: I/J/K/L (or U/O/M/. for diagonal; space for all directions (5 seconds cooldown))")
             })  | ftxui::size(ftxui::WIDTH, ftxui::EQUAL, MIN_TERMINAL_WIDTH)
                 | ftxui::size(ftxui::HEIGHT, ftxui::LESS_THAN, MIN_TERMINAL_HEIGHT + 1)
                 | ftxui::borderRounded;
         }) | ftxui::CatchEvent([&] (ftxui::Event event) {
+            // ==============================================================================================
+            //     Basic UI events
+            // ==============================================================================================
+
             if (event == ftxui::Event::Escape) { // Exit the game (temporary)
                 appScreen.ExitLoopClosure()();
                 game->Terminate();
                 return true;
             } else if (event == ftxui::Event::Custom) {
                 return true;
+
+            // ==============================================================================================
+            //     Player movement events
+            // ==============================================================================================
+
             } else if (event == ftxui::Event::Character('w')) {
                 game->PlayerMoveEventHandlerPtr->SetDirection(core::PlayerMoveEventHandler::Direction::UP);
                 game->PlayerMoveEventHandlerPtr->Fire();
@@ -93,6 +104,47 @@ namespace ui {
             } else if (event == ftxui::Event::Character('e')) {
                 game->PlayerMoveEventHandlerPtr->SetDirection(core::PlayerMoveEventHandler::Direction::UP_RIGHT);
                 game->PlayerMoveEventHandlerPtr->Fire();
+                return true;
+
+            // ==============================================================================================
+            //     Player shooting events
+            // ==============================================================================================
+            
+            } else if (event == ftxui::Event::Character('i')) {
+                game->PlayerShootEventHandlerPtr->SetBulletDirection(0);
+                game->PlayerShootEventHandlerPtr->Fire();
+                return true;
+            } else if (event == ftxui::Event::Character('u')) {
+                game->PlayerShootEventHandlerPtr->SetBulletDirection(1);
+                game->PlayerShootEventHandlerPtr->Fire();
+                return true;
+            } else if (event == ftxui::Event::Character('j')) {
+                game->PlayerShootEventHandlerPtr->SetBulletDirection(2);
+                game->PlayerShootEventHandlerPtr->Fire();
+                return true;
+            } else if (event == ftxui::Event::Character('m')) {
+                game->PlayerShootEventHandlerPtr->SetBulletDirection(3);
+                game->PlayerShootEventHandlerPtr->Fire();
+                return true;
+            } else if (event == ftxui::Event::Character('k')) {
+                game->PlayerShootEventHandlerPtr->SetBulletDirection(4);
+                game->PlayerShootEventHandlerPtr->Fire();
+                return true;
+            } else if (event == ftxui::Event::Character('.')) {
+                game->PlayerShootEventHandlerPtr->SetBulletDirection(5);
+                game->PlayerShootEventHandlerPtr->Fire();
+                return true;
+            } else if (event == ftxui::Event::Character('l')) {
+                game->PlayerShootEventHandlerPtr->SetBulletDirection(6);
+                game->PlayerShootEventHandlerPtr->Fire();
+                return true;
+            } else if (event == ftxui::Event::Character('o')) {
+                game->PlayerShootEventHandlerPtr->SetBulletDirection(7);
+                game->PlayerShootEventHandlerPtr->Fire();
+                return true;
+            } else if (event == ftxui::Event::Character(' ')) {
+                game->PlayerShootEventHandlerPtr->SetBulletDirection(8);
+                game->PlayerShootEventHandlerPtr->Fire();
                 return true;
             }
             return false;

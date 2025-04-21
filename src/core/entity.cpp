@@ -136,14 +136,7 @@ namespace core {
             return false; // Mob does not disappear after attack, it will stay and attack again until killed.
         }
 
-        if (IsType(target, EntityType::PLAYER_BULLET)) { // collides with bullet
-            //  Note: may change to type PLAYER_BULLET in the future if mobs can fire bullets.
-
-            int damage = dynamic_cast<PlayerBullet*>(target)->GetDamage();
-            arena->Move(GetPosition(), to);
-            TakeDamage(damage);
-            return true;
-        }
+        // collision with bullet will be handled in the bullet class
 
         if (IsType(target, EntityType::AIR)) { // collides with air
             arena->Move(GetPosition(), to);
@@ -184,19 +177,27 @@ namespace core {
 
     int PlayerBullet::GetDirection() const { return direction; }
 
+    bool PlayerBullet::IsExploded() const { return exploded; }
+
+    bool PlayerBullet::IsOnArena() const { return onArena; }
+
     bool PlayerBullet::Move(Point to) {
         Entity* target = arena->GetPixel(to);
 
-        if (IsType(target, EntityType::WALL) 
-            || IsType(target, EntityType::PLAYER_BULLET)
-            || IsType(target, EntityType::PLAYER)) {
-            arena->Remove(GetPosition());
+        if (IsType(target, EntityType::WALL) || IsType(target, EntityType::PLAYER_BULLET)) {
+            exploded = true; 
+            return false;
+        }
+
+        if (IsType(target, EntityType::PLAYER)) {
+            dynamic_cast<Player*>(target)->TakeDamage(damage);
+            exploded = true;
             return false;
         }
 
         if (IsType(target, EntityType::ABSTRACT_MOB)) {
             dynamic_cast<AbstractMob*>(target)->TakeDamage(damage);
-            arena->Remove(GetPosition());
+            exploded = true;
             return false;
         }
 
@@ -205,6 +206,84 @@ namespace core {
             return true;
         }
         return false;
+    }
+
+    bool PlayerBullet::Move() {
+        //  Move the bullet to the next position based on its direction.
+        Point nextPos = GetNextPosition();
+        return Move(nextPos);
+    }
+
+    bool PlayerBullet::TryShoot() {
+        //  The bullet entity will be created at the same position as the player,
+        //  and will NOT be placed in the arena directly.
+        Point targetPoint = GetNextPosition();
+        Entity* target = arena->GetPixel(targetPoint);
+
+        if (IsType(target, EntityType::ABSTRACT_MOB)) {
+            dynamic_cast<AbstractMob*>(target)->TakeDamage(damage);
+            exploded = true; // Bullet explodes on mob
+            return false; // Bullet should be removed and never placed in the arena
+        }
+
+        if (IsType(target, EntityType::PLAYER)) {
+            dynamic_cast<Player*>(target)->TakeDamage(damage);
+            exploded = true; // Bullet explodes on player
+            return false;
+        }
+
+        if (IsType(target, EntityType::WALL) || IsType(target, EntityType::PLAYER_BULLET)) {
+            exploded = true; // Bullet explodes on wall or other bullet
+            return false;
+        }
+
+        if (IsType(target, EntityType::AIR)) {
+            //  the bullet will be placed in the arena
+            arena->SetPixelSafe(targetPoint, this);
+            onArena = true; // bullet is now on the arena
+            return true;
+        }
+
+        // abnormal case - directly explode and remove
+        exploded = true; // bullet explodes abnormally
+        return false;
+    }
+
+    Point PlayerBullet::GetNextPosition() {
+        Point nextPos = GetPosition();
+        switch (direction) {
+            case 0: // UP
+                nextPos.y--;
+                break;
+            case 1: // UP_LEFT
+                nextPos.x--;
+                nextPos.y--;
+                break;
+            case 2: // LEFT
+                nextPos.x--;
+                break;
+            case 3: // DOWN_LEFT
+                nextPos.x--;
+                nextPos.y++;
+                break;
+            case 4: // DOWN
+                nextPos.y++;
+                break;
+            case 5: // DOWN_RIGHT
+                nextPos.x++;
+                nextPos.y++;
+                break;
+            case 6: // RIGHT
+                nextPos.x++;
+                break;
+            case 7: // UP_RIGHT
+                nextPos.x++;
+                nextPos.y--;
+                break;
+            default:
+                return nextPos; // Invalid direction, return current position
+        }
+        return nextPos; // Return the new position based on the direction
     }
 
     //  END: PlayerBullet
