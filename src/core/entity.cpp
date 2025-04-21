@@ -55,6 +55,11 @@ namespace core {
             static_cast<char>('0' + hp), ftxui::Color::DarkGreen, ftxui::Color::Green, true, false, false, false
         };
     }
+    ui::RenderOption EntityRenderOptions::StrengthPotionRenderOption(int damage) {
+        return {
+            static_cast<char>('0' + damage), ftxui::Color::DarkRed, ftxui::Color::Red, true, false, false, false
+        };
+    }
     
 
     //  END: EntityRenderOptions
@@ -98,6 +103,8 @@ namespace core {
                 return dynamic_cast<BabyZombie*>(entity) != nullptr;
             case EntityType::ENERGY_DRINK:
                 return dynamic_cast<EnergyDrink*>(entity) != nullptr;
+            case EntityType::STRENGTH_POTION:
+                return dynamic_cast<StrengthPotion*>(entity) != nullptr;
             default:
                 return false;
         }
@@ -136,6 +143,10 @@ namespace core {
         if (hp <= 1) renderOption.SetItalic(true); //  Set to italic when HP is low
         if (hp > 1) renderOption.SetItalic(false);
         // mob removal logic implemented in the event handler
+    }
+
+    void AbstractMob::ChangeDamage(int delta) {
+        damage += delta;
     }
 
     bool AbstractMob::Move(Point to) {
@@ -398,6 +409,7 @@ namespace core {
 
     Player::Player(Point position, Arena* arena, int initialHp) : Entity(position, arena), hp(initialHp) {
         renderOption = EntityRenderOptions::PlayerRenderOption();
+        damage = 1;
     }
 
     void Player::TakeDamage(int damage) {
@@ -406,6 +418,14 @@ namespace core {
             ui::appScreen.ExitLoopClosure()();
             arena->GetGame()->Terminate();
         }
+    }
+
+    void Player::ChangeDamage(int delta) {
+        damage += delta;
+    }
+
+    int Player::GetDamage() const {
+        return damage;
     }
 
     bool Player::Move(Point to) {
@@ -495,6 +515,39 @@ namespace core {
         }
 
         return false;
+    }
+
+    //  END: EnergyDrink
+
+    //  BEGIN: StrengthPotion
+
+    StrengthPotion::StrengthPotion(Point position, Arena* arena, int damage) : AbstractCollectible(position, arena, 50 * 10), damage(damage) {
+        renderOption = EntityRenderOptions::StrengthPotionRenderOption(damage);
+    }
+
+    bool StrengthPotion::PickUp(Entity* by) {
+        if (IsType(by, EntityType::PLAYER)) {
+            dynamic_cast<Player*>(by)->ChangeDamage(damage);
+            pickedUp = true;
+            return true;
+        }
+
+        if (IsType(by, EntityType::ABSTRACT_MOB)) {
+            dynamic_cast<AbstractMob*>(by)->ChangeDamage(damage);
+            pickedUp = true;
+            return true;
+        }
+
+        if (IsType(by, EntityType::PLAYER_BULLET)) {
+            pickedUp = true; // bullet will shatter the strength potion, as if it was picked up
+            return true;
+        }
+
+        return false;
+    }
+
+    int StrengthPotion::GetDamage() const {
+        return damage;
     }
         
 } // namespace Core

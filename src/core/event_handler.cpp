@@ -267,14 +267,14 @@ namespace core {
             lastAllDirectionTick = currentTime;
             // shoot in all directions
             for (int i = 0; i < 8; i++) {
-                auto bullet = new PlayerBullet(pos, GetGame()->GetArena(), 1, i);
+                auto bullet = new PlayerBullet(pos, GetGame()->GetArena(), dynamic_cast<Player*>(GetGame()->GetArena()->GetPixelById(0))->GetDamage(), i);
                 bullet->TryShoot();
                 GetGame()->BulletMoveEventHandlerPtr->AddManagedBullet(bullet);
             }
         } else {
             // shoot in the specified direction
             util::WriteToLog("Generating bullet in direction " + std::to_string(bulletDirection), "PlayerShootEventHandler::execute()");
-            auto bullet = new PlayerBullet(pos, GetGame()->GetArena(), 1, bulletDirection);
+            auto bullet = new PlayerBullet(pos, GetGame()->GetArena(), dynamic_cast<Player*>(GetGame()->GetArena()->GetPixelById(0))->GetDamage(), bulletDirection);
             util::WriteToLog("Trying to shoot bullet in direction " + std::to_string(bulletDirection), "PlayerShootEventHandler::execute()");
             bullet->TryShoot();
             GetGame()->BulletMoveEventHandlerPtr->AddManagedBullet(bullet);
@@ -557,6 +557,7 @@ namespace core {
             }
             const static std::set<EntityType> collectibleTypes = {
                 EntityType::ENERGY_DRINK,
+                EntityType::STRENGTH_POTION,
             };
             auto it = collectibleTypes.begin();
             std::advance(it, std::rand() % collectibleTypes.size());
@@ -565,6 +566,9 @@ namespace core {
             switch (collectibleType) {
                 case EntityType::ENERGY_DRINK:
                     collectible = new EnergyDrink(spawnPos, GetGame()->GetArena(), std::rand() % 9 + 1); // random HP (1-9)
+                    break;
+                case EntityType::STRENGTH_POTION:
+                    collectible = new StrengthPotion(spawnPos, GetGame()->GetArena(), std::rand() % 9 + 1); // random damage (1-9)
                     break;
                 default:
                     util::WriteToLog("Unknown collectible type: " + std::to_string(static_cast<int>(collectibleType)), "CollectiblesEventHandler::execute()");

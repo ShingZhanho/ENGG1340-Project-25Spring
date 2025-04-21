@@ -16,6 +16,7 @@ namespace core {
         TROLL, // high HP, moves slowly
         BABY_ZOMBIE, // low HP, moves fast
         ENERGY_DRINK, // heals player/mob
+        STRENGTH_POTION, // increases damage of player/mob
     };
 
 } // namespace core

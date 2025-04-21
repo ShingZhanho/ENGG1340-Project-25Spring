@@ -36,6 +36,7 @@ namespace core {
             static ui::RenderOption TrollRenderOption();
             static ui::RenderOption BabyZombieRenderOption();
             static ui::RenderOption EnergyDrinkRenderOption(int hp);
+            static ui::RenderOption StrengthPotionRenderOption(int damage);
     };
 
     class Entity {
@@ -205,8 +206,13 @@ namespace core {
     class Player : public Entity {
         public:
             Player(Point position, Arena* arena, int initialHp);
-            
+            //  Applies damage to the player. Apply negative damage to heal.
             void TakeDamage(int damage);
+            //  Changes the damage value by delta.
+            void ChangeDamage(int delta);
+            //  Returns the damage of the player.
+            int GetDamage() const;
+            //  Moves the player to the given position.
             bool Move(Point to) override;
             //  Returns the health points of the player.
             int GetHP() const;
@@ -214,6 +220,8 @@ namespace core {
         private:
             //  The health points of the player.
             int hp;
+            //  The damage of the player.
+            int damage = 1;
     };
 
     class Zombie : public AbstractMob {
@@ -246,6 +254,23 @@ namespace core {
         private:
             //  The health points of the energy drink. (1 - 9)
             int hp;
+    };
+
+    //  StrengthPotion is a tool that can be picked up by either the player or mobs.
+    //  It increases the damage of the entity. It will disappear after a certain
+    //  amount of time.
+    class StrengthPotion: public AbstractCollectible{
+        public:
+            //  Constructor
+            StrengthPotion(Point position, Arena* arena, int damage);
+            //  Returns the damage of the strength potion.
+            int GetDamage() const;
+            //  Let the given entity pick up the strength potion.
+            bool PickUp(Entity* by) override;
+
+        private:
+            //  The damage of the strength potion. (1 - 9)
+            int damage;
     };
 }
 
