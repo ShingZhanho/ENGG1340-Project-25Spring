@@ -15,6 +15,7 @@
 
 // Core Components
 #include <ui/common.hpp>
+#include <ui/render_option.hpp>
 #include <core/arena.hpp>
 #include <core/arena_reader.hpp>
 #include <core/entity_type.hpp>
@@ -223,8 +224,9 @@ void difficultyMenu() {
     // -- Game Difficulty Menu (Radio Buttons)
     int selectedDifficulty = 0;
     bool loadCustomGame = false;
+    bool showHelp = true;
     auto radioOption = ftxui::RadioboxOption();
-    radioOption.on_change = [&] { loadCustomGame = (selectedDifficulty == 3); };
+    radioOption.on_change = [&] { loadCustomGame = (selectedDifficulty == 3); showHelp = !loadCustomGame; };
     radioOption.transform = [&] (ftxui::EntryState state) {
         state.label = (state.state ? " [*] " : " [ ] ") + state.label;
         ftxui::Element e = ftxui::text(state.label);
@@ -281,16 +283,29 @@ void difficultyMenu() {
         {static_cast<int>(core::EntityType::ZOMBIE), "Zombie"},
         {static_cast<int>(core::EntityType::TROLL), "Troll"},
         {static_cast<int>(core::EntityType::BABY_ZOMBIE), "Baby Zombie"},
+        {static_cast<int>(core::EntityType::MONSTER), "Monster"},
+        {static_cast<int>(core::EntityType::BOSS), "Boss"},
     };
     std::map<int, std::string> mobTypeDescriptions = {
         {static_cast<int>(core::EntityType::ZOMBIE), "1 HP, 1 damage, 1 point, moves every 1 second."},
         {static_cast<int>(core::EntityType::TROLL), "5 HP, 2 damage, 5 points, moves every 2 seconds."},
         {static_cast<int>(core::EntityType::BABY_ZOMBIE), "1 HP, 1 damage, 2 points, moves every 0.5 seconds."},
+        {static_cast<int>(core::EntityType::MONSTER), "10 HP, 5 damage, 10 points, moves every 0.5 seconds."},
+        {static_cast<int>(core::EntityType::BOSS), "1000 HP, 50 damage, 100 points, moves every 4 seconds."},
+    };
+    std::map<int, ui::RenderOption> mobTypeAppearance = {
+        {static_cast<int>(core::EntityType::ZOMBIE), core::EntityRenderOptions::ZombieRenderOption()},
+        {static_cast<int>(core::EntityType::TROLL), core::EntityRenderOptions::TrollRenderOption()},
+        {static_cast<int>(core::EntityType::BABY_ZOMBIE), core::EntityRenderOptions::BabyZombieRenderOption()},
+        {static_cast<int>(core::EntityType::MONSTER), core::EntityRenderOptions::MonsterRenderOption()},
+        {static_cast<int>(core::EntityType::BOSS), core::EntityRenderOptions::BossRenderOption()},
     };
     std::map<int, bool*> mobFlags = {
         {static_cast<int>(core::EntityType::ZOMBIE), new bool(true)},
         {static_cast<int>(core::EntityType::TROLL), new bool(false)},
         {static_cast<int>(core::EntityType::BABY_ZOMBIE), new bool(false)},
+        {static_cast<int>(core::EntityType::MONSTER), new bool(false)},
+        {static_cast<int>(core::EntityType::BOSS), new bool(false)},
     };
     auto mobCheckboxesContainer = ftxui::Container::Vertical({});
     for (const auto& mobType : mobTypeNames) {
@@ -305,7 +320,9 @@ void difficultyMenu() {
                         | (state.focused ? ftxui::inverted : ftxui::nothing),
                 ftxui::text("] "),
                 ftxui::text(state.label),
-                ftxui::text(" "),
+                ftxui::text(" ("),
+                mobTypeAppearance[key].Render(),
+                ftxui::text(") "),
                 state.focused || state.state
                     ? ftxui::text("[" + mobTypeDescriptions[key] + "]") | ftxui::dim
                     : ftxui::text(""),
@@ -365,6 +382,55 @@ void difficultyMenu() {
                 ftxui::text(optionErrorMsg) | ftxui::color(ftxui::Color::Red),
             })
         });
+    });
+
+    auto gameHelpRenderer = ftxui::Renderer([] {
+        return ftxui::vbox({
+            ftxui::text(" OBJECTS IN THE GAME") | ftxui::bold,
+            ftxui::separator(),
+            ftxui::hbox({
+                ftxui::text(" BASIC OBJECTS: ") | ftxui::bold,
+                ftxui::separator(),
+                core::EntityRenderOptions::PlayerRenderOption().Render(), ftxui::text(" - Player (you)"),
+                ftxui::separator(),
+                core::EntityRenderOptions::WallRenderOption().Render(), ftxui::text(" - Wall (obstacle)"),
+                ftxui::separator(),
+                core::EntityRenderOptions::AirRenderOption().Render(), ftxui::text(" - Air (empty space)"),
+                ftxui::separator(),
+                core::EntityRenderOptions::PlayerBulletRenderOption().Render(), ftxui::text(" - Player Bullet"),
+            }),
+            ftxui::separator(),
+            ftxui::hbox({
+                ftxui::text(" MOBS: ") | ftxui::bold,
+                ftxui::separator(),
+                core::EntityRenderOptions::ZombieRenderOption().Render(), ftxui::text(" - Zombie"),
+                ftxui::separator(),
+                core::EntityRenderOptions::TrollRenderOption().Render(), ftxui::text(" - Troll"),
+                ftxui::separator(),
+                core::EntityRenderOptions::BabyZombieRenderOption().Render(), ftxui::text(" - Baby Zombie"),
+                ftxui::separator(),
+                core::EntityRenderOptions::MonsterRenderOption().Render(), ftxui::text(" - Monster"),
+                ftxui::separator(),
+                core::EntityRenderOptions::BossRenderOption().Render(), ftxui::text(" - Boss")
+            }),
+            ftxui::separator(),
+            ftxui::hbox({
+                ftxui::text(" ITEMS: ") | ftxui::bold,
+                ftxui::separator(),
+                ftxui::vbox({
+                    ftxui::text(" (Be careful! Mobs can also pick up these collectibles and use them against you!)"),
+                    ftxui::separator(),
+                    ftxui::hbox({
+                        core::EntityRenderOptions::EnergyDrinkRenderOption(5).Render(), ftxui::text(" - Energy Drink (+HP)"),
+                        ftxui::separator(),
+                        core::EntityRenderOptions::StrengthPotionRenderOption(5).Render(), ftxui::text(" - Strength Potion (+damage)"),
+                        ftxui::separator(),
+                        core::EntityRenderOptions::ShieldRenderOption().Render(), ftxui::text(" - Shield (temporary invincibility)"),
+                    })
+                }) | ftxui::xflex_grow
+            }),
+            
+        }) | ftxui::border | ftxui::xflex_grow;
     });
 
     // -- Container for all options
@@ -485,6 +551,7 @@ void difficultyMenu() {
         }),
         difficultyRadioButtons | ftxui::borderDouble,
         customGameOptionsRenderer | ftxui::Maybe(&loadCustomGame),
+        gameHelpRenderer | ftxui::Maybe(&showHelp),
         errorMessageRenderer | ftxui::Maybe(&showOptionError),
         ftxui::Renderer([] {return ftxui::filler();}),
         ftxui::Container::Horizontal({

@@ -42,12 +42,37 @@ namespace core {
     }
     ui::RenderOption EntityRenderOptions::BabyZombieRenderOption() {
         return {
-            'b', ftxui::Color::Red, ftxui::Color::Default, true, true, false, false
+            'z', ftxui::Color::Red, ftxui::Color::Default, true, true, false, false
+        };
+    }
+    ui::RenderOption EntityRenderOptions::MonsterRenderOption() {
+        return {
+            'M', ftxui::Color::Blue, ftxui::Color::Default, true, false, false, false
+        };
+    }
+    ui::RenderOption EntityRenderOptions::BossRenderOption() {
+        return {
+            'B', ftxui::Color::Magenta, ftxui::Color::Default, true, false, false, true
         };
     }
     ui::RenderOption EntityRenderOptions::PlayerBulletRenderOption() { 
         return {
             '*', ftxui::Color::Yellow, ftxui::Color::Default, true, false, false, false
+        };
+    }
+    ui::RenderOption EntityRenderOptions::EnergyDrinkRenderOption(int hp) {
+        return {
+            static_cast<char>('0' + hp), ftxui::Color::DarkGreen, ftxui::Color::Green, true, false, false, false
+        };
+    }
+    ui::RenderOption EntityRenderOptions::StrengthPotionRenderOption(int damage) {
+        return {
+            static_cast<char>('0' + damage), ftxui::Color::DarkRed, ftxui::Color::Red, true, false, false, false
+        };
+    }
+    ui::RenderOption EntityRenderOptions::ShieldRenderOption() {
+        return {
+            '|', ftxui::Color::Black, ftxui::Color::DarkCyan, true, false, false, false
         };
     }
     
@@ -77,6 +102,8 @@ namespace core {
                 return dynamic_cast<AbstractMob*>(entity) != nullptr;
             case EntityType::PLAYER_BULLET:
                 return dynamic_cast<PlayerBullet*>(entity) != nullptr;
+            case EntityType::ABSTRACT_COLLECTIBLE:
+                return dynamic_cast<AbstractCollectible*>(entity) != nullptr;
             case EntityType::WALL:
                 return dynamic_cast<Wall*>(entity) != nullptr;
             case EntityType::AIR:
@@ -89,6 +116,16 @@ namespace core {
                 return dynamic_cast<Troll*>(entity) != nullptr;
             case EntityType::BABY_ZOMBIE:
                 return dynamic_cast<BabyZombie*>(entity) != nullptr;
+            case EntityType::MONSTER:
+                return dynamic_cast<Monster*>(entity) != nullptr;
+            case EntityType::BOSS:
+                return dynamic_cast<Boss*>(entity) != nullptr;
+            case EntityType::ENERGY_DRINK:
+                return dynamic_cast<EnergyDrink*>(entity) != nullptr;
+            case EntityType::STRENGTH_POTION:
+                return dynamic_cast<StrengthPotion*>(entity) != nullptr;
+            case EntityType::SHIELD:
+                return dynamic_cast<Shield*>(entity) != nullptr;
             default:
                 return false;
         }
@@ -123,14 +160,25 @@ namespace core {
     int AbstractMob::GetHP() const { return hp; }
 
     void AbstractMob::TakeDamage(int damage) {
-        hp -= damage;
+        if (shieldExpireTick < arena->GetGame()->GetGameClock()) {
+            hp -= damage;
+            renderOption.SetUnderline(false);
+        }
         if (hp <= 1) renderOption.SetItalic(true); //  Set to italic when HP is low
+        if (hp > 1) renderOption.SetItalic(false);
         // mob removal logic implemented in the event handler
+    }
+
+    void AbstractMob::ChangeDamage(int delta) {
+        damage += delta;
     }
 
     bool AbstractMob::Move(Point to) {
         //  Check if move time has reached
         int currentTime = arena->GetGame()->GetGameClock();
+        if (shieldExpireTick < currentTime) {
+            renderOption.SetUnderline(false);
+        }
         if (currentTime - lastMoveTick < ticksPerMove) {
             return false; // Not enough time has passed
         }
@@ -144,6 +192,12 @@ namespace core {
         }
 
         // collision with bullet will be handled in the bullet class
+
+        if (IsType(target, EntityType::ABSTRACT_COLLECTIBLE)) { // collides with wall
+            dynamic_cast<AbstractCollectible*>(target)->PickUp(this);
+            lastMoveTick = currentTime;
+            return false;
+        }
 
         if (IsType(target, EntityType::AIR)) { // collides with air
             arena->Move(GetPosition(), to);
@@ -169,7 +223,40 @@ namespace core {
 
     int AbstractMob::GetKillScore() const { return killScore; }
 
+    void AbstractMob::ApplyShield(int duration) {
+        shieldExpireTick = arena->GetGame()->GetGameClock() + duration;
+        renderOption.SetUnderline(true);
+    }
+
     //  END: AbstractMob
+
+    //  BEGIN: AbstractCollectible
+
+    AbstractCollectible::AbstractCollectible(Point position, Arena* arena, int lifetime) : Entity(position, arena), lifetime(lifetime) {
+        spawnTick = arena->GetGame()->GetGameClock();
+    }
+
+    void AbstractCollectible::RefreshStatus() {
+        long long currentTime = arena->GetGame()->GetGameClock();
+        if (lifetime - (currentTime - spawnTick) <= 50 * 3) {
+            //  When the collectible lifetime is less than 3 seconds, blink the collectible
+            renderOption.SetBlink(true);
+        }
+    }
+
+    bool AbstractCollectible::IsInvalid() const {
+        if (pickedUp) return true; // picked up
+        long long currentTime = arena->GetGame()->GetGameClock();
+        if (currentTime - spawnTick > lifetime) {
+            return true; // expired
+        }
+        return false; // still valid
+    }
+
+    bool AbstractCollectible::Move(Point p) {
+        //  Collectibles cannot move.
+        return false;
+    }
 
     //  -- Implementation Classes -------------------------------------------------
 
@@ -229,6 +316,12 @@ namespace core {
             return false;
         }
 
+        if (IsType(target, EntityType::ABSTRACT_COLLECTIBLE)) {
+            dynamic_cast<AbstractCollectible*>(target)->PickUp(this);
+            exploded = true;
+            return false;
+        }
+
         if (IsType(target, EntityType::AIR)) {
             arena->Move(GetPosition(), to);
             return true;
@@ -267,6 +360,13 @@ namespace core {
 
         if (IsType(target, EntityType::WALL) || IsType(target, EntityType::PLAYER_BULLET)) {
             exploded = true; // Bullet explodes on wall or other bullet
+            return false;
+        }
+
+        if (IsType(target, EntityType::ABSTRACT_COLLECTIBLE)) {
+            //  The bullet will shatter the collectible, as if it was picked up
+            dynamic_cast<AbstractCollectible*>(target)->PickUp(this);
+            exploded = true; // Bullet explodes on collectible
             return false;
         }
 
@@ -341,21 +441,42 @@ namespace core {
 
     Player::Player(Point position, Arena* arena, int initialHp) : Entity(position, arena), hp(initialHp) {
         renderOption = EntityRenderOptions::PlayerRenderOption();
+        damage = 1;
     }
 
     void Player::TakeDamage(int damage) {
-        hp -= damage;
+        if (shieldExpireTick < arena->GetGame()->GetGameClock()) {
+            hp -= damage;
+            renderOption.SetUnderline(false);
+        }
         if (hp <= 0) {
             ui::appScreen.ExitLoopClosure()();
             arena->GetGame()->Terminate();
         }
     }
 
+    void Player::ChangeDamage(int delta) {
+        damage += delta;
+    }
+
+    int Player::GetDamage() const {
+        return damage;
+    }
+
     bool Player::Move(Point to) {
         Entity* target = arena->GetPixel(to);
 
+        if (shieldExpireTick < arena->GetGame()->GetGameClock()) {
+            renderOption.SetUnderline(false);
+        }
+
         if (IsType(target, EntityType::WALL) || IsType(target, EntityType::ABSTRACT_MOB)) {
             return false; // Cannot move into wall or mob
+        }
+
+        if (IsType(target, EntityType::ABSTRACT_COLLECTIBLE)) {
+            dynamic_cast<AbstractCollectible*>(target)->PickUp(this);
+            return false;
         }
 
         if (IsType(target, EntityType::AIR)) {
@@ -368,6 +489,11 @@ namespace core {
 
     int Player::GetHP() const {
         return hp;
+    }
+
+    void Player::ApplyShield(int duration) {
+        shieldExpireTick = arena->GetGame()->GetGameClock() + duration;
+        renderOption.SetUnderline(true);
     }
 
     //  END: Player
@@ -407,5 +533,120 @@ namespace core {
     }
 
     //  END: BabyZombie
+
+    //  BEGIN: Monster
+
+    Monster::Monster(Point position, Arena* arena)
+        : AbstractMob(
+            position, arena,
+            10, 5, 10, 25 // HP, damage, killScore, ticksPerMove
+        ) {
+        renderOption = EntityRenderOptions::MonsterRenderOption();
+    }
+
+    //  END: Monster
+
+    //  BEGIN: Boss
+
+    Boss::Boss(Point position, Arena* arena)
+        : AbstractMob(
+            position, arena,
+            1000, 50, 100, 200 // HP, damage, killScore, ticksPerMove
+        ) {
+        renderOption = EntityRenderOptions::BossRenderOption();
+    }
+
+    //  END: Boss
+
+    //  BEGIN: EnergyDrink
+
+    EnergyDrink::EnergyDrink(Point position, Arena* arena, int healingPoint) : AbstractCollectible(position, arena, 50 * 10), hp(healingPoint) {
+        renderOption = EntityRenderOptions::EnergyDrinkRenderOption(healingPoint);
+    }
+
+    bool EnergyDrink::PickUp(Entity* by) {
+        if (IsType(by, EntityType::PLAYER)) {
+            dynamic_cast<Player*>(by)->TakeDamage(-hp);
+            pickedUp = true;
+            return true;
+        }
+
+        if (IsType(by, EntityType::ABSTRACT_MOB)) {
+            dynamic_cast<AbstractMob*>(by)->TakeDamage(-hp);
+            pickedUp = true;
+            return true;
+        }
+
+        if (IsType(by, EntityType::PLAYER_BULLET)) {
+            pickedUp = true; // bullet will shatter the energy drink, as if it was picked up
+            return true;
+        }
+
+        return false;
+    }
+
+    //  END: EnergyDrink
+
+    //  BEGIN: StrengthPotion
+
+    StrengthPotion::StrengthPotion(Point position, Arena* arena, int damage) : AbstractCollectible(position, arena, 50 * 10), damage(damage) {
+        renderOption = EntityRenderOptions::StrengthPotionRenderOption(damage);
+    }
+
+    bool StrengthPotion::PickUp(Entity* by) {
+        if (IsType(by, EntityType::PLAYER)) {
+            dynamic_cast<Player*>(by)->ChangeDamage(damage);
+            pickedUp = true;
+            return true;
+        }
+
+        if (IsType(by, EntityType::ABSTRACT_MOB)) {
+            dynamic_cast<AbstractMob*>(by)->ChangeDamage(damage);
+            pickedUp = true;
+            return true;
+        }
+
+        if (IsType(by, EntityType::PLAYER_BULLET)) {
+            pickedUp = true; // bullet will shatter the strength potion, as if it was picked up
+            return true;
+        }
+
+        return false;
+    }
+
+    int StrengthPotion::GetDamage() const {
+        return damage;
+    }
+
+    //  END: StrengthPotion
+
+    //  BEGIN: Shield
+
+    Shield::Shield(Point position, Arena* arena, int duration) : AbstractCollectible(position, arena, 50 * 10), duration(duration) {
+        renderOption = EntityRenderOptions::ShieldRenderOption();
+    }
+
+    bool Shield::PickUp(Entity* by) {
+        if (IsType(by, EntityType::PLAYER)) {
+            dynamic_cast<Player*>(by)->ApplyShield(duration);
+            pickedUp = true;
+            return true;
+        }
+
+        if (IsType(by, EntityType::ABSTRACT_MOB)) {
+            dynamic_cast<AbstractMob*>(by)->ApplyShield(duration);
+            pickedUp = true;
+            return true;
+        }
+
+        if (IsType(by, EntityType::PLAYER_BULLET)) {
+            pickedUp = true; // bullet will shatter the shield, as if it was picked up
+            return true;
+        }
+
+        return false;
+    }
+
+    //  END: Shield
         
 } // namespace Core
