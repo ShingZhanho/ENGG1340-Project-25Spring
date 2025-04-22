@@ -108,6 +108,8 @@ Navigate using your mouse and click on the option you intend to choose. If you s
 
 ❗If you want a swift win, do keep in mind the move speed, hitpoints, damage and reward points in each type of mobs:  
 
+<div align="center">
+
 | Icon | Mob | Speed (moves/second) | HP | Damage | Reward Points |
 |:------:|:----|:---------------------|:---|:-------|:--------------|
 | Z | Zombie | 1 | 1 | 1 | 1 |
@@ -116,3 +118,4 @@ Navigate using your mouse and click on the option you intend to choose. If you s
 | M | Monster | 2 | 10 | 5 | 10 |
 | B | Boss | 0.25 | 1000 | 50 | 100 |
 
+</div>
