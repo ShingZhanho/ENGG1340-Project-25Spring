@@ -106,6 +106,21 @@ You can navigate and interacti with the user interface either with your mouse or
 
 </div>
 
+How to move your figure and fire those bullets at the dreadful monsters? Here it is:
+
+<div align="center">
+
+| Key | Operation | Key | Operation | Key | Operation | Key | Operation |
+|:---:|:----------|:---:|:----------|:---:|:----------|:---:|:----------|
+| W | Move up | Q | Move left-up | I | Fire up | U | Fire left-up |
+| A | Move left | E | Move right-up | J | Fire left | O | Fire right-up |
+| S | Move down | Z | Move left-down | K | Fire down | M | Fire left-down |
+| D | Move right | C | Move right-down | L | Fire right | . | Fire right-down |
+
+</div>
+
+Don't forget you are also able to click the `space` key to fire at all eight directions! Screw you monsters!😜
+
 ## Technical Details
 
 ### Coding requirements
