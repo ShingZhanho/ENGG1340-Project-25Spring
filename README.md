@@ -1,4 +1,4 @@
-# SHOOT!
+# SHOOT!🔫🔫🔫
 
 <p align="center">
    <img src="docs/game_logo.gif" alt="Logo of the game, blinking."/>
