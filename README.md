@@ -93,4 +93,15 @@ Run the program:
 > * `make run` is a shortcut for `make all` and `./main`.  
 > * Add platform suffix to the target if you are not building on Linux. For example, use `make all_macos` or `make run_macos` for macOS. The supported suffixes are `_macos` and `_windows`.  
 > * The executable on Windows is `main.exe`.
-      
+
+After you executed `./main`, you will see the home page of _SHOOT!_ as follows:
+<p align="center">
+   <img src="docs/entrance_page.png"/>
+   <br/>
+</p>
+
+Navigate using your mouse and click on the option you intend to choose. If you select `Exit`, the program will terminate. If you select `Start Game`, then you will be guided to choose difficulty level:
+<p align="center">
+   <img src="docs/difficulty_selection.png"/>
+   <br/>
+</p>
