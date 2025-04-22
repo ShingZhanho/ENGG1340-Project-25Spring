@@ -3,7 +3,6 @@
 
 // The components shared across the entire life of the application
 
-#include <core/arena.hpp>
 #include <ftxui/component/screen_interactive.hpp>
 #include <ui/game_ui_renderer.hpp>
 

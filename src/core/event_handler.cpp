@@ -11,7 +11,6 @@
 // ui components
 #include <ui/common.hpp>
 #include <ui/game_ui_renderer.hpp>
-#include <ui/render_option.hpp>
 
 // util components
 #include <util/log.hpp>

@@ -29,8 +29,6 @@ namespace core {
     class EnergyDrink;
     class Shield;
 
-    typedef EntityType EntityType;
-
     class EntityRenderOptions {
         public:
             static ui::RenderOption AirRenderOption();

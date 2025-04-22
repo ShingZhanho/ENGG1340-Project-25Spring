@@ -1,6 +1,7 @@
 #include <core/game.hpp>
-
 #include <util/log.hpp>
+
+#include <thread>
 
 namespace core {
 

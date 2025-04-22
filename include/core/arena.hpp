@@ -6,6 +6,7 @@
 
 #include <core/game.hpp>
 #include <core/entity.hpp>
+#include <core/entity_type.hpp>
 
 #define ARENA_WIDTH 102
 #define ARENA_HEIGHT 32

@@ -1,5 +1,4 @@
 // Standard Libraries
-#include <iostream>
 #include <map>
 #include <unordered_map>
 #include <vector>
@@ -11,12 +10,10 @@
 #include <ftxui/screen/screen.hpp>
 #include <ftxui/component/screen_interactive.hpp>
 #include <ftxui/component/component.hpp>
-#include <ftxui/component/captured_mouse.hpp>
 
 // Core Components
 #include <ui/common.hpp>
 #include <ui/render_option.hpp>
-#include <core/arena.hpp>
 #include <core/arena_reader.hpp>
 #include <core/entity_type.hpp>
 

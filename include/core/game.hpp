@@ -2,10 +2,8 @@
 #define CORE_GAME_HPP
 
 #include <atomic>
-#include <set>
 #include <mutex>
 
-#include <core/arena.hpp>
 #include <core/entity.hpp>
 #include <core/event_handler.hpp>
 #include <core/game_options.hpp>
