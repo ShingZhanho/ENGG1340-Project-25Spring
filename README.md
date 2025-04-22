@@ -20,6 +20,10 @@
 Welcome to _SHOOT!_, a high-octane, adrenaline-fueled shooting game where quick reflexes, sharp aim, and tactical thinking are your only keys to survival! Step into a deadly arena where monstrous foes emerge
 relentlessly from every direction, and your mission is simple: **shoot to survive, survive to dominate**.
 
+## Table of Contents
+
+- [**The Battlefield Awaits**](#The-Battlefield-Awaits)
+
 ## The Battlefield Awaits
 
 You are the lone warrior in a hostile arena, armed with nothing but your wits and a powerful gun. The arena is a grid-based battleground where every pixel could mean life or death—walkable terrain, deadly monsters, or you, the last line of defense. Monsters spawn unpredictably from the four boundaries, forcing you to stay alert, move strategically, and fire with precision.
