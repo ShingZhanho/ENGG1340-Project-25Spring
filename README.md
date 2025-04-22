@@ -119,7 +119,11 @@ How to move your figure and fire those bullets at the dreadful monsters? Here it
 
 </div>
 
-Don't forget you are also able to click the `space` key to fire at all eight directions! Screw you monsters!😜
+Don't forget you are also able to click the `space` key to fire at all eight directions. Screw you monsters!😜
+The Energy Drink gives you extra HP according to the value it stated, and Strengthen Potion enables you to deal more damage to mobs than usual. If you pick up the sheild, the mobs cannot see you for a period of time.  
+Last reminder, the boost potions and sheilds do not only have effect on you, but also the mobs, if they catch the buffs before you do. Be careful!😲  
+Alright, stay cool and have fun!
+
 
 ## Technical Details
 
