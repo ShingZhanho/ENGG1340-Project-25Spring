@@ -3,6 +3,7 @@
 
 #include <unordered_map>
 #include <mutex>
+#include <vector>
 
 #include <core/game.hpp>
 #include <core/entity.hpp>
