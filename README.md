@@ -72,7 +72,7 @@ Since _SHOOT!_ is our group project for the course ENGG1340, we have carefully d
 
 _SHOOT!_ isn’t just a game—it’s a trial of endurance, skill, and sheer will. The monsters won’t stop. The arena won’t forgive. Will you rise to the challenge or fall like the rest?  
   
-**Lock and load. The hunt begins now**. Dare to enter the arena? The monsters are waiting… 
+**Lock and load. The hunt begins now**. Dare to enter the arena? The monsters are waiting…👿
 
 ## How to Play
 
