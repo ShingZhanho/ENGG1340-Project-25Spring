@@ -145,3 +145,17 @@ The program uses the following libraries:
 
 * [`FTXUI`](https://github.com/ArthurSonzogni/FTXUI): for building a responsive, interactive user interface.
 * POSIX thread (`pthread`): for supporting multithreaded game logics.
+
+### Core Components
+
+_SHOOT!_ relies heavily on Object-Oriented Programming and polymorphism. Almost
+all core components are implemented as classes. The most important claases are
+`Entity` and `EventHandler`. Their inheritance hierarchy are shown in this diagram:
+
+<p align="center">
+
+<img src="docs/class_graph_entities.svg"/>
+<br/>
+<img src="docs/class_graph_event_handlers.svg"/>
+
+</p>
