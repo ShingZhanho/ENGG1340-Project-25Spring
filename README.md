@@ -44,7 +44,7 @@ _SHOOT!_ is straightforward enough but brutally intense:
 * 3️⃣ **Score to win**: Every kill adds to your score. Push your limits, beat your high score, and prove your dominance.  
   
 * 4️⃣ **No Escape**: The arena is locked! Fight until the last monster falls… or until you do.  
-  
+
 ## Features That Will Keep You Hooked
 
 * 1️⃣ **Monster mayhem-no two enemies are the same**: Randomized spawn is based on generating random numbers in every round. Every monster in the wild arena will or will not be identical. You may never face the same wave twice. Some creatures charge recklessly, while others lurk and strike when you least expect it. Adapt or perish—the arena shows no mercy.🤔  
@@ -74,8 +74,6 @@ Since _SHOOT!_ is our group project for the course ENGG1340, we have carefully d
 * ✅ **Program codes in multiple files**: The project separates the components into multiple files and multiple namespaces, such as `core` and `util`.
 
 * ✅ **Multiple difficulty levels**: There are different difficulty levels to choose from. Novice can start practising on the easiest level, whereas veterans are able to choose higher levels featuring more frequent monster generation and stronger monsters to shoot.
-
-
 
 ## Are You Ready for the Ultimate Test?
 
