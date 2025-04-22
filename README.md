@@ -28,32 +28,31 @@ You are the lone warrior in a hostile arena, armed with nothing but your wits an
 
 _SHOOT!_ is straightforward enough but brutally intense:  
 
-1️⃣ **Eliminate or be eliminated**: Monsters will keep coming and your job is to gun them down before they overrun you.
+* 1️⃣ **Eliminate or be eliminated**: Monsters will keep coming and your job is to gun them down before they overrun you.
   
-2️⃣ **One mistake can be fatal**: Some monsters are faster, tougher, or deadlier than others. Learn their behaviors or face a quick defeat.  
+* 2️⃣ **One mistake can be fatal**: Some monsters are faster, tougher, or deadlier than others. Learn their behaviors or face a quick defeat.  
   
-3️⃣ **Score to win**: Every kill adds to your score. Push your limits, beat your high score, and prove your dominance.  
+* 3️⃣ **Score to win**: Every kill adds to your score. Push your limits, beat your high score, and prove your dominance.  
   
-4️⃣ **No Escape**: The arena is locked! Fight until the last monster falls… or until you do.  
+* 4️⃣ **No Escape**: The arena is locked! Fight until the last monster falls… or until you do.  
   
 ## Features That Will Keep You Hooked
 
-1️⃣ **Monster mayhem-no two enemies are the same**: Randomized spawn is based on generating random numbers in every round. Every monster in the wild arena will or will not be identical. You may never face the same 
-   wave twice. Some creatures charge recklessly, while others lurk and strike when you least expect it. Adapt or perish—the arena shows no mercy.🤔  
+* 1️⃣ **Monster mayhem-no two enemies are the same**: Randomized spawn is based on generating random numbers in every round. Every monster in the wild arena will or will not be identical. You may never face the same wave twice. Some creatures charge recklessly, while others lurk and strike when you least expect it. Adapt or perish—the arena shows no mercy.🤔  
   
-2️⃣ **Fully customizable arenas**: Why stick to the default battlefield when you can design your own? _SHOOT!_ is equipped with file I/O which allows you to import custom map files, and set up your own initial player position. The freedom is in your hands.🗺️  
+* 2️⃣ **Fully customizable arenas**: Why stick to the default battlefield when you can design your own? _SHOOT!_ is equipped with file I/O which allows you to import custom map files, and set up your own initial player position. The freedom is in your hands.🗺️  
   
-3️⃣ **Difficulty levels for every player**: Whether you are a novice seeking a gentle introduction to the chaos, a veteran who survives relentless waves and is equipped with precise skills, or a elite shooter, 
-   there is always a difficulty level just for you. In each level, the monster spawn rates, their speed and their amount are always changing. Get ready to push your limits and conquer the arena!😁
+* 3️⃣ **Difficulty levels for every player**: Whether you are a novice seeking a gentle introduction to the chaos, a veteran who survives relentless waves and is equipped with precise skills, or a elite shooter, 
+there is always a difficulty level just for you. In each level, the monster spawn rates, their speed and their amount are always changing. Get ready to push your limits and conquer the arena!😁
   
-4️⃣ **Dynamic combat–fast, fluid, and ferocious**: Bullets fly, monsters swarm, and every second counts. The game’s smooth mechanics ensure that your skill—not luck—determines victory.😈
+* 4️⃣ **Dynamic combat–fast, fluid, and ferocious**: Bullets fly, monsters swarm, and every second counts. The game’s smooth mechanics ensure that your skill—not luck—determines victory.😈
   
-5️⃣ **Glory of the achievers**: After each round, your score is automatically stored into the leaderboard. Compete against yourself or others. How long can you last? How many monsters can you slay before the 
-   inevitable end? The leaderboard awaits the boldest shooters.🥇🥈🥉
+* 5️⃣ **Glory of the achievers**: After each round, your score is automatically stored into the leaderboard. Compete against yourself or others. How long can you last? How many monsters can you slay before the 
+inevitable end? The leaderboard awaits the boldest shooters.🥇🥈🥉
 
 ## Technical Details--If You are Interested
 
-Since _SHOOT!_ is our group project for the course ENGG1340, we have carefully designed our game and smartly implemented the codes so that this enthralling game meets all the coding requirements of ENGG1340 Group Project. In the following context the technical details will be thoroughly explained.
+Since _SHOOT!_ is our group project for the course ENGG1340, we have carefully designed our game and smartly implemented the codes so that this enthralling game meets all the coding requirements of ENGG1340 Group Project.
 
 * ✅ **Random event generation**: Monster generation depends on random numbers. In each round of game, the amount of a paticular monster type is random, and so is the sequence of monster generation.
 
