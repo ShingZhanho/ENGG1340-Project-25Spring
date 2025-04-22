@@ -26,7 +26,8 @@ relentlessly from every direction, and your mission is simple: **shoot to surviv
 - [**Rules of Survival**](#Rules-of-Survival)
 - [**Features That Will Keep You Hooked**](#Features-That-Will-Keep-You-Hooked)
 - [**How to Play**](#How-to-Play)
-- [**Technical Details--If You are Interested**](#Technical-Details)
+- [**Technical Details**](#Technical-Details)
+- [**Non-standard Libraries**](#Non-standard-Libraries)
 
 ## The Battlefield Awaits
 
