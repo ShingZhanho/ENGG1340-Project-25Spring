@@ -94,7 +94,7 @@ Run the program:
 > * Add platform suffix to the target if you are not building on Linux. For example, use `make all_macos` or `make run_macos` for macOS. The supported suffixes are `_macos` and `_windows`.  
 > * The executable on Windows is `main.exe`.
 
-After you executed `./main`, you will see the home page of _SHOOT!_ as follows:
+The minimum allowed size of the terminal is 107 x 39. Make sure your terminal is large enough! After you executed `./main`, you will see the home page of _SHOOT!_ as follows:
 <p align="center">
    <img src="docs/entrance_page.png"/>
    <br/>
