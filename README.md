@@ -22,7 +22,12 @@ relentlessly from every direction, and your mission is simple: **shoot to surviv
 
 ## Table of Contents
 
-- [**The Battlefield Awaits**](#The-Battlefield-Awaits)
+- [**The Battlefield Awaits**](#The-Battlefield-Awaits)  
+- [**Rules of Survival**](#Rules-of-Survival)  
+- [**Features That Will Keep You Hooked**](#Features-That-Will-Keep-You-Hooked)  
+- [**Technical Details--If You are Interested**](#Technical-Details--If-You-are-Interested)  
+- [**Are You Ready for the Ultimate Test?**](#Are-You-Ready-for-the-Ultimate-Test)  
+- [**How to Play**](#How-to-Play)  
 
 ## The Battlefield Awaits
 
