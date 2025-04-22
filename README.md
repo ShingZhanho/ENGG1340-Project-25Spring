@@ -22,12 +22,11 @@ relentlessly from every direction, and your mission is simple: **shoot to surviv
 
 ## Table of Contents
 
-- [**The Battlefield Awaits**](#The-Battlefield-Awaits)  
-- [**Rules of Survival**](#Rules-of-Survival)  
-- [**Features That Will Keep You Hooked**](#Features-That-Will-Keep-You-Hooked)  
-- [**Technical Details--If You are Interested**](#Technical-Details--If-You-are-Interested)  
-- [**Are You Ready for the Ultimate Test?**](#Are-You-Ready-for-the-Ultimate-Test)  
-- [**How to Play**](#How-to-Play)  
+- [**The Battlefield Awaits**](#The-Battlefield-Awaits)
+- [**Rules of Survival**](#Rules-of-Survival)
+- [**Features That Will Keep You Hooked**](#Features-That-Will-Keep-You-Hooked)
+- [**How to Play**](#How-to-Play)
+- [**Technical Details--If You are Interested**](#Technical-Details)
 
 ## The Battlefield Awaits
 
@@ -57,34 +56,13 @@ there is always a difficulty level just for you. In each level, the monster spaw
 * 4️⃣ **Dynamic combat–fast, fluid, and ferocious**: Bullets fly, monsters swarm, and every second counts. The game’s smooth mechanics ensure that your skill—not luck—determines victory.😈
   
 * 5️⃣ **Glory of the achievers**: After each round, your score is automatically stored into the leaderboard. Compete against yourself or others. How long can you last? How many monsters can you slay before the 
-inevitable end? The leaderboard awaits the boldest shooters.🥇🥈🥉
-
-## Technical Details--If You are Interested
-
-Since _SHOOT!_ is our group project for the course ENGG1340, we have carefully designed our game and smartly implemented the codes so that this enthralling game meets all the coding requirements of ENGG1340 Group Project.
-
-* ✅ **Random event generation**: Monster generation depends on random numbers. In each round of game, the amount of a paticular monster type is random, and so is the sequence of monster generation.
-
-* ✅ **Data structures**: The game uses STL containers such as `std::vector`, `std::unordered_map`.
-
-* ✅ **Dynamic memory management**: Certain objects are created on runtime using `new` and destructed using `delete`. For example, in arena_reader.cpp, a dynamic `arena` instance is created based on user defined map if the input map file is valid.
-
-* ✅ **File I/O**: _SHOOT!_ supports loading a custom map from a file.
-
-* ✅ **Program codes in multiple files**: The project separates the components into multiple files and multiple namespaces, such as `core` and `util`.
-
-* ✅ **Multiple difficulty levels**: There are different difficulty levels to choose from. Novice can start practising on the easiest level, whereas veterans are able to choose higher levels featuring more frequent monster generation and stronger monsters to shoot.
-
-## Are You Ready for the Ultimate Test?
-
-_SHOOT!_ isn’t just a game—it’s a trial of endurance, skill, and sheer will. The monsters won’t stop. The arena won’t forgive. Will you rise to the challenge or fall like the rest?  
+inevitable end? The leaderboard awaits the boldest shooters.🥇🥈🥉 
   
 **Lock and load. The hunt begins now**. Dare to enter the arena? The monsters are waiting…👿
 
 ## How to Play
 
-Download the ZIP file and extract it.
-Change your working directory to `build`:
+Clone the repository, then change your working directory to `build`:
    ```bash
    cd build
    ```
@@ -101,28 +79,54 @@ Run the program:
 > * Add platform suffix to the target if you are not building on Linux. For example, use `make all_macos` or `make run_macos` for macOS. The supported suffixes are `_macos` and `_windows`.  
 > * The executable on Windows is `main.exe`.
 
-The minimum allowed size of the terminal is 107 x 39. Make sure your terminal is large enough! After you executed `./main`, you will see the home page of _SHOOT!_ as follows:
+The minimum required size of the terminal is 107 x 39. Make sure your terminal is large enough! After you executed `./main`, you will see the home page of _SHOOT!_ as follows:
 <p align="center">
    <img src="docs/entrance_page.png"/>
    <br/>
 </p>
 
-Navigate using your mouse and click on the option you intend to choose. If you select `Exit`, the program will terminate. If you select `Start Game`, then you will be guided to choose difficulty level:
+You can navigate and interacti with the user interface either with your mouse or keyborad.
+
 <p align="center">
    <img src="docs/difficulty_selection.png"/>
    <br/>
 </p>
 
-❗If you want a swift win, do keep in mind the move speed, hitpoints, damage and reward points in each type of mobs:  
+❗If you want a swift win, do keep in mind the move speed, HP, damage and reward points of each type of mobs:
 
 <div align="center">
 
-| Icon | Mob | Speed (moves/second) | HP | Damage | Reward Points |
+| Icon | Mob | Speed (seconds/step) | HP | Damage | Reward Points |
 |:------:|:----|:---------------------|:---|:-------|:--------------|
 | Z | Zombie | 1 | 1 | 1 | 1 |
-| T | Troll | 0.5 | 5 | 2 | 5 |
-| z | Baby Zombie | 2 | 1 | 1 | 2 |
-| M | Monster | 2 | 10 | 5 | 10 |
-| B | Boss | 0.25 | 1000 | 50 | 100 |
+| T | Troll | 2 | 5 | 2 | 5 |
+| z | Baby Zombie | 0.5 | 1 | 1 | 2 |
+| M | Monster | 0.5 | 10 | 5 | 10 |
+| B | Boss | 4 | 1000 | 50 | 100 |
 
 </div>
+
+## Technical Details
+
+### Coding requirements
+
+All the coding requirements for the course project have been met:
+
+* ✅ **Random event generation**: Monster generation, collectible generations, etc. all depend on random numbers.
+
+* ✅ **Data structures**: The game uses STL containers such as `std::list`, `std::vector`, `std::unordered_map`.
+  
+* ✅ **Dynamic memory management**: Most objects are created at runtime using `new` and destructed using `delete`. For example, in arena_reader.cpp, a dynamic `arena` instance is created based on user defined map if the input map file is valid.
+  
+* ✅ **File I/O**: _SHOOT!_ supports loading a custom map from a file. It also generates a `game.log` to facilitate development process.
+  
+* ✅ **Program codes in multiple files**: The project separates the components into multiple files and multiple namespaces, such as `core` and `util`, to adopt a modular design.
+  
+* ✅ **Multiple difficulty levels**: There are different difficulty levels to choose from. Novice can start practising on the easiest level, whereas veterans are able to choose higher levels featuring more frequent monster generation and stronger monsters to shoot.
+
+### Non-standard Libraries
+
+The program uses the following libraries:
+
+* [`FTXUI`](https://github.com/ArthurSonzogni/FTXUI): for building a responsive, interactive user interface.
+* POSIX thread (`pthread`): for supporting multithreaded game logics.
