@@ -17,8 +17,7 @@
 
 ##  
 
-Welcome to _SHOOT!_, a high-octane, adrenaline-fueled shooting game where quick reflexes, sharp aim, and tactical thinking are your only keys to survival! Step into a deadly arena where monstrous foes emerge
-relentlessly from every direction, and your mission is simple: **shoot to survive, survive to dominate**.
+Welcome to _SHOOT!_, a high-octane, adrenaline-fueled shooting game where quick reflexes, sharp aim, and tactical thinking are your only keys to survival! [_Journey of the Prairie King_](https://stardewvalleywiki.com/Journey_of_the_Prairie_King), a mini game, provided just enough inspiration for the production of _SHOOT!_. Step into a deadly arena where monstrous foes emerge relentlessly from every direction, and your mission is simple: **shoot to survive, survive to dominate**.
 
 ## Table of Contents
 
