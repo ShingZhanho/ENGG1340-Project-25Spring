@@ -105,3 +105,14 @@ Navigate using your mouse and click on the option you intend to choose. If you s
    <img src="docs/difficulty_selection.png"/>
    <br/>
 </p>
+
+Keep in mind the move speed, hitpoints, damage and reward points in each type of mobs, if you want a swift win!  
+> Z - Zombie [1 move/second, 1 HP, 1 damage, 1 point]  
+> T - Troll  [0.5 move/second, 5 HP, 2 damage, 5 points]  
+> z - Baby Zombie [2 move/second, 1 HP, 1 damage, 2 points]  
+> M - Monster [2 move/second, 10 HP, 5 damage, 10 points]  
+> B - Boss [0.25 move/second, 1000 HP, 50 damage, 100 points]
+
+
+
+
