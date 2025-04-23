@@ -26,7 +26,6 @@ Welcome to _SHOOT!_, a high-octane, adrenaline-fueled shooting game where quick 
 - [**Features That Will Keep You Hooked**](#Features-That-Will-Keep-You-Hooked)
 - [**How to Play**](#How-to-Play)
 - [**Technical Details**](#Technical-Details)
-- [**Non-standard Libraries**](#Non-standard-Libraries)
 
 ## The Battlefield Awaits
 
