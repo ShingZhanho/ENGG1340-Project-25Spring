@@ -169,7 +169,8 @@ To create your own map, note the following:
    - `P`: starting position of the player (each file MUST have exactly one)
 
    No other characters may be used or the game will report a syntax error.
-6. Do not create an enclosed box on the map. This will lead to undefined behaviour.
+6. The outermost layer will always be set as a wall no matter what you specify in the map file.
+7. Do not create an enclosed area on the map. This may lead to undefined behaviour.
 
 ### Core Components
 
