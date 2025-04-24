@@ -31,7 +31,7 @@ namespace core {
                 Entry* current = head;
                 while (std::getline(fs, line)){
                     std::string name = "";
-                    long time;
+                    long timE;
                     int score = 0;
                     int attribute = 0;
                     std::istringstream word_in(line);
@@ -39,12 +39,12 @@ namespace core {
                         switch (attribute){
                             // There are a total of three attributes in each line in the file.
                             case 0: name = word; break;
-                            case 1: time = std::stol(word); break;
+                            case 1: timE = std::stol(word); break;
                             case 2: score = std::stoi(word); break;
                         }
                         attribute++;
                     }
-                    Entry* entry = new Entry(name, time, score);
+                    Entry* entry = new Entry(name, timE, score);
                     entry->Next = nullptr;
                     // Linked list is empty (Note that this does not mean the file is empty!!!).
                     if (current == nullptr){
