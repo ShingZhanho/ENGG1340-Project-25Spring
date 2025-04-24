@@ -4,13 +4,13 @@
 namespace core {
 
     enum class EntityType {
-        ABSTRACT_ENTITY,
-        ABSTRACT_BLOCK,
-        ABSTRACT_MOB,
-        PLAYER_BULLET,
-        WALL,
-        AIR,
-        PLAYER,
+        ABSTRACT_ENTITY,// abstract class for all entities
+        ABSTRACT_BLOCK,// abstract class for all blocks
+        ABSTRACT_MOB,// abstract class for all mobs
+        PLAYER_BULLET,// The bullet shooted by the player
+        WALL,// The boundaries of arena
+        AIR,// Point in arena with nothing
+        PLAYER,// moderate HP, moderate speed
         ZOMBIE, // moderate HP, moderate speed
         TROLL, // high HP, moves slowly
         BABY_ZOMBIE, // low HP, moves fast
