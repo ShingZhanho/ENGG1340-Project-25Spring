@@ -1,6 +1,7 @@
 #include <core/leaderboard.hpp>
 #include <sstream>
 #include <iostream>
+#include <string>
 
 namespace core {
     Leaderboard::Leaderboard() {
@@ -29,18 +30,21 @@ namespace core {
             else{
                 Entry* current = head;
                 while (std::getline(fs, line)){
-                    Entry* entry = new Entry;
+                    std::string name = "";
+                    long time;
+                    int score = 0;
                     int attribute = 0;
                     std::istringstream word_in(line);
-                    while (std::getline(word_in, word){
+                    while (std::getline(word_in, word)){
                         switch (attribute){
                             // There are a total of three attributes in each line in the file.
-                            case 0: entry->Name = word; break;
-                            case 1: entry->Time = word; break;
-                            case 2: entry->Score = word; break;
+                            case 0: name = word; break;
+                            case 1: time = std::stol(word); break;
+                            case 2: score = std::stoi(word); break;
                         }
                         attribute++;
                     }
+                    Entry* entry = new Entry(name, time, score);
                     entry->Next = nullptr;
                     // Linked list is empty (Note that this does not mean the file is empty!!!).
                     if (current == nullptr){
