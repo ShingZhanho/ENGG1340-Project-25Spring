@@ -1,4 +1,5 @@
 #include <core/leaderboard.hpp>
+#include <iostream>
 
 namespace core {
     Leaderboard::Leaderboard() {
@@ -11,8 +12,8 @@ namespace core {
         //  The player's name will not contain the character ';'.
         std::string file = "leaderboard.txt", line = "";
         fs.open(file, std::ios::in | std::ios::out);
-        if (!fs.open()){
-            iostream::cout << "Failed to open or create " << file << "." << std::endl;
+        if (!fs.is_open()){
+            cout << "Failed to open or create " << file << "." << std::endl;
         }
         
         
