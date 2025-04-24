@@ -47,7 +47,8 @@ _SHOOT!_ is straightforward enough but brutally intense:
 
 * 1️⃣ **Monster mayhem-no two enemies are the same**: Randomized spawn is based on generating random numbers in every round. Every monster in the wild arena will or will not be identical. You may never face the same wave twice. Some creatures charge recklessly, while others lurk and strike when you least expect it. Adapt or perish—the arena shows no mercy.🤔  
   
-* 2️⃣ **Fully customizable arenas**: Why stick to the default battlefield when you can design your own? _SHOOT!_ is equipped with file I/O which allows you to import custom map files, and set up your own initial player position. The freedom is in your hands.🗺️  
+* 2️⃣ **Fully customizable arenas**: Why stick to the default battlefield when you can design your own? _SHOOT!_ is equipped with file I/O which allows you to import custom map files, and set up your own initial player position. The freedom is in your hands.🗺️
+(Checkout the [syntax for the custom map file](#syntax-for-the-custom-map-file) section for more details.)
   
 * 3️⃣ **Difficulty levels for every player**: Whether you are a novice seeking a gentle introduction to the chaos, a veteran who survives relentless waves and is equipped with precise skills, or a elite shooter, 
 there is always a difficulty level just for you. In each level, the monster spawn rates, their speed and their amount are always changing. Get ready to push your limits and conquer the arena!😁
@@ -126,7 +127,7 @@ Alright, stay cool and have fun!
 
 ## Technical Details
 
-### Coding requirements
+### Coding Requirements
 
 All the coding requirements for the course project have been met:
 
@@ -148,6 +149,27 @@ The program uses the following libraries:
 
 * [`FTXUI`](https://github.com/ArthurSonzogni/FTXUI): for building a responsive, interactive user interface.
 * POSIX thread (`pthread`): for supporting multithreaded game logics.
+
+### Syntax for the Custom Map File
+
+You can load your own map file to play. Select `Load a Custom Game` from the difficulty
+menu, and type in the path of the map file, either absolute or relative (to the path
+of the executable).
+
+To create your own map, note the following:
+1. The map file must be a text file.
+2. The map size must be 102 (width) x 32 (height).
+3. The game reads only the first 32 lines of the file, and only reads the first
+   102 characters of each line. Anything beyond that will be ignored.
+4. If the number of lines/characters is less than the required size, the missing
+   characters will be implied as ` ` (space).
+5. You can use one of the following characters to represent each pixel:
+   - ` ` (space): air
+   - `X`: wall
+   - `P`: starting position of the player (each file MUST have exactly one)
+
+   No other characters may be used or the game will report a syntax error.
+6. Do not create an enclosed box on the map. This will lead to undefined behaviour.
 
 ### Core Components
 
