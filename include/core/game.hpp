@@ -25,8 +25,11 @@ namespace core {
 
             //  The entry point of the game. Returns the final score.
             int Run();
-            //  Terminates the game.
-            void Terminate();
+            //  Terminates the game. Takes one optional argument: reason.
+            //  By default, the reason is 0 (game over).
+            //  Other acceptable values:
+            //      1: player quit
+            void Terminate(int reason = 0);
             //  Returns true if the game is running.
             bool IsRunning() const;
             //  Returns true if the game is initialised.
@@ -40,6 +43,8 @@ namespace core {
 
             void ChangeScore(int delta);
             int GetScore();
+            //  Returns the reason for termination.
+            int GetTerminateReason() const;
             
             //  Initialise the game arena. If the arena is provided in the GameOptions,
             //  that arena is used instead. This function does nothing if the arena is
@@ -83,6 +88,8 @@ namespace core {
             std::mutex gameMutex;
             //  The clock of the game. Unit: ticks.
             std::atomic<long long> gameClock = 0;
+            //  Records the reason for termination.
+            int terminateReason = -1;
     };
 
 } // namespace core

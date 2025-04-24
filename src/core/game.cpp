@@ -34,8 +34,9 @@ namespace core {
         return -1;
     }
 
-    void Game::Terminate() {
+    void Game::Terminate(int reason) {
         util::WriteToLog("Game termination requested.", "Game::Terminate()");
+        terminateReason = reason;
         running = false;
     }
 
@@ -70,6 +71,10 @@ namespace core {
     int Game::GetScore() {
         std::lock_guard<std::mutex> lock(gameMutex);
         return score;
+    }
+
+    int Game::GetTerminateReason() const {
+        return terminateReason;
     }
 
     void Game::InitialiseArena() {
