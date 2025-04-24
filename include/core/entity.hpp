@@ -12,7 +12,6 @@ namespace core {
 
     // Forward declarations
     class Arena;
-
     class AbstractBlock;
     class AbstractMob;
     class AbstractCollectible;
@@ -31,6 +30,7 @@ namespace core {
 
     typedef EntityType EntityType;
 
+    //  -- Entity UI render options ---------------------------------------------------
     class EntityRenderOptions {
         public:
             static ui::RenderOption AirRenderOption();
@@ -75,6 +75,7 @@ namespace core {
             ui::RenderOption renderOption;
 
         private:
+            //  The position of the entity in the arena.
             Point position;
     };
 
@@ -84,6 +85,7 @@ namespace core {
     //  other entities from moving to their position.
     class AbstractBlock : public Entity {
         public:
+            //  Constructor
             AbstractBlock(Point position, Arena* arena);
             virtual ~AbstractBlock() = default;
 
@@ -94,9 +96,11 @@ namespace core {
     //  Mobs move towards the player using A* algorithm.
     class AbstractMob : public Entity {
         public:
+            //  Constructor
             AbstractMob(Point position, Arena* arena, int hp, int damage, int killScore, int ticksPerMove);
             virtual ~AbstractMob() = default;
 
+            // Applies HP to the mob.
             int GetHP() const;
             //  Applies damage to the mob. Apply negative damage to heal.
             void TakeDamage(int damage);
@@ -207,16 +211,26 @@ namespace core {
 
     class Wall : public AbstractBlock {
         public:
+            //  Constructor
+            //  The wall is a block that cannot be moved through.
+            //  It is used to create the walls of the arena.
             Wall(Point position, Arena* arena);
     };
 
     class Air : public AbstractBlock {
         public:
+            //  Constructor
+            //  The air is a block that can be moved through.
+            //  It is used to create the empty spaces in the arena.
             Air(Point position, Arena* arena);
     };
 
     class Player : public Entity {
         public:
+            //  Constructor
+            //  The player is a movable entity that can be moved through.
+            //  The player is the main character of the game.
+            //  The player can move in the arena and shoot bullets.
             Player(Point position, Arena* arena, int initialHp);
             //  Applies damage to the player. Apply negative damage to heal.
             void TakeDamage(int damage);
@@ -242,16 +256,24 @@ namespace core {
 
     class Zombie : public AbstractMob {
         public:
+            //  Constructor
+            //  The zombie is a mob that moves towards the player and attacks it.
             Zombie(Point position, Arena* arena);
     };
 
     class Troll: public AbstractMob {
         public:
+            //  Constructor
+            //  The troll is a mob that moves towards the player and attacks it.
+            //  The troll is stronger than the zombie and has more health points.
             Troll(Point position, Arena* arena);
     };
 
     class BabyZombie : public AbstractMob {
         public:
+            //  Constructor
+            //  The baby zombie is a mob that moves towards the player and attacks it.
+            //  The baby zombie is weaker but faster than the zombie and has less health points.
             BabyZombie(Point position, Arena* arena);
     };
 
