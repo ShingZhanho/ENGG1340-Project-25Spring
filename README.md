@@ -62,6 +62,8 @@ inevitable end? The leaderboard awaits the boldest shooters.🥇🥈🥉
 
 ## How to Play
 
+### General Instructions
+
 Clone the repository, then change your working directory to `build`:
    ```bash
    cd build
@@ -122,6 +124,29 @@ How to move your figure and fire those bullets at the dreadful monsters? Here it
 Don't forget you are also able to click the `space` key to fire at all eight directions. Screw you monsters!😜
 The Energy Drink gives you extra HP according to the value it stated, and Strengthen Potion enables you to deal more damage to mobs than usual. If you pick up the sheild, the mobs cannot see you for a period of time.  
 Last reminder, the boost potions and sheilds do not only have effect on you, but also the mobs, if they catch the buffs before you do. Be careful!😲  
+
+### Syntax for the Custom Map File
+
+You can load your own map file to play. Select `Load a Custom Game` from the difficulty
+menu, and type in the path of the map file, either absolute or relative (to the path
+of the executable).
+
+To create your own map, note the following:
+1. The map file must be a text file.
+2. The map size must be 102 (width) x 32 (height).
+3. The game reads only the first 32 lines of the file, and only reads the first
+   102 characters of each line. Anything beyond that will be ignored.
+4. If the number of lines/characters is less than the required size, the missing
+   characters will be implied as ` ` (space).
+5. You can use one of the following characters to represent each pixel:
+   - ` ` (space): air
+   - `X`: wall
+   - `P`: starting position of the player (each file MUST have exactly one)
+
+   No other characters may be used or the game will report a syntax error.
+6. The outermost layer will always be set as a wall no matter what you specify in the map file.
+7. Do not create an enclosed area on the map. This may lead to undefined behaviour.  
+  
 Alright, stay cool and have fun!
 
 
@@ -149,28 +174,6 @@ The program uses the following libraries:
 
 * [`FTXUI`](https://github.com/ArthurSonzogni/FTXUI): for building a responsive, interactive user interface.
 * POSIX thread (`pthread`): for supporting multithreaded game logics.
-
-### Syntax for the Custom Map File
-
-You can load your own map file to play. Select `Load a Custom Game` from the difficulty
-menu, and type in the path of the map file, either absolute or relative (to the path
-of the executable).
-
-To create your own map, note the following:
-1. The map file must be a text file.
-2. The map size must be 102 (width) x 32 (height).
-3. The game reads only the first 32 lines of the file, and only reads the first
-   102 characters of each line. Anything beyond that will be ignored.
-4. If the number of lines/characters is less than the required size, the missing
-   characters will be implied as ` ` (space).
-5. You can use one of the following characters to represent each pixel:
-   - ` ` (space): air
-   - `X`: wall
-   - `P`: starting position of the player (each file MUST have exactly one)
-
-   No other characters may be used or the game will report a syntax error.
-6. The outermost layer will always be set as a wall no matter what you specify in the map file.
-7. Do not create an enclosed area on the map. This may lead to undefined behaviour.
 
 ### Core Components
 
