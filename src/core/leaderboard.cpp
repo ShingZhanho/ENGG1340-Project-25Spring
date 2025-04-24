@@ -11,9 +11,8 @@ namespace core {
         //  The player's name will not contain the character ';'.
         std::string file = "leaderboard.txt", line = "";
         fs.open(file, std::ios::in | std::ios::out);
-        if (!file.open()){
-            std::cout << "Failed to open or create " << file << "." << endl;
-            return 1;
+        if (!fs.open()){
+            iostream::cout << "Failed to open or create " << file << "." << std::endl;
         }
         
         
