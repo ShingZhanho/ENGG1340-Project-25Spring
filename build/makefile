@@ -51,20 +51,26 @@ run_windows: all_windows
 # Build executable
 $(TARGET): $(OBJS)
 	$(CXX) $(CXXFLAGS) $(OBJS) $(LIBS_ALL_LINK) -o $(TARGET)
+	$(COPY_RESOURCES)
 $(TARGET_MACOS): $(OBJS)
 	rm -f main 2> /dev/null || true
 	$(CXX) $(CXXFLAGS) $(OBJS) $(LIBS_ALL_LINK_MACOS) -o $(TARGET_MACOS)
 	mv $(TARGET_MACOS) main
+	$(COPY_RESOURCES)
 $(TARGET_WINDOWS): $(OBJS)
 	$(CXX) $(CXXFLAGS) $(OBJS) $(LIBS_ALL_LINK_WINDOWS) -o $(TARGET_WINDOWS)
+	$(COPY_RESOURCES)
 
 # Build object files
 $(OBJS_TARGET_DIR)/%.o: ../src/%.cpp
 	@mkdir -p $(dir $@)
 	$(CXX) $(CXXFLAGS) $(LIBS_ALL_INCLUDE) -c $< -o $@
 
+# Copy game resources to output
+COPY_RESOURCES = mkdir -p ./res && rsync -av --delete ../res ./
+
 # Clean up
 clean:
-	rm -rf $(OBJS) $(TARGET) $(TARGET_MACOS) $(TARGET_WINDOWS) $(OBJS_TARGET_DIR) 2> /dev/null || true
+	rm -rf $(OBJS) $(TARGET) $(TARGET_MACOS) $(TARGET_WINDOWS) $(OBJS_TARGET_DIR) ./res ./game.log 2> /dev/null || true
 
 .PHONY: all all_macos all_windows clean

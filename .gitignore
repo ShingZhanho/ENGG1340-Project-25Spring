@@ -65,3 +65,6 @@ $RECYCLE.BIN/
 # Debug game map file
 *.shoot
 *.log
+
+# Include built-in map files
+!res/**/*.shoot

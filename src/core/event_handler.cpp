@@ -118,8 +118,6 @@ namespace core {
         util::WriteToLog("Initialising Game Arena...", "InitialiseEventHandler::InitialiseEventHandler()");
         GetGame()->InitialiseArena();
         GetGame()->GetArena()->SetGame(GetGame());
-        //  Setup arena layout (walls etc.)
-        //  TODO: set layout according to level difficulty
 
         //  Pollinate the random number generator seed
         util::WriteToLog("Seeding random number generator...", "InitialiseEventHandler::InitialiseEventHandler()");
