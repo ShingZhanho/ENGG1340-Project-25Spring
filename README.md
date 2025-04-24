@@ -48,7 +48,7 @@ _SHOOT!_ is straightforward enough but brutally intense:
 * 1️⃣ **Monster mayhem-no two enemies are the same**: Randomized spawn is based on generating random numbers in every round. Every monster in the wild arena will or will not be identical. You may never face the same wave twice. Some creatures charge recklessly, while others lurk and strike when you least expect it. Adapt or perish—the arena shows no mercy.🤔  
   
 * 2️⃣ **Fully customizable arenas**: Why stick to the default battlefield when you can design your own? _SHOOT!_ is equipped with file I/O which allows you to import custom map files, and set up your own initial player position. The freedom is in your hands.🗺️
-(Checkout the [syntax for the custom map file](#syntax-for-the-custom-map-file) section for more details.)
+(Checkout the [Syntax for the Custom Map File](#syntax-for-the-custom-map-file) section for more details.)
   
 * 3️⃣ **Difficulty levels for every player**: Whether you are a novice seeking a gentle introduction to the chaos, a veteran who survives relentless waves and is equipped with precise skills, or a elite shooter, 
 there is always a difficulty level just for you. In each level, the monster spawn rates, their speed and their amount are always changing. Get ready to push your limits and conquer the arena!😁
@@ -85,7 +85,7 @@ The minimum required size of the terminal is 107 x 39. Make sure your terminal i
    <br/>
 </p>
 
-You can navigate and interacti with the user interface either with your mouse or keyborad.
+You can navigate and interact with the user interface either with your mouse or keyborad.
 
 <p align="center">
    <img src="docs/difficulty_selection.png"/>
