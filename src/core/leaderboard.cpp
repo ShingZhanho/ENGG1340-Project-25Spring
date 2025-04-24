@@ -1,4 +1,5 @@
 #include <core/leaderboard.hpp>
+#include <sstream>
 #include <iostream>
 
 namespace core {
@@ -10,13 +11,50 @@ namespace core {
         //  Each line will have the following format:
         //       <name (std::string)>;<time (long)>;<score (int)>
         //  The player's name will not contain the character ';'.
-        std::string file = "leaderboard.txt", line = "";
-        fs.open(file, std::ios::in | std::ios::out);
+        std::string file = "leaderboard.txt", line = "", word = "";
+        fs.open(file, std::ios::in | std::ios::out | std::ios::binary);
         if (!fs.is_open()){
             std::cout << "Failed to open or create " << file << "." << std::endl;
         }
-        
-        
+        else{
+            // Check whether file is empty.
+            fs.seekg(0, std::ios::beg);
+            std::streampos startPos = fs.tellg();
+            fs.seekg(0, std::ios::end);
+            std::streampos endPos = fs.tellg();
+            if (endPos == startPos){
+                std::cout << file << " is empty." << std::endl;
+            }
+            // File is not empty.
+            else{
+                Entry* current = head;
+                while (std::getline(fs, line)){
+                    Entry* entry = new Entry;
+                    int attribute = 0;
+                    std::istringstream word_in(line);
+                    while (std::getline(word_in, word){
+                        switch (attribute){
+                            // There are a total of three attributes in each line in the file.
+                            case 0: entry->Name = word; break;
+                            case 1: entry->Time = word; break;
+                            case 2: entry->Score = word; break;
+                        }
+                        attribute++;
+                    }
+                    entry->Next = nullptr;
+                    // Linked list is empty (Note that this does not mean the file is empty!!!).
+                    if (current == nullptr){
+                        current = entry;
+                        head = entry;
+                    }
+                    // Linked list is not empty.
+                    else{
+                        current->Next = entry;
+                        current = current->Next;
+                    }
+                }
+            }
+        }
     }
 
     Leaderboard::~Leaderboard() {
