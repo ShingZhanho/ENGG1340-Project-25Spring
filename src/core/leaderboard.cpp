@@ -13,7 +13,7 @@ namespace core {
         std::string file = "leaderboard.txt", line = "";
         fs.open(file, std::ios::in | std::ios::out);
         if (!fs.is_open()){
-            cout << "Failed to open or create " << file << "." << std::endl;
+            std::cout << "Failed to open or create " << file << "." << std::endl;
         }
         
         
