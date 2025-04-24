@@ -14,12 +14,19 @@ namespace core {
     class Arena;
     class AbstractBlock;
     class AbstractMob;
-    class AbstractBullet;
+    class AbstractCollectible;
+    class PlayerBullet;
     class Air;
     class Wall;
     class Player;
     class Zombie;
     class Troll;
+    class BabyZombie;
+    class Monster;
+    class Boss;
+    class StrengthPotion;
+    class EnergyDrink;
+    class Shield;
 
     typedef EntityType EntityType;
 
@@ -33,6 +40,11 @@ namespace core {
             static ui::RenderOption PlayerBulletRenderOption();
             static ui::RenderOption TrollRenderOption();
             static ui::RenderOption BabyZombieRenderOption();
+            static ui::RenderOption MonsterRenderOption();
+            static ui::RenderOption BossRenderOption();
+            static ui::RenderOption EnergyDrinkRenderOption(int hp);
+            static ui::RenderOption StrengthPotionRenderOption(int damage);
+            static ui::RenderOption ShieldRenderOption();
     };
 
     class Entity {
@@ -90,8 +102,10 @@ namespace core {
 
             // Applies HP to the mob.
             int GetHP() const;
-            //  Applies damage to the mob.
+            //  Applies damage to the mob. Apply negative damage to heal.
             void TakeDamage(int damage);
+            //  Changes the damage value by delta.
+            void ChangeDamage(int delta);
             //  Moves the mob to the given position.
             //  Returns true if the mob was able to move.
             //  Only used internally in the AbstractMob class.
@@ -104,6 +118,8 @@ namespace core {
             std::list<Point> Path;
             //  Returns the kill score of the mob.
             int GetKillScore() const;
+            //  Applies a shield to the mob for a given duration in ticks.
+            void ApplyShield(int duration);
 
         private:
             int hp;
@@ -116,7 +132,40 @@ namespace core {
             int ticksPerMove;
             //  The moment when the mob last moved.
             long long lastMoveTick = -1;
+            //  The moment when the shield will expire.
+            long long shieldExpireTick = -1;
     };
+
+    //  Collectibles are entities that can be picked up by the player or mobs.
+    //  The collectibles do not move and have limited lifetime. 
+    class AbstractCollectible : public Entity {
+        public:
+            //  Constructor
+            AbstractCollectible(Point position, Arena* arena, int lifetime);
+            //  Let the given entity pick up the collectible.
+            //  Returns true if the entity was able to pick up the collectible.
+            virtual bool PickUp(Entity* by) = 0;
+            //  Refreshes the status of the collectible.
+            //  Should be called by dedicated event handler.
+            void RefreshStatus();
+            //  Determines if the collectible has expired/been picked up.
+            bool IsInvalid() const;
+            //  The override of the Move() method. Always returns false.
+            bool Move(Point p) override;
+
+        protected:
+            //  Whether the collectible has been picked up.
+            bool pickedUp = false;
+
+        private:
+            //  The tick when the collectible was spawned.
+            long long spawnTick;
+            //  The lifetime of the collectible in ticks.
+            int lifetime;
+
+    };
+
+    //  -- Implementation Classes -------------------------------------------------
 
     class PlayerBullet : public Entity {
         public:
@@ -160,8 +209,6 @@ namespace core {
             long long bulletSpawnTick;
     };
 
-    //  -- Implementation Classes -------------------------------------------------
-
     class Wall : public AbstractBlock {
         public:
             //  Constructor
@@ -185,14 +232,26 @@ namespace core {
             //  The player is the main character of the game.
             //  The player can move in the arena and shoot bullets.
             Player(Point position, Arena* arena, int initialHp);
+            //  Applies damage to the player. Apply negative damage to heal.
             void TakeDamage(int damage);
+            //  Changes the damage value by delta.
+            void ChangeDamage(int delta);
+            //  Returns the damage of the player.
+            int GetDamage() const;
+            //  Moves the player to the given position.
             bool Move(Point to) override;
             //  Returns the health points of the player.
             int GetHP() const;
+            //  Applies a shield to the player for a given duration in ticks.
+            void ApplyShield(int duration);
 
         private:
             //  The health points of the player.
             int hp;
+            //  The damage of the player.
+            int damage = 1;
+            //  The moment when the shield will expire.
+            long long shieldExpireTick = -1;
     };
 
     class Zombie : public AbstractMob {
@@ -210,12 +269,70 @@ namespace core {
             Troll(Point position, Arena* arena);
     };
 
-    class BabyZombie: public AbstractMob {
+    class BabyZombie : public AbstractMob {
         public:
             //  Constructor
             //  The baby zombie is a mob that moves towards the player and attacks it.
             //  The baby zombie is weaker but faster than the zombie and has less health points.
             BabyZombie(Point position, Arena* arena);
+    };
+
+    class Monster : public AbstractMob {
+        public:
+            Monster(Point position, Arena* arena);
+    };
+
+    class Boss : public AbstractMob {
+        public:
+            Boss(Point position, Arena* arena);
+    };
+
+    //  EnergyDrink is a tool that can be picked up by either the player or mobs.
+    //  It restores the health points of the entity. It will disappear after a certain
+    //  amount of time.
+    class EnergyDrink : public AbstractCollectible{
+        public:
+            //  Constructor
+            EnergyDrink(Point position, Arena* arena, int hp);
+            //  Returns the health points of the energy drink.
+            int GetHP() const;
+            //  Let the given entity pick up the energy drink.
+            bool PickUp(Entity* by) override;
+
+        private:
+            //  The health points of the energy drink. (1 - 9)
+            int hp;
+    };
+
+    //  StrengthPotion is a tool that can be picked up by either the player or mobs.
+    //  It increases the damage of the entity. It will disappear after a certain
+    //  amount of time.
+    class StrengthPotion : public AbstractCollectible{
+        public:
+            //  Constructor
+            StrengthPotion(Point position, Arena* arena, int damage);
+            //  Returns the damage of the strength potion.
+            int GetDamage() const;
+            //  Let the given entity pick up the strength potion.
+            bool PickUp(Entity* by) override;
+
+        private:
+            //  The damage of the strength potion. (1 - 9)
+            int damage;
+    };
+
+    //  A shield is a temporary protection that can be applied to the player or mobs.
+    //  It prevents the entity from taking damage for a certain amount of time.
+    class Shield : public AbstractCollectible{
+        public:
+            //  Constructor
+            Shield(Point position, Arena* arena, int duration);
+            //  Let the given entity pick up the shield.
+            bool PickUp(Entity* by) override;
+
+        private:
+            //  The duration of the shield in ticks.
+            int duration;
     };
 }
 

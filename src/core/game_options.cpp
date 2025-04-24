@@ -10,7 +10,7 @@ namespace core {
             return GameOptions({
                 100,        //  PlayerHp
                 nullptr,    //  GameArena
-                {EntityType::ZOMBIE}, //  MobTypesGenerated
+                {EntityType::ZOMBIE, EntityType::BABY_ZOMBIE}, //  MobTypesGenerated
                 10,         // MaxMobs
                 250,        // MobSpawnInterval
             });
@@ -20,7 +20,7 @@ namespace core {
             return GameOptions({
                 50,         //  PlayerHp
                 nullptr,    //  GameArena
-                {EntityType::ZOMBIE, EntityType::TROLL, EntityType::BABY_ZOMBIE}, //  MobTypesGenerated
+                {EntityType::ZOMBIE, EntityType::TROLL, EntityType::BABY_ZOMBIE, EntityType::MONSTER}, //  MobTypesGenerated
                 15,         // MaxMobs
                 150,        // MobSpawnInterval
             });
@@ -30,7 +30,7 @@ namespace core {
             return GameOptions({
                 25,         //  PlayerHp
                 nullptr,    //  GameArena
-                {EntityType::ZOMBIE, EntityType::TROLL, EntityType::BABY_ZOMBIE}, //  MobTypesGenerated
+                {EntityType::ZOMBIE, EntityType::TROLL, EntityType::BABY_ZOMBIE, EntityType::MONSTER, EntityType::BOSS}, //  MobTypesGenerated
                 30,         // MaxMobs
                 100,        // MobSpawnInterval
             });

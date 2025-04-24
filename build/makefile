@@ -1,6 +1,11 @@
 # Compiler and flags
 CXX = g++
-CXXFLAGS = -pedantic-errors -std=c++17 -g
+CXXFLAGS = -pedantic-errors -std=c++17
+
+# Command line arguments
+ifeq ($(GDB_DEBUG),ON)
+CXXFLAGS += -g
+endif
 
 ################## BEGIN LIBRARIES ##################
 

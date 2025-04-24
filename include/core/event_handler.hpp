@@ -22,6 +22,7 @@ namespace core {
     class BulletMoveEventHandler;
     class MobGenerateEventHandler;
     class MobMoveEventHandler;
+    class CollectiblesEventHandler;
 
     //  The abstract EventHandler.
     //  Eventhandlers are where your actual code lives. A EventHandler can be fired to exeucte the event.
@@ -195,6 +196,22 @@ namespace core {
             //  i.e. not on the border. Includes diagonal neighbours.
             inline static std::list<Point> getNeighbours(Point point);
     };
+
+    //  The event handler that manages all the collectibles.
+    class CollectiblesEventHandler : public EventHandler {
+        public:
+            //  Constructor
+            CollectiblesEventHandler(Game* game);
+            //  Triggers the event
+            void Fire() override;
+
+        private:
+            //  Executed when the event is fired.
+            void execute();
+            //  The last tick when a collectible was spawned.
+            long long lastSpawnTick;
+    };
+
 }
 
 #endif // CORE_EVENTHANDLER_HPP
