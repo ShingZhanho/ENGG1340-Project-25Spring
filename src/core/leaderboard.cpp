@@ -65,6 +65,7 @@ namespace core {
         if (current == head){
             current = entry;
             head = entry;
+            util::WriteToLog("Successfully created the first entry in linked list of Leaderboard.", "Leaderboard::AddEntry()"); 
             return 0;
         }
         // linked list is not empty
@@ -78,8 +79,8 @@ namespace core {
                 i++;
                 index = index->Next;
             }
+            util::WriteToLog("Successfully created the " + i + "th entry in linked list of Leaderboard.", "Leaderboard::AddEntry()"); 
             return i;
         }
-        //  TODO: Implement this function
     }
 }
