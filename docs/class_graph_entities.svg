@@ -12,32 +12,31 @@
 <g id="Node000001" class="node">
 <title>Node1</title>
 <g id="a_Node000001">
-<rect fill="#999999" stroke="none" width="100" height="170" x="512.5" y="-495.75" rx="10" ry="10" />
-<text text-anchor="start" x="537.25" y="-482.25" font-family="Helvetica,sans-Serif" font-size="10.00">core::Entity</text>
-<text text-anchor="start" x="516.5" y="-467" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="526.5" y="-467" font-family="Helvetica,sans-Serif" font-size="10.00">Id</text>
-<text text-anchor="start" x="516.88" y="-451.75" font-family="Helvetica,sans-Serif" font-size="10.00">#</text>
-<text text-anchor="start" x="526.5" y="-451.75" font-family="Helvetica,sans-Serif" font-size="10.00">arena</text>
-<text text-anchor="start" x="516.88" y="-436.5" font-family="Helvetica,sans-Serif" font-size="10.00">#</text>
-<text text-anchor="start" x="526.5" y="-436.5" font-family="Helvetica,sans-Serif" font-size="10.00">renderOption</text>
-<text text-anchor="start" x="516.5" y="-421.25" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="526.5" y="-421.25" font-family="Helvetica,sans-Serif" font-size="10.00">Entity()</text>
-<text text-anchor="start" x="516.5" y="-406" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="526.5" y="-406" font-family="Helvetica,sans-Serif" font-size="10.00">~Entity()</text>
-<text text-anchor="start" x="516.5" y="-390.75" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="526.5" y="-390.75" font-family="Helvetica,sans-Serif" font-size="10.00">GetPosition()</text>
-<text text-anchor="start" x="516.5" y="-375.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="526.5" y="-375.5" font-family="Helvetica,sans-Serif" font-size="10.00">SetPosition()</text>
-<text text-anchor="start" x="516.5" y="-360.25" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="526.5" y="-360.25" font-family="Helvetica,sans-Serif" font-size="10.00">Move()</text>
-<text text-anchor="start" x="516.5" y="-345" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="526.5" y="-345" font-family="Helvetica,sans-Serif" font-size="10.00">GetRenderOption()</text>
-<text text-anchor="start" x="516.5" y="-329.75" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="526.5" y="-329.75" font-family="Helvetica,sans-Serif" font-size="10.00">IsType()</text>
+<rect fill="#444477" stroke="none" width="100" height="170" x="512.5" y="-495.75" rx="10" ry="10" />
+<text fill="white" text-anchor="start" x="537.25" y="-482.25" font-family="Helvetica,sans-Serif" font-size="10.00">core::Entity</text>
+<text fill="white" text-anchor="start" x="516.5" y="-467" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text fill="white" text-anchor="start" x="526.5" y="-467" font-family="Helvetica,sans-Serif" font-size="10.00">Id</text>
+<text fill="white" text-anchor="start" x="516.88" y="-451.75" font-family="Helvetica,sans-Serif" font-size="10.00">#</text>
+<text fill="white" text-anchor="start" x="526.5" y="-451.75" font-family="Helvetica,sans-Serif" font-size="10.00">arena</text>
+<text fill="white" text-anchor="start" x="516.88" y="-436.5" font-family="Helvetica,sans-Serif" font-size="10.00">#</text>
+<text fill="white" text-anchor="start" x="526.5" y="-436.5" font-family="Helvetica,sans-Serif" font-size="10.00">renderOption</text>
+<text fill="white" text-anchor="start" x="516.5" y="-421.25" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text fill="white" text-anchor="start" x="526.5" y="-421.25" font-family="Helvetica,sans-Serif" font-size="10.00">Entity()</text>
+<text fill="white" text-anchor="start" x="516.5" y="-406" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text fill="white" text-anchor="start" x="526.5" y="-406" font-family="Helvetica,sans-Serif" font-size="10.00">~Entity()</text>
+<text fill="white" text-anchor="start" x="516.5" y="-390.75" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text fill="white" text-anchor="start" x="526.5" y="-390.75" font-family="Helvetica,sans-Serif" font-size="10.00">GetPosition()</text>
+<text fill="white" text-anchor="start" x="516.5" y="-375.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text fill="white" text-anchor="start" x="526.5" y="-375.5" font-family="Helvetica,sans-Serif" font-size="10.00">SetPosition()</text>
+<text fill="white" text-anchor="start" x="516.5" y="-360.25" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text fill="white" text-anchor="start" x="526.5" y="-360.25" font-family="Helvetica,sans-Serif" font-size="10.00">Move()</text>
+<text fill="white" text-anchor="start" x="516.5" y="-345" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text fill="white" text-anchor="start" x="526.5" y="-345" font-family="Helvetica,sans-Serif" font-size="10.00">GetRenderOption()</text>
+<text fill="white" text-anchor="start" x="516.5" y="-329.75" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text fill="white" text-anchor="start" x="526.5" y="-329.75" font-family="Helvetica,sans-Serif" font-size="10.00">IsType()</text>
 <polygon fill="#666666" stroke="#666666" points="512.5,-478.5 512.5,-478.5 612.25,-478.5 612.25,-478.5 512.5,-478.5"/>
 <polygon fill="#666666" stroke="#666666" points="512.5,-432.75 512.5,-432.75 524.5,-432.75 524.5,-432.75 512.5,-432.75"/>
 <polygon fill="#666666" stroke="#666666" points="524.5,-432.75 524.5,-432.75 612.25,-432.75 612.25,-432.75 524.5,-432.75"/>
-<polygon fill="none" stroke="#666666" points="512.5,-324 512.5,-495.75 612.25,-495.75 612.25,-324 512.5,-324"/>
 
 </g>
 </g>
@@ -45,18 +44,17 @@
 <g id="Node000002" class="node">
 <title>Node2</title>
 <g id="a_Node000002">
-<polygon fill="white" stroke="none" points="135.5,-242.25 41.25,-242.25 41.25,-162 135.5,-162 135.5,-242.25"/>
-<text text-anchor="start" x="45.25" y="-228.75" font-family="Helvetica,sans-Serif" font-size="10.00">core::AbstractBlock</text>
-<text text-anchor="start" x="86.88" y="-213.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
-<text text-anchor="start" x="45.94" y="-198.25" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="56.62" y="-198.25" font-family="Helvetica,sans-Serif" font-size="10.00">AbstractBlock()</text>
-<text text-anchor="start" x="45.94" y="-183" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="56.62" y="-183" font-family="Helvetica,sans-Serif" font-size="10.00">~AbstractBlock()</text>
-<text text-anchor="start" x="45.94" y="-167.75" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="56.62" y="-167.75" font-family="Helvetica,sans-Serif" font-size="10.00">Move()</text>
+<rect fill="#444477" stroke="none" width="95" height="80" x="41.25" y="-242.25" rx="10" ry="10" />
+<text fill="white" text-anchor="start" x="45.25" y="-228.75" font-family="Helvetica,sans-Serif" font-size="10.00">core::AbstractBlock</text>
+<text fill="white" text-anchor="start" x="86.88" y="-213.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
+<text fill="white" text-anchor="start" x="45.94" y="-198.25" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text fill="white" text-anchor="start" x="56.62" y="-198.25" font-family="Helvetica,sans-Serif" font-size="10.00">AbstractBlock()</text>
+<text fill="white" text-anchor="start" x="45.94" y="-183" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text fill="white" text-anchor="start" x="56.62" y="-183" font-family="Helvetica,sans-Serif" font-size="10.00">~AbstractBlock()</text>
+<text fill="white" text-anchor="start" x="45.94" y="-167.75" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text fill="white" text-anchor="start" x="56.62" y="-167.75" font-family="Helvetica,sans-Serif" font-size="10.00">Move()</text>
 <polygon fill="#666666" stroke="#666666" points="41.25,-225 41.25,-225 135.5,-225 135.5,-225 41.25,-225"/>
 <polygon fill="#666666" stroke="#666666" points="41.25,-209.75 41.25,-209.75 135.5,-209.75 135.5,-209.75 41.25,-209.75"/>
-<polygon fill="none" stroke="#666666" points="41.25,-162 41.25,-242.25 135.5,-242.25 135.5,-162 41.25,-162"/>
 
 </g>
 </g>
@@ -73,24 +71,23 @@
 <g id="Node000005" class="node">
 <title>Node5</title>
 <g id="a_Node000005">
-<polygon fill="white" stroke="none" points="372,-257.5 256.75,-257.5 256.75,-146.75 372,-146.75 372,-257.5"/>
-<text text-anchor="start" x="260.75" y="-244" font-family="Helvetica,sans-Serif" font-size="10.00">core::AbstractCollectible</text>
-<text text-anchor="start" x="263.31" y="-228.75" font-family="Helvetica,sans-Serif" font-size="10.00">#</text>
-<text text-anchor="start" x="275.12" y="-228.75" font-family="Helvetica,sans-Serif" font-size="10.00">pickedUp</text>
-<text text-anchor="start" x="262.94" y="-213.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="275.12" y="-213.5" font-family="Helvetica,sans-Serif" font-size="10.00">AbstractCollectible()</text>
-<text text-anchor="start" x="262.94" y="-198.25" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="275.12" y="-198.25" font-family="Helvetica,sans-Serif" font-size="10.00">PickUp()</text>
-<text text-anchor="start" x="262.94" y="-183" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="275.12" y="-183" font-family="Helvetica,sans-Serif" font-size="10.00">RefreshStatus()</text>
-<text text-anchor="start" x="262.94" y="-167.75" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="275.12" y="-167.75" font-family="Helvetica,sans-Serif" font-size="10.00">IsInvalid()</text>
-<text text-anchor="start" x="262.94" y="-152.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="275.12" y="-152.5" font-family="Helvetica,sans-Serif" font-size="10.00">Move()</text>
+<rect fill="#444477" stroke="none" width="115.25" height="110.75" x="256.75" y="-257.5" rx="10" ry="10" />
+<text fill="white" text-anchor="start" x="260.75" y="-244" font-family="Helvetica,sans-Serif" font-size="10.00">core::AbstractCollectible</text>
+<text fill="white" text-anchor="start" x="263.31" y="-228.75" font-family="Helvetica,sans-Serif" font-size="10.00">#</text>
+<text fill="white" text-anchor="start" x="275.12" y="-228.75" font-family="Helvetica,sans-Serif" font-size="10.00">pickedUp</text>
+<text fill="white" text-anchor="start" x="262.94" y="-213.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text fill="white" text-anchor="start" x="275.12" y="-213.5" font-family="Helvetica,sans-Serif" font-size="10.00">AbstractCollectible()</text>
+<text fill="white" text-anchor="start" x="262.94" y="-198.25" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text fill="white" text-anchor="start" x="275.12" y="-198.25" font-family="Helvetica,sans-Serif" font-size="10.00">PickUp()</text>
+<text fill="white" text-anchor="start" x="262.94" y="-183" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text fill="white" text-anchor="start" x="275.12" y="-183" font-family="Helvetica,sans-Serif" font-size="10.00">RefreshStatus()</text>
+<text fill="white" text-anchor="start" x="262.94" y="-167.75" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text fill="white" text-anchor="start" x="275.12" y="-167.75" font-family="Helvetica,sans-Serif" font-size="10.00">IsInvalid()</text>
+<text fill="white" text-anchor="start" x="262.94" y="-152.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text fill="white" text-anchor="start" x="275.12" y="-152.5" font-family="Helvetica,sans-Serif" font-size="10.00">Move()</text>
 <polygon fill="#666666" stroke="#666666" points="256.75,-240.25 256.75,-240.25 372,-240.25 372,-240.25 256.75,-240.25"/>
 <polygon fill="#666666" stroke="#666666" points="256.75,-225 256.75,-225 273.12,-225 273.12,-225 256.75,-225"/>
 <polygon fill="#666666" stroke="#666666" points="273.12,-225 273.12,-225 372,-225 372,-225 273.12,-225"/>
-<polygon fill="none" stroke="#666666" points="256.75,-146.75 256.75,-257.5 372,-257.5 372,-146.75 256.75,-146.75"/>
 
 </g>
 </g>
@@ -107,32 +104,31 @@
 <g id="Node000009" class="node">
 <title>Node9</title>
 <g id="a_Node000009">
-<polygon fill="white" stroke="none" points="609.62,-288 515.12,-288 515.12,-116.25 609.62,-116.25 609.62,-288"/>
-<text text-anchor="start" x="522.25" y="-274.5" font-family="Helvetica,sans-Serif" font-size="10.00">core::AbstractMob</text>
-<text text-anchor="start" x="519.12" y="-259.25" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="529.12" y="-259.25" font-family="Helvetica,sans-Serif" font-size="10.00">Path</text>
-<text text-anchor="start" x="519.12" y="-244" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="529.12" y="-244" font-family="Helvetica,sans-Serif" font-size="10.00">AbstractMob()</text>
-<text text-anchor="start" x="519.12" y="-228.75" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="529.12" y="-228.75" font-family="Helvetica,sans-Serif" font-size="10.00">~AbstractMob()</text>
-<text text-anchor="start" x="519.12" y="-213.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="529.12" y="-213.5" font-family="Helvetica,sans-Serif" font-size="10.00">GetHP()</text>
-<text text-anchor="start" x="519.12" y="-198.25" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="529.12" y="-198.25" font-family="Helvetica,sans-Serif" font-size="10.00">TakeDamage()</text>
-<text text-anchor="start" x="519.12" y="-183" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="529.12" y="-183" font-family="Helvetica,sans-Serif" font-size="10.00">ChangeDamage()</text>
-<text text-anchor="start" x="519.12" y="-167.75" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="529.12" y="-167.75" font-family="Helvetica,sans-Serif" font-size="10.00">Move()</text>
-<text text-anchor="start" x="519.12" y="-152.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="529.12" y="-152.5" font-family="Helvetica,sans-Serif" font-size="10.00">Move()</text>
-<text text-anchor="start" x="519.12" y="-137.25" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="529.12" y="-137.25" font-family="Helvetica,sans-Serif" font-size="10.00">GetKillScore()</text>
-<text text-anchor="start" x="519.12" y="-122" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="529.12" y="-122" font-family="Helvetica,sans-Serif" font-size="10.00">ApplyShield()</text>
+<rect fill="#444477" stroke="none" width="95" height="171.75" x="515.12" y="-288" rx="10" ry="10" />
+<text fill="white" text-anchor="start" x="522.25" y="-274.5" font-family="Helvetica,sans-Serif" font-size="10.00">core::AbstractMob</text>
+<text fill="white" text-anchor="start" x="519.12" y="-259.25" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text fill="white" text-anchor="start" x="529.12" y="-259.25" font-family="Helvetica,sans-Serif" font-size="10.00">Path</text>
+<text fill="white" text-anchor="start" x="519.12" y="-244" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text fill="white" text-anchor="start" x="529.12" y="-244" font-family="Helvetica,sans-Serif" font-size="10.00">AbstractMob()</text>
+<text fill="white" text-anchor="start" x="519.12" y="-228.75" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text fill="white" text-anchor="start" x="529.12" y="-228.75" font-family="Helvetica,sans-Serif" font-size="10.00">~AbstractMob()</text>
+<text fill="white" text-anchor="start" x="519.12" y="-213.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text fill="white" text-anchor="start" x="529.12" y="-213.5" font-family="Helvetica,sans-Serif" font-size="10.00">GetHP()</text>
+<text fill="white" text-anchor="start" x="519.12" y="-198.25" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text fill="white" text-anchor="start" x="529.12" y="-198.25" font-family="Helvetica,sans-Serif" font-size="10.00">TakeDamage()</text>
+<text fill="white" text-anchor="start" x="519.12" y="-183" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text fill="white" text-anchor="start" x="529.12" y="-183" font-family="Helvetica,sans-Serif" font-size="10.00">ChangeDamage()</text>
+<text fill="white" text-anchor="start" x="519.12" y="-167.75" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text fill="white" text-anchor="start" x="529.12" y="-167.75" font-family="Helvetica,sans-Serif" font-size="10.00">Move()</text>
+<text fill="white" text-anchor="start" x="519.12" y="-152.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text fill="white" text-anchor="start" x="529.12" y="-152.5" font-family="Helvetica,sans-Serif" font-size="10.00">Move()</text>
+<text fill="white" text-anchor="start" x="519.12" y="-137.25" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text fill="white" text-anchor="start" x="529.12" y="-137.25" font-family="Helvetica,sans-Serif" font-size="10.00">GetKillScore()</text>
+<text fill="white" text-anchor="start" x="519.12" y="-122" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text fill="white" text-anchor="start" x="529.12" y="-122" font-family="Helvetica,sans-Serif" font-size="10.00">ApplyShield()</text>
 <polygon fill="#666666" stroke="#666666" points="515.12,-270.75 515.12,-270.75 609.62,-270.75 609.62,-270.75 515.12,-270.75"/>
 <polygon fill="#666666" stroke="#666666" points="515.12,-255.5 515.12,-255.5 527.12,-255.5 527.12,-255.5 515.12,-255.5"/>
 <polygon fill="#666666" stroke="#666666" points="527.12,-255.5 527.12,-255.5 609.62,-255.5 609.62,-255.5 527.12,-255.5"/>
-<polygon fill="none" stroke="#666666" points="515.12,-116.25 515.12,-288 609.62,-288 609.62,-116.25 515.12,-116.25"/>
 
 </g>
 </g>
@@ -149,26 +145,25 @@
 <g id="Node000015" class="node">
 <title>Node15</title>
 <g id="a_Node000015">
-<polygon fill="white" stroke="none" points="722.62,-272.75 628.12,-272.75 628.12,-131.5 722.62,-131.5 722.62,-272.75"/>
-<text text-anchor="start" x="649.12" y="-259.25" font-family="Helvetica,sans-Serif" font-size="10.00">core::Player</text>
-<text text-anchor="start" x="673.88" y="-244" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
-<text text-anchor="start" x="632.12" y="-228.75" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="642.12" y="-228.75" font-family="Helvetica,sans-Serif" font-size="10.00">Player()</text>
-<text text-anchor="start" x="632.12" y="-213.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="642.12" y="-213.5" font-family="Helvetica,sans-Serif" font-size="10.00">TakeDamage()</text>
-<text text-anchor="start" x="632.12" y="-198.25" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="642.12" y="-198.25" font-family="Helvetica,sans-Serif" font-size="10.00">ChangeDamage()</text>
-<text text-anchor="start" x="632.12" y="-183" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="642.12" y="-183" font-family="Helvetica,sans-Serif" font-size="10.00">GetDamage()</text>
-<text text-anchor="start" x="632.12" y="-167.75" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="642.12" y="-167.75" font-family="Helvetica,sans-Serif" font-size="10.00">Move()</text>
-<text text-anchor="start" x="632.12" y="-152.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="642.12" y="-152.5" font-family="Helvetica,sans-Serif" font-size="10.00">GetHP()</text>
-<text text-anchor="start" x="632.12" y="-137.25" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="642.12" y="-137.25" font-family="Helvetica,sans-Serif" font-size="10.00">ApplyShield()</text>
+<rect fill="#444477" stroke="none" width="94.5" height="141.25" x="628.12" y="-272.75" rx="10" ry="10" />
+<text fill="white" text-anchor="start" x="649.12" y="-259.25" font-family="Helvetica,sans-Serif" font-size="10.00">core::Player</text>
+<text fill="white" text-anchor="start" x="673.88" y="-244" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
+<text fill="white" text-anchor="start" x="632.12" y="-228.75" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text fill="white" text-anchor="start" x="642.12" y="-228.75" font-family="Helvetica,sans-Serif" font-size="10.00">Player()</text>
+<text fill="white" text-anchor="start" x="632.12" y="-213.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text fill="white" text-anchor="start" x="642.12" y="-213.5" font-family="Helvetica,sans-Serif" font-size="10.00">TakeDamage()</text>
+<text fill="white" text-anchor="start" x="632.12" y="-198.25" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text fill="white" text-anchor="start" x="642.12" y="-198.25" font-family="Helvetica,sans-Serif" font-size="10.00">ChangeDamage()</text>
+<text fill="white" text-anchor="start" x="632.12" y="-183" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text fill="white" text-anchor="start" x="642.12" y="-183" font-family="Helvetica,sans-Serif" font-size="10.00">GetDamage()</text>
+<text fill="white" text-anchor="start" x="632.12" y="-167.75" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text fill="white" text-anchor="start" x="642.12" y="-167.75" font-family="Helvetica,sans-Serif" font-size="10.00">Move()</text>
+<text fill="white" text-anchor="start" x="632.12" y="-152.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text fill="white" text-anchor="start" x="642.12" y="-152.5" font-family="Helvetica,sans-Serif" font-size="10.00">GetHP()</text>
+<text fill="white" text-anchor="start" x="632.12" y="-137.25" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text fill="white" text-anchor="start" x="642.12" y="-137.25" font-family="Helvetica,sans-Serif" font-size="10.00">ApplyShield()</text>
 <polygon fill="#666666" stroke="#666666" points="628.12,-255.5 628.12,-255.5 722.62,-255.5 722.62,-255.5 628.12,-255.5"/>
 <polygon fill="#666666" stroke="#666666" points="628.12,-240.25 628.12,-240.25 722.62,-240.25 722.62,-240.25 628.12,-240.25"/>
-<polygon fill="none" stroke="#666666" points="628.12,-131.5 628.12,-272.75 722.62,-272.75 722.62,-131.5 628.12,-131.5"/>
 
 </g>
 </g>
@@ -185,28 +180,27 @@
 <g id="Node000016" class="node">
 <title>Node16</title>
 <g id="a_Node000016">
-<polygon fill="white" stroke="none" points="826,-280.38 740.75,-280.38 740.75,-123.88 826,-123.88 826,-280.38"/>
-<text text-anchor="start" x="744.75" y="-266.88" font-family="Helvetica,sans-Serif" font-size="10.00">core::PlayerBullet</text>
-<text text-anchor="start" x="781.88" y="-251.62" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
-<text text-anchor="start" x="746.38" y="-236.38" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="758" y="-236.38" font-family="Helvetica,sans-Serif" font-size="10.00">PlayerBullet()</text>
-<text text-anchor="start" x="746.38" y="-221.12" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="758" y="-221.12" font-family="Helvetica,sans-Serif" font-size="10.00">Move()</text>
-<text text-anchor="start" x="746.38" y="-205.88" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="758" y="-205.88" font-family="Helvetica,sans-Serif" font-size="10.00">Move()</text>
-<text text-anchor="start" x="746.38" y="-190.62" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="758" y="-190.62" font-family="Helvetica,sans-Serif" font-size="10.00">GetDamage()</text>
-<text text-anchor="start" x="746.38" y="-175.38" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="758" y="-175.38" font-family="Helvetica,sans-Serif" font-size="10.00">GetDirection()</text>
-<text text-anchor="start" x="746.38" y="-160.12" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="758" y="-160.12" font-family="Helvetica,sans-Serif" font-size="10.00">TryShoot()</text>
-<text text-anchor="start" x="746.38" y="-144.88" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="758" y="-144.88" font-family="Helvetica,sans-Serif" font-size="10.00">IsExploded()</text>
-<text text-anchor="start" x="746.38" y="-129.62" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="758" y="-129.62" font-family="Helvetica,sans-Serif" font-size="10.00">IsOnArena()</text>
+<rect fill="#444477" stroke="none" width="88" height="156.5" x="740.75" y="-280.38" rx="10" ry="10" />
+<text fill="white" text-anchor="start" x="744.75" y="-266.88" font-family="Helvetica,sans-Serif" font-size="10.00">core::PlayerBullet</text>
+<text fill="white" text-anchor="start" x="781.88" y="-251.62" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
+<text fill="white" text-anchor="start" x="746.38" y="-236.38" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text fill="white" text-anchor="start" x="758" y="-236.38" font-family="Helvetica,sans-Serif" font-size="10.00">PlayerBullet()</text>
+<text fill="white" text-anchor="start" x="746.38" y="-221.12" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text fill="white" text-anchor="start" x="758" y="-221.12" font-family="Helvetica,sans-Serif" font-size="10.00">Move()</text>
+<text fill="white" text-anchor="start" x="746.38" y="-205.88" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text fill="white" text-anchor="start" x="758" y="-205.88" font-family="Helvetica,sans-Serif" font-size="10.00">Move()</text>
+<text fill="white" text-anchor="start" x="746.38" y="-190.62" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text fill="white" text-anchor="start" x="758" y="-190.62" font-family="Helvetica,sans-Serif" font-size="10.00">GetDamage()</text>
+<text fill="white" text-anchor="start" x="746.38" y="-175.38" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text fill="white" text-anchor="start" x="758" y="-175.38" font-family="Helvetica,sans-Serif" font-size="10.00">GetDirection()</text>
+<text fill="white" text-anchor="start" x="746.38" y="-160.12" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text fill="white" text-anchor="start" x="758" y="-160.12" font-family="Helvetica,sans-Serif" font-size="10.00">TryShoot()</text>
+<text fill="white" text-anchor="start" x="746.38" y="-144.88" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text fill="white" text-anchor="start" x="758" y="-144.88" font-family="Helvetica,sans-Serif" font-size="10.00">IsExploded()</text>
+<text fill="white" text-anchor="start" x="746.38" y="-129.62" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text fill="white" text-anchor="start" x="758" y="-129.62" font-family="Helvetica,sans-Serif" font-size="10.00">IsOnArena()</text>
 <polygon fill="#666666" stroke="#666666" points="740.75,-263.12 740.75,-263.12 826,-263.12 826,-263.12 740.75,-263.12"/>
 <polygon fill="#666666" stroke="#666666" points="740.75,-247.88 740.75,-247.88 826,-247.88 826,-247.88 740.75,-247.88"/>
-<polygon fill="none" stroke="#666666" points="740.75,-123.88 740.75,-280.38 826,-280.38 826,-123.88 740.75,-123.88"/>
 
 </g>
 </g>
@@ -223,14 +217,13 @@
 <g id="Node000003" class="node">
 <title>Node3</title>
 <g id="a_Node000003">
-<polygon fill="white" stroke="none" points="44.75,-65 0,-65 0,-15.25 44.75,-15.25 44.75,-65"/>
-<text text-anchor="start" x="4" y="-51.5" font-family="Helvetica,sans-Serif" font-size="10.00">core::Air</text>
-<text text-anchor="start" x="20.88" y="-36.25" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
-<text text-anchor="start" x="6.19" y="-21" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="18.38" y="-21" font-family="Helvetica,sans-Serif" font-size="10.00">Air()</text>
+<rect fill="#444477" stroke="none" width="45" height="50" x="0" y="-65" rx="10" ry="10" />
+<text fill="white" text-anchor="start" x="4" y="-51.5" font-family="Helvetica,sans-Serif" font-size="10.00">core::Air</text>
+<text fill="white" text-anchor="start" x="20.88" y="-36.25" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
+<text fill="white" text-anchor="start" x="6.19" y="-21" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text fill="white" text-anchor="start" x="18.38" y="-21" font-family="Helvetica,sans-Serif" font-size="10.00">Air()</text>
 <polygon fill="#666666" stroke="#666666" points="0,-47.75 0,-47.75 44.75,-47.75 44.75,-47.75 0,-47.75"/>
 <polygon fill="#666666" stroke="#666666" points="0,-32.5 0,-32.5 44.75,-32.5 44.75,-32.5 0,-32.5"/>
-<polygon fill="none" stroke="#666666" points="0,-15.25 0,-65 44.75,-65 44.75,-15.25 0,-15.25"/>
 
 </g>
 </g>
@@ -247,14 +240,13 @@
 <g id="Node000004" class="node">
 <title>Node4</title>
 <g id="a_Node000004">
-<polygon fill="white" stroke="none" points="114.12,-65 62.62,-65 62.62,-15.25 114.12,-15.25 114.12,-65"/>
-<text text-anchor="start" x="66.62" y="-51.5" font-family="Helvetica,sans-Serif" font-size="10.00">core::Wall</text>
-<text text-anchor="start" x="86.88" y="-36.25" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
-<text text-anchor="start" x="68.81" y="-21" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="81" y="-21" font-family="Helvetica,sans-Serif" font-size="10.00">Wall()</text>
+<rect fill="#444477" stroke="none" width="52.5" height="50" x="62.62" y="-65" rx="10" ry="10" />
+<text fill="white" text-anchor="start" x="66.62" y="-51.5" font-family="Helvetica,sans-Serif" font-size="10.00">core::Wall</text>
+<text fill="white" text-anchor="start" x="86.88" y="-36.25" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
+<text fill="white" text-anchor="start" x="68.81" y="-21" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text fill="white" text-anchor="start" x="81" y="-21" font-family="Helvetica,sans-Serif" font-size="10.00">Wall()</text>
 <polygon fill="#666666" stroke="#666666" points="62.62,-47.75 62.62,-47.75 114.12,-47.75 114.12,-47.75 62.62,-47.75"/>
 <polygon fill="#666666" stroke="#666666" points="62.62,-32.5 62.62,-32.5 114.12,-32.5 114.12,-32.5 62.62,-32.5"/>
-<polygon fill="none" stroke="#666666" points="62.62,-15.25 62.62,-65 114.12,-65 114.12,-15.25 62.62,-15.25"/>
 
 </g>
 </g>
@@ -271,18 +263,17 @@
 <g id="Node000006" class="node">
 <title>Node6</title>
 <g id="a_Node000006">
-<polygon fill="white" stroke="none" points="218.75,-80.25 132,-80.25 132,0 218.75,0 218.75,-80.25"/>
-<text text-anchor="start" x="136" y="-66.75" font-family="Helvetica,sans-Serif" font-size="10.00">core::EnergyDrink</text>
-<text text-anchor="start" x="173.88" y="-51.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
-<text text-anchor="start" x="138.19" y="-36.25" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="150.38" y="-36.25" font-family="Helvetica,sans-Serif" font-size="10.00">EnergyDrink()</text>
-<text text-anchor="start" x="138.19" y="-21" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="150.38" y="-21" font-family="Helvetica,sans-Serif" font-size="10.00">GetHP()</text>
-<text text-anchor="start" x="138.19" y="-5.75" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="150.38" y="-5.75" font-family="Helvetica,sans-Serif" font-size="10.00">PickUp()</text>
+<rect fill="#444477" stroke="none" width="86" height="80" x="132" y="-80" rx="10" ry="10" />
+<text fill="white" text-anchor="start" x="136" y="-66.75" font-family="Helvetica,sans-Serif" font-size="10.00">core::EnergyDrink</text>
+<text fill="white" text-anchor="start" x="173.88" y="-51.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
+<text fill="white" text-anchor="start" x="138.19" y="-36.25" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text fill="white" text-anchor="start" x="150.38" y="-36.25" font-family="Helvetica,sans-Serif" font-size="10.00">EnergyDrink()</text>
+<text fill="white" text-anchor="start" x="138.19" y="-21" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text fill="white" text-anchor="start" x="150.38" y="-21" font-family="Helvetica,sans-Serif" font-size="10.00">GetHP()</text>
+<text fill="white" text-anchor="start" x="138.19" y="-5.75" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text fill="white" text-anchor="start" x="150.38" y="-5.75" font-family="Helvetica,sans-Serif" font-size="10.00">PickUp()</text>
 <polygon fill="#666666" stroke="#666666" points="132,-63 132,-63 218.75,-63 218.75,-63 132,-63"/>
 <polygon fill="#666666" stroke="#666666" points="132,-47.75 132,-47.75 218.75,-47.75 218.75,-47.75 132,-47.75"/>
-<polygon fill="none" stroke="#666666" points="132,0 132,-80.25 218.75,-80.25 218.75,0 132,0"/>
 
 </g>
 </g>
@@ -299,16 +290,15 @@
 <g id="Node000007" class="node">
 <title>Node7</title>
 <g id="a_Node000007">
-<polygon fill="white" stroke="none" points="296.25,-72.62 236.5,-72.62 236.5,-7.62 296.25,-7.62 296.25,-72.62"/>
-<text text-anchor="start" x="240.5" y="-59.12" font-family="Helvetica,sans-Serif" font-size="10.00">core::Shield</text>
-<text text-anchor="start" x="264.88" y="-43.88" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
-<text text-anchor="start" x="241.38" y="-28.62" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="252.25" y="-28.62" font-family="Helvetica,sans-Serif" font-size="10.00">Shield()</text>
-<text text-anchor="start" x="241.38" y="-13.38" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="252.25" y="-13.38" font-family="Helvetica,sans-Serif" font-size="10.00">PickUp()</text>
+<rect fill="#444477" stroke="none" width="60" height="65" x="236.5" y="-72.62" rx="10" ry="10" />
+<text fill="white" text-anchor="start" x="240.5" y="-59.12" font-family="Helvetica,sans-Serif" font-size="10.00">core::Shield</text>
+<text fill="white" text-anchor="start" x="264.88" y="-43.88" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
+<text fill="white" text-anchor="start" x="241.38" y="-28.62" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text fill="white" text-anchor="start" x="252.25" y="-28.62" font-family="Helvetica,sans-Serif" font-size="10.00">Shield()</text>
+<text fill="white" text-anchor="start" x="241.38" y="-13.38" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text fill="white" text-anchor="start" x="252.25" y="-13.38" font-family="Helvetica,sans-Serif" font-size="10.00">PickUp()</text>
 <polygon fill="#666666" stroke="#666666" points="236.5,-55.38 236.5,-55.38 296.25,-55.38 296.25,-55.38 236.5,-55.38"/>
 <polygon fill="#666666" stroke="#666666" points="236.5,-40.12 236.5,-40.12 296.25,-40.12 296.25,-40.12 236.5,-40.12"/>
-<polygon fill="none" stroke="#666666" points="236.5,-7.62 236.5,-72.62 296.25,-72.62 296.25,-7.62 236.5,-7.62"/>
 
 </g>
 </g>
@@ -325,18 +315,17 @@
 <g id="Node000008" class="node">
 <title>Node8</title>
 <g id="a_Node000008">
-<polygon fill="white" stroke="none" points="412,-80.25 314.75,-80.25 314.75,0 412,0 412,-80.25"/>
-<text text-anchor="start" x="318.75" y="-66.75" font-family="Helvetica,sans-Serif" font-size="10.00">core::StrengthPotion</text>
-<text text-anchor="start" x="361.88" y="-51.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
-<text text-anchor="start" x="320.94" y="-36.25" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="333.12" y="-36.25" font-family="Helvetica,sans-Serif" font-size="10.00">StrengthPotion()</text>
-<text text-anchor="start" x="320.94" y="-21" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="333.12" y="-21" font-family="Helvetica,sans-Serif" font-size="10.00">GetDamage()</text>
-<text text-anchor="start" x="320.94" y="-5.75" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="333.12" y="-5.75" font-family="Helvetica,sans-Serif" font-size="10.00">PickUp()</text>
+<rect fill="#444477" stroke="none" width="98" height="80" x="315" y="-80" rx="10" ry="10" />
+<text fill="white" text-anchor="start" x="318.75" y="-66.75" font-family="Helvetica,sans-Serif" font-size="10.00">core::StrengthPotion</text>
+<text fill="white" text-anchor="start" x="361.88" y="-51.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
+<text fill="white" text-anchor="start" x="320.94" y="-36.25" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text fill="white" text-anchor="start" x="333.12" y="-36.25" font-family="Helvetica,sans-Serif" font-size="10.00">StrengthPotion()</text>
+<text fill="white" text-anchor="start" x="320.94" y="-21" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text fill="white" text-anchor="start" x="333.12" y="-21" font-family="Helvetica,sans-Serif" font-size="10.00">GetDamage()</text>
+<text fill="white" text-anchor="start" x="320.94" y="-5.75" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text fill="white" text-anchor="start" x="333.12" y="-5.75" font-family="Helvetica,sans-Serif" font-size="10.00">PickUp()</text>
 <polygon fill="#666666" stroke="#666666" points="314.75,-63 314.75,-63 412,-63 412,-63 314.75,-63"/>
 <polygon fill="#666666" stroke="#666666" points="314.75,-47.75 314.75,-47.75 412,-47.75 412,-47.75 314.75,-47.75"/>
-<polygon fill="none" stroke="#666666" points="314.75,0 314.75,-80.25 412,-80.25 412,0 314.75,0"/>
 
 </g>
 </g>
@@ -354,13 +343,13 @@
 <title>Node10</title>
 <g id="a_Node000010">
 <polygon fill="white" stroke="none" points="517.12,-65 429.62,-65 429.62,-15.25 517.12,-15.25 517.12,-65"/>
-<text text-anchor="start" x="433.62" y="-51.5" font-family="Helvetica,sans-Serif" font-size="10.00">core::BabyZombie</text>
-<text text-anchor="start" x="471.88" y="-36.25" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
-<text text-anchor="start" x="435.81" y="-21" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="448" y="-21" font-family="Helvetica,sans-Serif" font-size="10.00">BabyZombie()</text>
+<rect fill="#444477" stroke="none" width="92" height="50" x="429.62" y="-65" rx="10" ry="10" />
+<text fill="white" text-anchor="start" x="433.62" y="-51.5" font-family="Helvetica,sans-Serif" font-size="10.00">core::BabyZombie</text>
+<text fill="white" text-anchor="start" x="471.88" y="-36.25" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
+<text fill="white" text-anchor="start" x="435.81" y="-21" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text fill="white" text-anchor="start" x="448" y="-21" font-family="Helvetica,sans-Serif" font-size="10.00">BabyZombie()</text>
 <polygon fill="#666666" stroke="#666666" points="429.62,-47.75 429.62,-47.75 517.12,-47.75 517.12,-47.75 429.62,-47.75"/>
 <polygon fill="#666666" stroke="#666666" points="429.62,-32.5 429.62,-32.5 517.12,-32.5 517.12,-32.5 429.62,-32.5"/>
-<polygon fill="none" stroke="#666666" points="429.62,-15.25 429.62,-65 517.12,-65 517.12,-15.25 429.62,-15.25"/>
 
 </g>
 </g>
@@ -377,14 +366,13 @@
 <g id="Node000011" class="node">
 <title>Node11</title>
 <g id="a_Node000011">
-<polygon fill="white" stroke="none" points="590,-65 534.75,-65 534.75,-15.25 590,-15.25 590,-65"/>
-<text text-anchor="start" x="538.75" y="-51.5" font-family="Helvetica,sans-Serif" font-size="10.00">core::Boss</text>
-<text text-anchor="start" x="560.88" y="-36.25" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
-<text text-anchor="start" x="540.94" y="-21" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="553.12" y="-21" font-family="Helvetica,sans-Serif" font-size="10.00">Boss()</text>
+<rect fill="#444477" stroke="none" width="55" height="50" x="534.75" y="-65" rx="10" ry="10" />
+<text fill="white" text-anchor="start" x="538.75" y="-51.5" font-family="Helvetica,sans-Serif" font-size="10.00">core::Boss</text>
+<text fill="white" text-anchor="start" x="560.88" y="-36.25" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
+<text fill="white" text-anchor="start" x="540.94" y="-21" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text fill="white" text-anchor="start" x="553.12" y="-21" font-family="Helvetica,sans-Serif" font-size="10.00">Boss()</text>
 <polygon fill="#666666" stroke="#666666" points="534.75,-47.75 534.75,-47.75 590,-47.75 590,-47.75 534.75,-47.75"/>
 <polygon fill="#666666" stroke="#666666" points="534.75,-32.5 534.75,-32.5 590,-32.5 590,-32.5 534.75,-32.5"/>
-<polygon fill="none" stroke="#666666" points="534.75,-15.25 534.75,-65 590,-65 590,-15.25 534.75,-15.25"/>
 
 </g>
 </g>
@@ -401,14 +389,13 @@
 <g id="Node000012" class="node">
 <title>Node12</title>
 <g id="a_Node000012">
-<polygon fill="white" stroke="none" points="676.38,-65 608.38,-65 608.38,-15.25 676.38,-15.25 676.38,-65"/>
-<text text-anchor="start" x="612.38" y="-51.5" font-family="Helvetica,sans-Serif" font-size="10.00">core::Monster</text>
-<text text-anchor="start" x="640.88" y="-36.25" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
-<text text-anchor="start" x="614.56" y="-21" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="626.75" y="-21" font-family="Helvetica,sans-Serif" font-size="10.00">Monster()</text>
+<rect fill="#444477" stroke="none" width="68" height="50" x="608.38" y="-65" rx="10" ry="10" />
+<text fill="white" text-anchor="start" x="612.38" y="-51.5" font-family="Helvetica,sans-Serif" font-size="10.00">core::Monster</text>
+<text fill="white" text-anchor="start" x="640.88" y="-36.25" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
+<text fill="white" text-anchor="start" x="614.56" y="-21" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text fill="white" text-anchor="start" x="626.75" y="-21" font-family="Helvetica,sans-Serif" font-size="10.00">Monster()</text>
 <polygon fill="#666666" stroke="#666666" points="608.38,-47.75 608.38,-47.75 676.38,-47.75 676.38,-47.75 608.38,-47.75"/>
 <polygon fill="#666666" stroke="#666666" points="608.38,-32.5 608.38,-32.5 676.38,-32.5 676.38,-32.5 608.38,-32.5"/>
-<polygon fill="none" stroke="#666666" points="608.38,-15.25 608.38,-65 676.38,-65 676.38,-15.25 608.38,-15.25"/>
 
 </g>
 </g>
@@ -425,14 +412,13 @@
 <g id="Node000013" class="node">
 <title>Node13</title>
 <g id="a_Node000013">
-<polygon fill="white" stroke="none" points="746.12,-65 694.62,-65 694.62,-15.25 746.12,-15.25 746.12,-65"/>
-<text text-anchor="start" x="698.62" y="-51.5" font-family="Helvetica,sans-Serif" font-size="10.00">core::Troll</text>
-<text text-anchor="start" x="718.88" y="-36.25" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
-<text text-anchor="start" x="700.81" y="-21" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="713" y="-21" font-family="Helvetica,sans-Serif" font-size="10.00">Troll()</text>
+<rect fill="#444477" stroke="none" width="52.5" height="50" x="694.62" y="-65" rx="10" ry="10" />
+<text fill="white" text-anchor="start" x="698.62" y="-51.5" font-family="Helvetica,sans-Serif" font-size="10.00">core::Troll</text>
+<text fill="white" text-anchor="start" x="718.88" y="-36.25" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
+<text fill="white" text-anchor="start" x="700.81" y="-21" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text fill="white" text-anchor="start" x="713" y="-21" font-family="Helvetica,sans-Serif" font-size="10.00">Troll()</text>
 <polygon fill="#666666" stroke="#666666" points="694.62,-47.75 694.62,-47.75 746.12,-47.75 746.12,-47.75 694.62,-47.75"/>
 <polygon fill="#666666" stroke="#666666" points="694.62,-32.5 694.62,-32.5 746.12,-32.5 746.12,-32.5 694.62,-32.5"/>
-<polygon fill="none" stroke="#666666" points="694.62,-15.25 694.62,-65 746.12,-65 746.12,-15.25 694.62,-15.25"/>
 
 </g>
 </g>
@@ -449,14 +435,13 @@
 <g id="Node000014" class="node">
 <title>Node14</title>
 <g id="a_Node000014">
-<polygon fill="white" stroke="none" points="828.88,-65 763.88,-65 763.88,-15.25 828.88,-15.25 828.88,-65"/>
-<text text-anchor="start" x="767.88" y="-51.5" font-family="Helvetica,sans-Serif" font-size="10.00">core::Zombie</text>
-<text text-anchor="start" x="794.88" y="-36.25" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
-<text text-anchor="start" x="770.06" y="-21" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="782.25" y="-21" font-family="Helvetica,sans-Serif" font-size="10.00">Zombie()</text>
+<rect fill="#444477" stroke="none" width="65" height="50" x="763.88" y="-65" rx="10" ry="10" />
+<text fill="white" text-anchor="start" x="767.88" y="-51.5" font-family="Helvetica,sans-Serif" font-size="10.00">core::Zombie</text>
+<text fill="white" text-anchor="start" x="794.88" y="-36.25" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
+<text fill="white" text-anchor="start" x="770.06" y="-21" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text fill="white" text-anchor="start" x="782.25" y="-21" font-family="Helvetica,sans-Serif" font-size="10.00">Zombie()</text>
 <polygon fill="#666666" stroke="#666666" points="763.88,-47.75 763.88,-47.75 828.88,-47.75 828.88,-47.75 763.88,-47.75"/>
 <polygon fill="#666666" stroke="#666666" points="763.88,-32.5 763.88,-32.5 828.88,-32.5 828.88,-32.5 763.88,-32.5"/>
-<polygon fill="none" stroke="#666666" points="763.88,-15.25 763.88,-65 828.88,-65 828.88,-15.25 763.88,-15.25"/>
 
 </g>
 </g>
