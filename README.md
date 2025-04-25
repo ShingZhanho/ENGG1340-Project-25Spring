@@ -8,12 +8,12 @@
 
 ## Team Members (alphabetically)
 
-- CHAN, Ho Nam (3036235352) [@ConanChan0113](https://gihub.com/ConanChan0113)
-- LEUNG, Ming Ngai (3036393221) [@ThomasL956](https://github.com/ThomasL956)
-- LIU, Jia Lin (3036391493) [@Kylineason-Liu](https://github.com/Kylineason-Liu)
-- SHING, Zhan Ho Jacob (3036228892) [@ShingZhanho](https://github.com/ShingZhanho)
-- SONG, Sizhe （3036457247）[@TIP-SoNg](https://github.com/TIP-SoNg)
-- XIN, Yucheng (3036289755) [@Scevenate](https://github.com/Scevenate)  
+- <p style="text-shadow: 0 0 10px rgba(255, 255, 0, 0.3)">CHAN, Ho Nam</p> (3036235352) [@ConanChan0113](https://gihub.com/ConanChan0113)
+- <p style="text-shadow: 0 0 10px rgba(255, 255, 0, 0.3)">LEUNG, Ming Ngai</p> (3036393221) [@ThomasL956](https://github.com/ThomasL956)
+- <p style="text-shadow: 0 0 10px rgba(255, 255, 0, 0.3)">LIU, Jia Lin</p> (3036391493) [@Kylineason-Liu](https://github.com/Kylineason-Liu)
+- <p style="text-shadow: 0 0 10px rgba(255, 255, 0, 0.3)">SHING, Zhan Ho Jacob</p> (3036228892) [@ShingZhanho](https://github.com/ShingZhanho)
+- <p style="text-shadow: 0 0 10px rgba(255, 255, 0, 0.3)">SONG, Sizhe</p> （3036457247）[@TIP-SoNg](https://github.com/TIP-SoNg)
+- <p style="text-shadow: 0 0 10px rgba(255, 255, 0, 0.3)">XIN, Yucheng</p> (3036289755) [@Scevenate](https://github.com/Scevenate)  
 
 ##  
 
@@ -172,7 +172,8 @@ How to move your figure and fire those bullets at the dreadful monsters? Here it
 
 </div>
 
-The Energy Drink gives you extra HP according to the value it stated, and Strengthen Potion enables you to deal more damage to mobs than usual. If you pick up the sheild, the mobs cannot see you for a period of time.  
+The Energy Drink gives you extra HP according to the value it stated, and Strengthen Potion enables you to deal more damage to mobs than usual. If you pick up the sheild, the mobs cannot see you for a period of time.
+
 Last reminder, the boost potions and sheilds do not only have effect on you, but also the mobs, if they catch the buffs before you do. Be careful!😲  
 
 ### Syntax for the Custom Map File
@@ -198,7 +199,6 @@ To create your own map, note the following:
 7. Do not create an enclosed area on the map. This may lead to undefined behaviour.  
   
 Alright, stay cool and have fun!
-
 
 ## Technical Details
 
@@ -238,3 +238,43 @@ all core components are implemented as classes. The most important claases are
 <img src="docs/class_graph_event_handlers.svg"/>
 
 </p>
+
+#### Arena & Entities
+
+The fundamental internal data structure that stores game state. Arena is the global handler to all active entities, as well as providing manipulation methods.
+
+- The arena contains a `Entity[32][102]` 2D array that contains all active entity.
+- An index of all moving entites is created, so every tick the game could only traverse through entities that need update only for improved efficiency.
+- Memory lock is implemented in arena interface to support safe multithread access.
+
+As the graph shows, Entity is the most inherited class in the project. By abstract class implementation, we could maintain a clean style while conveniently determine the type of the entity.
+
+#### EventHandler
+
+While Arena & Enities stores data, the EventHandler is the actual instruction that "executes" the game. As its name suggests, the EventHandler is executed to handle a fired event. This includes:
+
+- Initializing Event
+- Tick Refresh Event
+- User Input Event
+
+Every event may execute its own code, then it fires all its subevents. This allows further task division to keep the code flexible and easy to read. For example, the tick refresh event executes following subtasks:
+
+1. Mob spawn
+2. Mob move
+3. Bullet move
+4. Collectible update: clear invalid & spawn new
+
+#### Game, and more
+
+The Game object is the main object that represents a round of game. This object is the final abstraction of the whole game, with full lifespan.
+
+To prevent jumbled code, this object does not play an important role in actually running the game. Instead, Game is responsible for:
+
+1. Interact with system, read game configuration (options)
+2. Properly set up and clean up the game
+3. Store global state of the game, like clock and score
+
+Other fringe classes, including map reader and game configurations, are abstract modules that implements functionalities that are relatively independent from the game itself. They're extracted from the main body part of the core for simplicity.
+
+
+
