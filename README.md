@@ -112,16 +112,66 @@ How to move your figure and fire those bullets at the dreadful monsters? Here it
 
 <div align="center">
 
-| Key | Operation | Key | Operation | Key | Operation | Key | Operation |
-|:---:|:----------|:---:|:----------|:---:|:----------|:---:|:----------|
-| W | Move up | Q | Move left-up | I | Fire up | U | Fire left-up |
-| A | Move left | E | Move right-up | J | Fire left | O | Fire right-up |
-| S | Move down | Z | Move left-down | K | Fire down | M | Fire left-down |
-| D | Move right | C | Move right-down | L | Fire right | . | Fire right-down |
+<table><thead>
+  <tr>
+    <th>Key</th>
+    <th>Operation</th>
+    <th>Key</th>
+    <th>Operation</th>
+    <th>Key</th>
+    <th>Operation</th>
+    <th>Key</th>
+    <th>Operation</th>
+  </tr></thead>
+<tbody>
+  <tr>
+    <td align="center">W</td>
+    <td>Move up</td>
+    <td align="center">Q</td>
+    <td>Move left-up</td>
+    <td align="center">I</td>
+    <td>Fire up</td>
+    <td align="center">U</td>
+    <td>Fire left-up</td>
+  </tr>
+  <tr>
+    <td align="center">A</td>
+    <td>Move left</td>
+    <td align="center">E</td>
+    <td>Move right-up</td>
+    <td align="center">J</td>
+    <td>Fire left</td>
+    <td align="center">O</td>
+    <td>Fire right-up</td>
+  </tr>
+  <tr>
+    <td align="center">S</td>
+    <td>Move down</td>
+    <td align="center">Z</td>
+    <td>Move left-down</td>
+    <td align="center">K</td>
+    <td>Fire down</td>
+    <td align="center">M</td>
+    <td>Fire left-down</td>
+  </tr>
+  <tr>
+    <td align="center">D</td>
+    <td>Move right</td>
+    <td align="center">C</td>
+    <td>Move right-down</td>
+    <td align="center">L</td>
+    <td>Fire right</td>
+    <td align="center">.</td>
+    <td>Fire right-down</td>
+  </tr>
+  <tr>
+    <td align="center">Space</td>
+    <td colspan="7">Fire in all eight directions (5 seconds cool down between each shoot)</td>
+  </tr>
+</tbody></table>
 
 </div>
 
-Don't forget you are also able to click the `space` key to fire at all eight directions. Screw you monsters!😜
 The Energy Drink gives you extra HP according to the value it stated, and Strengthen Potion enables you to deal more damage to mobs than usual. If you pick up the sheild, the mobs cannot see you for a period of time.  
 Last reminder, the boost potions and sheilds do not only have effect on you, but also the mobs, if they catch the buffs before you do. Be careful!😲  
 
