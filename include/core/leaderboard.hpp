@@ -33,7 +33,7 @@ namespace core {
             int AddEntry(std::string name, long time, int score);
             //  Gets the head of the leaderboard.
             //  Returns a pointer to the head of the linked list.
-            Entry* GetHead();
+            Entry* GetHead() const { return head; };
             //  Checks if the object is in a valid state.
             //  Returns true if the object is valid, false otherwise.
             bool IsValid() const { return objIsValid; };
