@@ -51,26 +51,18 @@ namespace core {
     }
 
     Leaderboard::~Leaderboard() {
-        //  TODO: Implement save logic.
-        //  Clear the file first, and then write the entries in the linked list to the file.
-        //  Use the format specified above.
-        Entry* current = head;
-        std::string file = "./res/leaderboard.txt", word = "";
+        Entry* current = head, * prev = nullptr;
+        std::string file = "./res/leaderboard.txt";
         std::fstream fout(file, std::ios::out | std::ios::trunc);
         while (current != nullptr){
             fout << current->Name << " " << current->Time << " " << current->Score << std::endl;
+            prev = current;
             current = current->Next;
+            delete prev;
         }
         fout.close();
-        //  TODO: Implement the delete logic.
-        //  Then, delete all the entries in the linked list one by one.
-        current = head;
-        while (current != nullptr){
-            Entry* next = current->Next;
-            delete current;
-            current = next;
-        }
         head = nullptr;
+        objIsValid = false;
     }
 
     int Leaderboard::AddEntry(std::string name, long time, int score, Entry*& current) {
