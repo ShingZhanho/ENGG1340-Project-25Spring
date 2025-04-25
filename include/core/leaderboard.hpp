@@ -30,7 +30,7 @@ namespace core {
             //  Adds a new entry to the leaderboard.
             //  Takes three parameters: the player's name, the time of the record entry, and the player's score.
             //  Returns the index of the new entry in the leaderboard (0-based).
-            int AddEntry(std::string name, long time, int score, Entry*& current);
+            int AddEntry(std::string name, long time, int score);
             //  Gets the head of the leaderboard.
             //  Returns a pointer to the head of the linked list.
             Entry* GetHead() const { return head; };

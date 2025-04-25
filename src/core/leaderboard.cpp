@@ -22,8 +22,6 @@ namespace core {
             util::WriteToLog("Failed to open leaderboard file.", "Leaderboard::Leaderboard()", "ERROR");
             return;
         }
-
-        Entry* current = head;
         
         //  Read the file and build the linked list
         while (std::getline(fs, line)) {
@@ -40,7 +38,7 @@ namespace core {
                     iss.clear();
                     continue;
                 }
-                AddEntry(name, time, score, current);
+                AddEntry(name, time, score);
             }
         }
 
@@ -53,8 +51,8 @@ namespace core {
     Leaderboard::~Leaderboard() {
         Entry* current = head, * prev = nullptr;
         std::string file = "./res/leaderboard.txt";
-        std::fstream fout(file, std::ios::out | std::ios::trunc);
-        while (current != nullptr){
+        std::fstream fout(file.c_str(), std::ios::out | std::ios::trunc);
+        while (current != nullptr) {
             fout << current->Name << " " << current->Time << " " << current->Score << std::endl;
             prev = current;
             current = current->Next;
@@ -65,27 +63,24 @@ namespace core {
         objIsValid = false;
     }
 
-    int Leaderboard::AddEntry(std::string name, long time, int score, Entry*& current) {
+    int Leaderboard::AddEntry(std::string name, long time, int score) {
+        Entry* current = head;
         Entry* entry = new Entry(name, time, score);
-        // linked list is empty (add the first non-empty line of the file)
-        if (current == head){
+       
+        if (current == head) { // linked list is empty (add the first non-empty line of the file)
             current = entry;
             head = entry;
-            util::WriteToLog("Successfully created the first entry in linked list of Leaderboard.", "Leaderboard::AddEntry()"); 
             return 0;
-        }
-        // linked list is not empty
-        else{
-            current->Next = entry;
+        } else { // linked list is not empty
+            current->Next = entry;      // FIXME: new entries must be sorted, first by score, then by time
             current = current->Next;
             // find the index of this line record
             int i = 0;
             Entry* index = head;
-            while (index != current){
+            while (index != current) {
                 i++;
                 index = index->Next;
             }
-            util::WriteToLog("Successfully created an entry in linked list of Leaderboard. Its index is " + i, "Leaderboard::AddEntry()"); 
             return i;
         }
     }
