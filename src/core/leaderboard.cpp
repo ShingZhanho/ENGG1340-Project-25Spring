@@ -21,6 +21,8 @@ namespace core {
             util::WriteToLog("Failed to open leaderboard file.", "Leaderboard::Leaderboard()", "ERROR");
             return;
         }
+
+        Entry* current = head;
         
         //  Read the file and build the linked list
         while (std::getline(fs, line)) {
@@ -58,7 +60,27 @@ namespace core {
     }
 
     int Leaderboard::AddEntry(std::string name, long time, int score) {
-        return 0;
+        Entry* entry = new Entry(name, time, score);
+        entry->Next = nullptr;
+        // linked list is empty (add the first non-empty line of the file)
+        if (current == head){
+            current = entry;
+            head = entry;
+            return 0;
+        }
+        // linked list is not empty
+        else{
+            current->Next = entry;
+            current = current->Next;
+            // find the index of this line record
+            int i = 0;
+            Entry* index = head;
+            while (index != current){
+                i++;
+                index = index->Next;
+            }
+            return i;
+        }
         //  TODO: Implement this function
     }
 }
