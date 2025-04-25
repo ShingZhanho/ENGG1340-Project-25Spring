@@ -1,6 +1,7 @@
 #include <core/leaderboard.hpp>
 #include <util/log.hpp>
 
+#include <iostream>
 #include <sstream>
 #include <string>
 
@@ -53,10 +54,23 @@ namespace core {
         //  TODO: Implement save logic.
         //  Clear the file first, and then write the entries in the linked list to the file.
         //  Use the format specified above.
-
+        Entry* current = head;
+        std::string file = "./res/leaderboard.txt", word = "";
+        std::fstream fout(file, std::ios::out | std::ios::trunc);
+        while (current != nullptr){
+            fout << current->Name << " " << current->Time << " " << current->Score << std::endl;
+            current = current->Next;
+        }
+        fout.close();
         //  TODO: Implement the delete logic.
         //  Then, delete all the entries in the linked list one by one.
-
+        current = head;
+        while (current != nullptr){
+            Entry* next = current->Next;
+            delete current;
+            current = next;
+        }
+        head = nullptr;
     }
 
     int Leaderboard::AddEntry(std::string name, long time, int score, Entry*& current) {
