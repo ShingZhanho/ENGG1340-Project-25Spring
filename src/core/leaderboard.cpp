@@ -1,64 +1,53 @@
 #include <core/leaderboard.hpp>
+#include <util/log.hpp>
+
 #include <sstream>
-#include <iostream>
 #include <string>
 
 namespace core {
     Leaderboard::Leaderboard() {
-        //  TODO: Implement this function
         //  Use the file stream object fs to open the leaderboard file (leaderboard.txt) in read/write mode.
         //  If the file does not exist, create it.
         //  Read the file and build the linked list. The head of the file is head.
         //  Each line will have the following format:
-        //       <name (std::string)>;<time (long)>;<score (int)>
-        //  The player's name will not contain the character ';'.
-        std::string file = "leaderboard.txt", line = "", word = "";
-        fs.open(file, std::ios::in | std::ios::out | std::ios::binary);
+        //       <name (std::string)> <time (long)> <score (int)>
+        //  The player's name will not contain the whitespace character ' '.
+
+        //  Open file
+        std::string file = "./res/leaderboard.txt", line = "", word = "";
+        fs.open(file.c_str(), std::ios::in);
         if (!fs.is_open()){
-            std::cout << "Failed to open or create " << file << "." << std::endl;
+            util::WriteToLog("Leaderboard file does not exist. Creating a new one.", "Leaderboard::Leaderboard()");
+            fs.open(file.c_str(), std::ios::out | std::ios::trunc);
         }
-        else{
-            // Check whether file is empty.
-            fs.seekg(0, std::ios::beg);
-            std::streampos startPos = fs.tellg();
-            fs.seekg(0, std::ios::end);
-            std::streampos endPos = fs.tellg();
-            if (endPos == startPos){
-                std::cout << file << " is empty." << std::endl;
-            }
-            // File is not empty.
-            else{
-                Entry* current = head;
-                while (std::getline(fs, line)){
-                    std::string name = "";
-                    long timE;
-                    int score = 0;
-                    int attribute = 0;
-                    std::istringstream word_in(line);
-                    while (std::getline(word_in, word)){
-                        switch (attribute){
-                            // There are a total of three attributes in each line in the file.
-                            case 0: name = word; break;
-                            case 1: timE = std::stol(word); break;
-                            case 2: score = std::stoi(word); break;
-                        }
-                        attribute++;
-                    }
-                    Entry* entry = new Entry(name, timE, score);
-                    entry->Next = nullptr;
-                    // Linked list is empty (Note that this does not mean the file is empty!!!).
-                    if (current == nullptr){
-                        current = entry;
-                        head = entry;
-                    }
-                    // Linked list is not empty.
-                    else{
-                        current->Next = entry;
-                        current = current->Next;
-                    }
+        if (!fs.is_open()){
+            util::WriteToLog("Failed to open leaderboard file.", "Leaderboard::Leaderboard()", "ERROR");
+            return;
+        }
+        
+        //  Read the file and build the linked list
+        while (std::getline(fs, line)) {
+            std::istringstream iss(line);
+            std::string name;
+            long time = 0;
+            int score = 0;
+
+            // skip invalid lines
+            if (line.empty()) continue;
+            if (iss >> name >> time >> score || !iss.eof()) {
+                if (iss.fail()) {
+                    util::WriteToLog("An invalid line was found in the leaderboard file: " + line, "Leaderboard::Leaderboard()", "WARNING");
+                    iss.clear();
+                    continue;
                 }
+                AddEntry(name, time, score);
             }
         }
+
+        //  Close the file
+        fs.close();
+
+        objIsValid = true;
     }
 
     Leaderboard::~Leaderboard() {

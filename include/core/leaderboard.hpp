@@ -34,12 +34,17 @@ namespace core {
             //  Gets the head of the leaderboard.
             //  Returns a pointer to the head of the linked list.
             Entry* GetHead();
+            //  Checks if the object is in a valid state.
+            //  Returns true if the object is valid, false otherwise.
+            bool IsValid() const { return objIsValid; };
 
         private:
             //  Pointer to the head of the linked list.
             Entry* head = nullptr;
             //  The file stream for the leaderboard file.
             std::fstream fs;
+            //  Indicates if the object is in a valid state.
+            bool objIsValid = false;
     };
 
 } // namespace core
