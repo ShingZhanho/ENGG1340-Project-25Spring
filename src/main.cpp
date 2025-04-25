@@ -522,6 +522,9 @@ void difficultyMenu() {
 
             // check spawn interval (nothing to be checked)
             gameOptions->MobSpawnInterval = options_mobSpawnInterval * 50; // 50 ticks = 1 second
+
+            // set difficulty level
+            gameOptions->DifficultyLevel = 3;
         }
 
         // Set the game options

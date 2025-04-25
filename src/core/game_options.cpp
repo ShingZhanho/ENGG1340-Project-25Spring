@@ -17,6 +17,7 @@ namespace core {
                 {EntityType::ZOMBIE, EntityType::BABY_ZOMBIE}, //  MobTypesGenerated
                 10,         // MaxMobs
                 250,        // MobSpawnInterval
+                0,          // DifficultyLevel
             });
             util::WriteToLog("Trying to load built-in arena for level EASY...", "DefaultGameOptions::EASY()");
             auto fs = std::ifstream("res/default_maps/easy.shoot");
@@ -32,6 +33,7 @@ namespace core {
                 {EntityType::ZOMBIE, EntityType::TROLL, EntityType::BABY_ZOMBIE, EntityType::MONSTER}, //  MobTypesGenerated
                 15,         // MaxMobs
                 150,        // MobSpawnInterval
+                1,          // DifficultyLevel
             });
             util::WriteToLog("Trying to load built-in arena for level MEDIUM...", "DefaultGameOptions::EASY()");
             auto fs = std::ifstream("res/default_maps/medium.shoot");
@@ -47,6 +49,7 @@ namespace core {
                 {EntityType::ZOMBIE, EntityType::TROLL, EntityType::BABY_ZOMBIE, EntityType::MONSTER, EntityType::BOSS}, //  MobTypesGenerated
                 30,         // MaxMobs
                 100,        // MobSpawnInterval
+                2,          // DifficultyLevel
             });
             util::WriteToLog("Trying to load built-in arena for level HARD...", "DefaultGameOptions::EASY()");
             auto fs = std::ifstream("res/default_maps/hard.shoot");

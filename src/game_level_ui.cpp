@@ -23,7 +23,7 @@ void gameLvl_mainGameLoop() {
         util::WriteToLog("Game terminated due to HP reaching 0.", "gameLvl_mainGameLoop()");
         util::WriteToLog("Game score: " + std::to_string(gameLvl_score), "gameLvl_mainGameLoop()");
         util::WriteToLog("Displaying score UI...", "gameLvl_mainGameLoop()");
-        gameScore_displayScore(gameLvl_score);
+        gameScore_displayScore(gameLvl_score, _game->GetOptions()->DifficultyLevel);
     } else if (_game->GetTerminateReason() == 1) {
         util::WriteToLog("Game terminated due to player quitting.", "gameLvl_mainGameLoop()");
         util::WriteToLog("Discarding score...", "gameLvl_mainGameLoop()");

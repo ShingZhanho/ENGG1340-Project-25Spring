@@ -4,6 +4,6 @@
 //  Displays the score of the game.
 //  Parameters:
 //  - score (int): The score to be displayed.
-void gameScore_displayScore(int score);
+void gameScore_displayScore(int score, int difficultyLevel);
 
 #endif

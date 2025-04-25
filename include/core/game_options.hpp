@@ -25,6 +25,9 @@ namespace core {
         //  The tick interval between each mob generation.
         //  Measured in ticks (50 ticks per second).
         int MobSpawnInterval;
+        //  The game difficulty level.
+        //  0 = Easy, 1 = Medium, 2 = Hard, 3 = Custom
+        int DifficultyLevel;
     };
 
     //  Built-in GameOptions

@@ -11,7 +11,7 @@ namespace core {
     class Leaderboard {
         public:
             //  Constructor
-            Leaderboard();
+            Leaderboard(int difficultyLevel = 0);
             //  Destructor
             ~Leaderboard();
             //  Represents a single entry in the leaderboard.
@@ -49,6 +49,8 @@ namespace core {
             std::fstream fs;
             //  Indicates if the object is in a valid state.
             bool objIsValid = false;
+            //  The file name for the leaderboard.
+            std::string file = "./leaderboard.txt";
     };
 
 } // namespace core

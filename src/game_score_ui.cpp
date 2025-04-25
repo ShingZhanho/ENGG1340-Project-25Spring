@@ -19,11 +19,11 @@ inline static std::string getOrdSuffix(int number) {
     }
 }
 
-void gameScore_displayScore(int score) {
+void gameScore_displayScore(int score, int difficultyLevel) {
     // Leaderboard object
-    auto leaderboard = core::Leaderboard();
+    auto leaderboard = core::Leaderboard(difficultyLevel);
     std::time_t currentTime = std::time(nullptr);
-    std::string playerName = "Mysterious_Warrior";
+    std::string playerName = "";
     int rank = leaderboard.AddEntry(playerName, currentTime, score) + 1;
 
     // Text input for entering player's name
@@ -37,7 +37,7 @@ void gameScore_displayScore(int score) {
     auto returnButton = ftxui::Button("< Return to Menu", [&] {
         if (playerName.length() > 20) playerName = playerName.substr(0, 20);
         std::replace(playerName.begin(), playerName.end(), ' ', '_');
-        leaderboard.GetEntry(rank - 1)->Name = playerName.empty() ? "Mysterious_Warrior" : playerName;
+        leaderboard.GetEntry(rank - 1)->Name = playerName.empty() ? "Secret" : playerName;
         ui::appScreen.ExitLoopClosure()();
     });
 
@@ -48,7 +48,6 @@ void gameScore_displayScore(int score) {
                     ftxui::separatorDouble(),
                     ftxui::text(""), ftxui::text(""),
                     ftxui::text("Challenger, in this battle, you have scored:") | ftxui::center,
-                    ftxui::text(""), ftxui::text(""),
                     ftxui::hbox({
                         ftxui::filler(),
                         ftxui::text(std::to_string(score))  | ftxui::color(ftxui::Color::Green)
@@ -58,7 +57,6 @@ void gameScore_displayScore(int score) {
                     }),
                     ftxui::text(""), ftxui::text(""),
                     ftxui::text("You are ranked:") | ftxui::center,
-                    ftxui::text(""), ftxui::text(""),
                     ftxui::hbox({
                         ftxui::filler(),
                         ftxui::text(std::to_string(rank) + getOrdSuffix(rank) + " place")

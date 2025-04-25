@@ -6,13 +6,21 @@
 #include <string>
 
 namespace core {
-    Leaderboard::Leaderboard() {
+    Leaderboard::Leaderboard(int difficultyLevel) {
+        //  Set filename
+        switch (difficultyLevel) {
+            case 0: file = "./leaderboard_easy.txt"; break;
+            case 1: file = "./leaderboard_medium.txt"; break;
+            case 2: file = "./leaderboard_hard.txt"; break;
+            default: file = "./leaderboard_custom.txt"; break;
+        }
+
         //  Each line will have the following format:
         //       <name (std::string)> <time (long)> <score (int)>
         //  The player's name will not contain the whitespace character ' '.
 
         //  Open file
-        std::string file = "./leaderboard.txt";
+        std::string file = this->file;
         std::string line;
         fs.open(file.c_str(), std::ios::in);
         if (!fs.is_open()){
@@ -48,7 +56,7 @@ namespace core {
 
     Leaderboard::~Leaderboard() {
         Entry* current = head, * prev = nullptr;
-        std::string file = "./leaderboard.txt";
+        std::string file = this->file;
         std::fstream fout(file.c_str(), std::ios::out | std::ios::trunc);
         while (current != nullptr) {
             fout << current->Name << " " << std::to_string(current->Time) << " " << std::to_string(current->Score) << std::endl;
