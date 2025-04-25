@@ -8,12 +8,12 @@
 
 ## Team Members (alphabetically)
 
-- <p style="text-shadow: 0 0 10px rgba(255, 255, 0, 0.3)">CHAN, Ho Nam</p> (3036235352) [@ConanChan0113](https://gihub.com/ConanChan0113)
-- <p style="text-shadow: 0 0 10px rgba(255, 255, 0, 0.3)">LEUNG, Ming Ngai</p> (3036393221) [@ThomasL956](https://github.com/ThomasL956)
-- <p style="text-shadow: 0 0 10px rgba(255, 255, 0, 0.3)">LIU, Jia Lin</p> (3036391493) [@Kylineason-Liu](https://github.com/Kylineason-Liu)
-- <p style="text-shadow: 0 0 10px rgba(255, 255, 0, 0.3)">SHING, Zhan Ho Jacob</p> (3036228892) [@ShingZhanho](https://github.com/ShingZhanho)
-- <p style="text-shadow: 0 0 10px rgba(255, 255, 0, 0.3)">SONG, Sizhe</p> （3036457247）[@TIP-SoNg](https://github.com/TIP-SoNg)
-- <p style="text-shadow: 0 0 10px rgba(255, 255, 0, 0.3)">XIN, Yucheng</p> (3036289755) [@Scevenate](https://github.com/Scevenate)  
+- CHAN, Ho Nam (3036235352) [@ConanChan0113](https://gihub.com/ConanChan0113)
+- LEUNG, Ming Ngai (3036393221) [@ThomasL956](https://github.com/ThomasL956)
+- LIU, Jia Lin (3036391493) [@Kylineason-Liu](https://github.com/Kylineason-Liu)
+- SHING, Zhan Ho Jacob (3036228892) [@ShingZhanho](https://github.com/ShingZhanho)
+- SONG, Sizhe（3036457247）[@TIP-SoNg](https://github.com/TIP-SoNg)
+- XIN, Yucheng (3036289755) [@Scevenate](https://github.com/Scevenate)  
 
 ##  
 
