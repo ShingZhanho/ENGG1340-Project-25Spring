@@ -79,7 +79,7 @@ namespace core {
                 i++;
                 index = index->Next;
             }
-            util::WriteToLog("Successfully created the " + i + "th entry in linked list of Leaderboard.", "Leaderboard::AddEntry()"); 
+            util::WriteToLog("Successfully created an entry in linked list of Leaderboard. Its index is " + i, "Leaderboard::AddEntry()"); 
             return i;
         }
     }
