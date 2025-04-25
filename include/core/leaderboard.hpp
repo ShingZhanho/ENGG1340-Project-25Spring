@@ -3,6 +3,7 @@
 
 #include <fstream>
 #include <string>
+#include <ctime>
 
 namespace core {
     
@@ -17,11 +18,11 @@ namespace core {
             //  This is a node in the linked list.
             typedef struct Entry {
                 //  Constructor
-                Entry(std::string name, long time, int score) : Name(name), Time(time), Score(score), Next(nullptr) { }
+                Entry(std::string name, std::time_t time, int score) : Name(name), Time(time), Score(score), Next(nullptr) { }
                 //  Player's name
                 std::string Name;
                 //  Time of the record entry. Stored in seconds since epoch (Unix time).
-                long Time;
+                std::time_t Time;
                 //  The player's score.
                 int Score;
                 //  Pointer to the next entry.
@@ -30,7 +31,10 @@ namespace core {
             //  Adds a new entry to the leaderboard.
             //  Takes three parameters: the player's name, the time of the record entry, and the player's score.
             //  Returns the index of the new entry in the leaderboard (0-based).
-            int AddEntry(std::string name, long time, int score);
+            int AddEntry(std::string name, std::time_t time, int score);
+            //  Gets the entry at the specified index.
+            //  Returns nullptr if the index is out of bounds.
+            Entry* GetEntry(int index) const;
             //  Gets the head of the leaderboard.
             //  Returns a pointer to the head of the linked list.
             Entry* GetHead() const { return head; };

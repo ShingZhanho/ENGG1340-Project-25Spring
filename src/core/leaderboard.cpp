@@ -1,7 +1,7 @@
 #include <core/leaderboard.hpp>
 #include <util/log.hpp>
 
-#include <iostream>
+#include <ctime>
 #include <sstream>
 #include <string>
 
@@ -27,7 +27,7 @@ namespace core {
         while (std::getline(fs, line)) {
             std::istringstream iss(line);
             std::string name;
-            long time = 0;
+            std::time_t time = 0;
             int score = 0;
 
             // skip invalid lines
@@ -63,7 +63,7 @@ namespace core {
         objIsValid = false;
     }
 
-    int Leaderboard::AddEntry(std::string name, long time, int score) {
+    int Leaderboard::AddEntry(std::string name, std::time_t time, int score) {
         Entry* current = head;
         Entry* prev = nullptr;
         Entry* entry = new Entry(name, time, score);
@@ -90,7 +90,20 @@ namespace core {
         // Insert in the middle or end
         entry->Next = current;
         prev->Next = entry;
-        return index;
-        
+        return index;   
+    }
+
+    Leaderboard::Entry* Leaderboard::GetEntry(int index) const {
+        Entry* current = head;
+        int i = 0;
+
+        if (index == 0 && head != nullptr) return head;
+
+        while (current != nullptr && i != index) {
+            current = current->Next;
+            ++i;
+        }
+
+        return nullptr;
     }
 }
