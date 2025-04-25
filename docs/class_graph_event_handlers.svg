@@ -12,22 +12,21 @@
 <g id="Node000001" class="node">
 <title>Node1</title>
 <g id="a_Node000001">
-<polygon fill="#999999" stroke="none" points="748.38,-211.75 656.38,-211.75 656.38,-116.25 748.38,-116.25 748.38,-211.75"/>
-<text text-anchor="start" x="660.38" y="-198.25" font-family="Helvetica,sans-Serif" font-size="10.00">core::EventHandler</text>
-<text text-anchor="start" x="661.44" y="-183" font-family="Helvetica,sans-Serif" font-size="10.00">#</text>
-<text text-anchor="start" x="671.75" y="-183" font-family="Helvetica,sans-Serif" font-size="10.00">subevents</text>
-<text text-anchor="start" x="661.06" y="-167.75" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="671.75" y="-167.75" font-family="Helvetica,sans-Serif" font-size="10.00">EventHandler()</text>
-<text text-anchor="start" x="661.06" y="-152.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="671.75" y="-152.5" font-family="Helvetica,sans-Serif" font-size="10.00">~EventHandler()</text>
-<text text-anchor="start" x="661.06" y="-137.25" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="671.75" y="-137.25" font-family="Helvetica,sans-Serif" font-size="10.00">GetGame()</text>
-<text text-anchor="start" x="661.06" y="-122" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="671.75" y="-122" font-family="Helvetica,sans-Serif" font-size="10.00">Fire()</text>
+<rect fill="#444477" stroke="none" width="92" height="95" x="656.38" y="-211.75" rx="10" ry="10" />
+<text fill="white" text-anchor="start" x="660.38" y="-198.25" font-family="Helvetica,sans-Serif" font-size="10.00">core::EventHandler</text>
+<text fill="white" text-anchor="start" x="661.44" y="-183" font-family="Helvetica,sans-Serif" font-size="10.00">#</text>
+<text fill="white" text-anchor="start" x="671.75" y="-183" font-family="Helvetica,sans-Serif" font-size="10.00">subevents</text>
+<text fill="white" text-anchor="start" x="661.06" y="-167.75" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text fill="white" text-anchor="start" x="671.75" y="-167.75" font-family="Helvetica,sans-Serif" font-size="10.00">EventHandler()</text>
+<text fill="white" text-anchor="start" x="661.06" y="-152.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text fill="white" text-anchor="start" x="671.75" y="-152.5" font-family="Helvetica,sans-Serif" font-size="10.00">~EventHandler()</text>
+<text fill="white" text-anchor="start" x="661.06" y="-137.25" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text fill="white" text-anchor="start" x="671.75" y="-137.25" font-family="Helvetica,sans-Serif" font-size="10.00">GetGame()</text>
+<text fill="white" text-anchor="start" x="661.06" y="-122" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text fill="white" text-anchor="start" x="671.75" y="-122" font-family="Helvetica,sans-Serif" font-size="10.00">Fire()</text>
 <polygon fill="#666666" stroke="#666666" points="656.38,-194.5 656.38,-194.5 748.38,-194.5 748.38,-194.5 656.38,-194.5"/>
 <polygon fill="#666666" stroke="#666666" points="656.38,-179.25 656.38,-179.25 669.75,-179.25 669.75,-179.25 656.38,-179.25"/>
 <polygon fill="#666666" stroke="#666666" points="669.75,-179.25 669.75,-179.25 748.38,-179.25 748.38,-179.25 669.75,-179.25"/>
-<polygon fill="none" stroke="#666666" points="656.38,-116.25 656.38,-211.75 748.38,-211.75 748.38,-116.25 656.38,-116.25"/>
 
 </g>
 </g>
@@ -35,18 +34,17 @@
 <g id="Node000002" class="node">
 <title>Node2</title>
 <g id="a_Node000002">
-<polygon fill="white" stroke="none" points="140.75,-80.25 0,-80.25 0,0 140.75,0 140.75,-80.25"/>
-<text text-anchor="start" x="4" y="-66.75" font-family="Helvetica,sans-Serif" font-size="10.00">core::BulletMoveEventHandler</text>
-<text text-anchor="start" x="68.88" y="-51.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
-<text text-anchor="start" x="6.19" y="-36.25" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="18.38" y="-36.25" font-family="Helvetica,sans-Serif" font-size="10.00">BulletMoveEventHandler()</text>
-<text text-anchor="start" x="6.19" y="-21" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="18.38" y="-21" font-family="Helvetica,sans-Serif" font-size="10.00">Fire()</text>
-<text text-anchor="start" x="6.19" y="-5.75" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="18.38" y="-5.75" font-family="Helvetica,sans-Serif" font-size="10.00">AddManagedBullet()</text>
+<rect fill="#444477" stroke="none" width="140" height="80" x="0" y="-80.25" rx="10" ry="10" />
+<text fill="white" text-anchor="start" x="4" y="-66.75" font-family="Helvetica,sans-Serif" font-size="10.00">core::BulletMoveEventHandler</text>
+<text fill="white" text-anchor="start" x="68.88" y="-51.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
+<text fill="white" text-anchor="start" x="6.19" y="-36.25" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text fill="white" text-anchor="start" x="18.38" y="-36.25" font-family="Helvetica,sans-Serif" font-size="10.00">BulletMoveEventHandler()</text>
+<text fill="white" text-anchor="start" x="6.19" y="-21" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text fill="white" text-anchor="start" x="18.38" y="-21" font-family="Helvetica,sans-Serif" font-size="10.00">Fire()</text>
+<text fill="white" text-anchor="start" x="6.19" y="-5.75" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text fill="white" text-anchor="start" x="18.38" y="-5.75" font-family="Helvetica,sans-Serif" font-size="10.00">AddManagedBullet()</text>
 <polygon fill="#666666" stroke="#666666" points="0,-63 0,-63 140.75,-63 140.75,-63 0,-63"/>
 <polygon fill="#666666" stroke="#666666" points="0,-47.75 0,-47.75 140.75,-47.75 140.75,-47.75 0,-47.75"/>
-<polygon fill="none" stroke="#666666" points="0,0 0,-80.25 140.75,-80.25 140.75,0 0,0"/>
 
 </g>
 </g>
@@ -63,16 +61,15 @@
 <g id="Node000003" class="node">
 <title>Node3</title>
 <g id="a_Node000003">
-<polygon fill="white" stroke="none" points="301.88,-72.62 158.88,-72.62 158.88,-7.62 301.88,-7.62 301.88,-72.62"/>
-<text text-anchor="start" x="162.88" y="-59.12" font-family="Helvetica,sans-Serif" font-size="10.00">core::CollectiblesEventHandler</text>
-<text text-anchor="start" x="228.88" y="-43.88" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
-<text text-anchor="start" x="165.06" y="-28.62" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="177.25" y="-28.62" font-family="Helvetica,sans-Serif" font-size="10.00">CollectiblesEventHandler()</text>
-<text text-anchor="start" x="165.06" y="-13.38" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="177.25" y="-13.38" font-family="Helvetica,sans-Serif" font-size="10.00">Fire()</text>
+<rect fill="#444477" stroke="none" width="144" height="65" x="158.88" y="-72.62" rx="10" ry="10" />
+<text fill="white" text-anchor="start" x="162.88" y="-59.12" font-family="Helvetica,sans-Serif" font-size="10.00">core::CollectiblesEventHandler</text>
+<text fill="white" text-anchor="start" x="228.88" y="-43.88" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
+<text fill="white" text-anchor="start" x="165.06" y="-28.62" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text fill="white" text-anchor="start" x="177.25" y="-28.62" font-family="Helvetica,sans-Serif" font-size="10.00">CollectiblesEventHandler()</text>
+<text fill="white" text-anchor="start" x="165.06" y="-13.38" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text fill="white" text-anchor="start" x="177.25" y="-13.38" font-family="Helvetica,sans-Serif" font-size="10.00">Fire()</text>
 <polygon fill="#666666" stroke="#666666" points="158.88,-55.38 158.88,-55.38 301.88,-55.38 301.88,-55.38 158.88,-55.38"/>
 <polygon fill="#666666" stroke="#666666" points="158.88,-40.12 158.88,-40.12 301.88,-40.12 301.88,-40.12 158.88,-40.12"/>
-<polygon fill="none" stroke="#666666" points="158.88,-7.62 158.88,-72.62 301.88,-72.62 301.88,-7.62 158.88,-7.62"/>
 
 </g>
 </g>
@@ -89,16 +86,15 @@
 <g id="Node000004" class="node">
 <title>Node4</title>
 <g id="a_Node000004">
-<polygon fill="white" stroke="none" points="448.38,-72.62 320.38,-72.62 320.38,-7.62 448.38,-7.62 448.38,-72.62"/>
-<text text-anchor="start" x="324.38" y="-59.12" font-family="Helvetica,sans-Serif" font-size="10.00">core::InitialiseEventHandler</text>
-<text text-anchor="start" x="382.88" y="-43.88" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
-<text text-anchor="start" x="326.56" y="-28.62" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="338.75" y="-28.62" font-family="Helvetica,sans-Serif" font-size="10.00">InitialiseEventHandler()</text>
-<text text-anchor="start" x="326.56" y="-13.38" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="338.75" y="-13.38" font-family="Helvetica,sans-Serif" font-size="10.00">Fire()</text>
+<rect fill="#444477" stroke="none" width="128" height="65" x="320.38" y="-72.62" rx="10" ry="10" />
+<text fill="white" text-anchor="start" x="324.38" y="-59.12" font-family="Helvetica,sans-Serif" font-size="10.00">core::InitialiseEventHandler</text>
+<text fill="white" text-anchor="start" x="382.88" y="-43.88" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
+<text fill="white" text-anchor="start" x="326.56" y="-28.62" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text fill="white" text-anchor="start" x="338.75" y="-28.62" font-family="Helvetica,sans-Serif" font-size="10.00">InitialiseEventHandler()</text>
+<text fill="white" text-anchor="start" x="326.56" y="-13.38" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text fill="white" text-anchor="start" x="338.75" y="-13.38" font-family="Helvetica,sans-Serif" font-size="10.00">Fire()</text>
 <polygon fill="#666666" stroke="#666666" points="320.38,-55.38 320.38,-55.38 448.38,-55.38 448.38,-55.38 320.38,-55.38"/>
 <polygon fill="#666666" stroke="#666666" points="320.38,-40.12 320.38,-40.12 448.38,-40.12 448.38,-40.12 320.38,-40.12"/>
-<polygon fill="none" stroke="#666666" points="320.38,-7.62 320.38,-72.62 448.38,-72.62 448.38,-7.62 320.38,-7.62"/>
 
 </g>
 </g>
@@ -115,16 +111,15 @@
 <g id="Node000005" class="node">
 <title>Node5</title>
 <g id="a_Node000005">
-<polygon fill="white" stroke="none" points="616.62,-72.62 466.12,-72.62 466.12,-7.62 616.62,-7.62 616.62,-72.62"/>
-<text text-anchor="start" x="470.12" y="-59.12" font-family="Helvetica,sans-Serif" font-size="10.00">core::MobGenerateEventHandler</text>
-<text text-anchor="start" x="539.88" y="-43.88" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
-<text text-anchor="start" x="472.31" y="-28.62" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="484.5" y="-28.62" font-family="Helvetica,sans-Serif" font-size="10.00">MobGenerateEventHandler()</text>
-<text text-anchor="start" x="472.31" y="-13.38" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="484.5" y="-13.38" font-family="Helvetica,sans-Serif" font-size="10.00">Fire()</text>
+<rect fill="#444477" stroke="none" width="150" height="65" x="466.12" y="-72.62" rx="10" ry="10" />
+<text fill="white" text-anchor="start" x="470.12" y="-59.12" font-family="Helvetica,sans-Serif" font-size="10.00">core::MobGenerateEventHandler</text>
+<text fill="white" text-anchor="start" x="539.88" y="-43.88" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
+<text fill="white" text-anchor="start" x="472.31" y="-28.62" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text fill="white" text-anchor="start" x="484.5" y="-28.62" font-family="Helvetica,sans-Serif" font-size="10.00">MobGenerateEventHandler()</text>
+<text fill="white" text-anchor="start" x="472.31" y="-13.38" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text fill="white" text-anchor="start" x="484.5" y="-13.38" font-family="Helvetica,sans-Serif" font-size="10.00">Fire()</text>
 <polygon fill="#666666" stroke="#666666" points="466.12,-55.38 466.12,-55.38 616.62,-55.38 616.62,-55.38 466.12,-55.38"/>
 <polygon fill="#666666" stroke="#666666" points="466.12,-40.12 466.12,-40.12 616.62,-40.12 616.62,-40.12 466.12,-40.12"/>
-<polygon fill="none" stroke="#666666" points="466.12,-7.62 466.12,-72.62 616.62,-72.62 616.62,-7.62 466.12,-7.62"/>
 
 </g>
 </g>
@@ -141,16 +136,15 @@
 <g id="Node000006" class="node">
 <title>Node6</title>
 <g id="a_Node000006">
-<polygon fill="white" stroke="none" points="769.75,-72.62 635,-72.62 635,-7.62 769.75,-7.62 769.75,-72.62"/>
-<text text-anchor="start" x="639" y="-59.12" font-family="Helvetica,sans-Serif" font-size="10.00">core::MobMoveEventHandler</text>
-<text text-anchor="start" x="700.88" y="-43.88" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
-<text text-anchor="start" x="641.19" y="-28.62" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="653.38" y="-28.62" font-family="Helvetica,sans-Serif" font-size="10.00">MobMoveEventHandler()</text>
-<text text-anchor="start" x="641.19" y="-13.38" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="653.38" y="-13.38" font-family="Helvetica,sans-Serif" font-size="10.00">Fire()</text>
+<rect fill="#444477" stroke="none" width="135" height="65" x="635" y="-72.62" rx="10" ry="10" />
+<text fill="white" text-anchor="start" x="639" y="-59.12" font-family="Helvetica,sans-Serif" font-size="10.00">core::MobMoveEventHandler</text>
+<text fill="white" text-anchor="start" x="700.88" y="-43.88" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
+<text fill="white" text-anchor="start" x="641.19" y="-28.62" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text fill="white" text-anchor="start" x="653.38" y="-28.62" font-family="Helvetica,sans-Serif" font-size="10.00">MobMoveEventHandler()</text>
+<text fill="white" text-anchor="start" x="641.19" y="-13.38" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text fill="white" text-anchor="start" x="653.38" y="-13.38" font-family="Helvetica,sans-Serif" font-size="10.00">Fire()</text>
 <polygon fill="#666666" stroke="#666666" points="635,-55.38 635,-55.38 769.75,-55.38 769.75,-55.38 635,-55.38"/>
 <polygon fill="#666666" stroke="#666666" points="635,-40.12 635,-40.12 769.75,-40.12 769.75,-40.12 635,-40.12"/>
-<polygon fill="none" stroke="#666666" points="635,-7.62 635,-72.62 769.75,-72.62 769.75,-7.62 635,-7.62"/>
 
 </g>
 </g>
@@ -167,18 +161,17 @@
 <g id="Node000007" class="node">
 <title>Node7</title>
 <g id="a_Node000007">
-<polygon fill="white" stroke="none" points="931.25,-80.25 787.5,-80.25 787.5,0 931.25,0 931.25,-80.25"/>
-<text text-anchor="start" x="791.5" y="-66.75" font-family="Helvetica,sans-Serif" font-size="10.00">core::PlayerMoveEventHandler</text>
-<text text-anchor="start" x="857.88" y="-51.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
-<text text-anchor="start" x="793.69" y="-36.25" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="805.88" y="-36.25" font-family="Helvetica,sans-Serif" font-size="10.00">PlayerMoveEventHandler()</text>
-<text text-anchor="start" x="793.69" y="-21" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="805.88" y="-21" font-family="Helvetica,sans-Serif" font-size="10.00">SetDirection()</text>
-<text text-anchor="start" x="793.69" y="-5.75" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="805.88" y="-5.75" font-family="Helvetica,sans-Serif" font-size="10.00">Fire()</text>
+<rect fill="#444477" stroke="none" width="144" height="80" x="787.5" y="-80.25" rx="10" ry="10" />
+<text fill="white" text-anchor="start" x="791.5" y="-66.75" font-family="Helvetica,sans-Serif" font-size="10.00">core::PlayerMoveEventHandler</text>
+<text fill="white" text-anchor="start" x="857.88" y="-51.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
+<text fill="white" text-anchor="start" x="793.69" y="-36.25" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text fill="white" text-anchor="start" x="805.88" y="-36.25" font-family="Helvetica,sans-Serif" font-size="10.00">PlayerMoveEventHandler()</text>
+<text fill="white" text-anchor="start" x="793.69" y="-21" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text fill="white" text-anchor="start" x="805.88" y="-21" font-family="Helvetica,sans-Serif" font-size="10.00">SetDirection()</text>
+<text fill="white" text-anchor="start" x="793.69" y="-5.75" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text fill="white" text-anchor="start" x="805.88" y="-5.75" font-family="Helvetica,sans-Serif" font-size="10.00">Fire()</text>
 <polygon fill="#666666" stroke="#666666" points="787.5,-63 787.5,-63 931.25,-63 931.25,-63 787.5,-63"/>
 <polygon fill="#666666" stroke="#666666" points="787.5,-47.75 787.5,-47.75 931.25,-47.75 931.25,-47.75 787.5,-47.75"/>
-<polygon fill="none" stroke="#666666" points="787.5,0 787.5,-80.25 931.25,-80.25 931.25,0 787.5,0"/>
 
 </g>
 </g>
@@ -195,18 +188,17 @@
 <g id="Node000008" class="node">
 <title>Node8</title>
 <g id="a_Node000008">
-<polygon fill="white" stroke="none" points="1095,-80.25 949.75,-80.25 949.75,0 1095,0 1095,-80.25"/>
-<text text-anchor="start" x="953.75" y="-66.75" font-family="Helvetica,sans-Serif" font-size="10.00">core::PlayerShootEventHandler</text>
-<text text-anchor="start" x="1020.88" y="-51.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
-<text text-anchor="start" x="955.94" y="-36.25" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="968.12" y="-36.25" font-family="Helvetica,sans-Serif" font-size="10.00">PlayerShootEventHandler()</text>
-<text text-anchor="start" x="955.94" y="-21" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="968.12" y="-21" font-family="Helvetica,sans-Serif" font-size="10.00">Fire()</text>
-<text text-anchor="start" x="955.94" y="-5.75" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="968.12" y="-5.75" font-family="Helvetica,sans-Serif" font-size="10.00">SetBulletDirection()</text>
+<rect fill="#444477" stroke="none" width="145" height="80" x="949.75" y="-80.25" rx="10" ry="10" />
+<text fill="white" text-anchor="start" x="953.75" y="-66.75" font-family="Helvetica,sans-Serif" font-size="10.00">core::PlayerShootEventHandler</text>
+<text fill="white" text-anchor="start" x="1020.88" y="-51.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
+<text fill="white" text-anchor="start" x="955.94" y="-36.25" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text fill="white" text-anchor="start" x="968.12" y="-36.25" font-family="Helvetica,sans-Serif" font-size="10.00">PlayerShootEventHandler()</text>
+<text fill="white" text-anchor="start" x="955.94" y="-21" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text fill="white" text-anchor="start" x="968.12" y="-21" font-family="Helvetica,sans-Serif" font-size="10.00">Fire()</text>
+<text fill="white" text-anchor="start" x="955.94" y="-5.75" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text fill="white" text-anchor="start" x="968.12" y="-5.75" font-family="Helvetica,sans-Serif" font-size="10.00">SetBulletDirection()</text>
 <polygon fill="#666666" stroke="#666666" points="949.75,-63 949.75,-63 1095,-63 1095,-63 949.75,-63"/>
 <polygon fill="#666666" stroke="#666666" points="949.75,-47.75 949.75,-47.75 1095,-47.75 1095,-47.75 949.75,-47.75"/>
-<polygon fill="none" stroke="#666666" points="949.75,0 949.75,-80.25 1095,-80.25 1095,0 949.75,0"/>
 
 </g>
 </g>
@@ -223,18 +215,17 @@
 <g id="Node000009" class="node">
 <title>Node9</title>
 <g id="a_Node000009">
-<polygon fill="white" stroke="none" points="1223.38,-80.25 1113.38,-80.25 1113.38,0 1223.38,0 1223.38,-80.25"/>
-<text text-anchor="start" x="1117.38" y="-66.75" font-family="Helvetica,sans-Serif" font-size="10.00">core::RunEventHandler</text>
-<text text-anchor="start" x="1166.88" y="-51.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
-<text text-anchor="start" x="1118.06" y="-36.25" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="1128.75" y="-36.25" font-family="Helvetica,sans-Serif" font-size="10.00">RunEventHandler()</text>
-<text text-anchor="start" x="1118.06" y="-21" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="1128.75" y="-21" font-family="Helvetica,sans-Serif" font-size="10.00">~RunEventHandler()</text>
-<text text-anchor="start" x="1118.06" y="-5.75" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="1128.75" y="-5.75" font-family="Helvetica,sans-Serif" font-size="10.00">Fire()</text>
+<rect fill="#444477" stroke="none" width="110" height="80" x="1113.38" y="-80.25" rx="10" ry="10" />
+<text fill="white" text-anchor="start" x="1117.38" y="-66.75" font-family="Helvetica,sans-Serif" font-size="10.00">core::RunEventHandler</text>
+<text fill="white" text-anchor="start" x="1166.88" y="-51.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
+<text fill="white" text-anchor="start" x="1118.06" y="-36.25" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text fill="white" text-anchor="start" x="1128.75" y="-36.25" font-family="Helvetica,sans-Serif" font-size="10.00">RunEventHandler()</text>
+<text fill="white" text-anchor="start" x="1118.06" y="-21" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text fill="white" text-anchor="start" x="1128.75" y="-21" font-family="Helvetica,sans-Serif" font-size="10.00">~RunEventHandler()</text>
+<text fill="white" text-anchor="start" x="1118.06" y="-5.75" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text fill="white" text-anchor="start" x="1128.75" y="-5.75" font-family="Helvetica,sans-Serif" font-size="10.00">Fire()</text>
 <polygon fill="#666666" stroke="#666666" points="1113.38,-63 1113.38,-63 1223.38,-63 1223.38,-63 1113.38,-63"/>
 <polygon fill="#666666" stroke="#666666" points="1113.38,-47.75 1113.38,-47.75 1223.38,-47.75 1223.38,-47.75 1113.38,-47.75"/>
-<polygon fill="none" stroke="#666666" points="1113.38,0 1113.38,-80.25 1223.38,-80.25 1223.38,0 1113.38,0"/>
 
 </g>
 </g>
@@ -251,18 +242,17 @@
 <g id="Node000010" class="node">
 <title>Node10</title>
 <g id="a_Node000010">
-<polygon fill="white" stroke="none" points="1351.75,-80.25 1241,-80.25 1241,0 1351.75,0 1351.75,-80.25"/>
-<text text-anchor="start" x="1245" y="-66.75" font-family="Helvetica,sans-Serif" font-size="10.00">core::TickEventHandler</text>
-<text text-anchor="start" x="1294.88" y="-51.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
-<text text-anchor="start" x="1245.69" y="-36.25" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="1256.38" y="-36.25" font-family="Helvetica,sans-Serif" font-size="10.00">TickEventHandler()</text>
-<text text-anchor="start" x="1245.69" y="-21" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="1256.38" y="-21" font-family="Helvetica,sans-Serif" font-size="10.00">~TickEventHandler()</text>
-<text text-anchor="start" x="1245.69" y="-5.75" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
-<text text-anchor="start" x="1256.38" y="-5.75" font-family="Helvetica,sans-Serif" font-size="10.00">Fire()</text>
+<rect fill="#444477" stroke="none" width="110" height="80" x="1241" y="-80.25" rx="10" ry="10" />
+<text fill="white" text-anchor="start" x="1245" y="-66.75" font-family="Helvetica,sans-Serif" font-size="10.00">core::TickEventHandler</text>
+<text fill="white" text-anchor="start" x="1294.88" y="-51.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
+<text fill="white" text-anchor="start" x="1245.69" y="-36.25" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text fill="white" text-anchor="start" x="1256.38" y="-36.25" font-family="Helvetica,sans-Serif" font-size="10.00">TickEventHandler()</text>
+<text fill="white" text-anchor="start" x="1245.69" y="-21" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text fill="white" text-anchor="start" x="1256.38" y="-21" font-family="Helvetica,sans-Serif" font-size="10.00">~TickEventHandler()</text>
+<text fill="white" text-anchor="start" x="1245.69" y="-5.75" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
+<text fill="white" text-anchor="start" x="1256.38" y="-5.75" font-family="Helvetica,sans-Serif" font-size="10.00">Fire()</text>
 <polygon fill="#666666" stroke="#666666" points="1241,-63 1241,-63 1351.75,-63 1351.75,-63 1241,-63"/>
 <polygon fill="#666666" stroke="#666666" points="1241,-47.75 1241,-47.75 1351.75,-47.75 1351.75,-47.75 1241,-47.75"/>
-<polygon fill="none" stroke="#666666" points="1241,0 1241,-80.25 1351.75,-80.25 1351.75,0 1241,0"/>
 
 </g>
 </g>
