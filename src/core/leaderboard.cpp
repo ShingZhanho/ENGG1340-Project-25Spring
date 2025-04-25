@@ -65,23 +65,32 @@ namespace core {
 
     int Leaderboard::AddEntry(std::string name, long time, int score) {
         Entry* current = head;
+        Entry* prev = nullptr;
         Entry* entry = new Entry(name, time, score);
-       
-        if (current == head) { // linked list is empty (add the first non-empty line of the file)
-            current = entry;
+        int index = 0;
+
+        // Find the correct position to insert
+        while (current != nullptr) {
+            if (score > current->Score ||
+                (score == current->Score && time > current->Time)) {
+                break;
+            }
+            prev = current;
+            current = current->Next;
+            ++index;
+        }
+
+        // Insert at head
+        if (prev == nullptr) {
+            entry->Next = head;
             head = entry;
             return 0;
-        } else { // linked list is not empty
-            current->Next = entry;      // FIXME: new entries must be sorted, first by score, then by time
-            current = current->Next;
-            // find the index of this line record
-            int i = 0;
-            Entry* index = head;
-            while (index != current) {
-                i++;
-                index = index->Next;
-            }
-            return i;
         }
+
+        // Insert in the middle or end
+        entry->Next = current;
+        prev->Next = entry;
+        return index;
+        
     }
 }
