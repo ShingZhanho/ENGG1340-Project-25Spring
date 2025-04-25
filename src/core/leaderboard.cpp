@@ -39,7 +39,7 @@ namespace core {
                     iss.clear();
                     continue;
                 }
-                AddEntry(name, time, score);
+                AddEntry(name, time, score, current);
             }
         }
 
@@ -59,9 +59,8 @@ namespace core {
 
     }
 
-    int Leaderboard::AddEntry(std::string name, long time, int score) {
+    int Leaderboard::AddEntry(std::string name, long time, int score, Entry*& current) {
         Entry* entry = new Entry(name, time, score);
-        entry->Next = nullptr;
         // linked list is empty (add the first non-empty line of the file)
         if (current == head){
             current = entry;
