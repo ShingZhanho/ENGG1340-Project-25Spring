@@ -44,6 +44,7 @@ namespace core {
             void ChangeScore(int delta);
             int GetScore();
             //  Returns the reason for termination.
+            //  0: game over; 1: player quit;
             int GetTerminateReason() const;
             
             //  Initialise the game arena. If the arena is provided in the GameOptions,

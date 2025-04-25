@@ -21,15 +21,12 @@ namespace core {
     }
 
     int Game::Run() {
-        try {
-            util::WriteToLog("Starting game...", "Game::Run()");
-            running = true;
-            runEventHandler = new RunEventHandler(this);
-            util::WriteToLog("Triggering run event handler...", "Game::Run()");
-            runEventHandler->Fire();
-        } catch (int endType) {
-            return score;
-        }
+        util::WriteToLog("Starting game...", "Game::Run()");
+        running = true;
+        runEventHandler = new RunEventHandler(this);
+        util::WriteToLog("Triggering run event handler...", "Game::Run()");
+        runEventHandler->Fire();
+        return score;
 
         return -1;
     }

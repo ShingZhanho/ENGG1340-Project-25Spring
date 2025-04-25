@@ -12,11 +12,12 @@ namespace core {
         //  The player's name will not contain the whitespace character ' '.
 
         //  Open file
-        std::string file = "./res/leaderboard.txt", line = "", word = "";
+        std::string file = "./leaderboard.txt";
+        std::string line;
         fs.open(file.c_str(), std::ios::in);
         if (!fs.is_open()){
             util::WriteToLog("Leaderboard file does not exist. Creating a new one.", "Leaderboard::Leaderboard()");
-            fs.open(file.c_str(), std::ios::out | std::ios::trunc);
+            fs.open(file.c_str(), std::ios::in | std::ios::out | std::ios::trunc);
         }
         if (!fs.is_open()){
             util::WriteToLog("Failed to open leaderboard file.", "Leaderboard::Leaderboard()", "ERROR");
@@ -27,33 +28,30 @@ namespace core {
         while (std::getline(fs, line)) {
             std::istringstream iss(line);
             std::string name;
+            int timeInt = 0;
             std::time_t time = 0;
             int score = 0;
 
             // skip invalid lines
             if (line.empty()) continue;
-            if (iss >> name >> time >> score || !iss.eof()) {
-                if (iss.fail()) {
-                    util::WriteToLog("An invalid line was found in the leaderboard file: " + line, "Leaderboard::Leaderboard()", "WARNING");
-                    iss.clear();
-                    continue;
-                }
+            if (iss >> name >> timeInt >> score) {
+                time = static_cast<std::time_t>(timeInt);
                 AddEntry(name, time, score);
+            } else {
+                util::WriteToLog("An invalid line was found in the leaderboard file: " + line, "Leaderboard::Leaderboard()", "WARNING");
             }
         }
-
         //  Close the file
         fs.close();
-
         objIsValid = true;
     }
 
     Leaderboard::~Leaderboard() {
         Entry* current = head, * prev = nullptr;
-        std::string file = "./res/leaderboard.txt";
+        std::string file = "./leaderboard.txt";
         std::fstream fout(file.c_str(), std::ios::out | std::ios::trunc);
         while (current != nullptr) {
-            fout << current->Name << " " << current->Time << " " << current->Score << std::endl;
+            fout << current->Name << " " << std::to_string(current->Time) << " " << std::to_string(current->Score) << std::endl;
             prev = current;
             current = current->Next;
             delete prev;
@@ -104,6 +102,6 @@ namespace core {
             ++i;
         }
 
-        return nullptr;
+        return (i == index) ? current : nullptr;
     }
 }
