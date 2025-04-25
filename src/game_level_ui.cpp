@@ -2,6 +2,8 @@
 #include <util/log.hpp>
 #include <ui/common.hpp>
 
+static core::Game* _game = nullptr;
+
 void gameLvl_configureGameOptions(core::GameOptions* options) {
     util::WriteToLog("Configuring game options...", "gameLvl_configureGameOptions()");
     gameLvl_gameOptions = options;
