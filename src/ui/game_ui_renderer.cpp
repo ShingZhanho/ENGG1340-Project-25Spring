@@ -18,12 +18,18 @@ namespace ui {
             //  Render the game arena
             std::vector<ftxui::Element> allRows;
             allRows.reserve(ARENA_HEIGHT);
+            core::Point playerPos = game->GetArena()->GetPixelById(0)->GetPosition();
             for (int y = 0; y < ARENA_HEIGHT; y++) {
                 std::vector<ftxui::Element> rowElements;
                 rowElements.reserve(ARENA_WIDTH);
                 for (int x = 0; x < ARENA_WIDTH; x++) {
-                    auto entityRenderer = game->GetArena()->GetPixel({x, y})->GetRenderOption();
-                    rowElements.push_back(entityRenderer.Render());
+                    auto entity = game->GetArena()->GetPixel({x, y});
+                    auto element = entity->GetRenderOption().Render();
+                    if (core::Entity::IsType(entity, core::EntityType::AIR) // if the entity is air
+                        && (x == playerPos.x || y == playerPos.y)) {        // and is in the same row or column as the player
+                        element = element | ftxui::bgcolor(ftxui::Color::Grey30); // then render it grey
+                    }
+                    rowElements.push_back(element);
                 }
                 allRows.push_back(ftxui::hbox(rowElements));
             }
