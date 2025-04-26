@@ -46,6 +46,12 @@ namespace core {
                     case 'P': // player
                         if (!playerFound) {
                             util::WriteToLog("Player found at (" + std::to_string(x) + ", " + std::to_string(y) + ")", "ArenaReader::parseFile_()");
+                            // check if player is on the edge
+                            if (x == 0 || x == ARENA_WIDTH - 1 || y == 0 || y == ARENA_HEIGHT - 1) {
+                                util::WriteToLog("Player is on the edge of the arena. Invalid position.", "ArenaReader::parseFile_()", "ERROR");
+                                errmsg = "Invalid player position. Player cannot be on the edge of the arena.";
+                                return false;
+                            }
                             static Player* player = new Player({x, y}, arena, 0);
                             arena->SetPixelWithId({x, y}, player); // player HP will be set in InitialiseEventHandler
                             playerFound = true;
