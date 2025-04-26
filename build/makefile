@@ -72,10 +72,10 @@ $(OBJS_TARGET_DIR)/%.o: ../src/%.cpp
 	$(CXX) $(CXXFLAGS) $(LIBS_ALL_INCLUDE) -c $< -o $@
 
 # Copy game resources to output
-COPY_RESOURCES = mkdir -p ./res && rsync -av --delete ../res ./
+COPY_RESOURCES = rsync -av --delete ../res ./
 
 # Clean up
 clean:
-	rm -rf $(OBJS) $(TARGET) $(TARGET_MACOS) $(TARGET_WINDOWS) $(OBJS_TARGET_DIR) ./res ./game.log 2> /dev/null || true
+	rm -rf $(OBJS) $(TARGET) $(TARGET_MACOS) $(TARGET_WINDOWS) $(OBJS_TARGET_DIR) ./res ./runtime 2> /dev/null || true
 
 .PHONY: all all_macos all_windows clean

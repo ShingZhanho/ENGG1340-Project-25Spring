@@ -9,10 +9,10 @@ namespace core {
     Leaderboard::Leaderboard(int difficultyLevel) {
         //  Set filename
         switch (difficultyLevel) {
-            case 0: file = "./leaderboard_easy.txt"; break;
-            case 1: file = "./leaderboard_medium.txt"; break;
-            case 2: file = "./leaderboard_hard.txt"; break;
-            default: file = "./leaderboard_custom.txt"; break;
+            case 0: file = "./runtime/leaderboard_easy.txt"; break;
+            case 1: file = "./runtime/leaderboard_medium.txt"; break;
+            case 2: file = "./runtime/leaderboard_hard.txt"; break;
+            default: file = "./runtime/leaderboard_custom.txt"; break;
         }
 
         //  Each line will have the following format:
