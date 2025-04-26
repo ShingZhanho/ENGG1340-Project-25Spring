@@ -8,7 +8,7 @@
 
 // ==== IMPORTANT ====
 // All variables/functions that will be used outside this file MUST begin with "gameLvl_"
-// All variables/functions that will be used only in this file MUST begin with "_"
+// All variables/functions that will be used only in this file MUST be defined in the .cpp file, not here.
 
 #include <core/game.hpp>
 
@@ -24,7 +24,5 @@ static std::atomic<bool> gameLvl_customMode = false;
 void gameLvl_mainGameLoop();
 // The score of the game.
 static int gameLvl_score = 0;
-// The private Game object.
-static core::Game* _game;
 
 #endif // _GAME_LEVEL_UI_HPP

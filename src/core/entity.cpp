@@ -1,6 +1,5 @@
 #include <core/entity.hpp>
 #include <ftxui/screen/color.hpp>
-#include <util/log.hpp>
 #include <ui/common.hpp>
 
 namespace core {

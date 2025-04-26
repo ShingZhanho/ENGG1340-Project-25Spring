@@ -7,9 +7,11 @@
 # unignore all dirs
 !*/
 
-# unignore makefile
-!Makefile
-!makefile
+# ignore everything in build
+build/
+
+# unignore build/makefile
+!build/makefile
 
 ### The above combination ignores everything without an extension except makefile
 
@@ -65,3 +67,6 @@ $RECYCLE.BIN/
 # Debug game map file
 *.shoot
 *.log
+
+# Include built-in map files
+!res/**/*.shoot

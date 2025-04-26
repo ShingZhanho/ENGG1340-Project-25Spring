@@ -2,10 +2,8 @@
 #define CORE_EVENTHANDLER_HPP
 
 #include <core/arena.hpp>
-#include <core/game.hpp>
 #include <core/point.hpp>
 #include <vector>
-#include <thread>
 
 namespace core {
 

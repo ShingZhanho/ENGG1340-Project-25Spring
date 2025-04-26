@@ -11,7 +11,6 @@
 // ui components
 #include <ui/common.hpp>
 #include <ui/game_ui_renderer.hpp>
-#include <ui/render_option.hpp>
 
 // util components
 #include <util/log.hpp>
@@ -119,8 +118,6 @@ namespace core {
         util::WriteToLog("Initialising Game Arena...", "InitialiseEventHandler::InitialiseEventHandler()");
         GetGame()->InitialiseArena();
         GetGame()->GetArena()->SetGame(GetGame());
-        //  Setup arena layout (walls etc.)
-        //  TODO: set layout according to level difficulty
 
         //  Pollinate the random number generator seed
         util::WriteToLog("Seeding random number generator...", "InitialiseEventHandler::InitialiseEventHandler()");
@@ -258,7 +255,6 @@ namespace core {
     }
     
     void PlayerShootEventHandler::execute() {
-        util::WriteToLog("PlayerShootEvent triggered", "PlayerShootEventHandler::execute()");
         if (bulletDirection < 0 || bulletDirection > 8) return; // invalid direction
         Point pos = GetGame()->GetArena()->GetPixelById(0)->GetPosition();
         if (bulletDirection == 8) {
@@ -273,9 +269,7 @@ namespace core {
             }
         } else {
             // shoot in the specified direction
-            util::WriteToLog("Generating bullet in direction " + std::to_string(bulletDirection), "PlayerShootEventHandler::execute()");
             auto bullet = new PlayerBullet(pos, GetGame()->GetArena(), dynamic_cast<Player*>(GetGame()->GetArena()->GetPixelById(0))->GetDamage(), bulletDirection);
-            util::WriteToLog("Trying to shoot bullet in direction " + std::to_string(bulletDirection), "PlayerShootEventHandler::execute()");
             bullet->TryShoot();
             GetGame()->BulletMoveEventHandlerPtr->AddManagedBullet(bullet);
         }

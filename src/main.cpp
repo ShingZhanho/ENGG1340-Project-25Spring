@@ -1,5 +1,4 @@
 // Standard Libraries
-#include <iostream>
 #include <map>
 #include <unordered_map>
 #include <vector>
@@ -11,18 +10,17 @@
 #include <ftxui/screen/screen.hpp>
 #include <ftxui/component/screen_interactive.hpp>
 #include <ftxui/component/component.hpp>
-#include <ftxui/component/captured_mouse.hpp>
 
 // Core Components
 #include <ui/common.hpp>
 #include <ui/render_option.hpp>
-#include <core/arena.hpp>
 #include <core/arena_reader.hpp>
 #include <core/entity_type.hpp>
 
 // Misc headers
 #include "game_level_ui.hpp"
 #include <util/log.hpp>
+#include "leaderboard_ui.hpp"
 
 // Declarations
 // -- Main Menu Functions -------------------------------------------------------
@@ -55,9 +53,10 @@ int main(void) {
     checkTerminalSize();
 
     int menuOption = 0;
-    while (menuOption != 1) { // 1 = "Exit"
+    while (menuOption != 2) { // 2 = "Exit"
         getMenuOption(menuOption);
-        if (menuOption == 0 ) difficultyMenu();
+        if (menuOption == 0) difficultyMenu();
+        if (menuOption == 1) leaderboardUI();
         util::WriteToLog("One iteration of main menu completed.", "main()");
     }
 
@@ -113,10 +112,12 @@ void getMenuOption(int& option) {
 
     std::vector<std::string> menuOptions = {
         "Start Game",
+        "Leaderboard",
         "Exit"
     };
     std::vector<std::string> descriptionStrings = {
         " Starts the game.",
+        " Check out the high scores of each game mode.",
         " Exit the game."
     };
     std::unordered_map<int, std::string> optionDescriptions = {};
@@ -130,10 +131,10 @@ void getMenuOption(int& option) {
         if (entryState.active) {
             e |= ftxui::bold;
             e |= ftxui::color(ftxui::Color::Black);
-            e |= (entryState.index == 1) ? ftxui::bgcolor(ftxui::Color::Red) : ftxui::bgcolor(ftxui::Color::Green1);
+            e |= (entryState.index == 2) ? ftxui::bgcolor(ftxui::Color::Red) : ftxui::bgcolor(ftxui::Color::Green1);
         } 
         if (entryState.focused) {
-            e |= (entryState.index == 1) ? ftxui::color(ftxui::Color::Red) : ftxui::color(ftxui::Color::Green1);
+            e |= (entryState.index == 2) ? ftxui::color(ftxui::Color::Red) : ftxui::color(ftxui::Color::Green1);
         }
         return e;
     };
@@ -525,6 +526,9 @@ void difficultyMenu() {
 
             // check spawn interval (nothing to be checked)
             gameOptions->MobSpawnInterval = options_mobSpawnInterval * 50; // 50 ticks = 1 second
+
+            // set difficulty level
+            gameOptions->DifficultyLevel = 3;
         }
 
         // Set the game options

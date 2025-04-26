@@ -1,6 +1,7 @@
 #include <core/game.hpp>
-
 #include <util/log.hpp>
+
+#include <thread>
 
 namespace core {
 
@@ -20,21 +21,19 @@ namespace core {
     }
 
     int Game::Run() {
-        try {
-            util::WriteToLog("Starting game...", "Game::Run()");
-            running = true;
-            runEventHandler = new RunEventHandler(this);
-            util::WriteToLog("Triggering run event handler...", "Game::Run()");
-            runEventHandler->Fire();
-        } catch (int endType) {
-            return score;
-        }
+        util::WriteToLog("Starting game...", "Game::Run()");
+        running = true;
+        runEventHandler = new RunEventHandler(this);
+        util::WriteToLog("Triggering run event handler...", "Game::Run()");
+        runEventHandler->Fire();
+        return score;
 
         return -1;
     }
 
-    void Game::Terminate() {
+    void Game::Terminate(int reason) {
         util::WriteToLog("Game termination requested.", "Game::Terminate()");
+        terminateReason = reason;
         running = false;
     }
 
@@ -69,6 +68,10 @@ namespace core {
     int Game::GetScore() {
         std::lock_guard<std::mutex> lock(gameMutex);
         return score;
+    }
+
+    int Game::GetTerminateReason() const {
+        return terminateReason;
     }
 
     void Game::InitialiseArena() {

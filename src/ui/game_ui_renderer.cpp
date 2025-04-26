@@ -63,9 +63,9 @@ namespace ui {
             //     Basic UI events
             // ==============================================================================================
 
-            if (event == ftxui::Event::Escape) { // Exit the game (temporary)
+            if (event == ftxui::Event::Escape) { // Exit the game (score not saved)
                 appScreen.ExitLoopClosure()();
-                game->Terminate();
+                game->Terminate(1);
                 return true;
             }
             if (event == ftxui::Event::Custom) {
