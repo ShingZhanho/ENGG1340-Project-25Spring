@@ -434,9 +434,7 @@ namespace core {
             mobCount++;
             mob->Move();
         }
-        if (playerPos == playerPrevPos && mobCount == prevMobCount) return; // No need to recalculate path if player hasn't moved
         playerPrevPos = playerPos;
-        prevMobCount = mobCount;
 
         // Perform pathfinding for all mobs
         entities = GetGame()->GetArena()->GetMappedEntities(); // refresh entity list to exclude dead mobs
@@ -446,14 +444,23 @@ namespace core {
             if (mob == nullptr) continue;
 
             std::map<int, Point> targets = {{heuristic(playerPos, entity->GetPosition()), playerPos}};
-            // prioritise collectibles over player if the mob is about to die (HP = 1)
+            // prioritise energy drink over player if the mob is about to die (HP = 1)
             if (mob->GetHP() == 1) {
-                auto collectibles = GetGame()->GetArena()->GetEntitiesOfType(EntityType::ABSTRACT_COLLECTIBLE);
+                auto collectibles = GetGame()->GetArena()->GetEntitiesOfType(EntityType::ENERGY_DRINK);
                 for (auto collectible : collectibles) {
                     if (collectible == nullptr) continue;
                     auto collectiblePos = collectible->GetPosition();
                     targets[heuristic(collectiblePos, entity->GetPosition())] = collectiblePos;
                 }
+            }
+            if (playerPos == playerPrevPos 
+                && mob->Path.back() == playerPos
+                && Entity::IsType(GetGame()->GetArena()->GetPixel(mob->Path.front()), EntityType::AIR)) {
+                // skip path finding if:
+                //    player has not moved
+                //    already on the way to player
+                //    the mob is not stopped by other blocks
+                continue;
             }
             mob->Path = findPath(GetGame()->GetArena(), mob->GetPosition(), targets.begin()->second);
         }
