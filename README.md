@@ -66,7 +66,8 @@ inevitable end? The leaderboard awaits the boldest shooters.🥇🥈🥉
 
 Clone the repository, then change your working directory to `build`:
    ```bash
-   cd build
+   git clone https://github.com/ShingZhanho/ENGG1340-Project-25Spring
+   cd ENGG1340-Project-25Sprint/build
    ```
 `make` the target:
    ```bash
@@ -98,13 +99,13 @@ You can navigate and interact with the user interface either with your mouse or 
 
 <div align="center">
 
-| Icon | Mob | Speed (seconds/step) | HP | Damage | Reward Points |
+| Icon | Mob | Speed (steps/second) | HP | Damage | Reward Points |
 |:------:|:----|:---------------------|:---|:-------|:--------------|
 | Z | Zombie | 1 | 1 | 1 | 1 |
-| T | Troll | 2 | 5 | 2 | 5 |
-| z | Baby Zombie | 0.5 | 1 | 1 | 2 |
-| M | Monster | 0.5 | 10 | 5 | 10 |
-| B | Boss | 4 | 1000 | 50 | 100 |
+| T | Troll | 0.5 | 5 | 2 | 5 |
+| z | Baby Zombie | 2 | 1 | 1 | 2 |
+| M | Monster | 2 | 10 | 5 | 10 |
+| B | Boss | 0.25 | 1000 | 50 | 100 |
 
 </div>
 
@@ -168,6 +169,10 @@ How to move your figure and fire those bullets at the dreadful monsters? Here it
     <td align="center">Space</td>
     <td colspan="7">Fire in all eight directions (5 seconds cool down between each shoot)</td>
   </tr>
+   <tr>
+      <td align="center">ESC</td>
+      <td colspan="7">Quit the game without saving your score</td>
+   </tr>
 </tbody></table>
 
 </div>
@@ -212,7 +217,7 @@ All the coding requirements for the course project have been met:
   
 * ✅ **Dynamic memory management**: Most objects are created at runtime using `new` and destructed using `delete`. For example, in arena_reader.cpp, a dynamic `arena` instance is created based on user defined map if the input map file is valid.
   
-* ✅ **File I/O**: _SHOOT!_ supports loading a custom map from a file. It also generates a `game.log` to facilitate development process.
+* ✅ **File I/O**: _SHOOT!_ supports loading a custom map from a file. It also generates a `game.log` to facilitate development process. Players' high scores are saved and loaded in leaderboard files.
   
 * ✅ **Program codes in multiple files**: The project separates the components into multiple files and multiple namespaces, such as `core` and `util`, to adopt a modular design.
   
@@ -275,6 +280,3 @@ To prevent jumbled code, this object does not play an important role in actually
 3. Store global state of the game, like clock and score
 
 Other fringe classes, including map reader and game configurations, are abstract modules that implements functionalities that are relatively independent from the game itself. They're extracted from the main body part of the core for simplicity.
-
-
-
