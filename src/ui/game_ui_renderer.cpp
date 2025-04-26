@@ -25,8 +25,11 @@ namespace ui {
                 for (int x = 0; x < ARENA_WIDTH; x++) {
                     auto entity = game->GetArena()->GetPixel({x, y});
                     auto element = entity->GetRenderOption().Render();
-                    if (core::Entity::IsType(entity, core::EntityType::AIR) // if the entity is air
-                        && (x == playerPos.x || y == playerPos.y)) {        // and is in the same row or column as the player
+                    if (!core::Entity::IsType(entity, core::EntityType::ABSTRACT_COLLECTIBLE) // if the entity is not a collectible
+                        && (
+                            x == playerPos.x || y == playerPos.y  // and is in the same row or column as the player
+                            || std::abs(x - playerPos.x) == std::abs(y - playerPos.y)  // or is in the diagonal of the player
+                        )) {       
                         element = element | ftxui::bgcolor(ftxui::Color::Grey30); // then render it grey
                     }
                     rowElements.push_back(element);
