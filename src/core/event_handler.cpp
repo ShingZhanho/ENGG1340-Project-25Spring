@@ -479,6 +479,7 @@ namespace core {
 
             for (auto next : getNeighbours(current)) {
                 if (Entity::IsType(arena->GetPixel(next), EntityType::WALL)) continue; // Skip walls
+                if (Entity::IsType(arena->GetPixel(next), EntityType::ABSTRACT_MOB)) continue; // Skip other mobs
                 int newCost = costSoFar[current] + 1;
                 if (costSoFar.find(next) == costSoFar.end() || newCost < costSoFar[next]) {
                     costSoFar[next] = newCost;
