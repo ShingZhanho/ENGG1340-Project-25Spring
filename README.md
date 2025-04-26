@@ -67,7 +67,7 @@ inevitable end? The leaderboard awaits the boldest shooters.🥇🥈🥉
 Clone the repository, then change your working directory to `build`:
    ```bash
    git clone https://github.com/ShingZhanho/ENGG1340-Project-25Spring
-   cd ENGG1340-Project-25Sprint/build
+   cd ENGG1340-Project-25Spring/build
    ```
 `make` the target:
    ```bash
