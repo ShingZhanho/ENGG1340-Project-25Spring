@@ -185,7 +185,11 @@ Last reminder, the boost potions and sheilds do not only have effect on you, but
 
 You can load your own map file to play. Select `Load a Custom Game` from the difficulty
 menu, and type in the path of the map file, either absolute or relative (to the path
-of the executable).
+of the executable). Then you may customize player HP, mob types, max number of mobs, and mob spawn interval as shown below:
+
+<p align="center">
+   <img src="docs/custom_map.png"/>
+</p>
 
 To create your own map, note the following:
 1. The map file must be a text file.
