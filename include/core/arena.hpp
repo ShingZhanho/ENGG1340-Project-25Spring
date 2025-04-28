@@ -36,7 +36,7 @@ namespace core {
             //  This method will only set the pixel if the target pixel is air.
             bool SetPixelSafe(Point p, Entity* entity);
             //  Sets the pixel at (x, y) to the given entity and assigns it an ID.
-            //  This method should ONLY be used for non-block entities.
+            //  This method should ONLY be used for non-block entities.xq
             //  The ID is assigned automatically in this class.
             void SetPixelWithId(Point p, Entity* entity);
             //  Sets the pixel at (x, y) safely to the given entity and assigns it an ID.
