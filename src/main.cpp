@@ -5,6 +5,7 @@
 #include <set>
 #include <string>
 #include <fstream>
+#include <filesystem>
 
 // FTXUI
 #include <ftxui/screen/screen.hpp>
@@ -48,6 +49,8 @@ std::set<core::EntityType> getMobTypes(std::map<int, bool*> mobFlags);
 void setErrorMessage(std::string& errorMessage, std::string msg, bool& showError);
  
 int main(void) {
+    // Creates runtime directories if they do not exist
+    std::filesystem::create_directories("./runtime");
     util::WriteToLog("Process started.", "main()");
     // Check if the terminal is large enough
     checkTerminalSize();

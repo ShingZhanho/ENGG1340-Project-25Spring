@@ -8,7 +8,7 @@
 
 namespace util {
     void WriteToLog(const std::string& message, const std::string& caller, const std::string& tag) {
-        const std::string logFile = "./game.log";
+        const std::string logFile = "./runtime/game.log";
         std::ofstream logStream(logFile.c_str(), std::ofstream::app);
         if (!logStream.is_open()) {
             // Try to create the file if it doesn't exist

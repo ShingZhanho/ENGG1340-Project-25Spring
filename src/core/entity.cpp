@@ -26,7 +26,7 @@ namespace core {
     }
     ui::RenderOption EntityRenderOptions::PlayerRenderOption() {
         return {
-            '@', ftxui::Color::Green, ftxui::Color::Default, true, false, false, false
+            '@', ftxui::Color::Green, ftxui::Color::Grey30, true, false, false, false
         };
     }
     ui::RenderOption EntityRenderOptions::ZombieRenderOption() {
