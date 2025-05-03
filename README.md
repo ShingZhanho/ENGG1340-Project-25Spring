@@ -13,9 +13,18 @@
 - LIU, Jia Lin (3036391493) [@Kylineason-Liu](https://github.com/Kylineason-Liu)
 - SHING, Zhan Ho Jacob (3036228892) [@ShingZhanho](https://github.com/ShingZhanho)
 - SONG, Sizhe（3036457247）[@TIP-SoNg](https://github.com/TIP-SoNg)
-- XIN, Yucheng (3036289755) [@Scevenate](https://github.com/Scevenate)  
+- XIN, Yucheng (3036289755) [@Scevenate](https://github.com/Scevenate)
 
-##  
+## _Welcome!_
+
+<p align="center">
+   <a href="https://youtu.be/jXiDMYEiDnU">
+      <img src="docs/youtube-thumbnail.png" alt="Thumbnail of the game video."/>
+   </a>
+   <br/>
+   <span>Checkout the Demonstration Video on <a href="https://youtu.be/jXiDMYEiDnU">YouTube</a></span>
+</p>
+
 
 Welcome to _SHOOT!_, a high-octane, adrenaline-fueled shooting game where quick reflexes, sharp aim, and tactical thinking are your only keys to survival! [_Journey of the Prairie King_](https://stardewvalleywiki.com/Journey_of_the_Prairie_King), a minigame, provided just enough inspiration for the production of _SHOOT!_. Step into a deadly arena where monstrous foes emerge relentlessly from every direction, and your mission is simple: **shoot to survive, survive to dominate**.
 
