@@ -13,11 +13,14 @@ set(FETCHCONTENT_UPDATES_DISCONNECTED TRUE)
 FetchContent_Declare(ftxui
   GIT_REPOSITORY https://github.com/ArthurSonzogni/FTXUI.git
   GIT_TAG v6.0.2
+  GIT_PROGRESS TRUE
 )
 FetchContent_MakeAvailable(ftxui)
 
 # Project
 include_directories(include)
+find_package(Threads REQUIRED)
+link_libraries(Threads::Threads)
 
 ## Core component
 add_library(core
@@ -38,8 +41,7 @@ add_library(core
   include/core/leaderboard.hpp
   include/core/point.hpp
 )
-target_include_directories(core PUBLIC include/core)
-target_link_libraries(core PRIVATE ftxui::component ftxui::dom ftxui::screen)
+target_link_libraries(core PUBLIC ftxui::component ftxui::dom ftxui::screen)
 
 ## UI component
 add_library(ui
@@ -50,15 +52,13 @@ add_library(ui
   src/ui/render_option.cpp
   include/ui/render_option.hpp
 )
-target_include_directories(ui PUBLIC include/ui)
-target_link_libraries(ui PRIVATE ftxui::component ftxui::dom ftxui::screen)
+target_link_libraries(ui PUBLIC core)
 
 ## UTIL component
 add_library(util
   src/util/log.cpp
   include/util/log.hpp
 )
-target_include_directories(util PUBLIC include/util)
 
 ## Executable
 add_executable(shoot
@@ -70,8 +70,7 @@ add_executable(shoot
   src/leaderboard_ui.cpp
   src/leaderboard_ui.hpp
 )
-target_include_directories(shoot PUBLIC include)
-target_link_libraries(shoot PRIVATE core ui util ftxui::component ftxui::dom ftxui::screen)
+target_link_libraries(shoot PRIVATE ui util)
 
 ## Copy assets
 set(ASSETS_DIR "${CMAKE_CURRENT_SOURCE_DIR}/res")
