@@ -10,9 +10,6 @@
 # ignore everything in build
 build/
 
-# unignore build/makefile
-!build/makefile
-
 ### The above combination ignores everything without an extension except makefile
 
 ### The following rules comes from GitHub

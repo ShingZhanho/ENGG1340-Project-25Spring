@@ -9,7 +9,28 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Try compile
+      - name: Setup
+        run: mkdir build
+      - name: Update APT
+        run: sudo apt-get update && sudo apt-get install -y cmake
+      # - name: Install CMake
+      #   uses: awalsh128/cache-apt-pkgs-action@v1
+      #   with:
+      #     packages: cmake
+      - name: Restore Dependencies From Cache
+        uses: actions/cache/restore@v4
+        id: restore-cache
+        with:
+          key: ${{ runner.os }}-cmake_deps-${{ hashFiles('CMakeLists.txt') }}
+          path: build/_deps
+      - name: Build Project
         run: |
           cd build
-          make all
+          cmake .. -G "Unix Makefiles"
+          cmake --build .
+      - name: Upload Dependencies Cache
+        if: ${{ steps.restore-cache.outputs.cache-hit != 'true' }}
+        uses: actions/cache/save@v4
+        with:
+          key: ${{ runner.os }}-cmake_deps-${{ hashFiles('CMakeLists.txt') }}
+          path: build/_deps
