@@ -1,9 +1,7 @@
-> [!warning]
-> **NOTICE FOR LECTURER/TEACHING ASSISTANT GRADING THIS PROJECT**
+> [!note]
+> **GRADE OF THIS PROJECT**
 >
-> This repository has been modified after the submission deadline. The final version submitted for
-> grading is tagged as `v1.0.0`. Please checkout the commit hash [`d11375c`](https://github.com/ShingZhanho/ENGG1340-Project-25Spring/tree/d11375cd50406d927f5f3dde2c2c229ee438f945)
-> for grading purposes. Any changes made after the submission deadline should not be considered for grading.
+> This project has received a grade of 19.3 (out of 20).
 
 # SHOOT!🔫🔫🔫
 
