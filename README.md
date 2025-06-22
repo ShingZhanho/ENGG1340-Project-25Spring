@@ -76,7 +76,20 @@ inevitable end? The leaderboard awaits the boldest shooters.🥇🥈🥉
 
 ## How to Play
 
-### General Instructions
+### Compile Instructions for Versions After `v1.0.0`
+
+The latest code uses CMake for compilation. Run:
+   ```bash
+   git clone https://github.com/ShingZhanho/ENGG1340-Project-25Spring
+   cd ENGG1340-Project-25Spring
+   mkdir build
+   cd build
+   cmake ..
+   make
+   ./shoot
+   ```
+
+### Compile Instructions for Grading the Project
 
 Clone the repository, then change your working directory to `build`:
    ```bash
@@ -95,8 +108,9 @@ Run the program:
    ```
    Please note that:
 > * `make run` is a shortcut for `make all` and `./main`.  
-> * Add platform suffix to the target if you are not building on Linux. For example, use `make all_macos` or `make run_macos` for macOS. The supported suffixes are `_macos` and `_windows`.  
-> * The executable on Windows is `main.exe`.
+> * Use `make all_macos` or `make run_macos` for macOS.
+> * The build `make all_windows` and `make run_windows` can compile successfully but the product is **guaranteed to NOT work** on Windows platform.
+> These build targets are merely kept for no reason.
 
 The minimum required size of the terminal is 107 x 39. Make sure your terminal is large enough! After you executed `./main`, you will see the home page of _SHOOT!_ as follows:
 <p align="center">
